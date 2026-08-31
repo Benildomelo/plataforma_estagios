@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ vaga.titulo }}</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Plataforma de Estágios</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/vagas/">Vagas</a>
+            <a href="/admin/">Entrar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>{{ vaga.titulo }}</h2>
+
+        <p>
+            <strong>Empresa:</strong>
+            {{ vaga.empresa.nome_fantasia }}
+        </p>
+
+        <p>
+            <strong>Curso:</strong>
+            {{ vaga.curso.nome }}
+        </p>
+
+        <p>
+            <strong>Local:</strong>
+            {{ vaga.local }}
+        </p>
+
+        <p>
+            <strong>Carga horária:</strong>
+            {{ vaga.carga_horaria }}
+        </p>
+
+        <p>
+            <strong>Bolsa:</strong>
+            R$ {{ vaga.bolsa }}
+        </p>
+
+        <h3>Descrição</h3>
+
+        <p>
+            {{ vaga.descricao }}
+        </p>
+
+        <h3>Requisitos</h3>
+
+        <p>
+            {{ vaga.requisitos }}
+        </p>
+
+        {% if user.is_authenticated %}
+
+    {% if candidatura_existente %}
+
+        <p>
+            Você já se candidatou a esta vaga.
+        </p>
+
+    {% else %}
+
+        <form method="post" action="/vagas/{{ vaga.id }}/candidatar/">
+
+            {% csrf_token %}
+
+            <button type="submit">
+                Candidatar-se
+            </button>
+
+        </form>
+
+    {% endif %}
+
+{% else %}
+
+    <p>
+        Para se candidatar, você precisa entrar na plataforma.
+    </p>
+
+    <a href="/entrar/">
+        Entrar
+    </a>
+
+{% endif %}
+
+    </main>
+
+</body>
+
+</html>

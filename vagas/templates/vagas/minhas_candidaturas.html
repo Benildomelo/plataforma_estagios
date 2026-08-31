@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minhas Candidaturas</title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Plataforma de Estágios</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/vagas/">Vagas</a>
+            <a href="/minhas-candidaturas/">Minhas candidaturas</a>
+            <a href="/sair/">Sair</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <h2>Minhas Candidaturas</h2>
+
+        {% if candidaturas %}
+
+            {% for candidatura in candidaturas %}
+
+                <article>
+
+                    <h3>
+                        {{ candidatura.vaga.titulo }}
+                    </h3>
+
+                    <p>
+                        <strong>Empresa:</strong>
+                        {{ candidatura.vaga.empresa.nome_fantasia }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ candidatura.get_status_display }}
+                    </p>
+
+                    <p>
+                        <strong>Data da candidatura:</strong>
+                        {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                    </p>
+
+                    <a href="/vagas/{{ candidatura.vaga.id }}/">
+                        Ver vaga
+                    </a>
+
+                </article>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                Você ainda não possui candidaturas.
+            </p>
+
+            <a href="/vagas/">
+                Ver vagas disponíveis
+            </a>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>

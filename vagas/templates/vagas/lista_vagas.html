@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vagas de Estágio</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Plataforma de Estágios</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/vagas/">Vagas</a>
+            <a href="/admin/">Entrar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>Vagas de Estágio</h2>
+
+        {% if vagas %}
+
+            {% for vaga in vagas %}
+
+                <article>
+
+                    <h3>{{ vaga.titulo }}</h3>
+
+                    <p>
+                        <strong>Empresa:</strong>
+                        {{ vaga.empresa.nome_fantasia }}
+                    </p>
+
+                    <p>
+                        <strong>Curso:</strong>
+                        {{ vaga.curso.nome }}
+                    </p>
+
+                    <p>
+                        <strong>Local:</strong>
+                        {{ vaga.local }}
+                    </p>
+
+                    <p>
+                        <strong>Bolsa:</strong>
+                        R$ {{ vaga.bolsa }}
+                    </p>
+
+                    <p>
+                        {{ vaga.descricao }}
+                    </p>
+
+                    <a href="/vagas/{{ vaga.id }}/">
+                        Ver detalhes
+                    </a>
+
+                </article>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No momento não existem vagas disponíveis.
+            </p>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>
