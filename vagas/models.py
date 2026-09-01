@@ -32,6 +32,14 @@ class Aluno(models.Model):
     
 class Empresa(models.Model):
     id = models.BigAutoField(primary_key=True)
+
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     razao_social = models.CharField(max_length=200)
     nome_fantasia = models.CharField(max_length=200)
     cnpj = models.CharField(max_length=18, unique=True)
