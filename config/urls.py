@@ -10,7 +10,8 @@ from vagas.views import (
     minhas_candidaturas,
     sair,
     area_aluno,
-    area_empresa
+    area_empresa,
+    criar_vaga
 )
 
 urlpatterns = [
@@ -24,4 +25,6 @@ urlpatterns = [
     path('sair/', sair, name='sair'),
     path('area-aluno/', area_aluno, name='area_aluno'),
     path('area-empresa/', area_empresa, name='area_empresa'),
+    path('criar-vaga/', criar_vaga, name='criar_vaga'),
+
 ]
