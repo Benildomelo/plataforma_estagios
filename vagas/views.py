@@ -112,3 +112,22 @@ def minhas_candidaturas(request):
 def sair(request):
     logout(request)
     return redirect('inicio')
+
+def area_aluno(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    aluno = Aluno.objects.get(usuario=request.user)
+
+    candidaturas = Candidatura.objects.filter(
+        aluno=aluno
+    ).select_related('vaga', 'vaga__empresa')
+
+    return render(
+        request,
+        'vagas/area_aluno.html',
+        {
+            'aluno': aluno,
+            'candidaturas': candidaturas,
+        }
+    )
