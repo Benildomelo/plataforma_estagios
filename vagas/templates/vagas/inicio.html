@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,47 +11,130 @@
 <body>
 
     <header>
+
         <h1>Plataforma de Estágios</h1>
 
         <nav>
+
             <a href="/">Início</a>
-            <a href="#">Vagas</a>
-            <a href="/admin/">Entrar</a>
+
+            <a href="/vagas/">
+                Vagas
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="/area-aluno/">
+                    Minha área
+                </a>
+
+                <a href="/minhas-candidaturas/">
+                    Minhas candidaturas
+                </a>
+
+                <a href="/sair/">
+                    Sair
+                </a>
+
+            {% else %}
+
+                <a href="/entrar/">
+                    Entrar
+                </a>
+
+            {% endif %}
+
         </nav>
+
     </header>
+
 
     <main>
 
         <section>
-            <h2>Encontre seu próximo estágio</h2>
 
-            <p>
-                Encontre oportunidades de estágio
-                adequadas ao seu curso.
-            </p>
+            {% if user.is_authenticated %}
 
-            <a href="#">Ver vagas disponíveis</a>
+                <h2>
+                    Olá, {{ user.first_name|default:user.username }}! 👋
+                </h2>
+
+                <p>
+                    Bem-vindo à Plataforma de Estágios.
+                </p>
+
+                <p>
+                    Encontre oportunidades de estágio
+                    adequadas ao seu curso.
+                </p>
+
+                <a href="/vagas/">
+                    Ver vagas disponíveis
+                </a>
+
+            {% else %}
+
+                <h2>
+                    Encontre seu próximo estágio
+                </h2>
+
+                <p>
+                    Encontre oportunidades de estágio
+                    adequadas ao seu curso.
+                </p>
+
+                <a href="/vagas/">
+                    Ver vagas disponíveis
+                </a>
+
+            {% endif %}
+
         </section>
 
+
         <section>
+
             <h2>Para alunos</h2>
 
             <p>
                 Encontre oportunidades e candidate-se
                 às vagas disponíveis.
             </p>
+
+            {% if user.is_authenticated %}
+
+                <a href="/area-aluno/">
+                    Acessar minha área
+                </a>
+
+            {% else %}
+
+                <a href="/entrar/">
+                    Entrar como aluno
+                </a>
+
+            {% endif %}
+
         </section>
 
+
         <section>
+
             <h2>Para empresas</h2>
 
             <p>
                 Divulgue oportunidades de estágio
                 e encontre novos talentos.
             </p>
+
+            <p>
+                Área da empresa em desenvolvimento.
+            </p>
+
         </section>
 
     </main>
 
 </body>
+
 </html>
