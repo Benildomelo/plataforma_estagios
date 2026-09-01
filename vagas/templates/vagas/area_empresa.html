@@ -77,6 +77,50 @@
 
     </main>
 
+    <h2>Candidaturas recebidas</h2>
+
+    {% if candidaturas %}
+         {% for candidatura in candidaturas %}
+            <div>
+                <h3>{{ candidatura.aluno.nome }}</h3>
+
+                <p>
+                     <strong>Vaga:</strong>
+                {{ candidatura.vaga.titulo }}
+                 </p>
+
+                 <p>
+                <strong>Curso:</strong>
+                {{ candidatura.aluno.curso.nome }}
+                 </p>
+
+                 <p>
+                    <strong>E-mail:</strong>
+                {{ candidatura.aluno.email }}
+                </p>
+
+                <p>
+                    <strong>Telefone:</strong>
+                {{ candidatura.aluno.telefone }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                {{ candidatura.get_status_display }}
+                </p>
+
+                <p>
+                     <strong>Data da candidatura:</strong>
+                {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                </p>
+
+                 <hr>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma candidatura recebida ainda.</p>
+    {% endif %}
+
 </body>
 
 </html>
