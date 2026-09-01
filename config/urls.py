@@ -11,7 +11,9 @@ from vagas.views import (
     sair,
     area_aluno,
     area_empresa,
-    criar_vaga
+    criar_vaga,
+    atualizar_candidatura
+
 )
 
 urlpatterns = [
@@ -26,5 +28,9 @@ urlpatterns = [
     path('area-aluno/', area_aluno, name='area_aluno'),
     path('area-empresa/', area_empresa, name='area_empresa'),
     path('criar-vaga/', criar_vaga, name='criar_vaga'),
+    path(
+    'candidaturas/<int:candidatura_id>/atualizar/',
+    atualizar_candidatura,
+    name='atualizar_candidatura'),
 
 ]

@@ -109,6 +109,40 @@
                 {{ candidatura.get_status_display }}
                 </p>
 
+   <form method="post" action="{% url 'atualizar_candidatura' candidatura.id %}">
+    {% csrf_token %}
+
+    <label for="status-{{ candidatura.id }}">
+        Alterar status:
+    </label>
+
+    <select name="status" id="status-{{ candidatura.id }}">
+        <option value="EM_ANALISE"
+            {% if candidatura.status == 'EM_ANALISE' %}selected{% endif %}>
+            Em análise
+        </option>
+
+        <option value="APROVADA"
+            {% if candidatura.status == 'APROVADA' %}selected{% endif %}>
+            Aprovada
+        </option>
+
+        <option value="REJEITADA"
+            {% if candidatura.status == 'REJEITADA' %}selected{% endif %}>
+            Rejeitada
+        </option>
+
+        <option value="CANCELADA"
+            {% if candidatura.status == 'CANCELADA' %}selected{% endif %}>
+            Cancelada
+        </option>
+    </select>
+
+    <button type="submit">
+        Atualizar status
+    </button>
+</form>
+
                 <p>
                      <strong>Data da candidatura:</strong>
                 {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
