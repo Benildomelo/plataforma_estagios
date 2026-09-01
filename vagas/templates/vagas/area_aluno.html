@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Área do Aluno</title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Plataforma de Estágios</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/vagas/">Vagas</a>
+            <a href="/minhas-candidaturas/">
+                Minhas candidaturas
+            </a>
+            <a href="/sair/">Sair</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <h2>Olá, {{ aluno.nome }}! 👋</h2>
+
+        <p>
+            Bem-vindo à sua área do aluno.
+        </p>
+
+        <h3>Resumo</h3>
+
+        <p>
+            Você possui
+            <strong>{{ candidaturas|length }}</strong>
+            candidatura(s).
+        </p>
+
+        <p>
+            <a href="/vagas/">
+                Ver vagas disponíveis
+            </a>
+        </p>
+
+        <p>
+            <a href="/minhas-candidaturas/">
+                Ver minhas candidaturas
+            </a>
+        </p>
+
+    </main>
+
+</body>
+
+</html>
