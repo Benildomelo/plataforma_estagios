@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Área da Empresa</title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Plataforma de Estágios</h1>
+
+        <nav>
+            <a href="/">Início</a>
+            <a href="/sair/">Sair</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <h2>
+            Olá, {{ empresa.nome_fantasia }}! 🏢
+        </h2>
+
+        <p>
+            Bem-vindo à área da empresa.
+        </p>
+
+        <h3>Minhas vagas</h3>
+
+        {% if vagas %}
+
+            {% for vaga in vagas %}
+
+                <article>
+
+                    <h4>
+                        {{ vaga.titulo }}
+                    </h4>
+
+                    <p>
+                        <strong>Curso:</strong>
+                        {{ vaga.curso.nome }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ vaga.get_status_display }}
+                    </p>
+
+                    <p>
+                        <strong>Local:</strong>
+                        {{ vaga.local }}
+                    </p>
+
+                </article>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                Você ainda não possui vagas cadastradas.
+            </p>
+
+        {% endif %}
+
+    </main>
+
+</body>
+
+</html>
