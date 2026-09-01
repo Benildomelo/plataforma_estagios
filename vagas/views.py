@@ -147,11 +147,21 @@ def area_empresa(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
 
+    if not Empresa.objects.filter(usuario=request.user).exists():
+        return redirect('inicio')
+
     empresa = Empresa.objects.get(usuario=request.user)
 
     vagas = Vaga.objects.filter(
         empresa=empresa
     ).order_by('-id')
+
+    candidaturas = Candidatura.objects.filter(
+        vaga__empresa=empresa
+    ).select_related(
+        'aluno',
+        'vaga'
+    ).order_by('-data_candidatura')
 
     return render(
         request,
@@ -159,6 +169,7 @@ def area_empresa(request):
         {
             'empresa': empresa,
             'vagas': vagas,
+            'candidaturas': candidaturas,
         }
     )
 
