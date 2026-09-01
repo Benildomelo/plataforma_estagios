@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Vaga, Candidatura, Aluno, Empresa
+from .models import Vaga, Candidatura, Aluno, Empresa, Curso
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 
@@ -159,5 +159,48 @@ def area_empresa(request):
         {
             'empresa': empresa,
             'vagas': vagas,
+        }
+    )
+
+def criar_vaga(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    empresa = Empresa.objects.get(usuario=request.user)
+
+    cursos = Curso.objects.filter(ativo=True)
+
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        descricao = request.POST.get('descricao')
+        requisitos = request.POST.get('requisitos')
+        bolsa = request.POST.get('bolsa')
+        carga_horaria = request.POST.get('carga_horaria')
+        local = request.POST.get('local')
+        curso_id = request.POST.get('curso')
+
+        curso = Curso.objects.get(id=curso_id)
+
+        Vaga.objects.create(
+            titulo=titulo,
+            descricao=descricao,
+            requisitos=requisitos,
+            bolsa=bolsa if bolsa else None,
+            carga_horaria=carga_horaria,
+            local=local,
+            empresa=empresa,
+            curso=curso,
+            status='PENDENTE',
+            ativo=True
+        )
+
+        return redirect('area_empresa')
+
+    return render(
+        request,
+        'vagas/criar_vaga.html',
+        {
+            'empresa': empresa,
+            'cursos': cursos,
         }
     )
