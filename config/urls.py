@@ -8,7 +8,8 @@ from vagas.views import (
     entrar,
     candidatar,
     minhas_candidaturas,
-    sair
+    sair,
+    area_aluno
 )
 
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
     path('vagas/<int:vaga_id>/candidatar/', candidatar, name='candidatar'),
     path('minhas-candidaturas/', minhas_candidaturas, name='minhas_candidaturas'),
     path('sair/', sair, name='sair'),
+    path('area-aluno/', area_aluno, name='area_aluno'),
 ]
