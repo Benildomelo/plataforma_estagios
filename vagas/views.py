@@ -80,6 +80,16 @@ def entrar(request):
 
         if usuario is not None:
             login(request, usuario)
+
+            if usuario.is_superuser:
+                return redirect('/admin/')
+
+            if Aluno.objects.filter(usuario=usuario).exists():
+                return redirect('area_aluno')
+
+            if Empresa.objects.filter(usuario=usuario).exists():
+                return redirect('area_empresa')
+
             return redirect('inicio')
 
         mensagem = 'Usuário ou senha inválidos.'
@@ -89,6 +99,7 @@ def entrar(request):
         'vagas/login.html',
         {'mensagem': mensagem}
     )
+
 
 def minhas_candidaturas(request):
     if not request.user.is_authenticated:
