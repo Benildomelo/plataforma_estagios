@@ -131,3 +131,22 @@ def area_aluno(request):
             'candidaturas': candidaturas,
         }
     )
+
+def area_empresa(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    empresa = Empresa.objects.get(usuario=request.user)
+
+    vagas = Vaga.objects.filter(
+        empresa=empresa
+    ).order_by('-id')
+
+    return render(
+        request,
+        'vagas/area_empresa.html',
+        {
+            'empresa': empresa,
+            'vagas': vagas,
+        }
+    )
