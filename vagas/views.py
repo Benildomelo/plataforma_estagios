@@ -215,3 +215,26 @@ def criar_vaga(request):
             'cursos': cursos,
         }
     )
+
+def atualizar_candidatura(request, candidatura_id):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    if not Empresa.objects.filter(usuario=request.user).exists():
+        return redirect('inicio')
+
+    empresa = Empresa.objects.get(usuario=request.user)
+
+    candidatura = Candidatura.objects.get(
+        id=candidatura_id,
+        vaga__empresa=empresa
+    )
+
+    if request.method == 'POST':
+        novo_status = request.POST.get('status')
+
+        if novo_status in ['EM_ANALISE', 'APROVADA', 'REJEITADA', 'CANCELADA']:
+            candidatura.status = novo_status
+            candidatura.save()
+
+    return redirect('area_empresa')
