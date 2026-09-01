@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Vaga, Candidatura
+from .models import Vaga, Candidatura, Aluno
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 
