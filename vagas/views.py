@@ -248,7 +248,14 @@ def atualizar_candidatura(request, candidatura_id):
     if request.method == 'POST':
         novo_status = request.POST.get('status')
 
-        if novo_status in ['EM_ANALISE', 'APROVADA', 'REJEITADA', 'CANCELADA']:
+        status_permitidos = [
+            'EM_ANALISE',
+            'APROVADA',
+            'REJEITADA',
+            'CANCELADA'
+        ]
+
+        if novo_status in status_permitidos:
             candidatura.status = novo_status
             candidatura.save()
 
