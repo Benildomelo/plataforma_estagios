@@ -16,7 +16,9 @@
 
         <nav>
 
-            <a href="/">Início</a>
+            <a href="/">
+                Início
+            </a>
 
             <a href="/vagas/">
                 Vagas
@@ -24,13 +26,29 @@
 
             {% if user.is_authenticated %}
 
-                <a href="/area-aluno/">
-                    Minha área
-                </a>
+                {% if user.is_superuser %}
 
-                <a href="/minhas-candidaturas/">
-                    Minhas candidaturas
-                </a>
+                    <a href="/admin/">
+                        Administração
+                    </a>
+
+                {% elif user.aluno_set.exists %}
+
+                    <a href="/area-aluno/">
+                        Minha área
+                    </a>
+
+                    <a href="/minhas-candidaturas/">
+                        Minhas candidaturas
+                    </a>
+
+                {% elif user.empresa_set.exists %}
+
+                    <a href="/area-empresa/">
+                        Área da empresa
+                    </a>
+
+                {% endif %}
 
                 <a href="/sair/">
                     Sair
@@ -101,7 +119,7 @@
                 às vagas disponíveis.
             </p>
 
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user.aluno_set.exists %}
 
                 <a href="/area-aluno/">
                     Acessar minha área
@@ -127,9 +145,19 @@
                 e encontre novos talentos.
             </p>
 
-            <p>
-                Área da empresa em desenvolvimento.
-            </p>
+            {% if user.is_authenticated and user.empresa_set.exists %}
+
+                <a href="/area-empresa/">
+                    Acessar área da empresa
+                </a>
+
+            {% else %}
+
+                <p>
+                    Área da empresa disponível para usuários cadastrados.
+                </p>
+
+            {% endif %}
 
         </section>
 
