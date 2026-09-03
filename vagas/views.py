@@ -177,6 +177,9 @@ def criar_vaga(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
 
+    if not Empresa.objects.filter(usuario=request.user).exists():
+        return redirect('inicio')
+
     empresa = Empresa.objects.get(usuario=request.user)
 
     cursos = Curso.objects.filter(ativo=True)
