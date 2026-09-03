@@ -108,11 +108,17 @@ def minhas_candidaturas(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
 
+    if not Aluno.objects.filter(usuario=request.user).exists():
+        return redirect('inicio')
+
     aluno = Aluno.objects.get(usuario=request.user)
 
     candidaturas = Candidatura.objects.filter(
         aluno=aluno
-    ).select_related('vaga', 'vaga__empresa')
+    ).select_related(
+        'vaga',
+        'vaga__empresa'
+    )
 
     return render(
         request,
@@ -130,6 +136,9 @@ def sair(request):
 def area_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
+
+    if not Aluno.objects.filter(usuario=request.user).exists():
+        return redirect('inicio')
 
     aluno = Aluno.objects.get(usuario=request.user)
 
