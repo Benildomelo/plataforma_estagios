@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Curso, Aluno, Empresa, Vaga, Candidatura
 
 
@@ -13,7 +12,7 @@ class CursoAdmin(admin.ModelAdmin):
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     list_display = ('id', 'nome', 'matricula', 'email', 'curso', 'ativo')
-    list_filter = ('curso', 'ativo')
+    list_filter = ('ativo', 'curso')
     search_fields = ('nome', 'matricula', 'email')
 
 
@@ -67,6 +66,5 @@ class CandidaturaAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     search_fields = (
         'aluno__nome',
-        'aluno__matricula',
-        'vaga__titulo'
+        'vaga__titulo',
     )
