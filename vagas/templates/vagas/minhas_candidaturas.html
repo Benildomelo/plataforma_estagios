@@ -5,7 +5,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Minhas Candidaturas</title>
+    <title>Minhas Candidaturas - Plataforma de Estágios</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .topo {
+            margin-bottom: 25px;
+        }
+
+        .topo h2 {
+            color: #1f4e79;
+            margin-bottom: 5px;
+            font-size: 30px;
+        }
+
+        .topo p {
+            color: #6b7280;
+        }
+
+        .candidatura {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #1f4e79;
+        }
+
+        .candidatura h3 {
+            color: #1f4e79;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .informacao {
+            margin-bottom: 10px;
+            color: #4b5563;
+        }
+
+        .informacao strong {
+            color: #1f2937;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #3730a3;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .data {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #1f4e79;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .botao:hover {
+            background: #163a5c;
+        }
+
+        .vazio {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .vazio h3 {
+            color: #1f4e79;
+            margin-bottom: 10px;
+        }
+
+        .vazio p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            main {
+                margin: 25px auto;
+            }
+
+            .topo h2 {
+                font-size: 25px;
+            }
+
+            .candidatura {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -17,6 +178,7 @@
         <nav>
             <a href="/">Início</a>
             <a href="/vagas/">Vagas</a>
+            <a href="/area-aluno/">Minha área</a>
             <a href="/minhas-candidaturas/">Minhas candidaturas</a>
             <a href="/sair/">Sair</a>
         </nav>
@@ -25,52 +187,74 @@
 
     <main>
 
-        <h2>Minhas Candidaturas</h2>
+        <div class="topo">
+            <h2>Minhas Candidaturas</h2>
+            <p>Acompanhe as vagas para as quais você se candidatou.</p>
+        </div>
 
         {% if candidaturas %}
 
             {% for candidatura in candidaturas %}
 
-                <article>
+                <article class="candidatura">
 
                     <h3>
                         {{ candidatura.vaga.titulo }}
                     </h3>
 
-                    <p>
+                    <p class="informacao">
                         <strong>Empresa:</strong>
                         {{ candidatura.vaga.empresa.nome_fantasia }}
                     </p>
 
-                    <p>
-                        <strong>Status:</strong>
-                        {{ candidatura.get_status_display }}
+                    <p class="informacao">
+                        <strong>Curso:</strong>
+                        {{ candidatura.vaga.curso.nome }}
                     </p>
 
-                    <p>
+                    <p class="informacao">
+                        <strong>Local:</strong>
+                        {{ candidatura.vaga.local }}
+                    </p>
+
+                    <p class="informacao">
+                        <strong>Status:</strong>
+                        <span class="status">
+                            {{ candidatura.get_status_display }}
+                        </span>
+                    </p>
+
+                    <p class="informacao data">
                         <strong>Data da candidatura:</strong>
                         {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
                     </p>
 
-                    <a href="/vagas/{{ candidatura.vaga.id }}/">
+                    <a
+                        class="botao"
+                        href="/vagas/{{ candidatura.vaga.id }}/"
+                    >
                         Ver vaga
                     </a>
 
                 </article>
 
-                <hr>
-
             {% endfor %}
 
         {% else %}
 
-            <p>
-                Você ainda não possui candidaturas.
-            </p>
+            <div class="vazio">
 
-            <a href="/vagas/">
-                Ver vagas disponíveis
-            </a>
+                <h3>Nenhuma candidatura encontrada</h3>
+
+                <p>
+                    Você ainda não possui candidaturas.
+                </p>
+
+                <a class="botao" href="/vagas/">
+                    Ver vagas disponíveis
+                </a>
+
+            </div>
 
         {% endif %}
 
