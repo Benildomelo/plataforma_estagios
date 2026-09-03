@@ -1,79 +1,322 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Vagas de Estágio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: #1d4ed8;
+            color: white;
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-pagina {
+            margin-bottom: 30px;
+        }
+
+        .titulo-pagina h2 {
+            margin-bottom: 8px;
+            font-size: 32px;
+        }
+
+        .titulo-pagina p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .vagas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .vaga {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vaga:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .vaga h3 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 21px;
+            color: #1d4ed8;
+        }
+
+        .informacao {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .informacao strong {
+            color: #374151;
+        }
+
+        .descricao {
+            margin-top: 18px;
+            color: #6b7280;
+            line-height: 1.6;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 11px 18px;
+
+            background: #1d4ed8;
+            color: white;
+
+            text-decoration: none;
+            text-align: center;
+
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .botao:hover {
+            background: #1e40af;
+        }
+
+        .vazio {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .vazio h3 {
+            margin-top: 0;
+        }
+
+        .vazio p {
+            color: #6b7280;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            main {
+                margin: 25px auto;
+            }
+
+            .titulo-pagina h2 {
+                font-size: 26px;
+            }
+
+            .vaga {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
+
         <h1>Plataforma de Estágios</h1>
 
         <nav>
-            <a href="/">Início</a>
-            <a href="/vagas/">Vagas</a>
-            <a href="/admin/">Entrar</a>
+
+            <a href="/">
+                Início
+            </a>
+
+            <a href="/vagas/">
+                Vagas
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="/area-aluno/">
+                    Minha área
+                </a>
+
+                <a href="/sair/">
+                    Sair
+                </a>
+
+            {% else %}
+
+                <a href="/entrar/">
+                    Entrar
+                </a>
+
+            {% endif %}
+
         </nav>
+
     </header>
+
 
     <main>
 
-        <h2>Vagas de Estágio</h2>
+        <section class="titulo-pagina">
+
+            <h2>Vagas de Estágio</h2>
+
+            <p>
+                Encontre oportunidades de estágio adequadas ao seu perfil.
+            </p>
+
+        </section>
+
 
         {% if vagas %}
 
-            {% for vaga in vagas %}
+            <section class="vagas">
 
-                <article>
+                {% for vaga in vagas %}
 
-                    <h3>{{ vaga.titulo }}</h3>
+                    <article class="vaga">
 
-                    <p>
-                        <strong>Empresa:</strong>
-                        {{ vaga.empresa.nome_fantasia }}
-                    </p>
+                        <h3>
+                            {{ vaga.titulo }}
+                        </h3>
 
-                    <p>
-                        <strong>Curso:</strong>
-                        {{ vaga.curso.nome }}
-                    </p>
+                        <p class="informacao">
+                            <strong>Empresa:</strong>
+                            {{ vaga.empresa.nome_fantasia }}
+                        </p>
 
-                    <p>
-                        <strong>Local:</strong>
-                        {{ vaga.local }}
-                    </p>
+                        <p class="informacao">
+                            <strong>Curso:</strong>
+                            {{ vaga.curso.nome }}
+                        </p>
 
-                    <p>
-                        <strong>Bolsa:</strong>
-                        R$ {{ vaga.bolsa }}
-                    </p>
+                        <p class="informacao">
+                            <strong>Local:</strong>
+                            {{ vaga.local }}
+                        </p>
 
-                    <p>
-                        {{ vaga.descricao }}
-                    </p>
+                        <p class="informacao">
+                            <strong>Carga horária:</strong>
+                            {{ vaga.carga_horaria }}
+                        </p>
 
-                    <a href="/vagas/{{ vaga.id }}/">
-                        Ver detalhes
-                    </a>
+                        <p class="informacao">
+                            <strong>Bolsa:</strong>
 
-                </article>
+                            {% if vaga.bolsa %}
+                                R$ {{ vaga.bolsa }}
+                            {% else %}
+                                A combinar
+                            {% endif %}
 
-                <hr>
+                        </p>
 
-            {% endfor %}
+                        <p class="descricao">
+                            {{ vaga.descricao }}
+                        </p>
+
+                        <a
+                            class="botao"
+                            href="/vagas/{{ vaga.id }}/"
+                        >
+                            Ver detalhes
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </section>
 
         {% else %}
 
-            <p>
-                No momento não existem vagas disponíveis.
-            </p>
+            <section class="vazio">
+
+                <h3>
+                    Nenhuma vaga disponível
+                </h3>
+
+                <p>
+                    No momento não existem vagas de estágio disponíveis.
+                    Volte mais tarde para conferir novas oportunidades.
+                </p>
+
+            </section>
 
         {% endif %}
 
     </main>
 
 </body>
+
 </html>
