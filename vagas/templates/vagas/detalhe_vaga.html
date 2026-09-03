@@ -5,93 +5,432 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ vaga.titulo }}</title>
+    <title>{{ vaga.titulo }} - Plataforma de Estágios</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: #1d4ed8;
+            color: white;
+            padding: 20px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .voltar:hover {
+            text-decoration: underline;
+        }
+
+        .vaga {
+            background: white;
+            border-radius: 14px;
+            padding: 35px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .cabecalho-vaga {
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .cabecalho-vaga h2 {
+            margin: 0 0 10px;
+            font-size: 32px;
+            color: #111827;
+        }
+
+        .empresa {
+            margin: 0;
+            color: #6b7280;
+            font-size: 17px;
+        }
+
+        .informacoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .informacao {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .informacao strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .informacao span {
+            color: #6b7280;
+        }
+
+        .secao {
+            margin-top: 30px;
+        }
+
+        .secao h3 {
+            margin-bottom: 12px;
+            color: #111827;
+            font-size: 21px;
+        }
+
+        .secao p {
+            color: #4b5563;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        .acao {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .botao {
+            display: inline-block;
+            border: none;
+            padding: 14px 28px;
+
+            background: #1d4ed8;
+            color: white;
+
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .botao:hover {
+            background: #1e40af;
+        }
+
+        .mensagem-sucesso {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+
+            padding: 16px;
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .mensagem-login {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .mensagem-login p {
+            margin-top: 0;
+            color: #374151;
+        }
+
+        .link-login {
+            color: #1d4ed8;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .link-login:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 20px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            main {
+                margin: 25px auto;
+            }
+
+            .vaga {
+                padding: 22px;
+            }
+
+            .cabecalho-vaga h2 {
+                font-size: 26px;
+            }
+
+            .informacoes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
+
         <h1>Plataforma de Estágios</h1>
 
         <nav>
-            <a href="/">Início</a>
-            <a href="/vagas/">Vagas</a>
-            <a href="/admin/">Entrar</a>
+
+            <a href="/">
+                Início
+            </a>
+
+            <a href="/vagas/">
+                Vagas
+            </a>
+
+            {% if user.is_authenticated %}
+
+                <a href="/area-aluno/">
+                    Minha área
+                </a>
+
+                <a href="/sair/">
+                    Sair
+                </a>
+
+            {% else %}
+
+                <a href="/entrar/">
+                    Entrar
+                </a>
+
+            {% endif %}
+
         </nav>
+
     </header>
+
 
     <main>
 
-        <h2>{{ vaga.titulo }}</h2>
+        <a class="voltar" href="/vagas/">
+            ← Voltar para vagas
+        </a>
 
-        <p>
-            <strong>Empresa:</strong>
-            {{ vaga.empresa.nome_fantasia }}
-        </p>
 
-        <p>
-            <strong>Curso:</strong>
-            {{ vaga.curso.nome }}
-        </p>
+        <article class="vaga">
 
-        <p>
-            <strong>Local:</strong>
-            {{ vaga.local }}
-        </p>
+            <section class="cabecalho-vaga">
 
-        <p>
-            <strong>Carga horária:</strong>
-            {{ vaga.carga_horaria }}
-        </p>
+                <h2>
+                    {{ vaga.titulo }}
+                </h2>
 
-        <p>
-            <strong>Bolsa:</strong>
-            R$ {{ vaga.bolsa }}
-        </p>
+                <p class="empresa">
+                    {{ vaga.empresa.nome_fantasia }}
+                </p>
 
-        <h3>Descrição</h3>
+            </section>
 
-        <p>
-            {{ vaga.descricao }}
-        </p>
 
-        <h3>Requisitos</h3>
+            <section class="informacoes">
 
-        <p>
-            {{ vaga.requisitos }}
-        </p>
+                <div class="informacao">
 
-        {% if user.is_authenticated %}
+                    <strong>Curso</strong>
 
-    {% if candidatura_existente %}
+                    <span>
+                        {{ vaga.curso.nome }}
+                    </span>
 
-        <p>
-            Você já se candidatou a esta vaga.
-        </p>
+                </div>
 
-    {% else %}
 
-        <form method="post" action="{% url 'candidatar' vaga.id %}">
-    {% csrf_token %}
+                <div class="informacao">
 
-    <button type="submit">
-        Candidatar-se
-    </button>
-</form>
+                    <strong>Local</strong>
 
-    {% endif %}
+                    <span>
+                        {{ vaga.local }}
+                    </span>
 
-{% else %}
+                </div>
 
-    <p>
-        Para se candidatar, você precisa entrar na plataforma.
-    </p>
 
-    <a href="/entrar/">
-        Entrar
-    </a>
+                <div class="informacao">
 
-{% endif %}
+                    <strong>Carga horária</strong>
+
+                    <span>
+                        {{ vaga.carga_horaria }}
+                    </span>
+
+                </div>
+
+
+                <div class="informacao">
+
+                    <strong>Bolsa</strong>
+
+                    <span>
+
+                        {% if vaga.bolsa %}
+
+                            R$ {{ vaga.bolsa }}
+
+                        {% else %}
+
+                            A combinar
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <section class="secao">
+
+                <h3>
+                    Descrição da vaga
+                </h3>
+
+                <p>
+                    {{ vaga.descricao }}
+                </p>
+
+            </section>
+
+
+            <section class="secao">
+
+                <h3>
+                    Requisitos
+                </h3>
+
+                <p>
+                    {% if vaga.requisitos %}
+
+                        {{ vaga.requisitos }}
+
+                    {% else %}
+
+                        Não informado.
+
+                    {% endif %}
+                </p>
+
+            </section>
+
+
+            <section class="acao">
+
+                {% if user.is_authenticated %}
+
+                    {% if candidatura_existente %}
+
+                        <div class="mensagem-sucesso">
+
+                            ✓ Você já se candidatou a esta vaga.
+
+                        </div>
+
+                    {% else %}
+
+                        <form
+                            method="post"
+                            action="{% url 'candidatar' vaga.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="botao"
+                            >
+                                Candidatar-se à vaga
+                            </button>
+
+                        </form>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="mensagem-login">
+
+                        <p>
+                            Para se candidatar a esta vaga,
+                            você precisa entrar na plataforma.
+                        </p>
+
+                        <a
+                            class="link-login"
+                            href="/entrar/"
+                        >
+                            Entrar na plataforma
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+        </article>
 
     </main>
 
