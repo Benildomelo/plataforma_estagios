@@ -10,17 +10,19 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
             background: #f4f6f8;
             color: #1f2937;
+            line-height: 1.6;
         }
 
         header {
-            background: #1d4ed8;
+            background: #1f4e79;
             color: white;
             padding: 20px 40px;
 
@@ -33,24 +35,24 @@
         }
 
         header h1 {
-            margin: 0;
             font-size: 24px;
         }
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            padding: 9px 14px;
+            border-radius: 6px;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            background: rgba(255, 255, 255, 0.15);
         }
 
         main {
@@ -59,51 +61,45 @@
             padding: 0 20px;
         }
 
-        .titulo-pagina {
+        .cabecalho {
             margin-bottom: 30px;
         }
 
-        .titulo-pagina h2 {
-            margin-bottom: 8px;
+        .cabecalho h2 {
+            color: #1f4e79;
             font-size: 32px;
+            margin-bottom: 8px;
         }
 
-        .titulo-pagina p {
-            margin: 0;
+        .cabecalho p {
             color: #6b7280;
         }
 
         .vagas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
         }
 
         .vaga {
             background: white;
             border-radius: 12px;
-            padding: 24px;
+            padding: 25px;
 
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
 
             display: flex;
             flex-direction: column;
         }
 
-        .vaga:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
         .vaga h3 {
-            margin-top: 0;
+            color: #1f4e79;
+            font-size: 22px;
             margin-bottom: 18px;
-            font-size: 21px;
-            color: #1d4ed8;
         }
 
         .informacao {
-            margin: 8px 0;
-            font-size: 15px;
+            margin-bottom: 10px;
         }
 
         .informacao strong {
@@ -111,54 +107,54 @@
         }
 
         .descricao {
-            margin-top: 18px;
             color: #6b7280;
-            line-height: 1.6;
+            margin: 15px 0;
 
             display: -webkit-box;
+            -webkit-box-orient: vertical;
             -webkit-line-clamp: 3;
             line-clamp: 3;
-            -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
         .botao {
             display: inline-block;
-            margin-top: 20px;
-            padding: 11px 18px;
-
-            background: #1d4ed8;
+            background: #1f4e79;
             color: white;
 
             text-decoration: none;
             text-align: center;
 
-            border-radius: 8px;
+            padding: 11px 20px;
+            border-radius: 7px;
+
             font-weight: bold;
+            margin-top: auto;
         }
 
         .botao:hover {
-            background: #1e40af;
+            background: #163a5c;
         }
 
         .vazio {
             background: white;
-            padding: 40px;
             border-radius: 12px;
+            padding: 40px;
             text-align: center;
 
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
         }
 
         .vazio h3 {
-            margin-top: 0;
+            color: #1f4e79;
+            margin-bottom: 10px;
         }
 
         .vazio p {
             color: #6b7280;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
             header {
                 padding: 20px;
@@ -168,20 +164,16 @@
                 font-size: 20px;
             }
 
-            nav {
-                gap: 12px;
-            }
-
             main {
                 margin: 25px auto;
             }
 
-            .titulo-pagina h2 {
-                font-size: 26px;
+            .cabecalho h2 {
+                font-size: 27px;
             }
 
-            .vaga {
-                padding: 20px;
+            .vagas {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -209,6 +201,10 @@
                     Minha área
                 </a>
 
+                <a href="/minhas-candidaturas/">
+                    Candidaturas
+                </a>
+
                 <a href="/sair/">
                     Sair
                 </a>
@@ -228,12 +224,14 @@
 
     <main>
 
-        <section class="titulo-pagina">
+        <section class="cabecalho">
 
-            <h2>Vagas de Estágio</h2>
+            <h2>
+                Vagas de Estágio
+            </h2>
 
             <p>
-                Encontre oportunidades de estágio adequadas ao seu perfil.
+                Encontre uma oportunidade adequada ao seu curso.
             </p>
 
         </section>
@@ -252,34 +250,32 @@
                         </h3>
 
                         <p class="informacao">
-                            <strong>Empresa:</strong>
+                            <strong>🏢 Empresa:</strong>
                             {{ vaga.empresa.nome_fantasia }}
                         </p>
 
                         <p class="informacao">
-                            <strong>Curso:</strong>
+                            <strong>🎓 Curso:</strong>
                             {{ vaga.curso.nome }}
                         </p>
 
                         <p class="informacao">
-                            <strong>Local:</strong>
+                            <strong>📍 Local:</strong>
                             {{ vaga.local }}
                         </p>
 
                         <p class="informacao">
-                            <strong>Carga horária:</strong>
-                            {{ vaga.carga_horaria }}
-                        </p>
-
-                        <p class="informacao">
-                            <strong>Bolsa:</strong>
-
+                            <strong>💰 Bolsa:</strong>
                             {% if vaga.bolsa %}
                                 R$ {{ vaga.bolsa }}
                             {% else %}
-                                A combinar
+                                Não informada
                             {% endif %}
+                        </p>
 
+                        <p class="informacao">
+                            <strong>⏰ Carga horária:</strong>
+                            {{ vaga.carga_horaria }}
                         </p>
 
                         <p class="descricao">
@@ -308,8 +304,7 @@
                 </h3>
 
                 <p>
-                    No momento não existem vagas de estágio disponíveis.
-                    Volte mais tarde para conferir novas oportunidades.
+                    No momento não existem vagas de estágio aprovadas.
                 </p>
 
             </section>
