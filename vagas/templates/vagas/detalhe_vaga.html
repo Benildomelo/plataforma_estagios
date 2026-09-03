@@ -10,17 +10,19 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
             background: #f4f6f8;
             color: #1f2937;
+            line-height: 1.6;
         }
 
         header {
-            background: #1d4ed8;
+            background: #1f4e79;
             color: white;
             padding: 20px 40px;
 
@@ -33,24 +35,24 @@
         }
 
         header h1 {
-            margin: 0;
             font-size: 24px;
         }
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            padding: 9px 14px;
+            border-radius: 6px;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            background: rgba(255, 255, 255, 0.15);
         }
 
         main {
@@ -59,10 +61,99 @@
             padding: 0 20px;
         }
 
+        .vaga {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .vaga-titulo {
+            color: #1f4e79;
+            font-size: 34px;
+            margin-bottom: 25px;
+        }
+
+        .informacoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        .informacao {
+            background: #f4f6f8;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .informacao strong {
+            display: block;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .secao {
+            margin-top: 30px;
+        }
+
+        .secao h3 {
+            color: #1f4e79;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .secao p {
+            color: #4b5563;
+            white-space: pre-line;
+        }
+
+        .candidatura {
+            margin-top: 35px;
+            padding: 25px;
+
+            background: #eef5fb;
+            border-left: 5px solid #1f4e79;
+
+            border-radius: 8px;
+        }
+
+        .candidatura p {
+            margin-bottom: 15px;
+        }
+
+        .botao {
+            display: inline-block;
+
+            background: #1f4e79;
+            color: white;
+
+            border: none;
+            text-decoration: none;
+
+            padding: 12px 25px;
+            border-radius: 7px;
+
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .botao:hover {
+            background: #163a5c;
+        }
+
+        .aviso {
+            color: #374151;
+        }
+
         .voltar {
             display: inline-block;
-            margin-bottom: 20px;
-            color: #1d4ed8;
+            margin-top: 25px;
+
+            color: #1f4e79;
             text-decoration: none;
             font-weight: bold;
         }
@@ -71,137 +162,14 @@
             text-decoration: underline;
         }
 
-        .vaga {
-            background: white;
-            border-radius: 14px;
-            padding: 35px;
-
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .cabecalho-vaga {
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 25px;
-            margin-bottom: 25px;
-        }
-
-        .cabecalho-vaga h2 {
-            margin: 0 0 10px;
-            font-size: 32px;
-            color: #111827;
-        }
-
-        .empresa {
-            margin: 0;
-            color: #6b7280;
-            font-size: 17px;
-        }
-
-        .informacoes {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .informacao {
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 18px;
-        }
-
-        .informacao strong {
-            display: block;
-            margin-bottom: 6px;
-            color: #374151;
-        }
-
-        .informacao span {
-            color: #6b7280;
-        }
-
-        .secao {
-            margin-top: 30px;
-        }
-
-        .secao h3 {
-            margin-bottom: 12px;
-            color: #111827;
-            font-size: 21px;
-        }
-
-        .secao p {
-            color: #4b5563;
-            line-height: 1.7;
-            white-space: pre-line;
-        }
-
-        .acao {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .botao {
-            display: inline-block;
-            border: none;
-            padding: 14px 28px;
-
-            background: #1d4ed8;
-            color: white;
-
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .botao:hover {
-            background: #1e40af;
-        }
-
-        .mensagem-sucesso {
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
-            color: #065f46;
-
-            padding: 16px;
-            border-radius: 8px;
-
-            font-weight: bold;
-        }
-
-        .mensagem-login {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .mensagem-login p {
-            margin-top: 0;
-            color: #374151;
-        }
-
-        .link-login {
-            color: #1d4ed8;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .link-login:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
 
             header {
                 padding: 20px;
             }
 
-            nav {
-                gap: 12px;
+            header h1 {
+                font-size: 20px;
             }
 
             main {
@@ -209,11 +177,11 @@
             }
 
             .vaga {
-                padding: 22px;
+                padding: 25px 20px;
             }
 
-            .cabecalho-vaga h2 {
-                font-size: 26px;
+            .vaga-titulo {
+                font-size: 28px;
             }
 
             .informacoes {
@@ -245,6 +213,10 @@
                     Minha área
                 </a>
 
+                <a href="/minhas-candidaturas/">
+                    Candidaturas
+                </a>
+
                 <a href="/sair/">
                     Sair
                 </a>
@@ -264,80 +236,53 @@
 
     <main>
 
-        <a class="voltar" href="/vagas/">
-            ← Voltar para vagas
-        </a>
-
-
         <article class="vaga">
 
-            <section class="cabecalho-vaga">
-
-                <h2>
-                    {{ vaga.titulo }}
-                </h2>
-
-                <p class="empresa">
-                    {{ vaga.empresa.nome_fantasia }}
-                </p>
-
-            </section>
+            <h2 class="vaga-titulo">
+                {{ vaga.titulo }}
+            </h2>
 
 
             <section class="informacoes">
 
                 <div class="informacao">
-
-                    <strong>Curso</strong>
-
-                    <span>
-                        {{ vaga.curso.nome }}
-                    </span>
-
+                    <strong>🏢 Empresa</strong>
+                    {{ vaga.empresa.nome_fantasia }}
                 </div>
-
 
                 <div class="informacao">
-
-                    <strong>Local</strong>
-
-                    <span>
-                        {{ vaga.local }}
-                    </span>
-
+                    <strong>🎓 Curso</strong>
+                    {{ vaga.curso.nome }}
                 </div>
-
 
                 <div class="informacao">
-
-                    <strong>Carga horária</strong>
-
-                    <span>
-                        {{ vaga.carga_horaria }}
-                    </span>
-
+                    <strong>📍 Local</strong>
+                    {{ vaga.local }}
                 </div>
-
 
                 <div class="informacao">
-
-                    <strong>Bolsa</strong>
-
-                    <span>
-
-                        {% if vaga.bolsa %}
-
-                            R$ {{ vaga.bolsa }}
-
-                        {% else %}
-
-                            A combinar
-
-                        {% endif %}
-
-                    </span>
-
+                    <strong>⏰ Carga horária</strong>
+                    {{ vaga.carga_horaria }}
                 </div>
+
+                <div class="informacao">
+                    <strong>💰 Bolsa</strong>
+
+                    {% if vaga.bolsa %}
+                        R$ {{ vaga.bolsa }}
+                    {% else %}
+                        Não informada
+                    {% endif %}
+                </div>
+
+                {% if vaga.data_publicacao %}
+
+                    <div class="informacao">
+                        <strong>📅 Publicada em</strong>
+                        {{ vaga.data_publicacao|date:"d/m/Y" }}
+                    </div>
+
+                {% endif %}
 
             </section>
 
@@ -345,7 +290,7 @@
             <section class="secao">
 
                 <h3>
-                    Descrição da vaga
+                    Descrição
                 </h3>
 
                 <p>
@@ -355,40 +300,46 @@
             </section>
 
 
-            <section class="secao">
+            {% if vaga.requisitos %}
 
-                <h3>
-                    Requisitos
-                </h3>
+                <section class="secao">
 
-                <p>
-                    {% if vaga.requisitos %}
+                    <h3>
+                        Requisitos
+                    </h3>
 
+                    <p>
                         {{ vaga.requisitos }}
+                    </p>
 
-                    {% else %}
+                </section>
 
-                        Não informado.
-
-                    {% endif %}
-                </p>
-
-            </section>
+            {% endif %}
 
 
-            <section class="acao">
+            <section class="candidatura">
 
                 {% if user.is_authenticated %}
 
                     {% if candidatura_existente %}
 
-                        <div class="mensagem-sucesso">
+                        <p class="aviso">
+                            ✅ Você já se candidatou a esta vaga.
+                        </p>
 
-                            ✓ Você já se candidatou a esta vaga.
-
-                        </div>
+                        <a
+                            class="botao"
+                            href="/minhas-candidaturas/"
+                        >
+                            Ver minhas candidaturas
+                        </a>
 
                     {% else %}
+
+                        <p>
+                            Gostou desta oportunidade?
+                            Candidate-se agora.
+                        </p>
 
                         <form
                             method="post"
@@ -398,10 +349,10 @@
                             {% csrf_token %}
 
                             <button
-                                type="submit"
                                 class="botao"
+                                type="submit"
                             >
-                                Candidatar-se à vaga
+                                Candidatar-se
                             </button>
 
                         </form>
@@ -410,25 +361,29 @@
 
                 {% else %}
 
-                    <div class="mensagem-login">
+                    <p>
+                        Para se candidatar a esta vaga,
+                        você precisa entrar na plataforma.
+                    </p>
 
-                        <p>
-                            Para se candidatar a esta vaga,
-                            você precisa entrar na plataforma.
-                        </p>
-
-                        <a
-                            class="link-login"
-                            href="/entrar/"
-                        >
-                            Entrar na plataforma
-                        </a>
-
-                    </div>
+                    <a
+                        class="botao"
+                        href="/entrar/"
+                    >
+                        Entrar para se candidatar
+                    </a>
 
                 {% endif %}
 
             </section>
+
+
+            <a
+                class="voltar"
+                href="/vagas/"
+            >
+                ← Voltar para vagas
+            </a>
 
         </article>
 
