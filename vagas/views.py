@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Vaga, Candidatura, Aluno, Empresa, Curso
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.shortcuts import redirect
 
 
@@ -270,11 +271,13 @@ def criar_vaga(request):
             ativo=True
         )
 
+        messages.success(
+            request, 
+            'Vaga cadastrada com sucesso! Ela será analisada pelo administrador.'
+            )
+
         return redirect('area_empresa')
 
-    # IMPORTANTE:
-    # Quando a página for acessada normalmente (GET),
-    # renderiza o formulário.
     return render(
         request,
         'vagas/criar_vaga.html',
