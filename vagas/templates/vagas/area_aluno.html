@@ -99,15 +99,89 @@
             margin: 10px 0 0;
         }
 
+        /* =========================
+           PERFIL DO ALUNO
+           ========================= */
+
+        .perfil {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 30px;
+        }
+
+        .perfil h3 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #374151;
+        }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .perfil-item {
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .perfil-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .perfil-item span {
+            color: #6b7280;
+        }
+
+        .status-ativo {
+            display: inline-block;
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #dcfce7;
+            color: #166534 !important;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-inativo {
+            display: inline-block;
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #fee2e2;
+            color: #991b1b !important;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           BOTÕES
+           ========================= */
+
         .acoes {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
+
             margin-bottom: 35px;
         }
 
         .botao {
             display: inline-block;
+
             padding: 13px 20px;
 
             background: #1d4ed8;
@@ -115,6 +189,7 @@
 
             text-decoration: none;
             border-radius: 8px;
+
             font-weight: bold;
         }
 
@@ -125,12 +200,17 @@
         .botao-secundario {
             background: white;
             color: #1d4ed8;
+
             border: 1px solid #1d4ed8;
         }
 
         .botao-secundario:hover {
             background: #eff6ff;
         }
+
+        /* =========================
+           CANDIDATURAS
+           ========================= */
 
         .candidaturas {
             background: white;
@@ -175,10 +255,12 @@
 
         .status {
             display: inline-block;
+
             margin-top: 8px;
             padding: 6px 12px;
 
             border-radius: 20px;
+
             background: #f3f4f6;
             color: #374151;
 
@@ -191,6 +273,10 @@
             color: #6b7280;
         }
 
+        /* =========================
+           RESPONSIVIDADE
+           ========================= */
+
         @media (max-width: 750px) {
 
             header {
@@ -202,6 +288,10 @@
             }
 
             .resumo {
+                grid-template-columns: 1fr;
+            }
+
+            .perfil-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -220,7 +310,9 @@
 
     <header>
 
-        <h1>Plataforma de Estágios</h1>
+        <h1>
+            Plataforma de Estágios
+        </h1>
 
         <nav>
 
@@ -247,6 +339,10 @@
 
     <main>
 
+        <!-- =========================
+             BOAS-VINDAS
+             ========================= -->
+
         <section class="boas-vindas">
 
             <h2>
@@ -260,6 +356,10 @@
 
         </section>
 
+
+        <!-- =========================
+             RESUMO
+             ========================= -->
 
         <section class="resumo">
 
@@ -304,6 +404,124 @@
         </section>
 
 
+        <!-- =========================
+             MEU PERFIL
+             ========================= -->
+
+        <section class="perfil">
+
+            <h3>
+                👤 Meu perfil
+            </h3>
+
+            <div class="perfil-grid">
+
+                <div class="perfil-item">
+
+                    <strong>
+                        Nome
+                    </strong>
+
+                    <span>
+                        {{ aluno.nome }}
+                    </span>
+
+                </div>
+
+
+                <div class="perfil-item">
+
+                    <strong>
+                        Matrícula
+                    </strong>
+
+                    <span>
+                        {{ aluno.matricula }}
+                    </span>
+
+                </div>
+
+
+                <div class="perfil-item">
+
+                    <strong>
+                        Curso
+                    </strong>
+
+                    <span>
+                        {{ aluno.curso.nome }}
+                    </span>
+
+                </div>
+
+
+                <div class="perfil-item">
+
+                    <strong>
+                        E-mail
+                    </strong>
+
+                    <span>
+                        {{ aluno.email }}
+                    </span>
+
+                </div>
+
+
+                <div class="perfil-item">
+
+                    <strong>
+                        Telefone
+                    </strong>
+
+                    <span>
+
+                        {% if aluno.telefone %}
+
+                            {{ aluno.telefone }}
+
+                        {% else %}
+
+                            Não informado
+
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="perfil-item">
+
+                    <strong>
+                        Situação
+                    </strong>
+
+                    {% if aluno.ativo %}
+
+                        <span class="status-ativo">
+                            Cadastro ativo
+                        </span>
+
+                    {% else %}
+
+                        <span class="status-inativo">
+                            Cadastro inativo
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             AÇÕES
+             ========================= -->
+
         <section class="acoes">
 
             <a
@@ -322,6 +540,10 @@
 
         </section>
 
+
+        <!-- =========================
+             CANDIDATURAS
+             ========================= -->
 
         <section class="candidaturas">
 
@@ -344,32 +566,51 @@
 
                         </h4>
 
-                        <p>
-                            <strong>Empresa:</strong>
-                            {{ candidatura.vaga.empresa.nome_fantasia }}
-                        </p>
 
                         <p>
-                            <strong>Local:</strong>
-                            {{ candidatura.vaga.local }}
+
+                            <strong>
+                                Empresa:
+                            </strong>
+
+                            {{ candidatura.vaga.empresa.nome_fantasia }}
+
                         </p>
+
+
+                        <p>
+
+                            <strong>
+                                Local:
+                            </strong>
+
+                            {{ candidatura.vaga.local }}
+
+                        </p>
+
 
                         <span class="status">
+
                             {{ candidatura.get_status_display }}
+
                         </span>
 
                     </article>
 
                 {% endfor %}
 
+
             {% else %}
 
                 <p class="sem-candidaturas">
+
                     Você ainda não possui candidaturas.
+
                     <br><br>
 
                     Acesse as vagas disponíveis e encontre
                     uma oportunidade de estágio.
+
                 </p>
 
             {% endif %}
