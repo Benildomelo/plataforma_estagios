@@ -169,7 +169,18 @@
             .titulo {
                 font-size: 26px;
             }
+
+        .mensagem {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
+        }    
+    
     </style>
 </head>
 
@@ -210,6 +221,11 @@
                 Empresa: <strong>{{ empresa.nome_fantasia }}</strong>
             </p>
 
+            {% if mensagem %}
+                <div class="mensagem">
+                    {{ mensagem }}
+                </div>
+            {% endif %}
 
             <form method="post">
 

@@ -206,7 +206,8 @@ def criar_vaga(request):
         local = request.POST.get('local', '').strip()
         curso_id = request.POST.get('curso', '').strip()
 
-        if not titulo or not descricao  or not carga_horaria or not local or not curso_id:
+        # Verifica campos obrigatórios
+        if not titulo or not descricao or not carga_horaria or not local or not curso_id:
             return render(
                 request,
                 'vagas/criar_vaga.html',
@@ -217,10 +218,11 @@ def criar_vaga(request):
                 }
             )
 
+        # Verifica se o curso existe e está ativo
         try:
             curso = Curso.objects.get(
-            id=curso_id,
-            ativo=True
+                id=curso_id,
+                ativo=True
             )
         except Curso.DoesNotExist:
             return render(
@@ -233,6 +235,7 @@ def criar_vaga(request):
                 }
             )
 
+        # Valida o valor da bolsa
         if bolsa:
             try:
                 bolsa = float(bolsa)
@@ -253,6 +256,7 @@ def criar_vaga(request):
         else:
             bolsa = None
 
+        # Cria a vaga
         Vaga.objects.create(
             titulo=titulo,
             descricao=descricao,
@@ -268,6 +272,17 @@ def criar_vaga(request):
 
         return redirect('area_empresa')
 
+    # IMPORTANTE:
+    # Quando a página for acessada normalmente (GET),
+    # renderiza o formulário.
+    return render(
+        request,
+        'vagas/criar_vaga.html',
+        {
+            'empresa': empresa,
+            'cursos': cursos,
+        }
+    )
 
 def atualizar_candidatura(request, candidatura_id):
     if not request.user.is_authenticated:
