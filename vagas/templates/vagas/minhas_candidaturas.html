@@ -22,12 +22,14 @@
         }
 
         header {
-            background: #1f4e79;
+            background: #1d4ed8;
             color: white;
             padding: 20px 40px;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             flex-wrap: wrap;
             gap: 15px;
         }
@@ -38,15 +40,16 @@
 
         nav {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 9px 14px;
             border-radius: 6px;
+            font-weight: bold;
         }
 
         nav a:hover {
@@ -54,89 +57,108 @@
         }
 
         main {
-            max-width: 1000px;
+            max-width: 950px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        .topo {
-            margin-bottom: 25px;
+        .cabecalho {
+            margin-bottom: 30px;
         }
 
-        .topo h2 {
-            color: #1f4e79;
-            margin-bottom: 5px;
+        .cabecalho h2 {
+            color: #1f2937;
             font-size: 30px;
+            margin-bottom: 8px;
         }
 
-        .topo p {
+        .cabecalho p {
             color: #6b7280;
+        }
+
+        .lista {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .candidatura {
             background: white;
-            border-radius: 12px;
             padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #1f4e79;
+            border-radius: 14px;
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
         }
 
         .candidatura h3 {
-            color: #1f4e79;
-            font-size: 22px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .candidatura h3 a {
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+
+        .candidatura h3 a:hover {
+            text-decoration: underline;
         }
 
         .informacao {
-            margin-bottom: 10px;
+            margin: 7px 0;
             color: #4b5563;
-        }
-
-        .informacao strong {
-            color: #1f2937;
         }
 
         .status {
             display: inline-block;
-            padding: 6px 12px;
+            margin-top: 12px;
+            padding: 7px 14px;
+
+            background: #eff6ff;
+            color: #1d4ed8;
+
             border-radius: 20px;
-            background: #eef2ff;
-            color: #3730a3;
+
+            font-size: 13px;
             font-weight: bold;
-            font-size: 14px;
         }
 
         .data {
+            margin-top: 12px;
             color: #6b7280;
             font-size: 14px;
         }
 
         .botao {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 18px;
+
             padding: 10px 18px;
-            background: #1f4e79;
+
+            background: #1d4ed8;
             color: white;
+
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 7px;
+
             font-weight: bold;
         }
 
         .botao:hover {
-            background: #163a5c;
+            background: #1e40af;
         }
 
         .vazio {
             background: white;
-            padding: 40px;
+            padding: 40px 25px;
+            border-radius: 14px;
+
             text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
         }
 
         .vazio h3 {
-            color: #1f4e79;
             margin-bottom: 10px;
         }
 
@@ -146,6 +168,7 @@
         }
 
         @media (max-width: 700px) {
+
             header {
                 padding: 20px;
             }
@@ -158,8 +181,8 @@
                 margin: 25px auto;
             }
 
-            .topo h2 {
-                font-size: 25px;
+            .cabecalho h2 {
+                font-size: 26px;
             }
 
             .candidatura {
@@ -176,85 +199,127 @@
         <h1>Plataforma de Estágios</h1>
 
         <nav>
-            <a href="/">Início</a>
-            <a href="/vagas/">Vagas</a>
-            <a href="/area-aluno/">Minha área</a>
-            <a href="/minhas-candidaturas/">Minhas candidaturas</a>
-            <a href="/sair/">Sair</a>
+
+            <a href="/">
+                Início
+            </a>
+
+            <a href="/vagas/">
+                Vagas
+            </a>
+
+            <a href="/area-aluno/">
+                Minha área
+            </a>
+
+            <a href="/sair/">
+                Sair
+            </a>
+
         </nav>
 
     </header>
 
+
     <main>
 
-        <div class="topo">
-            <h2>Minhas Candidaturas</h2>
-            <p>Acompanhe as vagas para as quais você se candidatou.</p>
-        </div>
+        <section class="cabecalho">
+
+            <h2>
+                Minhas candidaturas
+            </h2>
+
+            <p>
+                Acompanhe aqui todas as vagas para as quais você se candidatou.
+            </p>
+
+        </section>
+
 
         {% if candidaturas %}
 
-            {% for candidatura in candidaturas %}
+            <section class="lista">
 
-                <article class="candidatura">
+                {% for candidatura in candidaturas %}
 
-                    <h3>
-                        {{ candidatura.vaga.titulo }}
-                    </h3>
+                    <article class="candidatura">
 
-                    <p class="informacao">
-                        <strong>Empresa:</strong>
-                        {{ candidatura.vaga.empresa.nome_fantasia }}
-                    </p>
+                        <h3>
 
-                    <p class="informacao">
-                        <strong>Curso:</strong>
-                        {{ candidatura.vaga.curso.nome }}
-                    </p>
+                            <a href="/vagas/{{ candidatura.vaga.id }}/">
+                                {{ candidatura.vaga.titulo }}
+                            </a>
 
-                    <p class="informacao">
-                        <strong>Local:</strong>
-                        {{ candidatura.vaga.local }}
-                    </p>
+                        </h3>
 
-                    <p class="informacao">
-                        <strong>Status:</strong>
+
+                        <p class="informacao">
+
+                            <strong>🏢 Empresa:</strong>
+
+                            {{ candidatura.vaga.empresa.nome_fantasia }}
+
+                        </p>
+
+
+                        <p class="informacao">
+
+                            <strong>📍 Local:</strong>
+
+                            {{ candidatura.vaga.local }}
+
+                        </p>
+
+
                         <span class="status">
+
                             {{ candidatura.get_status_display }}
+
                         </span>
-                    </p>
 
-                    <p class="informacao data">
-                        <strong>Data da candidatura:</strong>
-                        {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
-                    </p>
 
-                    <a
-                        class="botao"
-                        href="/vagas/{{ candidatura.vaga.id }}/"
-                    >
-                        Ver vaga
-                    </a>
+                        <p class="data">
 
-                </article>
+                            📅 Candidatura realizada em:
 
-            {% endfor %}
+                            {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+
+                        </p>
+
+
+                        <a
+                            class="botao"
+                            href="/vagas/{{ candidatura.vaga.id }}/"
+                        >
+                            Ver detalhes da vaga
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </section>
 
         {% else %}
 
-            <div class="vazio">
+            <section class="vazio">
 
-                <h3>Nenhuma candidatura encontrada</h3>
+                <h3>
+                    Você ainda não possui candidaturas.
+                </h3>
 
                 <p>
-                    Você ainda não possui candidaturas.
+                    Encontre uma oportunidade de estágio e candidate-se!
                 </p>
 
-                <a class="botao" href="/vagas/">
+                <a
+                    class="botao"
+                    href="/vagas/"
+                >
                     Ver vagas disponíveis
                 </a>
 
-            </div>
+            </section>
 
         {% endif %}
 
