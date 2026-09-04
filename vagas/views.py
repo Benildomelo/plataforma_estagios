@@ -3,6 +3,7 @@ from .models import Vaga, Candidatura, Aluno, Empresa, Curso
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.db.models import Q
 
 
 def inicio(request):
@@ -10,16 +11,55 @@ def inicio(request):
 
 
 def lista_vagas(request):
+
     vagas = Vaga.objects.filter(
         status='APROVADA',
         ativo=True
+    ).select_related(
+        'empresa',
+        'curso'
     )
+
+    cursos = Curso.objects.filter(
+        ativo=True
+    ).order_by('nome')
+
+    busca = request.GET.get('busca', '').strip()
+    curso_id = request.GET.get('curso', '').strip()
+    local = request.GET.get('local', '').strip()
+
+    # Pesquisa por título, descrição ou empresa
+    if busca:
+        vagas = vagas.filter(
+            Q(titulo__icontains=busca) |
+            Q(descricao__icontains=busca) |
+            Q(empresa__nome_fantasia__icontains=busca)
+        )
+
+    # Filtro por curso
+    if curso_id:
+        vagas = vagas.filter(
+            curso_id=curso_id
+        )
+
+    # Filtro por local
+    if local:
+        vagas = vagas.filter(
+            local__icontains=local
+        )
 
     return render(
         request,
         'vagas/lista_vagas.html',
-        {'vagas': vagas}
+        {
+            'vagas': vagas,
+            'cursos': cursos,
+            'busca': busca,
+            'curso_id': curso_id,
+            'local': local,
+        }
     )
+
 
 def detalhe_vaga(request, vaga_id):
     vaga = Vaga.objects.get(
@@ -68,6 +108,7 @@ def candidatar(request, vaga_id):
         )
 
     return redirect('detalhe_vaga', vaga_id=vaga.id)
+
 
 def entrar(request):
     mensagem = ''
@@ -134,6 +175,7 @@ def sair(request):
     logout(request)
     return redirect('inicio')
 
+
 def area_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
@@ -145,7 +187,10 @@ def area_aluno(request):
 
     candidaturas = Candidatura.objects.filter(
         aluno=aluno
-    ).select_related('vaga', 'vaga__empresa')
+    ).select_related(
+        'vaga',
+        'vaga__empresa'
+    )
 
     return render(
         request,
@@ -155,6 +200,7 @@ def area_aluno(request):
             'candidaturas': candidaturas,
         }
     )
+
 
 def area_empresa(request):
     if not request.user.is_authenticated:
@@ -185,6 +231,7 @@ def area_empresa(request):
             'candidaturas': candidaturas,
         }
     )
+
 
 def criar_vaga(request):
     if not request.user.is_authenticated:
@@ -272,9 +319,9 @@ def criar_vaga(request):
         )
 
         messages.success(
-            request, 
+            request,
             'Vaga cadastrada com sucesso! Ela será analisada pelo administrador.'
-            )
+        )
 
         return redirect('area_empresa')
 
@@ -286,6 +333,7 @@ def criar_vaga(request):
             'cursos': cursos,
         }
     )
+
 
 def atualizar_candidatura(request, candidatura_id):
     if not request.user.is_authenticated:
