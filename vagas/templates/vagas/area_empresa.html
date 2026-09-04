@@ -157,13 +157,24 @@
             display: inline-block;
             margin-top: 8px;
             padding: 6px 12px;
-
             border-radius: 20px;
-            background: #f3f4f6;
-            color: #374151;
-
             font-size: 13px;
             font-weight: bold;
+        }
+
+        .status-pendente {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-aprovada {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-rejeitada {
+            background: #fee2e2;
+            color: #991b1b;
         }
 
         .candidatura {
@@ -188,15 +199,35 @@
         .status-candidatura {
             display: inline-block;
             margin: 10px 0 18px;
-
             padding: 7px 13px;
-
             border-radius: 20px;
-            background: #eff6ff;
-            color: #1d4ed8;
-
             font-size: 13px;
             font-weight: bold;
+        }
+
+        .status-pendente {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-em-analise {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-aprovada {
+             background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-rejeitada {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-cancelada {
+            background: #e5e7eb;
+            color: #374151;
         }
 
         .form-status {
@@ -323,6 +354,14 @@
 
     <main>
 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensagem">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         <section class="boas-vindas">
 
             <h2>
@@ -410,7 +449,9 @@
                             {{ vaga.carga_horaria }}
                         </p>
 
-                        <span class="status-vaga">
+                        <span class="status-vaga
+                        {% if vaga.status == 'PENDENTE' %} status-pendente{% elif vaga.status == 'APROVADA' %} status-aprovada{% elif vaga.status == 'REJEITADA' %} status-rejeitada{% endif %}
+                       ">
                             {{ vaga.get_status_display }}
                         </span>
 
@@ -471,7 +512,20 @@
                         </p>
 
                         <span class="status-candidatura">
+                            {% if candidatura.status == 'PENDENTE' %}
+                            status-pendente
+                            {% elif candidatura.status == 'EM_ANALISE' %}
+                            status-em-analise
+                            {% elif candidatura.status == 'APROVADA' %}
+                            status-aprovada
+                            {% elif candidatura.status == 'REJEITADA' %}
+                            status-rejeitada
+                            {% elif candidatura.status == 'CANCELADA' %}
+                            status-cancelada
+                            {% endif %}
+                        ">
                             {{ candidatura.get_status_display }}
+                        
                         </span>
 
 
