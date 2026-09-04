@@ -62,7 +62,7 @@
         }
 
         .cabecalho {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .cabecalho h2 {
@@ -74,6 +74,117 @@
         .cabecalho p {
             color: #6b7280;
         }
+
+        /* =========================
+           FILTROS
+           ========================= */
+
+        .filtros {
+            background: white;
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+
+            margin-bottom: 30px;
+        }
+
+        .filtros h3 {
+            color: #1f4e79;
+            margin-bottom: 18px;
+            font-size: 20px;
+        }
+
+        .filtros-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            background: white;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            outline: none;
+            border-color: #1f4e79;
+        }
+
+        .botao-filtro {
+            border: none;
+
+            background: #1f4e79;
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .botao-filtro:hover {
+            background: #163a5c;
+        }
+
+        .botao-limpar {
+            display: inline-block;
+
+            background: #f3f4f6;
+            color: #374151;
+
+            padding: 11px 18px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            text-align: center;
+        }
+
+        .botao-limpar:hover {
+            background: #e5e7eb;
+        }
+
+        .resultado {
+            margin-bottom: 20px;
+            color: #6b7280;
+        }
+
+        /* =========================
+           VAGAS
+           ========================= */
 
         .vagas {
             display: grid;
@@ -136,6 +247,10 @@
             background: #163a5c;
         }
 
+        /* =========================
+           NENHUMA VAGA
+           ========================= */
+
         .vazio {
             background: white;
             border-radius: 12px;
@@ -152,6 +267,21 @@
 
         .vazio p {
             color: #6b7280;
+        }
+
+        /* =========================
+           RESPONSIVIDADE
+           ========================= */
+
+        @media (max-width: 900px) {
+
+            .filtros-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filtros-form .campo:first-child {
+                grid-column: 1 / -1;
+            }
         }
 
         @media (max-width: 700px) {
@@ -172,6 +302,14 @@
                 font-size: 27px;
             }
 
+            .filtros-form {
+                grid-template-columns: 1fr;
+            }
+
+            .filtros-form .campo:first-child {
+                grid-column: auto;
+            }
+
             .vagas {
                 grid-template-columns: 1fr;
             }
@@ -183,7 +321,9 @@
 
     <header>
 
-        <h1>Plataforma de Estágios</h1>
+        <h1>
+            Plataforma de Estágios
+        </h1>
 
         <nav>
 
@@ -224,6 +364,10 @@
 
     <main>
 
+        <!-- =========================
+             CABEÇALHO
+             ========================= -->
+
         <section class="cabecalho">
 
             <h2>
@@ -237,7 +381,123 @@
         </section>
 
 
+        <!-- =========================
+             FILTROS
+             ========================= -->
+
+        <section class="filtros">
+
+            <h3>
+                🔎 Buscar vagas
+            </h3>
+
+            <form
+                method="GET"
+                action="/vagas/"
+                class="filtros-form"
+            >
+
+                <div class="campo">
+
+                    <label for="busca">
+                        Palavra-chave
+                    </label>
+
+                    <input
+                        type="text"
+                        id="busca"
+                        name="busca"
+                        placeholder="Ex.: Administração, estágio..."
+                        value="{{ busca }}"
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="curso">
+                        Curso
+                    </label>
+
+                    <select
+                        id="curso"
+                        name="curso"
+                    >
+
+                        <option value="">
+                            Todos os cursos
+                        </option>
+
+                        {% for curso in cursos %}
+
+                            <option
+                                value="{{ curso.id }}"
+                                {% if curso_id == curso.id|stringformat:"s" %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ curso.nome }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="local">
+                        Local
+                    </label>
+
+                    <input
+                        type="text"
+                        id="local"
+                        name="local"
+                        placeholder="Ex.: Teresina"
+                        value="{{ local }}"
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="botao-filtro"
+                >
+                    Pesquisar
+                </button>
+
+
+                <a
+                    href="/vagas/"
+                    class="botao-limpar"
+                >
+                    Limpar
+                </a>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             RESULTADO
+             ========================= -->
+
         {% if vagas %}
+
+            <p class="resultado">
+
+                Encontramos
+                <strong>{{ vagas|length }}</strong>
+                vaga(s) disponível(is).
+
+            </p>
+
 
             <section class="vagas">
 
@@ -249,38 +509,74 @@
                             {{ vaga.titulo }}
                         </h3>
 
+
                         <p class="informacao">
-                            <strong>🏢 Empresa:</strong>
+
+                            <strong>
+                                🏢 Empresa:
+                            </strong>
+
                             {{ vaga.empresa.nome_fantasia }}
+
                         </p>
 
+
                         <p class="informacao">
-                            <strong>🎓 Curso:</strong>
+
+                            <strong>
+                                🎓 Curso:
+                            </strong>
+
                             {{ vaga.curso.nome }}
+
                         </p>
 
+
                         <p class="informacao">
-                            <strong>📍 Local:</strong>
+
+                            <strong>
+                                📍 Local:
+                            </strong>
+
                             {{ vaga.local }}
+
                         </p>
 
+
                         <p class="informacao">
-                            <strong>💰 Bolsa:</strong>
+
+                            <strong>
+                                💰 Bolsa:
+                            </strong>
+
                             {% if vaga.bolsa %}
+
                                 R$ {{ vaga.bolsa }}
+
                             {% else %}
+
                                 Não informada
+
                             {% endif %}
+
                         </p>
 
+
                         <p class="informacao">
-                            <strong>⏰ Carga horária:</strong>
+
+                            <strong>
+                                ⏰ Carga horária:
+                            </strong>
+
                             {{ vaga.carga_horaria }}
+
                         </p>
+
 
                         <p class="descricao">
                             {{ vaga.descricao }}
                         </p>
+
 
                         <a
                             class="botao"
@@ -295,17 +591,27 @@
 
             </section>
 
+
         {% else %}
 
             <section class="vazio">
 
                 <h3>
-                    Nenhuma vaga disponível
+                    Nenhuma vaga encontrada
                 </h3>
 
                 <p>
-                    No momento não existem vagas de estágio aprovadas.
+                    Não encontramos vagas com os filtros informados.
                 </p>
+
+                <br>
+
+                <a
+                    href="/vagas/"
+                    class="botao"
+                >
+                    Ver todas as vagas
+                </a>
 
             </section>
 
