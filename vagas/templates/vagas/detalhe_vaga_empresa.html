@@ -1,0 +1,248 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    {{ vaga.titulo }} - Área da Empresa
+{% endblock %}
+
+{% block content %}
+
+<div class="area-empresa">
+
+    <!-- CABEÇALHO -->
+    <div class="area-empresa-header">
+
+        <div>
+
+            <span class="area-empresa-label">
+                Detalhes da vaga
+            </span>
+
+            <h1>
+                {{ vaga.titulo }}
+            </h1>
+
+            <p>
+                Visualização da oportunidade cadastrada pela empresa.
+            </p>
+
+        </div>
+
+        <div class="area-empresa-icone">
+            🏢
+        </div>
+
+    </div>
+
+
+    <!-- INFORMAÇÕES PRINCIPAIS -->
+    <section class="area-empresa-secao">
+
+        <div class="area-empresa-secao-header">
+
+            <div>
+                <span class="area-empresa-secao-label">
+                    Informações da oportunidade
+                </span>
+
+                <h2>
+                    Dados da vaga
+                </h2>
+            </div>
+
+            <!-- STATUS -->
+            <span class="status-vaga">
+                {{ vaga.get_status_display }}
+            </span>
+
+        </div>
+
+
+        <!-- DADOS -->
+        <div class="vaga-detalhes-grid">
+
+            <div>
+                <span class="dado-label">
+                    Curso
+                </span>
+
+                <strong>
+                    {{ vaga.curso.nome }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span class="dado-label">
+                    Local
+                </span>
+
+                <strong>
+                    {{ vaga.local }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span class="dado-label">
+                    Carga horária
+                </span>
+
+                <strong>
+                    {{ vaga.carga_horaria }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span class="dado-label">
+                    Bolsa
+                </span>
+
+                <strong>
+
+                    {% if vaga.bolsa %}
+                        R$ {{ vaga.bolsa }}
+                    {% else %}
+                        Não informada
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div>
+                <span class="dado-label">
+                    Publicação
+                </span>
+
+                <strong>
+
+                    {% if vaga.data_publicacao %}
+                        {{ vaga.data_publicacao|date:"d/m/Y H:i" }}
+                    {% else %}
+                        Ainda não publicada
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div>
+                <span class="dado-label">
+                    Encerramento
+                </span>
+
+                <strong>
+
+                    {% if vaga.data_encerramento %}
+                        {{ vaga.data_encerramento|date:"d/m/Y H:i" }}
+                    {% else %}
+                        Não encerrada
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DESCRIÇÃO -->
+    <section class="area-empresa-secao">
+
+        <div class="area-empresa-secao-header">
+
+            <div>
+
+                <span class="area-empresa-secao-label">
+                    Sobre a oportunidade
+                </span>
+
+                <h2>
+                    Descrição da vaga
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="vaga-detalhes-texto">
+
+            {{ vaga.descricao|linebreaks }}
+
+        </div>
+
+    </section>
+
+
+    <!-- REQUISITOS -->
+    <section class="area-empresa-secao">
+
+        <div class="area-empresa-secao-header">
+
+            <div>
+
+                <span class="area-empresa-secao-label">
+                    Perfil desejado
+                </span>
+
+                <h2>
+                    Requisitos
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="vaga-detalhes-texto">
+
+            {% if vaga.requisitos %}
+
+                {{ vaga.requisitos|linebreaks }}
+
+            {% else %}
+
+                <p>
+                    Nenhum requisito específico informado.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- BOTÕES -->
+    <div class="area-empresa-acoes">
+
+        <a
+            href="{% url 'area_empresa' %}"
+            class="botao-secundario"
+        >
+            ← Voltar
+        </a>
+
+
+        {% if vaga.status != 'ENCERRADA' %}
+
+            <a
+                href="{% url 'editar_vaga' vaga.id %}"
+                class="botao-principal"
+            >
+                ✏ Editar vaga
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

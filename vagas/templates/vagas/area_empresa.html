@@ -1,14 +1,24 @@
 {% extends 'vagas/base.html' %}
 
-{% block title %}Área da Empresa - Plataforma de Estágios{% endblock %}
+{% block title %}
+    Área da Empresa - Plataforma de Estágios
+{% endblock %}
 
 {% block content %}
 
 <div class="area-empresa">
 
+    <!-- =====================================================
+         CABEÇALHO DA ÁREA DA EMPRESA
+         ===================================================== -->
+
     <div class="area-empresa-header">
+
         <div>
-            <span class="area-empresa-label">Área da empresa</span>
+
+            <span class="area-empresa-label">
+                Área da empresa
+            </span>
 
             <h1>
                 Olá, {{ empresa.nome_fantasia }}! 🏢
@@ -17,97 +27,233 @@
             <p>
                 Gerencie suas vagas e acompanhe as candidaturas recebidas.
             </p>
+
         </div>
 
         <div class="area-empresa-icone">
             🏢
         </div>
+
     </div>
+
+
+    <!-- =====================================================
+         AÇÃO PRINCIPAL
+         ===================================================== -->
 
     <div class="area-empresa-acoes">
-        <a href="{% url 'criar_vaga' %}" class="botao-principal">
+
+        <a
+            href="{% url 'criar_vaga' %}"
+            class="botao-principal"
+        >
             + Cadastrar nova vaga
         </a>
+
     </div>
 
+
+    <!-- =====================================================
+         CARDS DE RESUMO
+         ===================================================== -->
 
     <div class="area-empresa-cards">
 
+
+        <!-- CARD - VAGAS -->
+
         <div class="empresa-card">
+
             <div class="empresa-card-icone">
                 📋
             </div>
 
             <div>
-                <span class="empresa-card-label">Vagas cadastradas</span>
+
+                <span class="empresa-card-label">
+                    Vagas cadastradas
+                </span>
+
                 <strong class="empresa-card-numero">
                     {{ vagas|length }}
                 </strong>
+
             </div>
+
         </div>
 
+
+        <!-- CARD - CANDIDATURAS -->
+
         <div class="empresa-card">
+
             <div class="empresa-card-icone">
                 👥
             </div>
 
             <div>
-                <span class="empresa-card-label">Candidaturas recebidas</span>
+
+                <span class="empresa-card-label">
+                    Candidaturas recebidas
+                </span>
+
                 <strong class="empresa-card-numero">
                     {{ candidaturas|length }}
                 </strong>
+
             </div>
+
         </div>
 
     </div>
 
 
+    <!-- =====================================================
+         SEÇÃO - MINHAS VAGAS
+         ===================================================== -->
+
     <section class="area-empresa-secao">
 
+
+        <!-- CABEÇALHO DA SEÇÃO -->
+
         <div class="area-empresa-secao-header">
+
             <div>
-                <span class="area-empresa-secao-label">Oportunidades</span>
-                <h2>Minhas vagas</h2>
+
+                <span class="area-empresa-secao-label">
+                    Oportunidades
+                </span>
+
+                <h2>
+                    Minhas vagas
+                </h2>
+
             </div>
 
-            <a href="{% url 'criar_vaga' %}" class="botao-secundario">
+
+            <a
+                href="{% url 'criar_vaga' %}"
+                class="botao-secundario"
+            >
                 + Nova vaga
             </a>
+
         </div>
+
+
+        <!-- =================================================
+             LISTA DE VAGAS
+             ================================================= -->
 
         {% if vagas %}
 
             <div class="lista-vagas-empresa">
 
+
                 {% for vaga in vagas %}
 
                     <div class="vaga-empresa-card">
 
+
+                        <!-- =================================
+                             INFORMAÇÕES DA VAGA
+                             ================================= -->
+
                         <div class="vaga-empresa-conteudo">
 
-                            <h3>{{ vaga.titulo }}</h3>
+                            <h3>
+                                {{ vaga.titulo }}
+                            </h3>
+
 
                             <div class="vaga-empresa-info">
 
                                 <span>
-                                    <strong>Curso:</strong>
+
+                                    <strong>
+                                        Curso:
+                                    </strong>
+
                                     {{ vaga.curso.nome }}
+
                                 </span>
 
+
                                 <span>
-                                    <strong>Local:</strong>
+
+                                    <strong>
+                                        Local:
+                                    </strong>
+
                                     {{ vaga.local }}
+
                                 </span>
 
                             </div>
 
                         </div>
 
-                        <div class="vaga-empresa-status">
+
+                        <!-- =================================
+                             AÇÕES DA VAGA
+                             ================================= -->
+
+                        <div class="vaga-empresa-acoes-card">
+
+
+                            <!-- STATUS -->
 
                             <span class="status-vaga">
+
                                 {{ vaga.get_status_display }}
+
                             </span>
+
+
+                            <!-- VER VAGA -->
+
+                            <a
+                                href="{% url 'detalhe_vaga_empresa' vaga.id %}"
+                                class="botao-vaga botao-ver"
+                            >
+                                👁 Ver
+                            </a>
+
+
+                            <!-- EDITAR VAGA -->
+
+                            <a
+                                href="{% url 'editar_vaga' vaga.id %}"
+                                class="botao-vaga botao-editar"
+                            >
+                                ✏ Editar
+                            </a>
+
+
+                            <!-- ENCERRAR VAGA -->
+
+                            {% if vaga.status != 'ENCERRADA' %}
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'encerrar_vaga' vaga.id %}"
+                                    onsubmit="return confirm('Tem certeza que deseja encerrar esta vaga?');"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="botao-vaga botao-cancelar"
+                                    >
+                                        ❌ Encerrar
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
 
                         </div>
 
@@ -115,9 +261,16 @@
 
                 {% endfor %}
 
+
             </div>
 
+
         {% else %}
+
+
+            <!-- =============================================
+                 NENHUMA VAGA
+                 ============================================= -->
 
             <div class="empresa-vazio">
 
@@ -125,96 +278,178 @@
                     📋
                 </div>
 
-                <h3>Nenhuma vaga cadastrada</h3>
+                <h3>
+                    Nenhuma vaga cadastrada
+                </h3>
 
                 <p>
                     Você ainda não cadastrou nenhuma vaga.
                     Comece criando sua primeira oportunidade de estágio.
                 </p>
 
-                <a href="{% url 'criar_vaga' %}" class="botao-principal">
+                <a
+                    href="{% url 'criar_vaga' %}"
+                    class="botao-principal"
+                >
                     Cadastrar primeira vaga
                 </a>
 
             </div>
 
+
         {% endif %}
+
 
     </section>
 
 
+    <!-- =====================================================
+         SEÇÃO - CANDIDATURAS RECEBIDAS
+         ===================================================== -->
+
     <section class="area-empresa-secao">
 
+
+        <!-- CABEÇALHO -->
+
         <div class="area-empresa-secao-header">
+
             <div>
-                <span class="area-empresa-secao-label">Processos seletivos</span>
-                <h2>Candidaturas recebidas</h2>
+
+                <span class="area-empresa-secao-label">
+                    Processos seletivos
+                </span>
+
+                <h2>
+                    Candidaturas recebidas
+                </h2>
+
             </div>
+
         </div>
+
+
+        <!-- =================================================
+             LISTA DE CANDIDATURAS
+             ================================================= -->
 
         {% if candidaturas %}
 
             <div class="lista-candidaturas-empresa">
 
+
                 {% for candidatura in candidaturas %}
 
+
                     <div class="candidatura-empresa-card">
+
+
+                        <!-- =================================
+                             CABEÇALHO DA CANDIDATURA
+                             ================================= -->
 
                         <div class="candidatura-empresa-header">
 
                             <div>
+
                                 <h3>
                                     {{ candidatura.aluno.nome }}
                                 </h3>
 
                                 <span class="candidatura-vaga">
-                                    Vaga: {{ candidatura.vaga.titulo }}
+                                    Vaga:
+                                    {{ candidatura.vaga.titulo }}
                                 </span>
+
                             </div>
 
+
                             <span class="status-candidatura">
+
                                 {{ candidatura.get_status_display }}
+
                             </span>
 
                         </div>
 
 
+                        <!-- =================================
+                             DADOS DO CANDIDATO
+                             ================================= -->
+
                         <div class="candidatura-empresa-dados">
 
+
+                            <!-- CURSO -->
+
                             <div>
-                                <span class="dado-label">Curso</span>
+
+                                <span class="dado-label">
+                                    Curso
+                                </span>
+
                                 <strong>
                                     {{ candidatura.aluno.curso.nome }}
                                 </strong>
+
                             </div>
 
+
+                            <!-- E-MAIL -->
+
                             <div>
-                                <span class="dado-label">E-mail</span>
+
+                                <span class="dado-label">
+                                    E-mail
+                                </span>
+
                                 <strong>
                                     {{ candidatura.aluno.email }}
                                 </strong>
+
                             </div>
+
+
+                            <!-- TELEFONE -->
 
                             {% if candidatura.aluno.telefone %}
 
                                 <div>
-                                    <span class="dado-label">Telefone</span>
+
+                                    <span class="dado-label">
+                                        Telefone
+                                    </span>
+
                                     <strong>
                                         {{ candidatura.aluno.telefone }}
                                     </strong>
+
                                 </div>
 
                             {% endif %}
 
+
+                            <!-- DATA DA CANDIDATURA -->
+
                             <div>
-                                <span class="dado-label">Candidatura</span>
+
+                                <span class="dado-label">
+                                    Candidatura
+                                </span>
+
                                 <strong>
                                     {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
                                 </strong>
+
                             </div>
+
 
                         </div>
 
+
+                        <!-- =================================
+                             STATUS DA CANDIDATURA
+                             ================================= -->
 
                         <div class="form-status-empresa">
 
@@ -225,60 +460,98 @@
 
                                 {% csrf_token %}
 
+
                                 <label for="status-{{ candidatura.id }}">
+
                                     Alterar status
+
                                 </label>
+
 
                                 <select
                                     name="status"
                                     id="status-{{ candidatura.id }}"
                                 >
 
+
+                                    <!-- EM ANÁLISE -->
+
                                     <option
                                         value="EM_ANALISE"
-                                        {% if candidatura.status == 'EM_ANALISE' %}selected{% endif %}
+                                        {% if candidatura.status == 'EM_ANALISE' %}
+                                            selected
+                                        {% endif %}
                                     >
                                         Em análise
                                     </option>
 
+
+                                    <!-- APROVADA -->
+
                                     <option
                                         value="APROVADA"
-                                        {% if candidatura.status == 'APROVADA' %}selected{% endif %}
+                                        {% if candidatura.status == 'APROVADA' %}
+                                            selected
+                                        {% endif %}
                                     >
                                         Aprovada
                                     </option>
 
+
+                                    <!-- REJEITADA -->
+
                                     <option
                                         value="REJEITADA"
-                                        {% if candidatura.status == 'REJEITADA' %}selected{% endif %}
+                                        {% if candidatura.status == 'REJEITADA' %}
+                                            selected
+                                        {% endif %}
                                     >
                                         Rejeitada
                                     </option>
 
+
+                                    <!-- CANCELADA -->
+
                                     <option
                                         value="CANCELADA"
-                                        {% if candidatura.status == 'CANCELADA' %}selected{% endif %}
+                                        {% if candidatura.status == 'CANCELADA' %}
+                                            selected
+                                        {% endif %}
                                     >
                                         Cancelada
                                     </option>
 
+
                                 </select>
 
+
                                 <button type="submit">
+
                                     Atualizar status
+
                                 </button>
+
 
                             </form>
 
                         </div>
 
+
                     </div>
+
 
                 {% endfor %}
 
+
             </div>
 
+
         {% else %}
+
+
+            <!-- =============================================
+                 NENHUMA CANDIDATURA
+                 ============================================= -->
 
             <div class="empresa-vazio">
 
@@ -286,7 +559,9 @@
                     👥
                 </div>
 
-                <h3>Nenhuma candidatura recebida</h3>
+                <h3>
+                    Nenhuma candidatura recebida
+                </h3>
 
                 <p>
                     Ainda não existem candidaturas para suas vagas.
@@ -294,9 +569,12 @@
 
             </div>
 
+
         {% endif %}
 
+
     </section>
+
 
 </div>
 

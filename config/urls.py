@@ -15,6 +15,9 @@ from vagas.views import (
     cadastro_aluno,
     entrar_aluno,
     entrar_empresa, 
+    detalhe_vaga_empresa,
+    editar_vaga,
+    encerrar_vaga,
 )
 
 
@@ -81,5 +84,23 @@ urlpatterns = [
     path(
         'entrar-empresa/', 
         entrar_empresa, name='entrar_empresa'
+    ),
+
+    path(
+        'empresa/vagas/<int:vaga_id>/',
+        detalhe_vaga_empresa,
+        name='detalhe_vaga_empresa'
+    ),
+
+    path(
+        'empresa/vagas/<int:vaga_id>/editar/',
+        editar_vaga,
+        name='editar_vaga'
+    ),
+
+    path(
+        'empresa/vagas/<int:vaga_id>/encerrar/',
+        encerrar_vaga,
+        name='encerrar_vaga'
     ),
 ]

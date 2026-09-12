@@ -1,0 +1,248 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Editar vaga - Plataforma de Estágios
+{% endblock %}
+
+{% block content %}
+
+<div class="area-empresa">
+
+    <!-- CABEÇALHO -->
+    <div class="area-empresa-header">
+
+        <div>
+
+            <span class="area-empresa-label">
+                Área da empresa
+            </span>
+
+            <h1>
+                Editar vaga ✏️
+            </h1>
+
+            <p>
+                Atualize as informações da oportunidade de estágio.
+            </p>
+
+        </div>
+
+        <div class="area-empresa-icone">
+            🏢
+        </div>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+    <section class="area-empresa-secao">
+
+        <div class="area-empresa-secao-header">
+
+            <div>
+
+                <span class="area-empresa-secao-label">
+                    Informações da oportunidade
+                </span>
+
+                <h2>
+                    Dados da vaga
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        {% if mensagem %}
+
+            <div class="mensagem-erro">
+                {{ mensagem }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST" class="formulario-vaga">
+
+            {% csrf_token %}
+
+
+            <!-- TÍTULO -->
+            <div class="campo-formulario">
+
+                <label for="titulo">
+                    Título da vaga *
+                </label>
+
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    value="{{ vaga.titulo }}"
+                    placeholder="Ex.: Estagiário de TI"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CURSO -->
+            <div class="campo-formulario">
+
+                <label for="curso">
+                    Curso *
+                </label>
+
+                <select
+                    id="curso"
+                    name="curso"
+                    required
+                >
+
+                    <option value="">
+                        Selecione o curso
+                    </option>
+
+                    {% for curso in cursos %}
+
+                        <option
+                            value="{{ curso.id }}"
+                            {% if vaga.curso.id == curso.id %}selected{% endif %}
+                        >
+                            {{ curso.nome }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- DESCRIÇÃO -->
+            <div class="campo-formulario">
+
+                <label for="descricao">
+                    Descrição da vaga *
+                </label>
+
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    rows="6"
+                    placeholder="Descreva as atividades que serão realizadas..."
+                    required
+                >{{ vaga.descricao }}</textarea>
+
+            </div>
+
+
+            <!-- REQUISITOS -->
+            <div class="campo-formulario">
+
+                <label for="requisitos">
+                    Requisitos
+                </label>
+
+                <textarea
+                    id="requisitos"
+                    name="requisitos"
+                    rows="5"
+                    placeholder="Informe os requisitos desejados para o candidato..."
+                >{{ vaga.requisitos }}</textarea>
+
+            </div>
+
+
+            <!-- DUAS COLUNAS -->
+            <div class="formulario-grid">
+
+
+                <!-- BOLSA -->
+                <div class="campo-formulario">
+
+                    <label for="bolsa">
+                        Bolsa (R$)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bolsa"
+                        name="bolsa"
+                        value="{{ vaga.bolsa }}"
+                        step="0.01"
+                        min="0"
+                        placeholder="Ex.: 800.00"
+                    >
+
+                </div>
+
+
+                <!-- CARGA HORÁRIA -->
+                <div class="campo-formulario">
+
+                    <label for="carga_horaria">
+                        Carga horária *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="carga_horaria"
+                        name="carga_horaria"
+                        value="{{ vaga.carga_horaria }}"
+                        placeholder="Ex.: 20 horas semanais"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCAL -->
+            <div class="campo-formulario">
+
+                <label for="local">
+                    Local do estágio *
+                </label>
+
+                <input
+                    type="text"
+                    id="local"
+                    name="local"
+                    value="{{ vaga.local }}"
+                    placeholder="Ex.: Teresina - PI"
+                    required
+                >
+
+            </div>
+
+
+            <!-- BOTÕES -->
+            <div class="area-empresa-acoes">
+
+                <a
+                    href="{% url 'detalhe_vaga_empresa' vaga.id %}"
+                    class="botao-secundario"
+                >
+                    ← Cancelar
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="botao-principal"
+                >
+                    💾 Salvar alterações
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

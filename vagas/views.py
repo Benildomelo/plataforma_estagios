@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Vaga, Candidatura, Aluno, Empresa, Curso
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 def inicio(request):
@@ -340,6 +340,273 @@ def area_empresa(request):
             'candidaturas': candidaturas,
         }
     )
+
+def detalhe_vaga_empresa(request, vaga_id):
+
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    if not Empresa.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).exists():
+        return redirect('inicio')
+
+    empresa = Empresa.objects.get(
+        usuario=request.user,
+        ativo=True
+    )
+
+    # Busca somente uma vaga pertencente à empresa logada
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id,
+        empresa=empresa
+    )
+
+    return render(
+        request,
+        'vagas/detalhe_vaga_empresa.html',
+        {
+            'empresa': empresa,
+            'vaga': vaga,
+        }
+    )
+
+def editar_vaga(request, vaga_id):
+
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    if not Empresa.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).exists():
+        return redirect('inicio')
+
+    empresa = Empresa.objects.get(
+        usuario=request.user,
+        ativo=True
+    )
+
+    # A empresa só pode editar suas próprias vagas
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id,
+        empresa=empresa
+    )
+
+    # Vaga encerrada não pode mais ser editada
+    if vaga.status == 'ENCERRADA':
+
+        messages.error(
+            request,
+            'Esta vaga já foi encerrada e não pode mais ser editada.'
+        )
+
+        return redirect('area_empresa')
+
+    cursos = Curso.objects.filter(
+        ativo=True
+    ).order_by('nome')
+
+
+    if request.method == 'POST':
+
+        titulo = request.POST.get(
+            'titulo',
+            ''
+        ).strip()
+
+        descricao = request.POST.get(
+            'descricao',
+            ''
+        ).strip()
+
+        requisitos = request.POST.get(
+            'requisitos',
+            ''
+        ).strip()
+
+        bolsa = request.POST.get(
+            'bolsa',
+            ''
+        ).strip()
+
+        carga_horaria = request.POST.get(
+            'carga_horaria',
+            ''
+        ).strip()
+
+        local = request.POST.get(
+            'local',
+            ''
+        ).strip()
+
+        curso_id = request.POST.get(
+            'curso',
+            ''
+        ).strip()
+
+
+        # ---------------------------------------------
+        # VALIDAÇÃO DOS CAMPOS OBRIGATÓRIOS
+        # ---------------------------------------------
+
+        if not titulo or not descricao or not carga_horaria or not local or not curso_id:
+
+            return render(
+                request,
+                'vagas/editar_vaga.html',
+                {
+                    'empresa': empresa,
+                    'vaga': vaga,
+                    'cursos': cursos,
+                    'mensagem': 'Preencha todos os campos obrigatórios.'
+                }
+            )
+
+
+        # ---------------------------------------------
+        # VALIDAÇÃO DO CURSO
+        # ---------------------------------------------
+
+        try:
+
+            curso = Curso.objects.get(
+                id=curso_id,
+                ativo=True
+            )
+
+        except Curso.DoesNotExist:
+
+            return render(
+                request,
+                'vagas/editar_vaga.html',
+                {
+                    'empresa': empresa,
+                    'vaga': vaga,
+                    'cursos': cursos,
+                    'mensagem': 'O curso selecionado é inválido.'
+                }
+            )
+
+
+        # ---------------------------------------------
+        # VALIDAÇÃO DA BOLSA
+        # ---------------------------------------------
+
+        if bolsa:
+
+            try:
+
+                bolsa = float(bolsa)
+
+                if bolsa < 0:
+                    raise ValueError
+
+            except ValueError:
+
+                return render(
+                    request,
+                    'vagas/editar_vaga.html',
+                    {
+                        'empresa': empresa,
+                        'vaga': vaga,
+                        'cursos': cursos,
+                        'mensagem': 'Informe um valor válido para a bolsa.'
+                    }
+                )
+
+        else:
+
+            bolsa = None
+
+
+        # ---------------------------------------------
+        # ATUALIZA OS DADOS DA VAGA
+        # ---------------------------------------------
+
+        vaga.titulo = titulo
+        vaga.descricao = descricao
+        vaga.requisitos = requisitos
+        vaga.bolsa = bolsa
+        vaga.carga_horaria = carga_horaria
+        vaga.local = local
+        vaga.curso = curso
+
+
+        # ---------------------------------------------
+        # IMPORTANTE:
+        #
+        # Depois de editar, a vaga volta para PENDENTE.
+        # O administrador deverá aprovar novamente.
+        # ---------------------------------------------
+
+        vaga.status = 'PENDENTE'
+        vaga.data_publicacao = None
+        vaga.ativo = True
+
+        vaga.save()
+
+
+        messages.success(
+            request,
+            'Vaga alterada com sucesso! Ela será analisada novamente pelo administrador.'
+        )
+
+        return redirect('area_empresa')
+
+
+    return render(
+        request,
+        'vagas/editar_vaga.html',
+        {
+            'empresa': empresa,
+            'vaga': vaga,
+            'cursos': cursos,
+        }
+    )
+
+def encerrar_vaga(request, vaga_id):
+
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    if not Empresa.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).exists():
+        return redirect('inicio')
+
+    empresa = Empresa.objects.get(
+        usuario=request.user,
+        ativo=True
+    )
+
+    # Só permite encerrar vagas da própria empresa
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id,
+        empresa=empresa
+    )
+
+
+    if request.method == 'POST':
+
+        vaga.status = 'ENCERRADA'
+        vaga.ativo = False
+        vaga.data_encerramento = timezone.now()
+
+        vaga.save()
+
+        messages.success(
+            request,
+            'A vaga foi encerrada com sucesso.'
+        )
+
+
+    return redirect('area_empresa')
 
 
 def criar_vaga(request):
