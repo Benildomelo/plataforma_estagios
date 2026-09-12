@@ -20,6 +20,7 @@ from vagas.views import (
     encerrar_vaga,
     perfil_aluno,
     perfil_empresa,
+    editar_perfil_aluno,
 )
 
 
@@ -109,6 +110,11 @@ urlpatterns = [
         'perfil-aluno/',
         perfil_aluno,
         name='perfil_aluno'
+    ),
+    path(
+        'perfil-aluno/editar/',
+        editar_perfil_aluno,
+        name='editar_perfil_aluno'
     ),
     path(
         'perfil-empresa/',

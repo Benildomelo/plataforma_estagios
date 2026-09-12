@@ -821,6 +821,91 @@ def perfil_aluno(request):
         }
     )
 
+def editar_perfil_aluno(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    aluno = Aluno.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).first()
+
+    if not aluno:
+        return redirect('inicio')
+
+    cursos = Curso.objects.filter(
+        ativo=True
+    ).order_by('nome')
+
+    mensagem = ''
+
+    if request.method == 'POST':
+
+        nome = request.POST.get('nome', '').strip()
+        email = request.POST.get('email', '').strip()
+        telefone = request.POST.get('telefone', '').strip()
+        curso_id = request.POST.get('curso', '').strip()
+
+        if not nome or not email or not curso_id:
+
+            mensagem = 'Preencha todos os campos obrigatórios.'
+
+        elif Aluno.objects.filter(
+            email=email
+        ).exclude(
+            id=aluno.id
+        ).exists():
+
+            mensagem = 'Este e-mail já está sendo usado por outro aluno.'
+
+        elif User.objects.filter(
+            email=email
+        ).exclude(
+            id=request.user.id
+        ).exists():
+
+            mensagem = 'Este e-mail já está sendo usado por outro usuário.'
+
+        else:
+
+            try:
+                curso = Curso.objects.get(
+                    id=curso_id,
+                    ativo=True
+                )
+
+            except Curso.DoesNotExist:
+
+                mensagem = 'O curso selecionado é inválido.'
+
+            else:
+
+                aluno.nome = nome
+                aluno.email = email
+                aluno.telefone = telefone
+                aluno.curso = curso
+
+                aluno.save()
+
+                request.user.email = email
+                request.user.save()
+
+                messages.success(
+                    request,
+                    'Perfil atualizado com sucesso!'
+                )
+
+                return redirect('perfil_aluno')
+
+    return render(
+        request,
+        'vagas/editar_perfil_aluno.html',
+        {
+            'aluno': aluno,
+            'cursos': cursos,
+            'mensagem': mensagem,
+        }
+    )
 
 def perfil_empresa(request):
     if not request.user.is_authenticated:

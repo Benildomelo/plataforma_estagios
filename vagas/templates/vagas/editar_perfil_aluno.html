@@ -1,0 +1,115 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Editar Perfil - Aluno
+{% endblock %}
+
+{% block content %}
+
+<div class="area-aluno-secao">
+
+    <h1>Editar meu perfil</h1>
+
+    <p>
+        Atualize seus dados pessoais.
+    </p>
+
+    {% if mensagem %}
+        <p>
+            {{ mensagem }}
+        </p>
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div>
+            <label for="nome">
+                Nome
+            </label>
+
+            <input
+                type="text"
+                id="nome"
+                name="nome"
+                value="{{ aluno.nome }}"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="email">
+                E-mail
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ aluno.email }}"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="telefone">
+                Telefone
+            </label>
+
+            <input
+                type="text"
+                id="telefone"
+                name="telefone"
+                value="{{ aluno.telefone }}"
+            >
+        </div>
+
+        <div>
+            <label for="curso">
+                Curso
+            </label>
+
+            <select
+                id="curso"
+                name="curso"
+                required
+            >
+
+                <option value="">
+                    Selecione seu curso
+                </option>
+
+                {% for curso in cursos %}
+
+                    <option
+                        value="{{ curso.id }}"
+                        {% if aluno.curso.id == curso.id %}selected{% endif %}
+                    >
+                        {{ curso.nome }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Salvar alterações
+        </button>
+
+        <a
+            href="{% url 'perfil_aluno' %}"
+            class="botao botao-secundario"
+        >
+            Cancelar
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
