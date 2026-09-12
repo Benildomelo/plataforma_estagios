@@ -1,0 +1,2397 @@
+/* =========================================================
+   PLATAFORMA DE ESTÁGIOS
+   CSS GLOBAL
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   VARIÁVEIS DO SISTEMA
+   --------------------------------------------------------- */
+
+:root {
+    --cor-primaria: #1f4e79;
+    --cor-primaria-hover: #163a5c;
+
+    --cor-fundo: #f4f6f9;
+    --cor-branco: #ffffff;
+
+    --cor-texto: #333333;
+    --cor-texto-secundario: #666666;
+
+    --cor-borda: #e1e5e9;
+
+    --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    --raio-padrao: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   RESET BÁSICO
+   --------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------------------------
+   CORPO DO SISTEMA
+   --------------------------------------------------------- */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+header {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 20px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.botao {
+    display: inline-block;
+
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    text-decoration: none;
+
+    padding: 12px 24px;
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.botao:hover {
+    background: var(--cor-primaria-hover);
+    transform: translateY(-1px);
+}
+
+.botao-secundario {
+    background: #e8eef5;
+    color: var(--cor-primaria);
+}
+
+.botao-secundario:hover {
+    background: #d8e3ee;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+footer {
+    text-align: center;
+    color: var(--cor-texto-secundario);
+
+    padding: 30px 20px;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   CABEÇALHO E MENU DE NAVEGAÇÃO
+   ========================================================= */
+
+.barra-navegacao {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+}
+
+.cabecalho nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.cabecalho nav a {
+    color: var(--cor-branco);
+
+    text-decoration: none;
+
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.cabecalho nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   LINKS DO MENU
+   ========================================================= */
+
+.barra-navegacao nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.barra-navegacao nav a {
+    color: #ffffff;
+    text-decoration: none;
+
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.barra-navegacao nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   TELA DE VAGAS
+   CABEÇALHO DA PÁGINA
+   ========================================================= */
+
+.cabecalho {
+    margin-bottom: 25px;
+}
+
+.cabecalho h2 {
+    color: var(--cor-primaria);
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.cabecalho p {
+    color: var(--cor-texto-secundario);
+}
+
+
+/* =========================================================
+   FILTROS DE VAGAS
+   ========================================================= */
+
+.filtros {
+    background: var(--cor-branco);
+    padding: 25px;
+
+    border-radius: var(--raio-padrao);
+
+    box-shadow: var(--sombra-padrao);
+
+    margin-bottom: 30px;
+}
+
+.filtros h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 18px;
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   FORMULÁRIO DOS FILTROS
+   ========================================================= */
+
+.filtros-form {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr auto auto;
+
+    gap: 12px;
+
+    align-items: end;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-weight: bold;
+
+    font-size: 14px;
+
+    color: var(--cor-texto);
+
+    margin-bottom: 6px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid var(--cor-borda);
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    background: var(--cor-branco);
+}
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+
+    border-color: var(--cor-primaria);
+}
+
+
+/* =========================================================
+   BOTÃO PESQUISAR
+   ========================================================= */
+
+.botao-filtro {
+    border: none;
+
+    background: var(--cor-primaria);
+
+    color: var(--cor-branco);
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.botao-filtro:hover {
+    background: var(--cor-primaria-hover);
+}
+
+
+/* =========================================================
+   BOTÃO LIMPAR
+   ========================================================= */
+
+.botao-limpar {
+    display: inline-block;
+
+    background: #f3f4f6;
+
+    color: var(--cor-texto);
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    text-align: center;
+
+    transition: 0.2s;
+}
+
+.botao-limpar:hover {
+    background: #e5e7eb;
+}
+
+/* =========================================================
+   LISTA DE VAGAS
+   ========================================================= */
+
+.vagas {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   CARD DA VAGA
+   ========================================================= */
+
+.vaga {
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    padding: 25px;
+
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.2s;
+}
+
+
+/* Efeito ao passar o mouse */
+
+.vaga:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   TÍTULO DA VAGA
+   ========================================================= */
+
+.vaga h3 {
+    color: var(--cor-primaria);
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA VAGA
+   ========================================================= */
+
+.informacao {
+    margin-bottom: 10px;
+}
+
+.informacao strong {
+    color: var(--cor-texto);
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
+.descricao {
+    color: var(--cor-texto-secundario);
+
+    margin: 15px 0;
+
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+
+    -webkit-line-clamp: 3;
+
+    line-clamp: 3;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BOTÃO DO CARD
+   ========================================================= */
+
+.vaga .botao {
+    display: inline-block;
+
+    background: var(--cor-primaria);
+
+    color: var(--cor-branco);
+
+    text-decoration: none;
+
+    text-align: center;
+
+    padding: 11px 20px;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    margin-top: auto;
+
+    transition: 0.2s;
+}
+
+.vaga .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+/* =========================================================
+   NENHUMA VAGA ENCONTRADA
+   ========================================================= */
+
+.vazio {
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    padding: 40px;
+
+    text-align: center;
+
+    box-shadow: var(--sombra-padrao);
+}
+
+.vazio h3 {
+    color: var(--cor-primaria);
+
+    margin-bottom: 10px;
+}
+
+.vazio p {
+    color: var(--cor-texto-secundario);
+}
+
+/* =========================================================
+   RESPONSIVIDADE DOS CARDS
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .vagas {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+/* =========================================
+   DETALHES DA VAGA
+   ========================================= */
+
+.detalhe-vaga {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+    padding: 35px;
+    box-shadow: var(--sombra-padrao);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detalhe-vaga .titulo {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--cor-primaria);
+    font-size: 32px;
+}
+
+.detalhe-vaga .empresa {
+    font-size: 18px;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 30px;
+}
+
+.informacoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.info {
+    background: #f7f9fb;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.info strong {
+    display: block;
+    color: var(--cor-primaria);
+    margin-bottom: 5px;
+}
+
+.secao {
+    margin-top: 30px;
+}
+
+.secao h3 {
+    color: var(--cor-primaria);
+    border-bottom: 2px solid var(--cor-borda);
+    padding-bottom: 8px;
+}
+
+.secao p {
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.candidatura {
+    margin-top: 35px;
+    padding: 25px;
+    background: #eef5fb;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.candidatura .botao {
+    border: none;
+    cursor: pointer;
+}
+
+.sucesso {
+    color: #176b3a;
+    font-weight: bold;
+}
+
+.aviso {
+    color: var(--cor-texto-secundario);
+    margin-bottom: 15px;
+}
+
+.voltar {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - DETALHES DA VAGA
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .detalhe-vaga {
+        padding: 25px;
+    }
+
+    .detalhe-vaga .titulo {
+        font-size: 26px;
+    }
+
+    .informacoes {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   TELA DE LOGIN
+   ========================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.login-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 27px;
+}
+
+.login-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.login-container .campo {
+    margin-bottom: 20px;
+}
+
+.login-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.login-container .campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-container .campo input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.login-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.login-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.login-container .voltar {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-container .voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - LOGIN
+   ========================================= */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        padding: 30px 22px;
+    }
+
+    .login-cabecalho h1 {
+        font-size: 24px;
+    }
+}
+
+/* =========================================
+   LOGIN DO ALUNO
+   ========================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.login-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-cabecalho .icone {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.login-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 27px;
+}
+
+.login-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.login-titulo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-titulo h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.login-titulo p {
+    margin-top: 7px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.login-container .mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.login-container .campo {
+    margin-bottom: 20px;
+}
+
+.login-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.login-container .campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-container .campo input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.login-container .esqueci {
+    display: block;
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-container .esqueci:hover {
+    text-decoration: underline;
+}
+
+.login-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.login-container .cadastro {
+    text-align: center;
+    margin-top: 22px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.login-container .cadastro a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container .cadastro a:hover {
+    text-decoration: underline;
+}
+
+.login-container .voltar {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-container .voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - LOGIN DO ALUNO
+   ========================================= */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        padding: 30px 22px;
+    }
+
+    .login-cabecalho h1 {
+        font-size: 24px;
+    }
+}
+
+/* =========================================
+   CADASTRO DO ALUNO
+   ========================================= */
+
+.cadastro-container {
+    width: 100%;
+    max-width: 700px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.cadastro-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cadastro-cabecalho .icone {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.cadastro-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.cadastro-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.cadastro-container .campo {
+    margin-bottom: 18px;
+}
+
+.cadastro-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.cadastro-container .campo input,
+.cadastro-container .campo select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    background: var(--cor-branco);
+    outline: none;
+    transition: 0.2s;
+}
+
+.cadastro-container .campo input:focus,
+.cadastro-container .campo select:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.cadastro-container .mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cadastro-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: 0.2s;
+}
+
+.cadastro-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.cadastro-container .login {
+    text-align: center;
+    margin-top: 22px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.cadastro-container .login a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cadastro-container .login a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - CADASTRO DO ALUNO
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .cadastro-container {
+        padding: 30px 22px;
+    }
+
+    .cadastro-cabecalho h1 {
+        font-size: 26px;
+    }
+}
+
+/* =========================================
+   ÁREA DO ALUNO
+   ========================================= */
+
+.area-aluno {
+    width: 100%;
+}
+
+
+/* CABEÇALHO */
+
+.area-aluno-header {
+    background: var(--cor-branco);
+    padding: 32px;
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+    margin-bottom: 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.area-aluno-label {
+    display: inline-block;
+    color: var(--cor-primaria);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.area-aluno-header h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.area-aluno-header p {
+    margin: 10px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.area-aluno-icone {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+    border-radius: 50%;
+
+    font-size: 34px;
+    flex-shrink: 0;
+}
+
+
+/* CARDS */
+
+.area-aluno-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.area-card {
+    background: var(--cor-branco);
+    padding: 25px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.area-card-icone {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+    border-radius: 10px;
+
+    font-size: 23px;
+    flex-shrink: 0;
+}
+
+.area-card h3 {
+    margin: 0 0 8px;
+    color: var(--cor-primaria);
+    font-size: 18px;
+}
+
+.area-card p {
+    margin: 8px 0;
+    color: var(--cor-texto-secundario);
+    line-height: 1.5;
+}
+
+.area-card-numero {
+    color: var(--cor-primaria);
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 8px 0;
+}
+
+
+/* SEÇÃO DE CANDIDATURAS */
+
+.area-aluno-secao {
+    background: var(--cor-branco);
+    padding: 30px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+}
+
+.area-aluno-secao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.area-aluno-secao-header h2 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 22px;
+}
+
+.area-aluno-secao-header p {
+    margin: 7px 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+
+/* CANDIDATURA */
+
+.lista-candidaturas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.candidatura-card {
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    transition: 0.2s;
+}
+
+.candidatura-card:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.candidatura-conteudo {
+    min-width: 0;
+}
+
+.candidatura-card h3 {
+    margin: 0 0 8px;
+    color: var(--cor-primaria);
+    font-size: 17px;
+}
+
+.candidatura-card .empresa {
+    margin: 0 0 14px;
+    color: var(--cor-texto-secundario);
+}
+
+.candidatura-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.candidatura-acao {
+    flex-shrink: 0;
+}
+
+
+/* ESTADO VAZIO */
+
+.candidaturas-vazio {
+    text-align: center;
+    padding: 45px 20px 25px;
+}
+
+.vazio-icone {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.candidaturas-vazio h3 {
+    margin: 0 0 8px;
+    color: var(--cor-primaria);
+}
+
+.candidaturas-vazio p {
+    color: var(--cor-texto-secundario);
+    margin: 0 auto 20px;
+    max-width: 500px;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .area-aluno-header {
+        padding: 25px;
+        align-items: flex-start;
+    }
+
+    .area-aluno-header h1 {
+        font-size: 25px;
+    }
+
+    .area-aluno-icone {
+        width: 55px;
+        height: 55px;
+        font-size: 27px;
+    }
+
+    .area-aluno-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .area-aluno-secao {
+        padding: 22px;
+    }
+
+    .area-aluno-secao-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .candidatura-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .candidatura-acao {
+        width: 100%;
+    }
+
+    .candidatura-acao .botao {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ========================================
+   ÁREA DA EMPRESA
+======================================== */
+
+.area-empresa {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.area-empresa-header {
+    background: var(--cor-branco);
+    padding: 30px;
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.area-empresa-label,
+.area-empresa-secao-label {
+    display: block;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.area-empresa-header h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.area-empresa-header p {
+    margin: 8px 0 0;
+    color: var(--cor-texto-secundario);
+}
+
+.area-empresa-icone {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef5fb;
+    border-radius: 50%;
+
+    font-size: 30px;
+}
+
+.area-empresa-acoes {
+    margin-bottom: 25px;
+}
+
+.botao-principal,
+.botao-secundario {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.botao-principal {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 12px 22px;
+    border-radius: 7px;
+}
+
+.botao-principal:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.botao-secundario {
+    color: var(--cor-primaria);
+    background: #eef5fb;
+    padding: 10px 16px;
+    border-radius: 7px;
+}
+
+.botao-secundario:hover {
+    background: #e1edf7;
+}
+
+
+/* CARDS DE RESUMO */
+
+.area-empresa-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.empresa-card {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.empresa-card-icone {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef5fb;
+    border-radius: 10px;
+
+    font-size: 23px;
+}
+
+.empresa-card-label {
+    display: block;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.empresa-card-numero {
+    display: block;
+    color: var(--cor-primaria);
+    font-size: 25px;
+}
+
+
+/* SEÇÕES */
+
+.area-empresa-secao {
+    background: var(--cor-branco);
+    padding: 30px;
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+    margin-bottom: 25px;
+}
+
+.area-empresa-secao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+}
+
+.area-empresa-secao-header h2 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 22px;
+}
+
+
+/* VAGAS */
+
+.lista-vagas-empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.vaga-empresa-card {
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.vaga-empresa-conteudo h3 {
+    margin: 0 0 12px;
+    color: var(--cor-primaria);
+}
+
+.vaga-empresa-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.status-vaga,
+.status-candidatura {
+    display: inline-block;
+
+    background: #eef5fb;
+    color: var(--cor-primaria);
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+
+/* CANDIDATURAS */
+
+.lista-candidaturas-empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.candidatura-empresa-card {
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    padding: 22px;
+}
+
+.candidatura-empresa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.candidatura-empresa-header h3 {
+    margin: 0 0 5px;
+    color: var(--cor-primaria);
+}
+
+.candidatura-vaga {
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.candidatura-empresa-dados {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+
+    padding: 18px 0;
+}
+
+.candidatura-empresa-dados > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dado-label {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.candidatura-empresa-dados strong {
+    color: var(--cor-texto);
+    font-size: 14px;
+    word-break: break-word;
+}
+
+
+/* FORMULÁRIO DE STATUS */
+
+.form-status-empresa {
+    padding-top: 16px;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.form-status-empresa form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.form-status-empresa label {
+    color: var(--cor-texto);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-status-empresa select {
+    padding: 10px 12px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+
+    font-size: 14px;
+}
+
+.form-status-empresa button {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 10px 16px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-status-empresa button:hover {
+    background: var(--cor-primaria-hover);
+}
+
+
+/* ESTADO VAZIO */
+
+.empresa-vazio {
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.empresa-vazio-icone {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.empresa-vazio h3 {
+    margin: 0 0 8px;
+    color: var(--cor-primaria);
+}
+
+.empresa-vazio p {
+    color: var(--cor-texto-secundario);
+    margin: 0 auto 20px;
+    max-width: 550px;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .area-empresa-header {
+        padding: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .area-empresa-header h1 {
+        font-size: 25px;
+    }
+
+    .area-empresa-icone {
+        display: none;
+    }
+
+    .area-empresa-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .area-empresa-secao {
+        padding: 22px;
+    }
+
+    .area-empresa-secao-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .vaga-empresa-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .candidatura-empresa-header {
+        flex-direction: column;
+    }
+
+    .candidatura-empresa-dados {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .form-status-empresa form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-status-empresa select,
+    .form-status-empresa button {
+        width: 100%;
+    }
+
+}
+
+/* ========================================
+   CRIAR VAGA
+======================================== */
+
+.criar-vaga {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.criar-vaga-cabecalho {
+    margin-bottom: 25px;
+}
+
+.criar-vaga-label {
+    display: block;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.criar-vaga-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.criar-vaga-cabecalho p {
+    margin: 8px 0 0;
+    color: var(--cor-texto-secundario);
+}
+
+.criar-vaga-card {
+    background: var(--cor-branco);
+    padding: 32px;
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+}
+
+.criar-vaga-empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 15px 18px;
+    margin-bottom: 25px;
+
+    background: #eef5fb;
+    border-radius: 8px;
+}
+
+.criar-vaga-empresa span {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.criar-vaga-empresa strong {
+    color: var(--cor-primaria);
+    font-size: 16px;
+}
+
+
+/* CAMPOS */
+
+.campo-vaga {
+    margin-bottom: 20px;
+}
+
+.campo-vaga label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--cor-texto);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.campo-vaga input,
+.campo-vaga textarea,
+.campo-vaga select {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+.campo-vaga input:focus,
+.campo-vaga textarea:focus,
+.campo-vaga select:focus {
+    outline: none;
+
+    border-color: var(--cor-primaria);
+
+    box-shadow:
+        0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.campo-vaga textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+
+/* GRID */
+
+.criar-vaga-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+
+/* AÇÕES */
+
+.criar-vaga-acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 10px;
+    padding-top: 22px;
+
+    border-top: 1px solid var(--cor-borda);
+}
+
+.botao-voltar {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.botao-voltar:hover {
+    text-decoration: underline;
+}
+
+.botao-cadastrar-vaga {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 12px 22px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.botao-cadastrar-vaga:hover {
+    background: var(--cor-primaria-hover);
+}
+
+
+/* MENSAGEM */
+
+.criar-vaga .mensagem {
+    background: #fef2f2;
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+
+    padding: 12px 15px;
+    margin-bottom: 20px;
+
+    font-weight: bold;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .criar-vaga-cabecalho h1 {
+        font-size: 26px;
+    }
+
+    .criar-vaga-card {
+        padding: 24px 20px;
+    }
+
+    .criar-vaga-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .criar-vaga-acoes {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .botao-voltar {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .botao-cadastrar-vaga {
+        width: 100%;
+    }
+
+}
+
+/* ========================================
+   MINHAS CANDIDATURAS
+======================================== */
+
+.minhas-candidaturas {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.minhas-candidaturas-header {
+    background: var(--cor-branco);
+    padding: 30px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.minhas-candidaturas-label {
+    display: block;
+
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 6px;
+}
+
+.minhas-candidaturas-header h1 {
+    margin: 0;
+
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.minhas-candidaturas-header p {
+    margin: 8px 0 0;
+
+    color: var(--cor-texto-secundario);
+}
+
+.minhas-candidaturas-icone {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef5fb;
+    border-radius: 50%;
+
+    font-size: 30px;
+}
+
+
+/* LISTA */
+
+.lista-minhas-candidaturas {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* CARD */
+
+.minha-candidatura-card {
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    padding: 25px;
+}
+
+.minha-candidatura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.minha-candidatura-label {
+    display: block;
+
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+.minha-candidatura-header h2 {
+    margin: 0;
+
+    font-size: 21px;
+}
+
+.minha-candidatura-header h2 a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+.minha-candidatura-header h2 a:hover {
+    text-decoration: underline;
+}
+
+
+/* STATUS */
+
+.status-candidatura-aluno {
+    display: inline-block;
+
+    background: #eef5fb;
+    color: var(--cor-primaria);
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* DADOS */
+
+.minha-candidatura-dados {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+    padding: 20px 0;
+}
+
+.minha-candidatura-dado {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.minha-candidatura-dado span {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.minha-candidatura-dado strong {
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+
+/* AÇÃO */
+
+.minha-candidatura-acao {
+    padding-top: 18px;
+
+    border-top: 1px solid var(--cor-borda);
+}
+
+
+/* ESTADO VAZIO */
+
+.minhas-candidaturas-vazio {
+    background: var(--cor-branco);
+
+    padding: 50px 25px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    text-align: center;
+}
+
+.minhas-candidaturas-vazio-icone {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.minhas-candidaturas-vazio h2 {
+    margin: 0 0 8px;
+
+    color: var(--cor-primaria);
+    font-size: 22px;
+}
+
+.minhas-candidaturas-vazio p {
+    color: var(--cor-texto-secundario);
+
+    margin: 0 auto 22px;
+
+    max-width: 550px;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .minhas-candidaturas-header {
+        padding: 24px;
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .minhas-candidaturas-header h1 {
+        font-size: 26px;
+    }
+
+    .minhas-candidaturas-icone {
+        display: none;
+    }
+
+    .minha-candidatura-card {
+        padding: 20px;
+    }
+
+    .minha-candidatura-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .minha-candidatura-dados {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .minha-candidatura-acao .botao-principal {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+
+/* ========================================
+   PÁGINA INICIAL
+======================================== */
+
+.inicio {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* HERO */
+
+.inicio-hero {
+    background: var(--cor-branco);
+
+    padding: 45px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 40px;
+
+    margin-bottom: 25px;
+}
+
+.inicio-hero-conteudo {
+    max-width: 750px;
+}
+
+.inicio-label {
+    display: inline-block;
+
+    color: var(--cor-primaria);
+
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.inicio-hero h1 {
+    margin: 0 0 15px;
+
+    color: var(--cor-primaria);
+
+    font-size: 34px;
+    line-height: 1.2;
+}
+
+.inicio-destaque {
+    color: var(--cor-texto);
+
+    font-size: 18px;
+    font-weight: 500;
+
+    line-height: 1.6;
+
+    margin-bottom: 12px;
+}
+
+.inicio-hero p {
+    color: var(--cor-texto-secundario);
+
+    line-height: 1.7;
+
+    margin-top: 0;
+}
+
+.inicio-acoes {
+    margin-top: 25px;
+}
+
+.inicio-hero-icone {
+    width: 120px;
+    height: 120px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef5fb;
+
+    border-radius: 50%;
+
+    font-size: 58px;
+}
+
+
+/* CARDS */
+
+.inicio-cards {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.inicio-card {
+    background: var(--cor-branco);
+
+    padding: 30px;
+
+    border-radius: var(--raio-padrao);
+    box-shadow: var(--sombra-padrao);
+
+    text-align: center;
+}
+
+.inicio-card-icone {
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef5fb;
+
+    border-radius: 50%;
+
+    font-size: 28px;
+}
+
+.inicio-card h2 {
+    margin: 0 0 10px;
+
+    color: var(--cor-primaria);
+
+    font-size: 21px;
+}
+
+.inicio-card p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    line-height: 1.6;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .inicio-hero {
+        padding: 30px 24px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .inicio-hero h1 {
+        font-size: 28px;
+    }
+
+    .inicio-destaque {
+        font-size: 16px;
+    }
+
+    .inicio-hero-icone {
+        display: none;
+    }
+
+    .inicio-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .inicio-card {
+        padding: 25px 20px;
+    }
+
+    .inicio-acoes .botao-principal {
+        width: 100%;
+        text-align: center;
+    }
+
+}

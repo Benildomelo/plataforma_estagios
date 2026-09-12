@@ -1,0 +1,296 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Vagas de Estágio
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     CABEÇALHO DA PÁGINA
+     ========================================================= -->
+
+<section class="cabecalho">
+
+    <h2>
+        Vagas de Estágio
+    </h2>
+
+    <p>
+        Encontre uma oportunidade adequada ao seu curso.
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     FILTROS
+     ========================================================= -->
+
+<section class="filtros">
+
+    <h3>
+        🔎 Buscar vagas
+    </h3>
+
+    <form
+        method="GET"
+        action="/vagas/"
+        class="filtros-form"
+    >
+
+        <!-- PALAVRA-CHAVE -->
+
+        <div class="campo">
+
+            <label for="busca">
+                Palavra-chave
+            </label>
+
+            <input
+                type="text"
+                id="busca"
+                name="busca"
+                placeholder="Ex.: Administração, estágio..."
+                value="{{ busca }}"
+            >
+
+        </div>
+
+
+        <!-- CURSO -->
+
+        <div class="campo">
+
+            <label for="curso">
+                Curso
+            </label>
+
+            <select
+                id="curso"
+                name="curso"
+            >
+
+                <option value="">
+                    Todos os cursos
+                </option>
+
+                {% for curso in cursos %}
+
+                    <option
+                        value="{{ curso.id }}"
+                        {% if curso_id == curso.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ curso.nome }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- LOCAL -->
+
+        <div class="campo">
+
+            <label for="local">
+                Local
+            </label>
+
+            <input
+                type="text"
+                id="local"
+                name="local"
+                placeholder="Ex.: Teresina"
+                value="{{ local }}"
+            >
+
+        </div>
+
+
+        <!-- BOTÃO PESQUISAR -->
+
+        <button
+            type="submit"
+            class="botao-filtro"
+        >
+            Pesquisar
+        </button>
+
+
+        <!-- BOTÃO LIMPAR -->
+
+        <a
+            href="/vagas/"
+            class="botao-limpar"
+        >
+            Limpar
+        </a>
+
+    </form>
+
+</section>
+
+
+<!-- =========================================================
+     RESULTADOS
+     ========================================================= -->
+
+{% if vagas %}
+
+    <p class="resultado">
+
+        Encontramos
+        <strong>{{ vagas|length }}</strong>
+        vaga(s) disponível(is).
+
+    </p>
+
+
+    <!-- =====================================================
+         LISTA DE VAGAS
+         ===================================================== -->
+
+    <section class="vagas">
+
+        {% for vaga in vagas %}
+
+            <article class="vaga">
+
+                <h3>
+                    {{ vaga.titulo }}
+                </h3>
+
+
+                <!-- EMPRESA -->
+
+                <p class="informacao">
+
+                    <strong>
+                        🏢 Empresa:
+                    </strong>
+
+                    {{ vaga.empresa.nome_fantasia }}
+
+                </p>
+
+
+                <!-- CURSO -->
+
+                <p class="informacao">
+
+                    <strong>
+                        🎓 Curso:
+                    </strong>
+
+                    {{ vaga.curso.nome }}
+
+                </p>
+
+
+                <!-- LOCAL -->
+
+                <p class="informacao">
+
+                    <strong>
+                        📍 Local:
+                    </strong>
+
+                    {{ vaga.local }}
+
+                </p>
+
+
+                <!-- BOLSA -->
+
+                <p class="informacao">
+
+                    <strong>
+                        💰 Bolsa:
+                    </strong>
+
+                    {% if vaga.bolsa %}
+
+                        R$ {{ vaga.bolsa }}
+
+                    {% else %}
+
+                        Não informada
+
+                    {% endif %}
+
+                </p>
+
+
+                <!-- CARGA HORÁRIA -->
+
+                <p class="informacao">
+
+                    <strong>
+                        ⏰ Carga horária:
+                    </strong>
+
+                    {{ vaga.carga_horaria }}
+
+                </p>
+
+
+                <!-- DESCRIÇÃO -->
+
+                <p class="descricao">
+                    {{ vaga.descricao }}
+                </p>
+
+
+                <!-- DETALHES -->
+
+                <a
+                    class="botao"
+                    href="/vagas/{{ vaga.id }}/"
+                >
+                    Ver detalhes
+                </a>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+
+{% else %}
+
+
+    <!-- =====================================================
+         NENHUMA VAGA ENCONTRADA
+         ===================================================== -->
+
+    <section class="vazio">
+
+        <h3>
+            Nenhuma vaga encontrada
+        </h3>
+
+        <p>
+            Não encontramos vagas com os filtros informados.
+        </p>
+
+        <br>
+
+        <a
+            href="/vagas/"
+            class="botao"
+        >
+            Ver todas as vagas
+        </a>
+
+    </section>
+
+
+{% endif %}
+
+{% endblock %}

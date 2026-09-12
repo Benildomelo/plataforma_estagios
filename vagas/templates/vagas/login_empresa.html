@@ -1,0 +1,114 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Login da Empresa - Plataforma de Estágios
+{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-cabecalho">
+
+        <div class="icone">
+            🏢
+        </div>
+
+        <h1>
+            Plataforma de Estágios
+        </h1>
+
+        <p>
+            Portal exclusivo para empresas
+        </p>
+
+    </div>
+
+    <div class="login-titulo">
+
+        <h2>
+            Entrar como Empresa
+        </h2>
+
+        <p>
+            Acesse sua conta para cadastrar vagas,
+            acompanhar candidaturas e encontrar
+            novos talentos.
+        </p>
+
+    </div>
+
+    {% if mensagem %}
+
+        <div class="mensagem">
+            {{ mensagem }}
+        </div>
+
+    {% endif %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="campo">
+
+            <label for="username">
+                Usuário
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Digite seu usuário"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label for="password">
+                Senha
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+                required
+            >
+
+        </div>
+
+        <!-- Recuperação de senha será implementada em uma etapa futura -->
+
+        <a
+            href="#"
+            class="esqueci"
+        >
+            Esqueci minha senha
+        </a>
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Entrar
+        </button>
+
+    </form>
+
+    <a
+        href="/"
+        class="voltar"
+    >
+        ← Voltar para o início
+    </a>
+
+</div>
+
+{% endblock %}

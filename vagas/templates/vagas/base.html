@@ -1,0 +1,166 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Plataforma de Estágios{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <!--
+    =====================================================
+    CABEÇALHO E MENU DE NAVEGAÇÃO
+    =====================================================
+
+    O cabeçalho e o menu ficam no template base
+    para que todas as páginas tenham o mesmo layout.
+    -->
+
+    <header>
+
+        <div class="barra-navegacao">
+
+            <h1>
+                Plataforma de Estágios
+            </h1>
+
+            <nav>
+
+                <!-- =================================================
+                     USUÁRIO ALUNO
+                     ================================================= -->
+
+                {% if user.is_authenticated and aluno %}
+
+                    <a href="{% url 'area_aluno' %}">
+                        Início
+                    </a>
+
+                    <a href="{% url 'lista_vagas' %}">
+                        Vagas
+                    </a>
+
+                    <a href="{% url 'minhas_candidaturas' %}">
+                        Candidaturas
+                    </a>
+
+
+                <!-- =================================================
+                     USUÁRIO EMPRESA
+                     ================================================= -->
+
+                {% elif user.is_authenticated and empresa %}
+
+                    <a href="{% url 'area_empresa' %}">
+                        Início
+                    </a>
+
+                    <a href="{% url 'lista_vagas' %}">
+                        Vagas
+                    </a>
+
+                
+
+
+                <!-- =================================================
+                     USUÁRIO NÃO AUTENTICADO
+                     ================================================= -->
+
+                {% else %}
+
+                    <a href="{% url 'inicio' %}">
+                        Início
+                    </a>
+
+                    <a href="{% url 'lista_vagas' %}">
+                        Vagas
+                    </a>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     ADMINISTRAÇÃO
+                     ================================================= -->
+
+                {% if user.is_authenticated and user.is_superuser %}
+
+                    <a href="/admin/">
+                        Administração
+                    </a>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     LOGIN / LOGOUT
+                     ================================================= -->
+
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'sair' %}">
+                        Sair
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'entrar_aluno' %}">
+                        Entrar como aluno
+                    </a>
+
+                    <a href="{% url 'entrar_empresa' %}">
+                        Entrar como empresa
+                    </a>
+
+                {% endif %}
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!--
+    =====================================================
+    CONTEÚDO DA PÁGINA
+    =====================================================
+
+    Cada tela que utilizar este base.html poderá
+    colocar seu conteúdo dentro deste bloco.
+    -->
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!--
+    =====================================================
+    RODAPÉ
+    ===================================================== -->
+
+    <footer>
+
+        <p>
+            Plataforma de Estágios
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
+

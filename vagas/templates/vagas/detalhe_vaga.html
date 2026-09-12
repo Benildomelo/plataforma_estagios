@@ -1,0 +1,113 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    {{ vaga.titulo }} - Plataforma de Estágios
+{% endblock %}
+
+{% block content %}
+
+<div class="detalhe-vaga">
+
+    <h1 class="titulo">
+        {{ vaga.titulo }}
+    </h1>
+
+    <div class="empresa">
+        🏢 {{ vaga.empresa.nome_fantasia }}
+    </div>
+
+    <div class="informacoes">
+
+        <div class="info">
+            <strong>Curso</strong>
+            {{ vaga.curso.nome }}
+        </div>
+
+        <div class="info">
+            <strong>Local</strong>
+            {{ vaga.local }}
+        </div>
+
+        <div class="info">
+            <strong>Carga horária</strong>
+            {{ vaga.carga_horaria }}
+        </div>
+
+        <div class="info">
+            <strong>Bolsa</strong>
+
+            {% if vaga.bolsa %}
+                R$ {{ vaga.bolsa|floatformat:2 }}
+            {% else %}
+                Não informada
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="secao">
+        <h3>Descrição da vaga</h3>
+        <p>{{ vaga.descricao }}</p>
+    </div>
+
+    <div class="secao">
+        <h3>Requisitos</h3>
+
+        {% if vaga.requisitos %}
+            <p>{{ vaga.requisitos }}</p>
+        {% else %}
+            <p>Não informado.</p>
+        {% endif %}
+    </div>
+
+    <div class="candidatura">
+
+        {% if user.is_authenticated %}
+
+            {% if candidatura_existente %}
+
+                <p class="sucesso">
+                    ✓ Você já se candidatou a esta vaga.
+                </p>
+
+                <a href="/minhas-candidaturas/" class="botao">
+                    Ver minhas candidaturas
+                </a>
+
+            {% else %}
+
+                <p class="aviso">
+                    Gostou desta oportunidade?
+                </p>
+
+                <form method="POST" action="{% url 'candidatar' vaga.id %}">
+                    {% csrf_token %}
+
+                    <button type="submit" class="botao">
+                        Candidatar-se à vaga
+                    </button>
+                </form>
+
+            {% endif %}
+
+        {% else %}
+
+            <p class="aviso">
+                Faça login para se candidatar a esta vaga.
+            </p>
+
+            <a href="/entrar/" class="botao">
+                Entrar para se candidatar
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    <a href="/vagas/" class="voltar">
+        ← Voltar para as vagas
+    </a>
+
+</div>
+
+{% endblock %}

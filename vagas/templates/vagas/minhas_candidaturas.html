@@ -1,0 +1,152 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}Minhas Candidaturas - Plataforma de Estágios{% endblock %}
+
+{% block content %}
+
+<div class="minhas-candidaturas">
+
+    <div class="minhas-candidaturas-header">
+
+        <div>
+            <span class="minhas-candidaturas-label">
+                Área do aluno
+            </span>
+
+            <h1>
+                Minhas candidaturas
+            </h1>
+
+            <p>
+                Acompanhe aqui todas as vagas para as quais você se candidatou.
+            </p>
+        </div>
+
+        <div class="minhas-candidaturas-icone">
+            📋
+        </div>
+
+    </div>
+
+
+    {% if candidaturas %}
+
+        <div class="lista-minhas-candidaturas">
+
+            {% for candidatura in candidaturas %}
+
+                <article class="minha-candidatura-card">
+
+                    <div class="minha-candidatura-header">
+
+                        <div>
+
+                            <span class="minha-candidatura-label">
+                                Oportunidade
+                            </span>
+
+                            <h2>
+                                <a href="/vagas/{{ candidatura.vaga.id }}/">
+                                    {{ candidatura.vaga.titulo }}
+                                </a>
+                            </h2>
+
+                        </div>
+
+                        <span class="status-candidatura-aluno">
+                            {{ candidatura.get_status_display }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="minha-candidatura-dados">
+
+                        <div class="minha-candidatura-dado">
+
+                            <span>
+                                Empresa
+                            </span>
+
+                            <strong>
+                                🏢 {{ candidatura.vaga.empresa.nome_fantasia }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="minha-candidatura-dado">
+
+                            <span>
+                                Local
+                            </span>
+
+                            <strong>
+                                📍 {{ candidatura.vaga.local }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="minha-candidatura-dado">
+
+                            <span>
+                                Candidatura realizada
+                            </span>
+
+                            <strong>
+                                📅 {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="minha-candidatura-acao">
+
+                        <a
+                            href="/vagas/{{ candidatura.vaga.id }}/"
+                            class="botao-principal"
+                        >
+                            Ver detalhes da vaga
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <section class="minhas-candidaturas-vazio">
+
+            <div class="minhas-candidaturas-vazio-icone">
+                📋
+            </div>
+
+            <h2>
+                Você ainda não possui candidaturas.
+            </h2>
+
+            <p>
+                Encontre uma oportunidade de estágio e candidate-se!
+            </p>
+
+            <a
+                href="/vagas/"
+                class="botao-principal"
+            >
+                Ver vagas disponíveis
+            </a>
+
+        </section>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

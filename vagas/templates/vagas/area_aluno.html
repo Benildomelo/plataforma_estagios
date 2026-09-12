@@ -1,0 +1,203 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Minha Área - Plataforma de Estágios
+{% endblock %}
+
+{% block content %}
+
+<div class="area-aluno">
+
+    <!-- CABEÇALHO DA ÁREA -->
+
+    <div class="area-aluno-header">
+
+        <div>
+            <span class="area-aluno-label">
+                Área do aluno
+            </span>
+
+            <h1>
+                Olá, {{ aluno.nome }}! 👋
+            </h1>
+
+            <p>
+                Acompanhe suas candidaturas e encontre novas
+                oportunidades de estágio.
+            </p>
+        </div>
+
+        <div class="area-aluno-icone">
+            🎓
+        </div>
+
+    </div>
+
+
+    <!-- RESUMO -->
+
+    <div class="area-aluno-cards">
+
+        <div class="area-card">
+
+            <div class="area-card-icone">
+                📄
+            </div>
+
+            <div>
+                <h3>
+                    Minhas candidaturas
+                </h3>
+
+                <div class="area-card-numero">
+                    {{ candidaturas|length }}
+                </div>
+
+                <p>
+                    candidatura(s) realizada(s)
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="area-card">
+
+            <div class="area-card-icone">
+                🔎
+            </div>
+
+            <div>
+                <h3>
+                    Encontrar estágio
+                </h3>
+
+                <p>
+                    Consulte as vagas disponíveis e encontre
+                    uma oportunidade que combine com seu curso.
+                </p>
+
+                <a
+                    href="/vagas/"
+                    class="botao"
+                >
+                    Ver vagas
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CANDIDATURAS -->
+
+    <div class="area-aluno-secao">
+
+        <div class="area-aluno-secao-header">
+
+            <div>
+                <h2>
+                    Minhas candidaturas
+                </h2>
+
+                <p>
+                    Acompanhe as oportunidades para as quais você se candidatou.
+                </p>
+            </div>
+
+            <a
+                href="/minhas-candidaturas/"
+                class="botao botao-secundario"
+            >
+                Ver todas
+            </a>
+
+        </div>
+
+
+        {% if candidaturas %}
+
+            <div class="lista-candidaturas">
+
+                {% for candidatura in candidaturas|slice:":5" %}
+
+                    <div class="candidatura-card">
+
+                        <div class="candidatura-conteudo">
+
+                            <h3>
+                                {{ candidatura.vaga.titulo }}
+                            </h3>
+
+                            <p class="empresa">
+                                🏢
+                                {{ candidatura.vaga.empresa.nome_fantasia }}
+                            </p>
+
+                            <div class="candidatura-info">
+
+                                <span>
+                                    <strong>Data:</strong>
+                                    {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                                </span>
+
+                                <span>
+                                    <strong>Status:</strong>
+                                    {{ candidatura.get_status_display }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="candidatura-acao">
+
+                            <a
+                                href="/vagas/{{ candidatura.vaga.id }}/"
+                                class="botao"
+                            >
+                                Ver vaga
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="candidaturas-vazio">
+
+                <div class="vazio-icone">
+                    📋
+                </div>
+
+                <h3>
+                    Você ainda não possui candidaturas
+                </h3>
+
+                <p>
+                    Encontre uma oportunidade de estágio e
+                    faça sua primeira candidatura.
+                </p>
+
+                <a
+                    href="/vagas/"
+                    class="botao"
+                >
+                    Ver vagas disponíveis
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
