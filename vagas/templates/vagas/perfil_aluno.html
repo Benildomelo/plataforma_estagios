@@ -14,4 +14,12 @@
 <p>Telefone: {{ aluno.telefone }}</p>
 <p>Curso: {{ aluno.curso.nome }}</p>
 
+<a
+    href="{% url 'curriculo_aluno' %}"
+    class="botao"
+>
+    📄 Meu currículo
+</a>
+
 {% endblock %}
+

@@ -821,6 +821,45 @@ def perfil_aluno(request):
         }
     )
 
+def curriculo_aluno(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    aluno = Aluno.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).first()
+
+    if not aluno:
+        return redirect('inicio')
+
+    if request.method == 'POST':
+        curriculo = request.FILES.get('curriculo')
+
+        if not curriculo:
+            messages.error(
+                request,
+                'Selecione um arquivo.'
+            )
+        else:
+            aluno.curriculo = curriculo
+            aluno.save()
+
+            messages.success(
+                request,
+                'Currículo enviado com sucesso!'
+            )
+
+            return redirect('perfil_aluno')
+
+    return render(
+        request,
+        'vagas/curriculo_aluno.html',
+        {
+            'aluno': aluno,
+        }
+    )
+
 def editar_perfil_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
