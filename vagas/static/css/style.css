@@ -1506,6 +1506,9 @@ footer {
     gap: 14px;
 }
 
+
+/* CARD DA VAGA */
+
 .vaga-empresa-card {
     border: 1px solid var(--cor-borda);
     border-radius: 10px;
@@ -1517,19 +1520,72 @@ footer {
     gap: 20px;
 }
 
+/* EFEITO AO PASSAR O MOUSE NO CARD */
+
+.vaga-empresa-card {
+    transition: 0.2s ease;
+}
+
+.vaga-empresa-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+    border-color: #cbd9e6;
+}
+
+/* DESTAQUE LATERAL DO CARD */
+
+.vaga-empresa-card {
+    border-left: 4px solid var(--cor-primaria);
+}
+
+/* CONTEÚDO DA VAGA */
+
+.vaga-empresa-conteudo {
+    flex: 1;
+    min-width: 0;
+}
+
 .vaga-empresa-conteudo h3 {
     margin: 0 0 12px;
     color: var(--cor-primaria);
+
+    font-size: 19px;
+    font-weight: 700;
 }
 
 .vaga-empresa-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 12px 20px;
 
     color: var(--cor-texto-secundario);
     font-size: 14px;
+    line-height: 1.5;
 }
+
+
+/* AÇÕES DA VAGA */
+
+.vaga-empresa-acoes-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+/* REMOVE ESPAÇO PADRÃO DO FORMULÁRIO */
+
+.vaga-empresa-acoes-card form {
+    margin: 0;
+}
+
+
+/* STATUS */
 
 .status-vaga,
 .status-candidatura {
@@ -1544,6 +1600,127 @@ footer {
     font-size: 13px;
     font-weight: bold;
     white-space: nowrap;
+}
+
+
+
+/* ÁREA DOS BOTÕES DA VAGA */
+
+.vaga-empresa-acoes-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.vaga-empresa-acoes-card form {
+    margin: 0;
+}
+
+
+/* STATUS */
+
+.status-vaga,
+.status-candidatura {
+    display: inline-block;
+
+    background: #eef5fb;
+    color: var(--cor-primaria);
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.status-vaga.aprovada {
+    background: #e8f7ee;
+    color: #198754;
+}
+
+.status-vaga.encerrada {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+.status-vaga.pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-vaga.rejeitada {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+/* ========================================
+   AÇÕES DAS VAGAS DA EMPRESA
+======================================== */
+
+/* LINKS VER E EDITAR */
+
+.vaga-empresa-acoes-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 12px;
+
+    border-radius: 7px;
+
+    color: var(--cor-primaria);
+    background: #eef5fb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+
+/* EFEITO AO PASSAR O MOUSE */
+
+.vaga-empresa-acoes-card a:hover {
+    background: #dbeaf6;
+
+    transform: translateY(-1px);
+}
+
+
+/* BOTÃO ENCERRAR */
+
+.vaga-empresa-acoes-card button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #dc3545;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* EFEITO DO BOTÃO ENCERRAR */
+
+.vaga-empresa-acoes-card button:hover {
+    background: #b02a37;
+
+    transform: translateY(-1px);
 }
 
 

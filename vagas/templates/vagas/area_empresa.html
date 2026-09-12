@@ -202,13 +202,35 @@
                         <div class="vaga-empresa-acoes-card">
 
 
+                            
+
                             <!-- STATUS -->
+                                    {% if vaga.status == 'APROVADA' %}
 
-                            <span class="status-vaga">
+                                        <span class="status-vaga aprovada">
+                                            {{ vaga.get_status_display }}
+                                        </span>
 
-                                {{ vaga.get_status_display }}
+                                    {% elif vaga.status == 'ENCERRADA' %}
 
-                            </span>
+                                        <span class="status-vaga encerrada">
+                                            {{ vaga.get_status_display }}
+                                        </span>
+
+                                    {% elif vaga.status == 'PENDENTE' %}
+
+                                        <span class="status-vaga pendente">
+                                            {{ vaga.get_status_display }}
+                                        </span>
+
+                                    {% elif vaga.status == 'REJEITADA' %}
+
+                                        <span class="status-vaga rejeitada">
+                                            {{ vaga.get_status_display }}
+                                        </span>
+
+                                    {% endif %}
+                                
 
 
                             <!-- VER VAGA -->
