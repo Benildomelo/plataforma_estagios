@@ -59,7 +59,6 @@
 
     <div class="area-empresa-cards">
 
-
         <!-- CARD - VAGAS -->
 
         <div class="empresa-card">
@@ -114,7 +113,6 @@
 
     <section class="area-empresa-secao">
 
-
         <!-- CABEÇALHO DA SEÇÃO -->
 
         <div class="area-empresa-secao-header">
@@ -130,7 +128,6 @@
                 </h2>
 
             </div>
-
 
             <a
                 href="{% url 'criar_vaga' %}"
@@ -150,11 +147,9 @@
 
             <div class="lista-vagas-empresa">
 
-
                 {% for vaga in vagas %}
 
                     <div class="vaga-empresa-card">
-
 
                         <!-- =================================
                              INFORMAÇÕES DA VAGA
@@ -166,28 +161,22 @@
                                 {{ vaga.titulo }}
                             </h3>
 
-
                             <div class="vaga-empresa-info">
 
                                 <span>
-
                                     <strong>
                                         Curso:
                                     </strong>
 
                                     {{ vaga.curso.nome }}
-
                                 </span>
 
-
                                 <span>
-
                                     <strong>
                                         Local:
                                     </strong>
 
                                     {{ vaga.local }}
-
                                 </span>
 
                             </div>
@@ -201,36 +190,33 @@
 
                         <div class="vaga-empresa-acoes-card">
 
-
-                            
-
                             <!-- STATUS -->
-                                    {% if vaga.status == 'APROVADA' %}
 
-                                        <span class="status-vaga aprovada">
-                                            {{ vaga.get_status_display }}
-                                        </span>
+                            {% if vaga.status == 'APROVADA' %}
 
-                                    {% elif vaga.status == 'ENCERRADA' %}
+                                <span class="status-vaga aprovada">
+                                    {{ vaga.get_status_display }}
+                                </span>
 
-                                        <span class="status-vaga encerrada">
-                                            {{ vaga.get_status_display }}
-                                        </span>
+                            {% elif vaga.status == 'ENCERRADA' %}
 
-                                    {% elif vaga.status == 'PENDENTE' %}
+                                <span class="status-vaga encerrada">
+                                    {{ vaga.get_status_display }}
+                                </span>
 
-                                        <span class="status-vaga pendente">
-                                            {{ vaga.get_status_display }}
-                                        </span>
+                            {% elif vaga.status == 'PENDENTE' %}
 
-                                    {% elif vaga.status == 'REJEITADA' %}
+                                <span class="status-vaga pendente">
+                                    {{ vaga.get_status_display }}
+                                </span>
 
-                                        <span class="status-vaga rejeitada">
-                                            {{ vaga.get_status_display }}
-                                        </span>
+                            {% elif vaga.status == 'REJEITADA' %}
 
-                                    {% endif %}
-                                
+                                <span class="status-vaga rejeitada">
+                                    {{ vaga.get_status_display }}
+                                </span>
+
+                            {% endif %}
 
 
                             <!-- VER VAGA -->
@@ -276,19 +262,15 @@
 
                             {% endif %}
 
-
                         </div>
 
                     </div>
 
                 {% endfor %}
 
-
             </div>
 
-
         {% else %}
-
 
             <!-- =============================================
                  NENHUMA VAGA
@@ -318,9 +300,7 @@
 
             </div>
 
-
         {% endif %}
-
 
     </section>
 
@@ -330,7 +310,6 @@
          ===================================================== -->
 
     <section class="area-empresa-secao">
-
 
         <!-- CABEÇALHO -->
 
@@ -359,12 +338,9 @@
 
             <div class="lista-candidaturas-empresa">
 
-
                 {% for candidatura in candidaturas %}
 
-
                     <div class="candidatura-empresa-card">
-
 
                         <!-- =================================
                              CABEÇALHO DA CANDIDATURA
@@ -386,6 +362,8 @@
                             </div>
 
 
+                            <!-- STATUS ATUAL -->
+
                             <span class="status-candidatura">
 
                                 {{ candidatura.get_status_display }}
@@ -400,7 +378,6 @@
                              ================================= -->
 
                         <div class="candidatura-empresa-dados">
-
 
                             <!-- CURSO -->
 
@@ -465,15 +442,14 @@
 
                             </div>
 
-
                         </div>
 
 
                         <!-- =================================
-                             STATUS DA CANDIDATURA
+                             ALTERAR STATUS
                              ================================= -->
 
-                        <div class="form-status-empresa">
+                        <div class="candidatura-empresa-status">
 
                             <form
                                 method="POST"
@@ -482,94 +458,54 @@
 
                                 {% csrf_token %}
 
-
-                                <label for="status-{{ candidatura.id }}">
-
-                                    Alterar status
-
-                                </label>
-
-
-                                <select
-                                    name="status"
-                                    id="status-{{ candidatura.id }}"
-                                >
-
-
-                                    <!-- EM ANÁLISE -->
+                                <select name="status">
 
                                     <option
                                         value="EM_ANALISE"
-                                        {% if candidatura.status == 'EM_ANALISE' %}
-                                            selected
-                                        {% endif %}
+                                        {% if candidatura.status == 'EM_ANALISE' %}selected{% endif %}
                                     >
                                         Em análise
                                     </option>
 
-
-                                    <!-- APROVADA -->
-
                                     <option
                                         value="APROVADA"
-                                        {% if candidatura.status == 'APROVADA' %}
-                                            selected
-                                        {% endif %}
+                                        {% if candidatura.status == 'APROVADA' %}selected{% endif %}
                                     >
                                         Aprovada
                                     </option>
 
-
-                                    <!-- REJEITADA -->
-
                                     <option
                                         value="REJEITADA"
-                                        {% if candidatura.status == 'REJEITADA' %}
-                                            selected
-                                        {% endif %}
+                                        {% if candidatura.status == 'REJEITADA' %}selected{% endif %}
                                     >
                                         Rejeitada
                                     </option>
 
-
-                                    <!-- CANCELADA -->
-
                                     <option
                                         value="CANCELADA"
-                                        {% if candidatura.status == 'CANCELADA' %}
-                                            selected
-                                        {% endif %}
+                                        {% if candidatura.status == 'CANCELADA' %}selected{% endif %}
                                     >
                                         Cancelada
                                     </option>
-
 
                                 </select>
 
 
                                 <button type="submit">
-
                                     Atualizar status
-
                                 </button>
-
 
                             </form>
 
                         </div>
 
-
                     </div>
-
 
                 {% endfor %}
 
-
             </div>
 
-
         {% else %}
-
 
             <!-- =============================================
                  NENHUMA CANDIDATURA
@@ -591,12 +527,9 @@
 
             </div>
 
-
         {% endif %}
 
-
     </section>
-
 
 </div>
 

@@ -2731,3 +2731,28 @@ footer {
     background: #b02a37;
     transform: translateY(-1px);
 }
+
+.status-candidatura.pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-candidatura.em-analise {
+    background: #e7f1ff;
+    color: #1f4e79;
+}
+
+.status-candidatura.aprovada {
+    background: #e8f7ee;
+    color: #198754;
+}
+
+.status-candidatura.rejeitada {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+.status-candidatura.cancelada {
+    background: #eeeeee;
+    color: #666666;
+}
