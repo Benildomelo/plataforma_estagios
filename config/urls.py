@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from vagas.views import (
     inicio,
     lista_vagas,
@@ -21,6 +23,7 @@ from vagas.views import (
     perfil_aluno,
     perfil_empresa,
     editar_perfil_aluno,
+    curriculo_aluno,
 )
 
 
@@ -121,4 +124,14 @@ urlpatterns = [
         perfil_empresa,
         name='perfil_empresa'
     ),
+    path(
+        'curriculo-aluno/',
+        curriculo_aluno,
+        name='curriculo_aluno'
+    ),
 ]
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

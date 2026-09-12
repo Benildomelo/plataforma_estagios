@@ -1,0 +1,87 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Meu Currículo
+{% endblock %}
+
+{% block content %}
+
+<div class="area-aluno-secao">
+
+    <h1>Meu currículo</h1>
+
+    <p>
+        Envie seu currículo para utilizar nas suas candidaturas.
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    {% if aluno.curriculo %}
+        <p>
+            Currículo atual:
+            <strong>{{ aluno.curriculo.name }}</strong>
+        </p>
+
+        <p>
+            <a
+                href="{{ aluno.curriculo.url }}"
+                target="_blank"
+            >
+                Visualizar currículo
+            </a>
+        </p>
+    {% else %}
+        <p>
+            Você ainda não possui um currículo enviado.
+        </p>
+    {% endif %}
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+        <div>
+            <label for="curriculo">
+                Selecionar currículo
+            </label>
+
+            <input
+                type="file"
+                id="curriculo"
+                name="curriculo"
+                required
+            >
+        </div>
+
+        <br>
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Enviar currículo
+        </button>
+
+    </form>
+
+    <br>
+
+    <a
+        href="{% url 'perfil_aluno' %}"
+        class="botao botao-secundario"
+    >
+        Voltar para o perfil
+    </a>
+
+</div>
+
+{% endblock %}
