@@ -800,3 +800,44 @@ def cadastro_aluno(request):
             'mensagem': mensagem,
         }
     )
+
+def perfil_aluno(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    aluno = Aluno.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).first()
+
+    if not aluno:
+        return redirect('inicio')
+
+    return render(
+        request,
+        'vagas/perfil_aluno.html',
+        {
+            'aluno': aluno,
+        }
+    )
+
+
+def perfil_empresa(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar')
+
+    empresa = Empresa.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).first()
+
+    if not empresa:
+        return redirect('inicio')
+
+    return render(
+        request,
+        'vagas/perfil_empresa.html',
+        {
+            'empresa': empresa,
+        }
+    )

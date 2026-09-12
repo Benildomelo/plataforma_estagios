@@ -1,0 +1,18 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Meu Perfil - Empresa
+{% endblock %}
+
+{% block content %}
+
+<h1>Meu Perfil</h1>
+
+<p>Razão social: {{ empresa.razao_social }}</p>
+<p>Nome fantasia: {{ empresa.nome_fantasia }}</p>
+<p>CNPJ: {{ empresa.cnpj }}</p>
+<p>E-mail: {{ empresa.email }}</p>
+<p>Telefone: {{ empresa.telefone }}</p>
+<p>Endereço: {{ empresa.endereco }}</p>
+
+{% endblock %}

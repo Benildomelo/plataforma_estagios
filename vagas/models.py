@@ -23,6 +23,7 @@ class Aluno(models.Model):
     matricula = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     telefone = models.CharField(max_length=20, blank=True)
+    curriculo = models.FileField(upload_to='curriculos/', blank=True, null=True)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
     ativo = models.BooleanField(default=True)
 

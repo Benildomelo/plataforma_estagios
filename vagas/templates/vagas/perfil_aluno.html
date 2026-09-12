@@ -1,0 +1,17 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Meu Perfil - Aluno
+{% endblock %}
+
+{% block content %}
+
+<h1>Meu Perfil</h1>
+
+<p>Nome: {{ aluno.nome }}</p>
+<p>Matrícula: {{ aluno.matricula }}</p>
+<p>E-mail: {{ aluno.email }}</p>
+<p>Telefone: {{ aluno.telefone }}</p>
+<p>Curso: {{ aluno.curso.nome }}</p>
+
+{% endblock %}
