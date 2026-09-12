@@ -239,6 +239,21 @@
                 ✏ Editar vaga
             </a>
 
+            <form
+                method="POST"
+                action="{% url 'encerrar_vaga' vaga.id %}"
+                style="display: inline;"
+                onsubmit="return confirm('Tem certeza que deseja encerrar esta vaga? Esta ação não pode ser desfeita.');"
+            >
+                {% csrf_token %}
+
+                <button 
+                    type="submit" class="botao-perigo"
+                >
+                    ⛔ Encerrar vaga
+                </button>
+            </form>
+
         {% endif %}
 
     </div>

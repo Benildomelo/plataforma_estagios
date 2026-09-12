@@ -2522,3 +2522,35 @@ footer {
     }
 
 }
+
+/* =========================================================
+   BOTÃO DE PERIGO - ENCERRAR VAGA
+   ========================================================= */
+
+.botao-perigo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #dc3545;
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.botao-perigo:hover {
+    background: #b02a37;
+    transform: translateY(-1px);
+}
