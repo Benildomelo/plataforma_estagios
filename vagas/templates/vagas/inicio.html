@@ -8,6 +8,10 @@
 
 <div class="inicio">
 
+    <!-- =========================================
+         SEÇÃO PRINCIPAL
+    ========================================== -->
+
     <section class="inicio-hero">
 
         <div class="inicio-hero-conteudo">
@@ -51,9 +55,18 @@
     </section>
 
 
+    <!-- =========================================
+         CARDS DE ACESSO
+    ========================================== -->
+
     <section class="inicio-cards">
 
-        <div class="inicio-card">
+
+        <!-- =====================================
+             CARD DO ALUNO
+        ====================================== -->
+
+        <div class="inicio-card inicio-card-aluno">
 
             <div class="inicio-card-icone">
                 🎓
@@ -68,10 +81,24 @@
                 e dê o próximo passo na sua carreira.
             </p>
 
+            <!-- BOTÃO DE LOGIN DO ALUNO -->
+
+            <a
+                class="botao-login botao-login-aluno"
+                href="/entrar-aluno/"
+            >
+                🔐 Login Aluno
+                <span>→</span>
+            </a>
+
         </div>
 
 
-        <div class="inicio-card">
+        <!-- =====================================
+             CARD DA EMPRESA
+        ====================================== -->
+
+        <div class="inicio-card inicio-card-empresa">
 
             <div class="inicio-card-icone">
                 🏢
@@ -86,11 +113,21 @@
                 interessados em fazer parte da sua equipe.
             </p>
 
+            <!-- BOTÃO DE LOGIN DA EMPRESA -->
+
+            <a
+                class="botao-login botao-login-empresa"
+                href="/entrar-empresa/"
+            >
+                🔐 Login Empresa
+                <span>→</span>
+            </a>
+
         </div>
+
 
     </section>
 
 </div>
 
 {% endblock %}
-

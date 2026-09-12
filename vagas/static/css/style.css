@@ -2395,3 +2395,130 @@ footer {
     }
 
 }
+
+
+/* =========================================================
+   BOTÕES DE LOGIN - PÁGINA INICIAL
+   ========================================================= */
+
+.inicio-card {
+    display: flex;
+    flex-direction: column;
+    transition: 0.25s ease;
+}
+
+
+/* Efeito ao passar o mouse no card */
+
+.inicio-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Mantém os textos dos dois cards alinhados */
+
+.inicio-card p {
+    flex: 1;
+}
+
+
+/* ---------------------------------------------------------
+   BOTÃO DE LOGIN
+   --------------------------------------------------------- */
+
+.botao-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 22px;
+    padding: 13px 20px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    color: #ffffff;
+
+    transition: all 0.25s ease;
+
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN DO ALUNO
+   --------------------------------------------------------- */
+
+.botao-login-aluno {
+    background: #1f4e79;
+
+    box-shadow: 0 4px 10px rgba(31, 78, 121, 0.20);
+}
+
+.botao-login-aluno:hover {
+    background: #163a5c;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 7px 16px rgba(31, 78, 121, 0.28);
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN DA EMPRESA
+   --------------------------------------------------------- */
+
+.botao-login-empresa {
+    background: #198754;
+
+    box-shadow: 0 4px 10px rgba(25, 135, 84, 0.20);
+}
+
+.botao-login-empresa:hover {
+    background: #146c43;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 7px 16px rgba(25, 135, 84, 0.28);
+}
+
+
+/* ---------------------------------------------------------
+   SETA DOS BOTÕES
+   --------------------------------------------------------- */
+
+.botao-login span {
+    font-size: 19px;
+
+    transition: transform 0.2s ease;
+}
+
+.botao-login:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .botao-login {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+
+}
