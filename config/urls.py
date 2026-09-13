@@ -24,6 +24,7 @@ from vagas.views import (
     perfil_empresa,
     editar_perfil_aluno,
     curriculo_aluno,
+    trocar_senha_empresa,
 )
 
 
@@ -129,6 +130,11 @@ urlpatterns = [
         curriculo_aluno,
         name='curriculo_aluno'
     ),
+    path(
+    'empresa/trocar-senha/',
+    trocar_senha_empresa,
+    name='trocar_senha_empresa'
+),
 ]
 
 urlpatterns += static(

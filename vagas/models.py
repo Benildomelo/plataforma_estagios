@@ -49,6 +49,7 @@ class Empresa(models.Model):
     telefone = models.CharField(max_length=20, blank=True)
     endereco = models.CharField(max_length=250, blank=True)
     ativo = models.BooleanField(default=True)
+    senha_provisoria = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome_fantasia    

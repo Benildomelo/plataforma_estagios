@@ -1,0 +1,82 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Alterar senha - Plataforma de Estágios
+{% endblock %}
+
+{% block content %}
+
+<div class="area-aluno">
+
+    <div class="area-aluno-header">
+        <div>
+            <span class="area-aluno-label">
+                Segurança da conta
+            </span>
+
+            <h1>
+                Altere sua senha 🔐
+            </h1>
+
+            <p>
+                Por segurança, você precisa criar uma nova senha
+                antes de continuar.
+            </p>
+        </div>
+
+        <div class="area-aluno-icone">
+            🔐
+        </div>
+    </div>
+
+    <div class="area-aluno-secao">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% if mensagem %}
+                <div>
+                    {{ mensagem }}
+                </div>
+            {% endif %}
+
+            <div>
+                <label for="nova_senha">
+                    Nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="nova_senha"
+                    name="nova_senha"
+                    required
+                    minlength="8"
+                >
+            </div>
+
+            <div>
+                <label for="confirmar_senha">
+                    Confirmar nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    required
+                    minlength="8"
+                >
+            </div>
+
+            <button type="submit" class="botao">
+                Alterar senha
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth import update_session_auth_hash
 
 
 def inicio(request):
@@ -239,6 +240,12 @@ def entrar_empresa(request):
 
                 login(request, usuario)
 
+                empresa = Empresa.objects.get(
+                    usuario=usuario)
+
+                if empresa.senha_provisoria:
+                    return redirect('trocar_senha_empresa')
+
                 return redirect('area_empresa')
 
             mensagem = 'Esta conta não possui acesso de empresa.'
@@ -254,6 +261,54 @@ def entrar_empresa(request):
         }
     )
 
+def trocar_senha_empresa(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar_empresa')
+
+    empresa = Empresa.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).first()
+
+    if not empresa:
+        return redirect('inicio')
+
+    if not empresa.senha_provisoria:
+        return redirect('area_empresa')
+
+    mensagem = ''
+
+    if request.method == 'POST':
+        nova_senha = request.POST.get('nova_senha', '')
+        confirmar_senha = request.POST.get('confirmar_senha', '')
+
+        if not nova_senha or not confirmar_senha:
+            mensagem = 'Preencha os dois campos.'
+
+        elif nova_senha != confirmar_senha:
+            mensagem = 'As senhas não são iguais.'
+
+        elif len(nova_senha) < 8:
+            mensagem = 'A senha deve ter pelo menos 8 caracteres.'
+
+        else:
+            request.user.set_password(nova_senha)
+            request.user.save()
+
+            empresa.senha_provisoria = False
+            empresa.save()
+
+            update_session_auth_hash(request, request.user)
+
+            return redirect('area_empresa')
+
+    return render(
+        request,
+        'vagas/trocar_senha_empresa.html',
+        {
+            'mensagem': mensagem,
+        }
+    )
 
 def minhas_candidaturas(request):
     if not request.user.is_authenticated:
