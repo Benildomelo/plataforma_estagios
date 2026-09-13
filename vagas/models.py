@@ -108,7 +108,7 @@ class Candidatura(models.Model):
             models.UniqueConstraint(
                 fields=['aluno', 'vaga'],
                 name='candidatura_unica_aluno_vaga'
-            )
+            ),
         ]
 
     def __str__(self):

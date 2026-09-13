@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth import update_session_auth_hash
 
 
+
 def inicio(request):
     aluno = None
     empresa = None
@@ -128,7 +129,8 @@ def candidatar(request, vaga_id):
     if not Aluno.objects.filter(usuario=request.user).exists():
         return redirect('inicio')
 
-    vaga = Vaga.objects.get(
+    vaga = get_object_or_404(
+        Vaga,
         id=vaga_id,
         status='APROVADA',
         ativo=True
