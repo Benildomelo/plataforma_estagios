@@ -140,3 +140,7 @@ MAILERS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://anonymous-strengthening-penetration-prefix.trycloudflare.com',
+]

@@ -427,6 +427,34 @@
 
                             {% endif %}
 
+                            {% if candidatura.aluno.curriculo %}
+                                <div>
+                                    <span class="dado-label">
+                                        Currículo
+                                    </span>
+
+                                    <strong>
+                                        📄
+                                        <a
+                                            href="{{ candidatura.aluno.curriculo.url }}"
+                                            target="_blank"
+                                        >
+                                            Visualizar currículo
+                                        </a>
+                                    </strong>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <span class="dado-label">
+                                        Currículo
+                                    </span>
+
+                                    <strong>
+                                        Não enviado
+                                    </strong>
+                                </div>
+                            {% endif %}
+
 
                             <!-- DATA DA CANDIDATURA -->
 
