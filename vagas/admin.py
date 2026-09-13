@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Curso, Aluno, Empresa, Vaga, Candidatura
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
@@ -62,12 +63,27 @@ class VagaAdmin(admin.ModelAdmin):
         'ativo',
         'data_publicacao'
     )
+
+    list_display_links = ('titulo', 'empresa', 'curso')
+
     list_filter = ('status', 'ativo', 'curso')
     search_fields = (
         'titulo',
         'descricao',
         'empresa__nome_fantasia'
     )
+
+    def save_model(self, request, obj, form, change):
+        if obj.status == 'APROVADA' and obj.data_publicacao is None:
+            obj.data_publicacao = timezone.now()
+
+        if obj.status != 'APROVADA':
+            obj.data_publicacao = None
+
+        super().save_model(request, obj, form, change)   
+    
+
+    
 
 
 @admin.register(Candidatura)
