@@ -321,12 +321,12 @@ def minhas_candidaturas(request):
 
     aluno = Aluno.objects.get(usuario=request.user)
 
-    candidaturas = Candidatura.objects.filter(
+    candidaturas = Candidatura.objects.get(
         aluno=aluno
     ).select_related(
         'vaga',
         'vaga__empresa'
-    )
+    ).order_by('-data_candidatura')
 
     return render(
         request,
