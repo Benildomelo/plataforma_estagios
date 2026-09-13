@@ -26,6 +26,7 @@ class Aluno(models.Model):
     curriculo = models.FileField(upload_to='curriculos/', blank=True, null=True)
     curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
     ativo = models.BooleanField(default=True)
+    senha_provisoria = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome

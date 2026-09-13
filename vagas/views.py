@@ -287,7 +287,7 @@ def sair(request):
 
 def area_aluno(request):
     if not request.user.is_authenticated:
-        return redirect('entrar')
+        return redirect('entrar_aluno')
 
     if not Aluno.objects.filter(usuario=request.user).exists():
         return redirect('inicio')
@@ -313,7 +313,7 @@ def area_aluno(request):
 
 def area_empresa(request):
     if not request.user.is_authenticated:
-        return redirect('entrar')
+        return redirect('entrar_empresa')
 
     if not Empresa.objects.filter(usuario=request.user).exists():
         return redirect('inicio')
