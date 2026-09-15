@@ -3971,3 +3971,329 @@ footer {
     }
 
 }
+
+/* =========================================
+   EDITAR PERFIL - ÁREA DO ALUNO
+   ========================================= */
+
+.editar-perfil-aluno {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.editar-perfil-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.editar-perfil-label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.editar-perfil-header h1 {
+    margin: 8px 0;
+    font-size: 32px;
+}
+
+.editar-perfil-header p {
+    margin: 0;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+.editar-perfil-icone {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #f1f1f1;
+    font-size: 32px;
+}
+
+.editar-perfil-mensagem {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f8f8f8;
+    font-size: 14px;
+}
+
+.editar-perfil-card {
+    padding: 28px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.editar-perfil-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.editar-perfil-card-icone {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f1f1f1;
+    font-size: 22px;
+}
+
+.editar-perfil-card-header h2 {
+    margin: 0 0 4px;
+    font-size: 21px;
+}
+
+.editar-perfil-card-header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.editar-perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.campo-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-perfil-completo {
+    grid-column: 1 / -1;
+}
+
+.campo-perfil label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo-perfil input,
+.campo-perfil select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    background: #fff;
+    font-size: 14px;
+    color: #0b2a41;
+    outline: none;
+}
+
+.campo-perfil input:focus,
+.campo-perfil select:focus {
+    border-color: #0b2a41;
+}
+
+.editar-perfil-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 17px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f8f8f8;
+}
+
+.editar-perfil-info > span {
+    font-size: 22px;
+}
+
+.editar-perfil-info strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.editar-perfil-info p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+.editar-perfil-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+.editar-perfil-acoes .botao {
+    text-decoration: none;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 700px) {
+
+    .editar-perfil-aluno {
+        padding: 20px 15px;
+    }
+
+    .editar-perfil-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .editar-perfil-header h1 {
+        font-size: 27px;
+    }
+
+    .editar-perfil-card {
+        padding: 20px;
+    }
+
+    .editar-perfil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-perfil-completo {
+        grid-column: auto;
+    }
+
+    .editar-perfil-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .editar-perfil-acoes .botao {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
+
+/* =========================================
+   RECUPERAÇÃO DE SENHA
+   ========================================= */
+
+.recuperar-senha {
+    max-width: 520px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.recuperar-senha-card {
+    padding: 35px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    background: #fff;
+    text-align: center;
+}
+
+.recuperar-senha-icone {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #f1f1f1;
+    font-size: 28px;
+}
+
+.recuperar-senha-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.65;
+}
+
+.recuperar-senha-card h1 {
+    margin: 10px 0;
+    font-size: 27px;
+}
+
+.recuperar-senha-card > p {
+    margin: 0 auto 25px;
+    max-width: 430px;
+    line-height: 1.6;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.recuperar-senha-card form {
+    text-align: left;
+}
+
+.recuperar-senha-card form .botao {
+    width: 100%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.recuperar-senha-card .campo-perfil {
+    margin-bottom: 18px;
+}
+
+.recuperar-senha-card .campo-perfil input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.recuperar-senha-card .campo-perfil ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.voltar-login {
+    display: inline-block;
+    margin-top: 22px;
+    color: #0b2a41;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.voltar-login:hover {
+    text-decoration: underline;
+}
+
+.recuperar-senha-erros {
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-size: 13px;
+    text-align: left;
+    background: #f8f8f8;
+}
+
+@media (max-width: 600px) {
+
+    .recuperar-senha {
+        margin: 25px auto;
+        padding: 15px;
+    }
+
+    .recuperar-senha-card {
+        padding: 25px 20px;
+    }
+
+    .recuperar-senha-card h1 {
+        font-size: 24px;
+    }
+}
