@@ -98,7 +98,8 @@ def lista_vagas(request):
 
 
 def detalhe_vaga(request, vaga_id):
-    vaga = Vaga.objects.get(
+    vaga = get_object_or_404(
+        Vaga,
         id=vaga_id,
         status='APROVADA',
         ativo=True
