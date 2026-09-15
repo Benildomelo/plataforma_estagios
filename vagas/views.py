@@ -9,6 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 
 
 
+
 def inicio(request):
     aluno = None
     empresa = None

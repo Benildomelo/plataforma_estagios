@@ -1,114 +1,180 @@
 {% extends 'vagas/base.html' %}
 
 {% block title %}
-    Editar Perfil - Aluno
+    Editar Perfil - Plataforma de Estágios
 {% endblock %}
 
 {% block content %}
 
-<div class="area-aluno-secao">
+<div class="editar-perfil-aluno">
 
-    <h1>Editar meu perfil</h1>
+    <div class="editar-perfil-header">
+        <div>
+            <span class="editar-perfil-label">
+                MEU PERFIL
+            </span>
 
-    <p>
-        Atualize seus dados pessoais.
-    </p>
+            <h1>
+                Editar perfil 👤
+            </h1>
+
+            <p>
+                Mantenha seus dados pessoais e acadêmicos sempre atualizados.
+            </p>
+        </div>
+
+        <div class="editar-perfil-icone">
+            👤
+        </div>
+    </div>
 
     {% if mensagem %}
-        <p>
+        <div class="editar-perfil-mensagem">
             {{ mensagem }}
-        </p>
+        </div>
     {% endif %}
 
-    <form method="POST">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="editar-perfil-mensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-        {% csrf_token %}
+    <section class="editar-perfil-card">
 
-        <div>
-            <label for="nome">
-                Nome
-            </label>
+        <div class="editar-perfil-card-header">
+            <div class="editar-perfil-card-icone">
+                📝
+            </div>
 
-            <input
-                type="text"
-                id="nome"
-                name="nome"
-                value="{{ aluno.nome }}"
-                required
-            >
+            <div>
+                <h2>
+                    Dados pessoais
+                </h2>
+
+                <p>
+                    Confira e atualize suas informações.
+                </p>
+            </div>
         </div>
 
-        <div>
-            <label for="email">
-                E-mail
-            </label>
+        <form method="POST" class="editar-perfil-form">
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ aluno.email }}"
-                required
-            >
-        </div>
+            {% csrf_token %}
 
-        <div>
-            <label for="telefone">
-                Telefone
-            </label>
+            <div class="editar-perfil-grid">
 
-            <input
-                type="text"
-                id="telefone"
-                name="telefone"
-                value="{{ aluno.telefone }}"
-            >
-        </div>
+                <div class="campo-perfil campo-perfil-completo">
+                    <label for="nome">
+                        Nome completo
+                    </label>
 
-        <div>
-            <label for="curso">
-                Curso
-            </label>
-
-            <select
-                id="curso"
-                name="curso"
-                required
-            >
-
-                <option value="">
-                    Selecione seu curso
-                </option>
-
-                {% for curso in cursos %}
-
-                    <option
-                        value="{{ curso.id }}"
-                        {% if aluno.curso.id == curso.id %}selected{% endif %}
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value="{{ aluno.nome }}"
+                        placeholder="Digite seu nome completo"
+                        required
                     >
-                        {{ curso.nome }}
-                    </option>
+                </div>
 
-                {% endfor %}
+                <div class="campo-perfil">
+                    <label for="email">
+                        E-mail
+                    </label>
 
-            </select>
-        </div>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ aluno.email }}"
+                        placeholder="seuemail@email.com"
+                        required
+                    >
+                </div>
 
-        <button
-            type="submit"
-            class="botao"
-        >
-            Salvar alterações
-        </button>
+                <div class="campo-perfil">
+                    <label for="telefone">
+                        Telefone
+                    </label>
 
-        <a
-            href="{% url 'perfil_aluno' %}"
-            class="botao botao-secundario"
-        >
-            Cancelar
-        </a>
+                    <input
+                        type="text"
+                        id="telefone"
+                        name="telefone"
+                        value="{{ aluno.telefone }}"
+                        placeholder="(00) 00000-0000"
+                    >
+                </div>
 
-    </form>
+                <div class="campo-perfil campo-perfil-completo">
+                    <label for="curso">
+                        Curso
+                    </label>
+
+                    <select
+                        id="curso"
+                        name="curso"
+                        required
+                    >
+                        <option value="">
+                            Selecione seu curso
+                        </option>
+
+                        {% for curso in cursos %}
+                            <option
+                                value="{{ curso.id }}"
+                                {% if aluno.curso.id == curso.id %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ curso.nome }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="editar-perfil-info">
+                <span>💡</span>
+
+                <div>
+                    <strong>
+                        Mantenha seus dados atualizados
+                    </strong>
+
+                    <p>
+                        Essas informações podem ser utilizadas pelas empresas
+                        durante o processo de seleção para oportunidades de estágio.
+                    </p>
+                </div>
+            </div>
+
+            <div class="editar-perfil-acoes">
+
+                <a
+                    href="{% url 'perfil_aluno' %}"
+                    class="botao botao-secundario"
+                >
+                    ← Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="botao"
+                >
+                    💾 Salvar alterações
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
 
 </div>
 

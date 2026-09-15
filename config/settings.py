@@ -145,3 +145,5 @@ CSRF_TRUSTED_ORIGINS = [
     'https://anonymous-strengthening-penetration-prefix.trycloudflare.com',
     'https://cindy-fisher-cherry-hospital.trycloudflare.com',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
