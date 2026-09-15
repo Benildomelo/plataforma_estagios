@@ -317,17 +317,25 @@ def minhas_candidaturas(request):
     if not request.user.is_authenticated:
         return redirect('entrar')
 
-    if not Aluno.objects.filter(usuario=request.user).exists():
+    if not Aluno.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).exists():
         return redirect('inicio')
 
-    aluno = Aluno.objects.get(usuario=request.user)
+    aluno = Aluno.objects.get(
+        usuario=request.user,
+        ativo=True
+    )
 
-    candidaturas = Candidatura.objects.get(
+    candidaturas = Candidatura.objects.filter(
         aluno=aluno
     ).select_related(
         'vaga',
         'vaga__empresa'
-    ).order_by('-data_candidatura')
+    ).order_by(
+        '-data_candidatura'
+    )
 
     return render(
         request,

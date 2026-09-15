@@ -2756,3 +2756,243 @@ footer {
     background: #eeeeee;
     color: #666666;
 }
+
+/* =========================================
+   PERFIL DO ALUNO
+   ========================================= */
+
+.perfil-aluno {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+
+/* Cabeçalho */
+
+.perfil-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.perfil-cabecalho h1 {
+    margin: 8px 0;
+    font-size: 32px;
+}
+
+.perfil-cabecalho p {
+    margin: 0;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.perfil-etiqueta {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+/* Grid dos cartões */
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+
+/* Cartões */
+
+.perfil-card {
+    padding: 25px;
+    border-radius: 14px;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.perfil-card h2 {
+    margin: 0 0 5px;
+    font-size: 21px;
+}
+
+.perfil-card-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.perfil-card-cabecalho p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.perfil-card-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    font-size: 22px;
+    background: #f1f1f1;
+}
+
+
+/* Informações */
+
+.perfil-info {
+    display: grid;
+    gap: 17px;
+}
+
+.perfil-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.perfil-info-item span {
+    font-size: 13px;
+    opacity: 0.65;
+}
+
+.perfil-info-item strong {
+    font-size: 16px;
+    word-break: break-word;
+}
+
+
+/* Currículo */
+
+.curriculo-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.curriculo-status p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.curriculo-enviado {
+    background: #f2f8f2;
+}
+
+.curriculo-pendente {
+    background: #f8f6ef;
+}
+
+.curriculo-status-icone {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: #fff;
+}
+
+.perfil-curriculo-card .botao {
+    display: inline-block;
+    margin: 4px 5px 4px 0;
+}
+
+
+/* Acesso rápido */
+
+.perfil-acoes-card {
+    margin-bottom: 24px;
+}
+
+.perfil-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.perfil-links a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.perfil-links a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-links a > span {
+    font-size: 22px;
+}
+
+.perfil-links strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.perfil-links small {
+    opacity: 0.65;
+}
+
+
+/* Botão voltar */
+
+.perfil-voltar {
+    margin-top: 10px;
+}
+
+
+/* Responsividade */
+
+@media (max-width: 800px) {
+
+    .perfil-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .perfil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-links {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .perfil-aluno {
+        padding: 20px 15px;
+    }
+
+    .perfil-cabecalho h1 {
+        font-size: 26px;
+    }
+
+    .perfil-card {
+        padding: 20px;
+    }
+
+}
