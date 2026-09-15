@@ -3259,3 +3259,327 @@ footer {
     }
 
 }
+
+/* =========================================
+   AJUSTE DAS CORES - PERFIL DO ALUNO
+   ========================================= */
+
+.perfil-links a,
+.perfil-links a:visited,
+.perfil-links a:hover,
+.perfil-links a:active {
+    color: #0b2a41;
+}
+
+.perfil-links a {
+    text-decoration: none;
+}
+
+.perfil-links a strong,
+.perfil-links a small {
+    color: inherit;
+}
+
+.minha-candidatura-header h2 a,
+.minha-candidatura-header h2 a:visited,
+.minha-candidatura-header h2 a:hover,
+.minha-candidatura-header h2 a:active {
+    color: #0b2a41;
+}
+
+/* =========================================
+   MEU CURRÍCULO
+   ========================================= */
+
+.curriculo-aluno {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+
+/* Cabeçalho */
+
+.curriculo-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.curriculo-label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.curriculo-cabecalho h1 {
+    margin: 8px 0;
+    font-size: 32px;
+}
+
+.curriculo-cabecalho p {
+    margin: 0;
+    line-height: 1.6;
+    max-width: 650px;
+}
+
+.curriculo-icone {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #f1f1f1;
+    font-size: 30px;
+}
+
+
+/* Mensagens */
+
+.curriculo-mensagem {
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: #eef7ee;
+    border: 1px solid #d5e8d5;
+}
+
+.curriculo-mensagem-erro {
+    background: #fff1f1;
+    border-color: #f0cccc;
+}
+
+
+/* Cartão */
+
+.curriculo-card {
+    padding: 28px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+}
+
+
+/* Título do cartão */
+
+.curriculo-card-titulo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.curriculo-card-titulo h2 {
+    margin: 0 0 4px;
+}
+
+.curriculo-card-titulo p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.curriculo-card-icone {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f1f1f1;
+    font-size: 23px;
+}
+
+
+/* Arquivo atual */
+
+.curriculo-atual {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f2f8f2;
+    margin-bottom: 20px;
+}
+
+.curriculo-arquivo-icone {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    background: #fff;
+}
+
+.curriculo-arquivo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.curriculo-arquivo-info span {
+    font-size: 13px;
+    opacity: 0.65;
+}
+
+.curriculo-arquivo-info strong {
+    word-break: break-word;
+}
+
+.curriculo-arquivo-info small {
+    opacity: 0.65;
+}
+
+
+/* Ações */
+
+.curriculo-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+/* Sem arquivo */
+
+.curriculo-sem-arquivo {
+    text-align: center;
+    padding: 35px 20px;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.curriculo-sem-arquivo-icone {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.curriculo-sem-arquivo h3 {
+    margin: 8px 0;
+}
+
+.curriculo-sem-arquivo p {
+    margin: 0 auto;
+    max-width: 550px;
+    opacity: 0.7;
+}
+
+
+/* Envio */
+
+.curriculo-card hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 28px 0;
+}
+
+.curriculo-envio h2 {
+    margin-bottom: 5px;
+}
+
+.curriculo-envio > p {
+    margin-top: 0;
+    opacity: 0.7;
+}
+
+
+/* Formulário */
+
+.curriculo-form {
+    margin-top: 20px;
+}
+
+.curriculo-upload {
+    margin-bottom: 18px;
+}
+
+.curriculo-upload label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.curriculo-upload input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background: #fafafa;
+}
+
+
+/* Dica */
+
+.curriculo-dica {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 17px;
+    border-radius: 10px;
+    background: #f7f7f7;
+}
+
+.curriculo-dica > span {
+    font-size: 21px;
+}
+
+.curriculo-dica p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+/* Voltar */
+
+.curriculo-voltar {
+    margin-top: 20px;
+}
+
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+
+    .curriculo-aluno {
+        padding: 20px 15px;
+    }
+
+    .curriculo-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .curriculo-cabecalho h1 {
+        font-size: 27px;
+    }
+
+    .curriculo-card {
+        padding: 20px;
+    }
+
+    .curriculo-atual {
+        align-items: flex-start;
+    }
+
+    .curriculo-acoes {
+        flex-direction: column;
+    }
+
+    .curriculo-acoes .botao {
+        text-align: center;
+    }
+
+}
