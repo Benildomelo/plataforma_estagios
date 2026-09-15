@@ -6,15 +6,15 @@
 
 {% block content %}
 
-<div class="area-aluno">
+<div class="dashboard-aluno">
 
-    <!-- CABEÇALHO DA ÁREA -->
+    <!-- CABEÇALHO -->
 
-    <div class="area-aluno-header">
+    <div class="dashboard-aluno-header">
 
         <div>
-            <span class="area-aluno-label">
-                Área do aluno
+            <span class="dashboard-label">
+                ÁREA DO ALUNO
             </span>
 
             <h1>
@@ -22,12 +22,12 @@
             </h1>
 
             <p>
-                Acompanhe suas candidaturas e encontre novas
-                oportunidades de estágio.
+                Acompanhe suas candidaturas, gerencie seu currículo
+                e encontre novas oportunidades de estágio.
             </p>
         </div>
 
-        <div class="area-aluno-icone">
+        <div class="dashboard-aluno-icone">
             🎓
         </div>
 
@@ -36,53 +36,57 @@
 
     <!-- RESUMO -->
 
-    <div class="area-aluno-cards">
+    <div class="dashboard-resumo">
 
-        <div class="area-card">
+        <div class="dashboard-resumo-card">
 
-            <div class="area-card-icone">
-                📄
+            <div class="dashboard-resumo-icone">
+                📋
             </div>
 
             <div>
-                <h3>
-                    Minhas candidaturas
-                </h3>
-
-                <div class="area-card-numero">
-                    {{ candidaturas|length }}
-                </div>
-
-                <p>
-                    candidatura(s) realizada(s)
-                </p>
+                <span>Candidaturas</span>
+                <strong>{{ candidaturas|length }}</strong>
+                <small>realizadas</small>
             </div>
 
         </div>
 
 
-        <div class="area-card">
+        <div class="dashboard-resumo-card">
 
-            <div class="area-card-icone">
-                🔎
+            <div class="dashboard-resumo-icone">
+                📄
             </div>
 
             <div>
-                <h3>
-                    Encontrar estágio
-                </h3>
+                <span>Currículo</span>
 
-                <p>
-                    Consulte as vagas disponíveis e encontre
-                    uma oportunidade que combine com seu curso.
-                </p>
+                {% if aluno.curriculo %}
+                    <strong>✓</strong>
+                    <small>Cadastrado</small>
+                {% else %}
+                    <strong>!</strong>
+                    <small>Pendente</small>
+                {% endif %}
 
-                <a
-                    href="/vagas/"
-                    class="botao"
-                >
-                    Ver vagas
-                </a>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-resumo-card">
+
+            <div class="dashboard-resumo-icone">
+                🎓
+            </div>
+
+            <div>
+                <span>Curso</span>
+                <strong class="dashboard-curso">
+                    {{ aluno.curso.nome }}
+                </strong>
+                <small>curso atual</small>
             </div>
 
         </div>
@@ -90,71 +94,179 @@
     </div>
 
 
-    <!-- CANDIDATURAS -->
+    <!-- ACESSO RÁPIDO -->
 
-    <div class="area-aluno-secao">
+    <section class="dashboard-secao">
 
-        <div class="area-aluno-secao-header">
+        <div class="dashboard-secao-header">
 
             <div>
                 <h2>
-                    Minhas candidaturas
+                    Acesso rápido
                 </h2>
 
                 <p>
-                    Acompanhe as oportunidades para as quais você se candidatou.
+                    Acesse rapidamente as principais áreas da plataforma.
                 </p>
             </div>
 
+        </div>
+
+
+        <div class="dashboard-acoes">
+
             <a
-                href="/minhas-candidaturas/"
-                class="botao botao-secundario"
+                href="{% url 'lista_vagas' %}"
+                class="dashboard-acao"
             >
-                Ver todas
+                <span>🔎</span>
+
+                <div>
+                    <strong>Buscar vagas</strong>
+                    <small>
+                        Encontre novas oportunidades
+                    </small>
+                </div>
+
+                <b>→</b>
             </a>
+
+
+            <a
+                href="{% url 'minhas_candidaturas' %}"
+                class="dashboard-acao"
+            >
+                <span>📋</span>
+
+                <div>
+                    <strong>Minhas candidaturas</strong>
+                    <small>
+                        Acompanhe suas candidaturas
+                    </small>
+                </div>
+
+                <b>→</b>
+            </a>
+
+
+            <a
+                href="{% url 'perfil_aluno' %}"
+                class="dashboard-acao"
+            >
+                <span>👤</span>
+
+                <div>
+                    <strong>Meu perfil</strong>
+                    <small>
+                        Consulte seus dados
+                    </small>
+                </div>
+
+                <b>→</b>
+            </a>
+
+
+            <a
+                href="{% url 'curriculo_aluno' %}"
+                class="dashboard-acao"
+            >
+                <span>📄</span>
+
+                <div>
+                    <strong>Meu currículo</strong>
+
+                    {% if aluno.curriculo %}
+                        <small>
+                            Currículo cadastrado
+                        </small>
+                    {% else %}
+                        <small>
+                            Envie seu currículo
+                        </small>
+                    {% endif %}
+
+                </div>
+
+                <b>→</b>
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CANDIDATURAS -->
+
+    <section class="dashboard-secao">
+
+        <div class="dashboard-secao-header">
+
+            <div>
+                <h2>
+                    Últimas candidaturas
+                </h2>
+
+                <p>
+                    Acompanhe o andamento das suas candidaturas recentes.
+                </p>
+            </div>
+
+            {% if candidaturas %}
+                <a
+                    href="{% url 'minhas_candidaturas' %}"
+                    class="botao botao-secundario"
+                >
+                    Ver todas
+                </a>
+            {% endif %}
 
         </div>
 
 
         {% if candidaturas %}
 
-            <div class="lista-candidaturas">
+            <div class="dashboard-candidaturas">
 
                 {% for candidatura in candidaturas|slice:":5" %}
 
-                    <div class="candidatura-card">
+                    <article class="dashboard-candidatura">
 
-                        <div class="candidatura-conteudo">
+                        <div class="dashboard-candidatura-conteudo">
+
+                            <span class="dashboard-candidatura-label">
+                                OPORTUNIDADE
+                            </span>
 
                             <h3>
-                                {{ candidatura.vaga.titulo }}
+                                <a
+                                    href="{% url 'detalhe_vaga' candidatura.vaga.id %}"
+                                >
+                                    {{ candidatura.vaga.titulo }}
+                                </a>
                             </h3>
 
-                            <p class="empresa">
-                                🏢
-                                {{ candidatura.vaga.empresa.nome_fantasia }}
+                            <p>
+                                🏢 {{ candidatura.vaga.empresa.nome_fantasia }}
                             </p>
 
-                            <div class="candidatura-info">
-
-                                <span>
-                                    <strong>Data:</strong>
-                                    {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
-                                </span>
-
-                                <span>
-                                    <strong>Status:</strong>
-                                    {{ candidatura.get_status_display }}
-                                </span>
-
-                            </div>
+                            <small>
+                                📅
+                                {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                            </small>
 
                         </div>
 
-                        <div class="candidatura-acao">
+
+                        <div class="dashboard-candidatura-lado">
+
+                            <span
+                                class="dashboard-status status-{{ candidatura.status|lower }}"
+                            >
+                                {{ candidatura.get_status_display }}
+                            </span>
 
                             <a
-                                href="/vagas/{{ candidatura.vaga.id }}/"
+                                href="{% url 'detalhe_vaga' candidatura.vaga.id %}"
                                 class="botao"
                             >
                                 Ver vaga
@@ -162,7 +274,7 @@
 
                         </div>
 
-                    </div>
+                    </article>
 
                 {% endfor %}
 
@@ -170,9 +282,9 @@
 
         {% else %}
 
-            <div class="candidaturas-vazio">
+            <div class="dashboard-vazio">
 
-                <div class="vazio-icone">
+                <div>
                     📋
                 </div>
 
@@ -181,22 +293,53 @@
                 </h3>
 
                 <p>
-                    Encontre uma oportunidade de estágio e
-                    faça sua primeira candidatura.
+                    Encontre uma oportunidade de estágio e faça
+                    sua primeira candidatura.
                 </p>
 
                 <a
-                    href="/vagas/"
+                    href="{% url 'lista_vagas' %}"
                     class="botao"
                 >
-                    Ver vagas disponíveis
+                    🔎 Ver vagas disponíveis
                 </a>
 
             </div>
 
         {% endif %}
 
-    </div>
+    </section>
+
+
+    <!-- CHAMADA PARA VAGAS -->
+
+    <section class="dashboard-banner">
+
+        <div>
+            <span>
+                🚀
+            </span>
+
+            <div>
+                <h2>
+                    Está procurando uma oportunidade?
+                </h2>
+
+                <p>
+                    Confira as vagas disponíveis e encontre um estágio
+                    que combine com seu curso.
+                </p>
+            </div>
+        </div>
+
+        <a
+            href="{% url 'lista_vagas' %}"
+            class="botao"
+        >
+            Ver vagas
+        </a>
+
+    </section>
 
 </div>
 
