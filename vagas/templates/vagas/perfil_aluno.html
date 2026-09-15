@@ -6,20 +6,240 @@
 
 {% block content %}
 
-<h1>Meu Perfil</h1>
+<div class="perfil-aluno">
 
-<p>Nome: {{ aluno.nome }}</p>
-<p>Matrícula: {{ aluno.matricula }}</p>
-<p>E-mail: {{ aluno.email }}</p>
-<p>Telefone: {{ aluno.telefone }}</p>
-<p>Curso: {{ aluno.curso.nome }}</p>
+    <!-- Cabeçalho -->
+    <div class="perfil-cabecalho">
 
-<a
-    href="{% url 'curriculo_aluno' %}"
-    class="botao"
->
-    📄 Meu currículo
-</a>
+        <div>
+            <span class="perfil-etiqueta">PERFIL DO ALUNO</span>
+
+            <h1>
+                Olá, {{ aluno.nome }}! 👋
+            </h1>
+
+            <p>
+                Mantenha seus dados e seu currículo sempre atualizados
+                para aproveitar melhor as oportunidades de estágio.
+            </p>
+        </div>
+
+        <div class="perfil-acoes">
+            <a
+                href="{% url 'editar_perfil_aluno' %}"
+                class="botao"
+            >
+                ✏️ Editar perfil
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- Informações principais -->
+    <div class="perfil-grid">
+
+        <!-- Dados pessoais -->
+        <div class="perfil-card">
+
+            <div class="perfil-card-cabecalho">
+                <div>
+                    <span class="perfil-card-icone">👤</span>
+                </div>
+
+                <div>
+                    <h2>Dados pessoais</h2>
+                    <p>Suas informações cadastradas</p>
+                </div>
+            </div>
+
+            <div class="perfil-info">
+
+                <div class="perfil-info-item">
+                    <span>Nome</span>
+                    <strong>{{ aluno.nome }}</strong>
+                </div>
+
+                <div class="perfil-info-item">
+                    <span>Matrícula</span>
+                    <strong>{{ aluno.matricula }}</strong>
+                </div>
+
+                <div class="perfil-info-item">
+                    <span>E-mail</span>
+                    <strong>{{ aluno.email }}</strong>
+                </div>
+
+                <div class="perfil-info-item">
+                    <span>Telefone</span>
+
+                    {% if aluno.telefone %}
+                        <strong>{{ aluno.telefone }}</strong>
+                    {% else %}
+                        <strong>Não informado</strong>
+                    {% endif %}
+                </div>
+
+                <div class="perfil-info-item">
+                    <span>Curso</span>
+                    <strong>{{ aluno.curso.nome }}</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Currículo -->
+        <div class="perfil-card perfil-curriculo-card">
+
+            <div class="perfil-card-cabecalho">
+
+                <div>
+                    <span class="perfil-card-icone">📄</span>
+                </div>
+
+                <div>
+                    <h2>Meu currículo</h2>
+                    <p>Documento utilizado nas candidaturas</p>
+                </div>
+
+            </div>
+
+
+            {% if aluno.curriculo %}
+
+                <div class="curriculo-status curriculo-enviado">
+
+                    <div class="curriculo-status-icone">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Currículo cadastrado</strong>
+
+                        <p>
+                            {{ aluno.curriculo.name }}
+                        </p>
+                    </div>
+
+                </div>
+
+                <a
+                    href="{{ aluno.curriculo.url }}"
+                    target="_blank"
+                    class="botao"
+                >
+                    👁️ Visualizar currículo
+                </a>
+
+                <a
+                    href="{% url 'curriculo_aluno' %}"
+                    class="botao botao-secundario"
+                >
+                    🔄 Atualizar currículo
+                </a>
+
+            {% else %}
+
+                <div class="curriculo-status curriculo-pendente">
+
+                    <div class="curriculo-status-icone">
+                        !
+                    </div>
+
+                    <div>
+                        <strong>Currículo não cadastrado</strong>
+
+                        <p>
+                            Envie seu currículo para participar
+                            das oportunidades de estágio.
+                        </p>
+                    </div>
+
+                </div>
+
+                <a
+                    href="{% url 'curriculo_aluno' %}"
+                    class="botao"
+                >
+                    📄 Enviar currículo
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Ações rápidas -->
+    <div class="perfil-card perfil-acoes-card">
+
+        <div class="perfil-card-cabecalho">
+
+            <div>
+                <span class="perfil-card-icone">⚡</span>
+            </div>
+
+            <div>
+                <h2>Acesso rápido</h2>
+                <p>Encontre rapidamente o que você precisa</p>
+            </div>
+
+        </div>
+
+        <div class="perfil-links">
+
+            <a href="{% url 'area_aluno' %}">
+                <span>🏠</span>
+                <div>
+                    <strong>Minha área</strong>
+                    <small>Ver seu painel do aluno</small>
+                </div>
+            </a>
+
+            <a href="{% url 'lista_vagas' %}">
+                <span>🔎</span>
+                <div>
+                    <strong>Buscar vagas</strong>
+                    <small>Encontrar oportunidades de estágio</small>
+                </div>
+            </a>
+
+            <a href="{% url 'minhas_candidaturas' %}">
+                <span>📋</span>
+                <div>
+                    <strong>Minhas candidaturas</strong>
+                    <small>Acompanhar suas candidaturas</small>
+                </div>
+            </a>
+
+            <a href="{% url 'editar_perfil_aluno' %}">
+                <span>⚙️</span>
+                <div>
+                    <strong>Editar perfil</strong>
+                    <small>Atualizar seus dados</small>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Rodapé -->
+    <div class="perfil-voltar">
+
+        <a
+            href="{% url 'area_aluno' %}"
+            class="botao botao-secundario"
+        >
+            ← Voltar para minha área
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}
-
