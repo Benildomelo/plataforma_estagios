@@ -143,4 +143,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 CSRF_TRUSTED_ORIGINS = [
     'https://anonymous-strengthening-penetration-prefix.trycloudflare.com',
+    'https://cindy-fisher-cherry-hospital.trycloudflare.com',
 ]

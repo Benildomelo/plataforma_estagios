@@ -2996,3 +2996,266 @@ footer {
     }
 
 }
+
+/* =========================================
+   MINHAS CANDIDATURAS
+   ========================================= */
+
+.minhas-candidaturas {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+
+/* Cabeçalho */
+
+.minhas-candidaturas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.minhas-candidaturas-label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.minhas-candidaturas-header h1 {
+    margin: 8px 0;
+    font-size: 32px;
+}
+
+.minhas-candidaturas-header p {
+    margin: 0;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.minhas-candidaturas-icone {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #f1f1f1;
+    font-size: 30px;
+}
+
+
+/* Resumo */
+
+.candidaturas-resumo {
+    margin-bottom: 24px;
+}
+
+.candidaturas-resumo-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: fit-content;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.candidaturas-resumo-card > span {
+    font-size: 25px;
+}
+
+.candidaturas-resumo-card small {
+    display: block;
+    opacity: 0.65;
+    margin-bottom: 3px;
+}
+
+.candidaturas-resumo-card strong {
+    font-size: 22px;
+}
+
+
+/* Lista */
+
+.lista-minhas-candidaturas {
+    display: grid;
+    gap: 20px;
+}
+
+
+/* Cartão */
+
+.minha-candidatura-card {
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+}
+
+
+/* Cabeçalho do cartão */
+
+.minha-candidatura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.minha-candidatura-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    opacity: 0.65;
+}
+
+.minha-candidatura-header h2 {
+    margin: 7px 0 0;
+    font-size: 21px;
+}
+
+.minha-candidatura-header h2 a {
+    text-decoration: none;
+}
+
+
+/* Status */
+
+.status-candidatura-aluno {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+
+/* Informações */
+
+.minha-candidatura-dados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 22px;
+    padding: 18px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.minha-candidatura-dado {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.minha-candidatura-dado span {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.minha-candidatura-dado strong {
+    font-size: 14px;
+}
+
+
+/* Informação do status */
+
+.minha-candidatura-status-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #f7f7f7;
+}
+
+.minha-candidatura-status-info > span {
+    font-size: 20px;
+}
+
+.minha-candidatura-status-info strong {
+    font-size: 14px;
+}
+
+.minha-candidatura-status-info p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+/* Ação */
+
+.minha-candidatura-acao {
+    margin-top: 20px;
+}
+
+
+/* Estado vazio */
+
+.minhas-candidaturas-vazio {
+    text-align: center;
+    padding: 70px 20px;
+    border: 1px dashed #ccc;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.minhas-candidaturas-vazio-icone {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.minhas-candidaturas-vazio h2 {
+    margin-bottom: 8px;
+}
+
+.minhas-candidaturas-vazio p {
+    margin-bottom: 25px;
+}
+
+
+/* Responsividade */
+
+@media (max-width: 800px) {
+
+    .minhas-candidaturas-header {
+        align-items: flex-start;
+    }
+
+    .minha-candidatura-dados {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .minhas-candidaturas {
+        padding: 20px 15px;
+    }
+
+    .minhas-candidaturas-header {
+        flex-direction: column;
+    }
+
+    .minhas-candidaturas-header h1 {
+        font-size: 26px;
+    }
+
+    .minha-candidatura-header {
+        flex-direction: column;
+    }
+
+    .minha-candidatura-card {
+        padding: 20px;
+    }
+
+}
