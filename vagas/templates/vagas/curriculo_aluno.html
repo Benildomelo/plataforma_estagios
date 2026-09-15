@@ -22,6 +22,12 @@
         {% endfor %}
     {% endif %}
 
+    {% if mensagem %}
+        <p>
+            {{ mensagem }}
+        </p>
+    {% endif %}
+
     {% if aluno.curriculo %}
         <p>
             Currículo atual:

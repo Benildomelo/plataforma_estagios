@@ -890,30 +890,41 @@ def curriculo_aluno(request):
     if not aluno:
         return redirect('inicio')
 
+    mensagem = ''
+
     if request.method == 'POST':
         curriculo = request.FILES.get('curriculo')
 
         if not curriculo:
-            messages.error(
-                request,
-                'Selecione um arquivo.'
-            )
+            mensagem = 'Selecione um arquivo.'
         else:
-            aluno.curriculo = curriculo
-            aluno.save()
+            nome_arquivo = curriculo.name.lower()
 
-            messages.success(
-                request,
-                'Currículo enviado com sucesso!'
-            )
+            tamanho_maximo = 5 * 1024 * 1024  # 5 MB
 
-            return redirect('perfil_aluno')
+            if curriculo.size > tamanho_maximo:
+                mensagem = 'O currículo deve ter no máximo 5 MB.'
+
+            elif not nome_arquivo.endswith('.pdf'):
+                mensagem = 'O currículo deve estar no formato PDF.'
+
+            else:
+                aluno.curriculo = curriculo
+                aluno.save()
+
+                messages.success(
+                    request,
+                    'Currículo enviado com sucesso!'
+                )
+
+                return redirect('perfil_aluno')
 
     return render(
         request,
         'vagas/curriculo_aluno.html',
         {
             'aluno': aluno,
+            'mensagem': mensagem,
         }
     )
 
