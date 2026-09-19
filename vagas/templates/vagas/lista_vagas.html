@@ -6,32 +6,14 @@
 
 {% block content %}
 
-<!-- =========================================================
-     CABEÇALHO DA PÁGINA
-     ========================================================= -->
-
 <section class="cabecalho">
-
-    <h2>
-        Vagas de Estágio
-    </h2>
-
-    <p>
-        Encontre uma oportunidade adequada ao seu curso.
-    </p>
-
+    <h2>Vagas de Estágio</h2>
+    <p>Encontre uma oportunidade adequada ao seu curso.</p>
 </section>
 
 
-<!-- =========================================================
-     FILTROS
-     ========================================================= -->
-
 <section class="filtros">
-
-    <h3>
-        🔎 Buscar vagas
-    </h3>
+    <h3>🔎 Buscar vagas</h3>
 
     <form
         method="GET"
@@ -39,10 +21,7 @@
         class="filtros-form"
     >
 
-        <!-- PALAVRA-CHAVE -->
-
         <div class="campo">
-
             <label for="busca">
                 Palavra-chave
             </label>
@@ -54,14 +33,10 @@
                 placeholder="Ex.: Administração, estágio..."
                 value="{{ busca }}"
             >
-
         </div>
 
 
-        <!-- CURSO -->
-
         <div class="campo">
-
             <label for="curso">
                 Curso
             </label>
@@ -70,13 +45,11 @@
                 id="curso"
                 name="curso"
             >
-
                 <option value="">
                     Todos os cursos
                 </option>
 
                 {% for curso in cursos %}
-
                     <option
                         value="{{ curso.id }}"
                         {% if curso_id == curso.id|stringformat:"s" %}
@@ -85,18 +58,12 @@
                     >
                         {{ curso.nome }}
                     </option>
-
                 {% endfor %}
-
             </select>
-
         </div>
 
 
-        <!-- LOCAL -->
-
         <div class="campo">
-
             <label for="local">
                 Local
             </label>
@@ -108,11 +75,8 @@
                 placeholder="Ex.: Teresina"
                 value="{{ local }}"
             >
-
         </div>
 
-
-        <!-- BOTÃO PESQUISAR -->
 
         <button
             type="submit"
@@ -122,8 +86,6 @@
         </button>
 
 
-        <!-- BOTÃO LIMPAR -->
-
         <a
             href="/vagas/"
             class="botao-limpar"
@@ -132,28 +94,17 @@
         </a>
 
     </form>
-
 </section>
 
-
-<!-- =========================================================
-     RESULTADOS
-     ========================================================= -->
 
 {% if vagas %}
 
     <p class="resultado">
-
         Encontramos
         <strong>{{ vagas|length }}</strong>
         vaga(s) disponível(is).
-
     </p>
 
-
-    <!-- =====================================================
-         LISTA DE VAGAS
-         ===================================================== -->
 
     <section class="vagas">
 
@@ -161,99 +112,70 @@
 
             <article class="vaga">
 
-                <h3>
-                    {{ vaga.titulo }}
-                </h3>
+                <div class="vaga-cabecalho">
+
+                    <div>
+                        <h3>
+                            {{ vaga.titulo }}
+                        </h3>
+
+                        <p class="empresa">
+                            🏢 {{ vaga.empresa.nome_fantasia }}
+                        </p>
+                    </div>
+
+                </div>
 
 
-                <!-- EMPRESA -->
+                <div class="vaga-informacoes">
 
-                <p class="informacao">
+                    <p class="informacao">
+                        🎓
+                        <strong>Curso:</strong>
+                        {{ vaga.curso.nome }}
+                    </p>
 
-                    <strong>
-                        🏢 Empresa:
-                    </strong>
+                    <p class="informacao">
+                        📍
+                        <strong>Local:</strong>
+                        {{ vaga.local }}
+                    </p>
 
-                    {{ vaga.empresa.nome_fantasia }}
+                    <p class="informacao">
+                        💰
+                        <strong>Bolsa:</strong>
 
+                        {% if vaga.bolsa %}
+                            R$ {{ vaga.bolsa }}
+                        {% else %}
+                            Não informada
+                        {% endif %}
+                    </p>
+
+                    <p class="informacao">
+                        ⏰
+                        <strong>Carga horária:</strong>
+                        {{ vaga.carga_horaria }}
+                    </p>
+
+                </div>
+
+
+                <p class="resumo">
+                    {{ vaga.descricao|truncatechars:180 }}
                 </p>
 
 
-                <!-- CURSO -->
+                <div class="vaga-acoes">
 
-                <p class="informacao">
+                    <a
+                        class="botao"
+                        href="/vagas/{{ vaga.id }}/"
+                    >
+                        Ver detalhes
+                    </a>
 
-                    <strong>
-                        🎓 Curso:
-                    </strong>
-
-                    {{ vaga.curso.nome }}
-
-                </p>
-
-
-                <!-- LOCAL -->
-
-                <p class="informacao">
-
-                    <strong>
-                        📍 Local:
-                    </strong>
-
-                    {{ vaga.local }}
-
-                </p>
-
-
-                <!-- BOLSA -->
-
-                <p class="informacao">
-
-                    <strong>
-                        💰 Bolsa:
-                    </strong>
-
-                    {% if vaga.bolsa %}
-
-                        R$ {{ vaga.bolsa }}
-
-                    {% else %}
-
-                        Não informada
-
-                    {% endif %}
-
-                </p>
-
-
-                <!-- CARGA HORÁRIA -->
-
-                <p class="informacao">
-
-                    <strong>
-                        ⏰ Carga horária:
-                    </strong>
-
-                    {{ vaga.carga_horaria }}
-
-                </p>
-
-
-                <!-- DESCRIÇÃO -->
-
-                <p class="descricao">
-                    {{ vaga.descricao }}
-                </p>
-
-
-                <!-- DETALHES -->
-
-                <a
-                    class="botao"
-                    href="/vagas/{{ vaga.id }}/"
-                >
-                    Ver detalhes
-                </a>
+                </div>
 
             </article>
 
@@ -263,11 +185,6 @@
 
 
 {% else %}
-
-
-    <!-- =====================================================
-         NENHUMA VAGA ENCONTRADA
-         ===================================================== -->
 
     <section class="vazio">
 
@@ -289,7 +206,6 @@
         </a>
 
     </section>
-
 
 {% endif %}
 
