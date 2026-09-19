@@ -25,7 +25,7 @@ def area_empresa(request):
 
     return render(
         request,
-        'vagas/area_empresa.html',
+        'vagas/empresa/area_empresa.html',
         {
             'empresa': empresa,
             'vagas': vagas,
@@ -57,7 +57,7 @@ def detalhe_vaga_empresa(request, vaga_id):
 
     return render(
         request,
-        'vagas/detalhe_vaga_empresa.html',
+        'vagas/empresa/detalhe_vaga_empresa.html',
         {
             'vaga': vaga,
             'candidaturas': candidaturas,
@@ -116,7 +116,7 @@ def perfil_empresa(request):
 
     return render(
         request,
-        'vagas/perfil_empresa.html',
+        'vagas/empresa/perfil_empresa.html',
         {
             'empresa': empresa,
         }

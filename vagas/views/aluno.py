@@ -28,7 +28,7 @@ def minhas_candidaturas(request):
 
     return render(
         request,
-        'vagas/minhas_candidaturas.html',
+        'vagas/aluno/minhas_candidaturas.html',
         {
             'candidaturas': candidaturas,
         }
@@ -55,7 +55,7 @@ def area_aluno(request):
 
     return render(
         request,
-        'vagas/area_aluno.html',
+        'vagas/aluno/area_aluno.html',
         {
             'aluno': aluno,
             'candidaturas': candidaturas,
@@ -81,7 +81,7 @@ def cadastro_aluno(request):
             )
             return render(
                 request,
-                'vagas/cadastro_aluno.html'
+                'vagas/aluno/cadastro_aluno.html'
             )
 
         if len(senha) < 6:
@@ -91,7 +91,7 @@ def cadastro_aluno(request):
             )
             return render(
                 request,
-                'vagas/cadastro_aluno.html'
+                'vagas/aluno/cadastro_aluno.html'
             )
 
         from django.contrib.auth.models import User
@@ -103,7 +103,7 @@ def cadastro_aluno(request):
             )
             return render(
                 request,
-                'vagas/cadastro_aluno.html'
+                'vagas/aluno/cadastro_aluno.html'
             )
 
         if User.objects.filter(email=email).exists():
@@ -113,7 +113,7 @@ def cadastro_aluno(request):
             )
             return render(
                 request,
-                'vagas/cadastro_aluno.html'
+                'vagas/aluno/cadastro_aluno.html'
             )
 
         usuario = User.objects.create_user(
@@ -137,7 +137,7 @@ def cadastro_aluno(request):
 
     return render(
         request,
-        'vagas/cadastro_aluno.html'
+        'vagas/aluno/cadastro_aluno.html'
     )
 
 
@@ -154,7 +154,7 @@ def perfil_aluno(request):
 
     return render(
         request,
-        'vagas/perfil_aluno.html',
+        'vagas/aluno/perfil_aluno.html',
         {
             'aluno': aluno,
         }
@@ -174,7 +174,7 @@ def curriculo_aluno(request):
 
     return render(
         request,
-        'vagas/curriculo_aluno.html',
+        'vagas/aluno/curriculo_aluno.html',
         {
             'aluno': aluno,
         }
@@ -229,7 +229,7 @@ def editar_perfil_aluno(request):
 
     return render(
         request,
-        'vagas/editar_perfil_aluno.html',
+        'vagas/aluno/editar_perfil_aluno.html',
         {
             'aluno': aluno,
         }

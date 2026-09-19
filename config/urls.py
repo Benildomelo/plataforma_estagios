@@ -140,28 +140,28 @@ urlpatterns = [
     path(
         'esqueci-senha/',
         auth_views.PasswordResetView.as_view(
-            template_name='vagas/password_reset.html'
+            template_name='vagas/autenticacao/password_reset.html'
         ),
         name='password_reset'
     ),
     path(
         'esqueci-senha/enviado/',
         auth_views.PasswordResetDoneView.as_view(
-            template_name='vagas/password_reset_done.html'
+            template_name='vagas/autenticacao/password_reset_done.html'
         ),
         name='password_reset_done'
     ),
     path(
         'redefinir-senha/<uidb64>/<token>/',
         auth_views.PasswordResetConfirmView.as_view(
-            template_name='vagas/password_reset_confirm.html'
+            template_name='vagas/autenticacao/password_reset_confirm.html'
         ),
         name='password_reset_confirm'
     ),
     path(
         'redefinir-senha/concluido/',
         auth_views.PasswordResetCompleteView.as_view(
-            template_name='vagas/password_reset_complete.html'
+            template_name='vagas/autenticacao/password_reset_complete.html'
         ),
         name='password_reset_complete'
     ),

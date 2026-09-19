@@ -86,7 +86,7 @@ def criar_vaga(request):
 
     return render(
         request,
-        'vagas/criar_vaga.html'
+        'vagas/empresa/criar_vaga.html'
     )
 
 
@@ -156,7 +156,7 @@ def editar_vaga(request, vaga_id):
 
     return render(
         request,
-        'vagas/editar_vaga.html',
+        'vagas/empresa/editar_vaga.html',
         {
             'vaga': vaga,
         }
