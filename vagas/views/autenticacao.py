@@ -31,7 +31,7 @@ def entrar(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/login.html')
+    return render(request, 'vagas/autenticacao/login.html')
 
 
 def entrar_aluno(request):
@@ -54,7 +54,7 @@ def entrar_aluno(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/login_aluno.html')
+    return render(request, 'vagas/autenticacao/login_aluno.html')
 
 
 def entrar_empresa(request):
@@ -77,7 +77,7 @@ def entrar_empresa(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/login_empresa.html')
+    return render(request, 'vagas/autenticacao/login_empresa.html')
 
 
 def trocar_senha_empresa(request):
@@ -124,7 +124,7 @@ def trocar_senha_empresa(request):
 
     return render(
         request,
-        'vagas/trocar_senha_empresa.html'
+        'vagas/autenticacao/trocar_senha_empresa.html'
     )
 
 

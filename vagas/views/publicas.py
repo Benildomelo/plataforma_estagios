@@ -15,7 +15,7 @@ def inicio(request):
 
     return render(
         request,
-        'vagas/inicio.html',
+        'vagas/publicas/inicio.html',
         {
             'vagas': vagas,
         }
@@ -54,7 +54,7 @@ def lista_vagas(request):
 
     return render(
         request,
-        'vagas/lista_vagas.html',
+        'vagas/publicas/lista_vagas.html',
         {
             'vagas': vagas,
             'cursos': cursos,
@@ -90,7 +90,7 @@ def detalhe_vaga(request, vaga_id):
 
     return render(
         request,
-        'vagas/detalhe_vaga.html',
+        'vagas/publicas/detalhe_vaga.html',
         {
             'vaga': vaga,
             'ja_candidatou': ja_candidatou,
