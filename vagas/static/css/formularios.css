@@ -1,0 +1,539 @@
+/* =========================================
+   TELA DE LOGIN
+   ========================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.login-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 27px;
+}
+
+.login-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.login-container .campo {
+    margin-bottom: 20px;
+}
+
+.login-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.login-container .campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-container .campo input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.login-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.login-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.login-container .voltar {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-container .voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - LOGIN
+   ========================================= */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        padding: 30px 22px;
+    }
+
+    .login-cabecalho h1 {
+        font-size: 24px;
+    }
+}
+
+/* =========================================
+   LOGIN DO ALUNO
+   ========================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.login-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-cabecalho .icone {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.login-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 27px;
+}
+
+.login-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.login-titulo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-titulo h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+.login-titulo p {
+    margin-top: 7px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.login-container .mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.login-container .campo {
+    margin-bottom: 20px;
+}
+
+.login-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.login-container .campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.login-container .campo input:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.login-container .esqueci {
+    display: block;
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-container .esqueci:hover {
+    text-decoration: underline;
+}
+
+.login-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.login-container .cadastro {
+    text-align: center;
+    margin-top: 22px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.login-container .cadastro a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container .cadastro a:hover {
+    text-decoration: underline;
+}
+
+.login-container .voltar {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login-container .voltar:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - LOGIN DO ALUNO
+   ========================================= */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        padding: 30px 22px;
+    }
+
+    .login-cabecalho h1 {
+        font-size: 24px;
+    }
+}
+
+/* =========================================
+   CADASTRO DO ALUNO
+   ========================================= */
+
+.cadastro-container {
+    width: 100%;
+    max-width: 700px;
+    background: var(--cor-branco);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-padrao);
+    margin: 0 auto;
+}
+
+.cadastro-cabecalho {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cadastro-cabecalho .icone {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.cadastro-cabecalho h1 {
+    margin: 0;
+    color: var(--cor-primaria);
+    font-size: 30px;
+}
+
+.cadastro-cabecalho p {
+    margin-top: 8px;
+    color: var(--cor-texto-secundario);
+    font-size: 15px;
+}
+
+.cadastro-container .campo {
+    margin-bottom: 18px;
+}
+
+.cadastro-container .campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: var(--cor-texto);
+    font-size: 14px;
+}
+
+.cadastro-container .campo input,
+.cadastro-container .campo select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 15px;
+    background: var(--cor-branco);
+    outline: none;
+    transition: 0.2s;
+}
+
+.cadastro-container .campo input:focus,
+.cadastro-container .campo select:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.cadastro-container .mensagem {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cadastro-container .botao {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: 0.2s;
+}
+
+.cadastro-container .botao:hover {
+    background: var(--cor-primaria-hover);
+}
+
+.cadastro-container .login {
+    text-align: center;
+    margin-top: 22px;
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+}
+
+.cadastro-container .login a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cadastro-container .login a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE - CADASTRO DO ALUNO
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .cadastro-container {
+        padding: 30px 22px;
+    }
+
+    .cadastro-cabecalho h1 {
+        font-size: 26px;
+    }
+}
+
+/* =========================================
+   RECUPERAÇÃO DE SENHA
+   ========================================= */
+
+.recuperar-senha {
+    max-width: 520px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.recuperar-senha-card {
+    padding: 35px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    background: #fff;
+    text-align: center;
+}
+
+.recuperar-senha-icone {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #f1f1f1;
+    font-size: 28px;
+}
+
+.recuperar-senha-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.65;
+}
+
+.recuperar-senha-card h1 {
+    margin: 10px 0;
+    font-size: 27px;
+}
+
+.recuperar-senha-card > p {
+    margin: 0 auto 25px;
+    max-width: 430px;
+    line-height: 1.6;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.recuperar-senha-card form {
+    text-align: left;
+}
+
+.recuperar-senha-card form .botao {
+    width: 100%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.recuperar-senha-card .campo-perfil {
+    margin-bottom: 18px;
+}
+
+.recuperar-senha-card .campo-perfil input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.recuperar-senha-card .campo-perfil ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.voltar-login {
+    display: inline-block;
+    margin-top: 22px;
+    color: #0b2a41;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.voltar-login:hover {
+    text-decoration: underline;
+}
+
+.recuperar-senha-erros {
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-size: 13px;
+    text-align: left;
+    background: #f8f8f8;
+}
+
+@media (max-width: 600px) {
+
+    .recuperar-senha {
+        margin: 25px auto;
+        padding: 15px;
+    }
+
+    .recuperar-senha-card {
+        padding: 25px 20px;
+    }
+
+    .recuperar-senha-card h1 {
+        font-size: 24px;
+    }
+}
+
