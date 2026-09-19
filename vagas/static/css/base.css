@@ -1,0 +1,200 @@
+/* =========================================================
+   PLATAFORMA DE ESTÁGIOS
+   CSS GLOBAL
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   VARIÁVEIS DO SISTEMA
+   --------------------------------------------------------- */
+
+:root {
+    --cor-primaria: #1f4e79;
+    --cor-primaria-hover: #163a5c;
+
+    --cor-fundo: #f4f6f9;
+    --cor-branco: #ffffff;
+
+    --cor-texto: #333333;
+    --cor-texto-secundario: #666666;
+
+    --cor-borda: #e1e5e9;
+
+    --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    --raio-padrao: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   RESET BÁSICO
+   --------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------------------------
+   CORPO DO SISTEMA
+   --------------------------------------------------------- */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+header {
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: 20px 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.botao {
+    display: inline-block;
+
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    text-decoration: none;
+
+    padding: 12px 24px;
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.botao:hover {
+    background: var(--cor-primaria-hover);
+    transform: translateY(-1px);
+}
+
+.botao-secundario {
+    background: #e8eef5;
+    color: var(--cor-primaria);
+}
+
+.botao-secundario:hover {
+    background: #d8e3ee;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+footer {
+    text-align: center;
+    color: var(--cor-texto-secundario);
+
+    padding: 30px 20px;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   CABEÇALHO E MENU DE NAVEGAÇÃO
+   ========================================================= */
+
+.barra-navegacao {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+}
+
+.cabecalho nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.cabecalho nav a {
+    color: var(--cor-branco);
+
+    text-decoration: none;
+
+    padding: 8px 12px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.cabecalho nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   LINKS DO MENU
+   ========================================================= */
+
+.barra-navegacao nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.barra-navegacao nav a {
+    color: #ffffff;
+    text-decoration: none;
+
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.barra-navegacao nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
