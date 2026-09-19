@@ -4482,3 +4482,206 @@ footer {
         text-align: center;
     }
 }
+
+/* =========================================
+   NOVO VISUAL - DETALHES DA VAGA
+   ========================================= */
+
+.detalhe-cabecalho {
+    margin-bottom: 30px;
+}
+
+.detalhe-tipo {
+    margin: 0 0 8px;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detalhe-vaga .titulo {
+    margin: 0 0 12px;
+
+    color: var(--cor-primaria);
+
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.detalhe-vaga .empresa {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   INFORMAÇÕES DA VAGA
+   ========================================= */
+
+.detalhe-vaga .informacoes {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.detalhe-vaga .info {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    background: #f7f9fb;
+
+    padding: 18px;
+
+    border: 1px solid var(--cor-borda);
+
+    border-radius: 10px;
+}
+
+.detalhe-vaga .info-icone {
+    font-size: 22px;
+
+    line-height: 1;
+}
+
+.detalhe-vaga .info div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.detalhe-vaga .info strong {
+    margin: 0;
+
+    color: var(--cor-texto);
+
+    font-size: 14px;
+}
+
+.detalhe-vaga .info div span:not(.info-icone) {
+    color: var(--cor-texto-secundario);
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   SEÇÕES
+   ========================================= */
+
+.detalhe-vaga .secao {
+    margin-top: 30px;
+}
+
+.detalhe-vaga .secao h3 {
+    margin-bottom: 15px;
+
+    color: var(--cor-primaria);
+
+    border-bottom: 2px solid var(--cor-borda);
+
+    padding-bottom: 10px;
+}
+
+.detalhe-vaga .secao p {
+    color: var(--cor-texto);
+
+    line-height: 1.7;
+
+    white-space: pre-line;
+}
+
+
+/* =========================================
+   ÁREA DE CANDIDATURA
+   ========================================= */
+
+.detalhe-vaga .candidatura {
+    margin-top: 35px;
+
+    padding: 30px;
+
+    background: #eef5fb;
+
+    border: 1px solid #d9e7f3;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.detalhe-vaga .candidatura h3 {
+    margin: 0 0 10px;
+
+    color: var(--cor-primaria);
+
+    font-size: 21px;
+}
+
+.detalhe-vaga .candidatura p {
+    margin: 8px 0 18px;
+
+    color: var(--cor-texto-secundario);
+}
+
+.botao-candidatura {
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   CANDIDATURA JÁ REALIZADA
+   ========================================= */
+
+.candidatura-sucesso {
+    text-align: center;
+}
+
+.candidatura-sucesso .sucesso {
+    margin-bottom: 8px;
+
+    color: #176b3a;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .detalhe-vaga {
+        padding: 25px;
+    }
+
+    .detalhe-vaga .titulo {
+        font-size: 26px;
+    }
+
+    .detalhe-vaga .informacoes {
+        grid-template-columns: 1fr;
+    }
+
+    .detalhe-vaga .candidatura {
+        padding: 25px 20px;
+    }
+
+}

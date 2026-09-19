@@ -8,57 +8,119 @@
 
 <div class="detalhe-vaga">
 
-    <h1 class="titulo">
-        {{ vaga.titulo }}
-    </h1>
+    <!-- CABEÇALHO DA VAGA -->
 
-    <div class="empresa">
-        🏢 {{ vaga.empresa.nome_fantasia }}
+    <div class="detalhe-cabecalho">
+
+        <p class="detalhe-tipo">
+            Oportunidade de estágio
+        </p>
+
+        <h1 class="titulo">
+            {{ vaga.titulo }}
+        </h1>
+
+        <p class="empresa">
+            🏢 {{ vaga.empresa.nome_fantasia }}
+        </p>
+
     </div>
+
+
+    <!-- INFORMAÇÕES PRINCIPAIS -->
 
     <div class="informacoes">
 
         <div class="info">
-            <strong>Curso</strong>
-            {{ vaga.curso.nome }}
+            <span class="info-icone">🎓</span>
+
+            <div>
+                <strong>Curso</strong>
+                <span>{{ vaga.curso.nome }}</span>
+            </div>
         </div>
 
+
         <div class="info">
-            <strong>Local</strong>
-            {{ vaga.local }}
+            <span class="info-icone">📍</span>
+
+            <div>
+                <strong>Local</strong>
+                <span>{{ vaga.local }}</span>
+            </div>
         </div>
 
+
         <div class="info">
-            <strong>Carga horária</strong>
-            {{ vaga.carga_horaria }}
+            <span class="info-icone">⏰</span>
+
+            <div>
+                <strong>Carga horária</strong>
+                <span>{{ vaga.carga_horaria }}</span>
+            </div>
         </div>
 
-        <div class="info">
-            <strong>Bolsa</strong>
 
-            {% if vaga.bolsa %}
-                R$ {{ vaga.bolsa|floatformat:2 }}
-            {% else %}
-                Não informada
-            {% endif %}
+        <div class="info">
+            <span class="info-icone">💰</span>
+
+            <div>
+                <strong>Bolsa</strong>
+
+                <span>
+                    {% if vaga.bolsa %}
+                        R$ {{ vaga.bolsa|floatformat:2 }}
+                    {% else %}
+                        Não informada
+                    {% endif %}
+                </span>
+            </div>
         </div>
 
     </div>
 
-    <div class="secao">
-        <h3>Descrição da vaga</h3>
-        <p>{{ vaga.descricao }}</p>
-    </div>
+
+    <!-- DESCRIÇÃO -->
 
     <div class="secao">
-        <h3>Requisitos</h3>
+
+        <h3>
+            Sobre a vaga
+        </h3>
+
+        <p>
+            {{ vaga.descricao }}
+        </p>
+
+    </div>
+
+
+    <!-- REQUISITOS -->
+
+    <div class="secao">
+
+        <h3>
+            Requisitos
+        </h3>
 
         {% if vaga.requisitos %}
-            <p>{{ vaga.requisitos }}</p>
+
+            <p>
+                {{ vaga.requisitos }}
+            </p>
+
         {% else %}
-            <p>Não informado.</p>
+
+            <p class="texto-secundario">
+                Não informado.
+            </p>
+
         {% endif %}
+
     </div>
+
+
+    <!-- CANDIDATURA -->
 
     <div class="candidatura">
 
@@ -66,45 +128,90 @@
 
             {% if candidatura_existente %}
 
-                <p class="sucesso">
-                    ✓ Você já se candidatou a esta vaga.
-                </p>
+                <div class="candidatura-sucesso">
 
-                <a href="/minhas-candidaturas/" class="botao">
-                    Ver minhas candidaturas
-                </a>
+                    <p class="sucesso">
+                        ✓ Você já se candidatou a esta vaga.
+                    </p>
+
+                    <p>
+                        Sua candidatura foi registrada na plataforma.
+                    </p>
+
+                    <a
+                        href="/minhas-candidaturas/"
+                        class="botao"
+                    >
+                        Ver minhas candidaturas
+                    </a>
+
+                </div>
 
             {% else %}
 
-                <p class="aviso">
-                    Gostou desta oportunidade?
-                </p>
+                <div class="candidatura-convite">
 
-                <form method="POST" action="{% url 'candidatar' vaga.id %}">
-                    {% csrf_token %}
+                    <h3>
+                        Interessado nesta oportunidade?
+                    </h3>
 
-                    <button type="submit" class="botao">
-                        Candidatar-se à vaga
-                    </button>
-                </form>
+                    <p>
+                        Envie sua candidatura para que a empresa possa
+                        analisar seu perfil.
+                    </p>
+
+                    <form
+                        method="POST"
+                        action="{% url 'candidatar' vaga.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="botao botao-candidatura"
+                        >
+                            Candidatar-se à vaga
+                        </button>
+
+                    </form>
+
+                </div>
 
             {% endif %}
 
         {% else %}
 
-            <p class="aviso">
-                Faça login para se candidatar a esta vaga.
-            </p>
+            <div class="candidatura-login">
 
-            <a href="/entrar/" class="botao">
-                Entrar para se candidatar
-            </a>
+                <h3>
+                    Quer se candidatar?
+                </h3>
+
+                <p>
+                    Faça login para enviar sua candidatura.
+                </p>
+
+                <a
+                    href="/entrar/"
+                    class="botao"
+                >
+                    Entrar para se candidatar
+                </a>
+
+            </div>
 
         {% endif %}
 
     </div>
 
-    <a href="/vagas/" class="voltar">
+
+    <!-- VOLTAR -->
+
+    <a
+        href="/vagas/"
+        class="voltar"
+    >
         ← Voltar para as vagas
     </a>
 
