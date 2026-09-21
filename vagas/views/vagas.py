@@ -1,29 +1,38 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.utils import timezone
 
-from ..models import Vaga, Candidatura, Aluno, Empresa
+from ..repositories.vaga_repository import VagaRepository
+from ..repositories.candidatura_repository import CandidaturaRepository
+from ..repositories.aluno_repository import AlunoRepository
+from ..repositories.empresa_repository import EmpresaRepository
+from ..repositories.curso_repository import CursoRepository
 
 
 def candidatar(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    vaga = get_object_or_404(
-        Vaga,
-        id=vaga_id,
-        status='APROVADA',
-        ativo=True
+    vaga = VagaRepository.buscar_por_id(
+        vaga_id
     )
 
-    aluno = get_object_or_404(
-        Aluno,
-        usuario=request.user
+    if not vaga or vaga.status != 'APROVADA' or not vaga.ativo:
+        return redirect('vagas_publicas')
+
+    aluno = AlunoRepository.buscar_por_usuario(
+        request.user
     )
 
-    candidatura, criada = Candidatura.objects.get_or_create(
-        vaga=vaga,
-        aluno=aluno
+    if not aluno:
+        messages.error(
+            request,
+            'Perfil do aluno não encontrado.'
+        )
+        return redirect('entrar_aluno')
+
+    candidatura, criada = _obter_ou_criar_candidatura(
+        aluno,
+        vaga
     )
 
     if criada:
@@ -43,25 +52,96 @@ def candidatar(request, vaga_id):
     )
 
 
+def _obter_ou_criar_candidatura(aluno, vaga):
+    candidatura = CandidaturaRepository.buscar_por_vaga(
+        vaga
+    ).filter(
+        aluno=aluno
+    ).first()
+
+    if candidatura:
+        return candidatura, False
+
+    candidatura = CandidaturaRepository.criar(
+        aluno=aluno,
+        vaga=vaga
+    )
+
+    return candidatura, True
+
+
 def criar_vaga(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = get_object_or_404(
-        Empresa,
-        usuario=request.user
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
     )
 
-    if request.method == 'POST':
-        titulo = request.POST.get('titulo', '').strip()
-        descricao = request.POST.get('descricao', '').strip()
-        requisitos = request.POST.get('requisitos', '').strip()
-        local = request.POST.get('local', '').strip()
-        carga_horaria = request.POST.get('carga_horaria', '').strip()
-        bolsa = request.POST.get('bolsa', '').strip()
-        curso_id = request.POST.get('curso')
+    if not empresa:
+        messages.error(
+            request,
+            'Perfil da empresa não encontrado.'
+        )
+        return redirect('entrar_empresa')
 
-        vaga = Vaga.objects.create(
+    cursos = CursoRepository.buscar_ativos()
+
+    if request.method == 'POST':
+        titulo = request.POST.get(
+            'titulo',
+            ''
+        ).strip()
+
+        descricao = request.POST.get(
+            'descricao',
+            ''
+        ).strip()
+
+        requisitos = request.POST.get(
+            'requisitos',
+            ''
+        ).strip()
+
+        local = request.POST.get(
+            'local',
+            ''
+        ).strip()
+
+        carga_horaria = request.POST.get(
+            'carga_horaria',
+            ''
+        ).strip()
+
+        bolsa = request.POST.get(
+            'bolsa',
+            ''
+        ).strip()
+
+        curso_id = request.POST.get(
+            'curso',
+            ''
+        ).strip()
+
+        curso = CursoRepository.buscar_por_id(
+            curso_id
+        )
+
+        if not curso or not curso.ativo:
+            messages.error(
+                request,
+                'Selecione um curso válido.'
+            )
+
+            return render(
+                request,
+                'vagas/empresa/criar_vaga.html',
+                {
+                    'cursos': cursos,
+                }
+            )
+
+        vaga = VagaRepository.criar(
             empresa=empresa,
             titulo=titulo,
             descricao=descricao,
@@ -69,7 +149,7 @@ def criar_vaga(request):
             local=local,
             carga_horaria=carga_horaria,
             bolsa=bolsa,
-            curso_id=curso_id,
+            curso=curso,
             status='PENDENTE',
             ativo=True
         )
@@ -86,7 +166,10 @@ def criar_vaga(request):
 
     return render(
         request,
-        'vagas/empresa/criar_vaga.html'
+        'vagas/empresa/criar_vaga.html',
+        {
+            'cursos': cursos,
+        }
     )
 
 
@@ -94,16 +177,21 @@ def editar_vaga(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = get_object_or_404(
-        Empresa,
-        usuario=request.user
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
     )
 
-    vaga = get_object_or_404(
-        Vaga,
-        id=vaga_id,
-        empresa=empresa
+    if not empresa:
+        return redirect('entrar_empresa')
+
+    vaga = VagaRepository.buscar_por_id(
+        vaga_id
     )
+
+    if not vaga or vaga.empresa != empresa:
+        return redirect('area_empresa')
+
+    cursos = CursoRepository.buscar_ativos()
 
     if request.method == 'POST':
         vaga.titulo = request.POST.get(
@@ -136,13 +224,38 @@ def editar_vaga(request, vaga_id):
             vaga.bolsa
         ).strip()
 
-        curso_id = request.POST.get('curso')
+        curso_id = request.POST.get(
+            'curso',
+            ''
+        ).strip()
 
         if curso_id:
-            vaga.curso_id = curso_id
+            curso = CursoRepository.buscar_por_id(
+                curso_id
+            )
+
+            if not curso or not curso.ativo:
+                messages.error(
+                    request,
+                    'Selecione um curso válido.'
+                )
+
+                return render(
+                    request,
+                    'vagas/empresa/editar_vaga.html',
+                    {
+                        'vaga': vaga,
+                        'cursos': cursos,
+                    }
+                )
+
+            vaga.curso = curso
 
         vaga.status = 'PENDENTE'
-        vaga.save()
+
+        VagaRepository.atualizar(
+            vaga
+        )
 
         messages.success(
             request,
@@ -159,6 +272,7 @@ def editar_vaga(request, vaga_id):
         'vagas/empresa/editar_vaga.html',
         {
             'vaga': vaga,
+            'cursos': cursos,
         }
     )
 
@@ -167,20 +281,24 @@ def encerrar_vaga(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = get_object_or_404(
-        Empresa,
-        usuario=request.user
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
     )
 
-    vaga = get_object_or_404(
-        Vaga,
-        id=vaga_id,
-        empresa=empresa
+    if not empresa:
+        return redirect('entrar_empresa')
+
+    vaga = VagaRepository.buscar_por_id(
+        vaga_id
     )
+
+    if not vaga or vaga.empresa != empresa:
+        return redirect('area_empresa')
 
     if request.method == 'POST':
-        vaga.ativo = False
-        vaga.save()
+        VagaRepository.encerrar(
+            vaga
+        )
 
         messages.success(
             request,

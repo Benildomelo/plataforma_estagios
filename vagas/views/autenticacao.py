@@ -1,11 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.utils import timezone
 from django.contrib.auth import update_session_auth_hash
-
-from ..models import Empresa
 
 
 def entrar(request):
@@ -31,7 +27,10 @@ def entrar(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/autenticacao/login.html')
+    return render(
+        request,
+        'vagas/autenticacao/login.html'
+    )
 
 
 def entrar_aluno(request):
@@ -54,7 +53,10 @@ def entrar_aluno(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/autenticacao/login_aluno.html')
+    return render(
+        request,
+        'vagas/autenticacao/login_aluno.html'
+    )
 
 
 def entrar_empresa(request):
@@ -77,7 +79,10 @@ def entrar_empresa(request):
             'Usuário ou senha inválidos.'
         )
 
-    return render(request, 'vagas/autenticacao/login_empresa.html')
+    return render(
+        request,
+        'vagas/autenticacao/login_empresa.html'
+    )
 
 
 def trocar_senha_empresa(request):
@@ -113,7 +118,10 @@ def trocar_senha_empresa(request):
         request.user.set_password(nova_senha)
         request.user.save()
 
-        update_session_auth_hash(request, request.user)
+        update_session_auth_hash(
+            request,
+            request.user
+        )
 
         messages.success(
             request,
