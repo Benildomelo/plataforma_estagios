@@ -203,51 +203,6 @@
     max-width: 500px;
 }
 
-@media (max-width: 700px) {
-
-    .area-aluno-header {
-        padding: 25px;
-        align-items: flex-start;
-    }
-
-    .area-aluno-header h1 {
-        font-size: 25px;
-    }
-
-    .area-aluno-icone {
-        width: 55px;
-        height: 55px;
-        font-size: 27px;
-    }
-
-    .area-aluno-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .area-aluno-secao {
-        padding: 22px;
-    }
-
-    .area-aluno-secao-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .candidatura-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .candidatura-acao {
-        width: 100%;
-    }
-
-    .candidatura-acao .botao {
-        width: 100%;
-        text-align: center;
-    }
-}
-
 
 /* =========================================================
    PERFIL DO ALUNO
@@ -372,7 +327,14 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     text-decoration: none;
+    color: #0b2a41;
     transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.perfil-links a:visited,
+.perfil-links a:hover,
+.perfil-links a:active {
+    color: #0b2a41;
 }
 
 .perfil-links a:hover {
@@ -391,17 +353,6 @@
 
 .perfil-links small {
     opacity: 0.65;
-}
-
-.perfil-links a,
-.perfil-links a:visited,
-.perfil-links a:hover,
-.perfil-links a:active {
-    color: #0b2a41;
-}
-
-.perfil-links a {
-    text-decoration: none;
 }
 
 .perfil-links a strong,
@@ -784,10 +735,10 @@
     border: 1px solid #ddd;
     border-radius: 11px;
     text-decoration: none;
+    color: #0b2a41;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.dashboard-acao,
 .dashboard-acao:visited,
 .dashboard-acao:hover,
 .dashboard-acao:active {
@@ -858,12 +809,15 @@
     font-size: 17px;
 }
 
-.dashboard-candidatura h3 a,
+.dashboard-candidatura h3 a {
+    color: #0b2a41;
+    text-decoration: none;
+}
+
 .dashboard-candidatura h3 a:visited,
 .dashboard-candidatura h3 a:hover,
 .dashboard-candidatura h3 a:active {
     color: #0b2a41;
-    text-decoration: none;
 }
 
 .dashboard-candidatura p {
@@ -947,7 +901,425 @@
 }
 
 
-/* RESPONSIVO */
+/* =========================================================
+   MINHAS CANDIDATURAS
+   ========================================================= */
+
+.minhas-candidaturas {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.minhas-candidaturas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.minhas-candidaturas-label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.minhas-candidaturas-header h1 {
+    margin: 8px 0;
+    font-size: 32px;
+    color: var(--cor-primaria);
+}
+
+.minhas-candidaturas-header p {
+    margin: 0;
+    max-width: 700px;
+    line-height: 1.6;
+    color: var(--cor-texto-secundario);
+}
+
+.minhas-candidaturas-icone {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #f1f1f1;
+    font-size: 30px;
+}
+
+.candidaturas-resumo {
+    margin-bottom: 24px;
+}
+
+.candidaturas-resumo-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: fit-content;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.candidaturas-resumo-card > span {
+    font-size: 25px;
+}
+
+.candidaturas-resumo-card small {
+    display: block;
+    opacity: 0.65;
+    margin-bottom: 3px;
+}
+
+.candidaturas-resumo-card strong {
+    font-size: 22px;
+}
+
+.lista-minhas-candidaturas {
+    display: grid;
+    gap: 20px;
+}
+
+.minha-candidatura-card {
+    padding: 24px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.minha-candidatura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.minha-candidatura-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    opacity: 0.65;
+}
+
+.minha-candidatura-header h2 {
+    margin: 7px 0 0;
+    font-size: 21px;
+}
+
+.minha-candidatura-header h2 a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+.minha-candidatura-header h2 a:hover {
+    text-decoration: underline;
+}
+
+.status-candidatura-aluno {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.minha-candidatura-dados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 22px;
+    padding: 18px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.minha-candidatura-dado {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.minha-candidatura-dado span {
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+.minha-candidatura-dado strong {
+    font-size: 14px;
+}
+
+.minha-candidatura-status-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #f7f7f7;
+}
+
+.minha-candidatura-status-info > span {
+    font-size: 20px;
+}
+
+.minha-candidatura-status-info strong {
+    font-size: 14px;
+}
+
+.minha-candidatura-status-info p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.minha-candidatura-acao {
+    margin-top: 20px;
+}
+
+.minhas-candidaturas-vazio {
+    text-align: center;
+    padding: 70px 20px;
+    border: 1px dashed #ccc;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.minhas-candidaturas-vazio-icone {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.minhas-candidaturas-vazio h2 {
+    margin: 0 0 8px;
+}
+
+.minhas-candidaturas-vazio p {
+    margin: 0 auto 25px;
+    max-width: 550px;
+}
+
+
+/* =========================================================
+   CURRÍCULO - STATUS
+   ========================================================= */
+
+.curriculo-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.curriculo-status p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    word-break: break-word;
+}
+
+.curriculo-enviado {
+    background: #f2f8f2;
+}
+
+.curriculo-pendente {
+    background: #f8f6ef;
+}
+
+.curriculo-status-icone {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background: #fff;
+}
+
+
+/* =========================================================
+   EDITAR PERFIL - ÁREA DO ALUNO
+   ========================================================= */
+
+.editar-perfil-aluno {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.editar-perfil-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.editar-perfil-label {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.editar-perfil-header h1 {
+    margin: 8px 0;
+    font-size: 32px;
+}
+
+.editar-perfil-header p {
+    margin: 0;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+.editar-perfil-icone {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #f1f1f1;
+    font-size: 32px;
+}
+
+.editar-perfil-mensagem {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f8f8f8;
+    font-size: 14px;
+}
+
+.editar-perfil-card {
+    padding: 28px;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.editar-perfil-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.editar-perfil-card-icone {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f1f1f1;
+    font-size: 22px;
+}
+
+.editar-perfil-card-header h2 {
+    margin: 0 0 4px;
+    font-size: 21px;
+}
+
+.editar-perfil-card-header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.editar-perfil-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.campo-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-perfil-completo {
+    grid-column: 1 / -1;
+}
+
+.campo-perfil label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo-perfil input,
+.campo-perfil select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    background: #fff;
+    font-size: 14px;
+    color: #0b2a41;
+    outline: none;
+}
+
+.campo-perfil input:focus,
+.campo-perfil select:focus {
+    border-color: #0b2a41;
+}
+
+.editar-perfil-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 17px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #f8f8f8;
+}
+
+.editar-perfil-info > span {
+    font-size: 22px;
+}
+
+.editar-perfil-info strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.editar-perfil-info p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+.editar-perfil-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+.editar-perfil-acoes .botao {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
 
 @media (max-width: 850px) {
 
@@ -970,6 +1342,7 @@
     }
 }
 
+
 @media (max-width: 800px) {
 
     .perfil-cabecalho {
@@ -984,7 +1357,121 @@
     .perfil-links {
         grid-template-columns: 1fr;
     }
+
+    .minhas-candidaturas-header {
+        align-items: flex-start;
+    }
+
+    .minha-candidatura-dados {
+        grid-template-columns: 1fr;
+    }
 }
+
+
+@media (max-width: 700px) {
+
+    .area-aluno-header {
+        padding: 25px;
+        align-items: flex-start;
+    }
+
+    .area-aluno-header h1 {
+        font-size: 25px;
+    }
+
+    .area-aluno-icone {
+        width: 55px;
+        height: 55px;
+        font-size: 27px;
+    }
+
+    .area-aluno-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .area-aluno-secao {
+        padding: 22px;
+    }
+
+    .area-aluno-secao-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .candidatura-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .candidatura-acao {
+        width: 100%;
+    }
+
+    .candidatura-acao .botao {
+        width: 100%;
+        text-align: center;
+    }
+
+    .minhas-candidaturas-header {
+        flex-direction: column;
+    }
+
+    .minhas-candidaturas-header h1 {
+        font-size: 27px;
+    }
+
+    .minhas-candidaturas-icone {
+        display: none;
+    }
+
+    .minha-candidatura-header {
+        flex-direction: column;
+    }
+
+    .minha-candidatura-card {
+        padding: 20px;
+    }
+
+    .minha-candidatura-dados {
+        grid-template-columns: 1fr;
+    }
+
+    .editar-perfil-aluno {
+        padding: 20px 15px;
+    }
+
+    .editar-perfil-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .editar-perfil-header h1 {
+        font-size: 27px;
+    }
+
+    .editar-perfil-card {
+        padding: 20px;
+    }
+
+    .editar-perfil-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-perfil-completo {
+        grid-column: auto;
+    }
+
+    .editar-perfil-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .editar-perfil-acoes .botao {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+}
+
 
 @media (max-width: 600px) {
 
@@ -1049,223 +1536,14 @@
     }
 }
 
-/* ========================================
-   MINHAS CANDIDATURAS
-======================================== */
 
-.minhas-candidaturas {
-    max-width: 1000px;
-    margin: 0 auto;
-}
+@media (max-width: 550px) {
 
-.minhas-candidaturas-header {
-    background: var(--cor-branco);
-    padding: 30px;
-    border-radius: var(--raio-padrao);
-    box-shadow: var(--sombra-padrao);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 25px;
-}
-
-.minhas-candidaturas-label {
-    display: block;
-
-    color: var(--cor-texto-secundario);
-    font-size: 14px;
-    font-weight: bold;
-
-    margin-bottom: 6px;
-}
-
-.minhas-candidaturas-header h1 {
-    margin: 0;
-
-    color: var(--cor-primaria);
-    font-size: 30px;
-}
-
-.minhas-candidaturas-header p {
-    margin: 8px 0 0;
-
-    color: var(--cor-texto-secundario);
-}
-
-.minhas-candidaturas-icone {
-    width: 64px;
-    height: 64px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #eef5fb;
-    border-radius: 50%;
-
-    font-size: 30px;
-}
-
-
-/* LISTA */
-
-.lista-minhas-candidaturas {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-
-/* CARD */
-
-.minha-candidatura-card {
-    background: var(--cor-branco);
-
-    border-radius: var(--raio-padrao);
-    box-shadow: var(--sombra-padrao);
-
-    padding: 25px;
-}
-
-.minha-candidatura-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-
-    gap: 20px;
-
-    padding-bottom: 18px;
-
-    border-bottom: 1px solid var(--cor-borda);
-}
-
-.minha-candidatura-label {
-    display: block;
-
-    color: var(--cor-texto-secundario);
-    font-size: 13px;
-
-    margin-bottom: 5px;
-}
-
-.minha-candidatura-header h2 {
-    margin: 0;
-    font-size: 21px;
-}
-
-.minha-candidatura-header h2 a {
-    color: var(--cor-primaria);
-    text-decoration: none;
-}
-
-.minha-candidatura-header h2 a:hover {
-    text-decoration: underline;
-}
-
-
-/* DADOS */
-
-.minha-candidatura-dados {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 18px;
-
-    padding: 20px 0;
-}
-
-.minha-candidatura-dado {
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-.minha-candidatura-dado span {
-    color: var(--cor-texto-secundario);
-    font-size: 13px;
-}
-
-.minha-candidatura-dado strong {
-    color: var(--cor-texto);
-    font-size: 14px;
-}
-
-
-/* AÇÃO */
-
-.minha-candidatura-acao {
-    padding-top: 18px;
-
-    border-top: 1px solid var(--cor-borda);
-}
-
-
-/* ESTADO VAZIO */
-
-.minhas-candidaturas-vazio {
-    background: var(--cor-branco);
-
-    padding: 50px 25px;
-
-    border-radius: var(--raio-padrao);
-    box-shadow: var(--sombra-padrao);
-
-    text-align: center;
-}
-
-.minhas-candidaturas-vazio-icone {
-    font-size: 40px;
-    margin-bottom: 12px;
-}
-
-.minhas-candidaturas-vazio h2 {
-    margin: 0 0 8px;
-
-    color: var(--cor-primaria);
-    font-size: 22px;
-}
-
-.minhas-candidaturas-vazio p {
-    color: var(--cor-texto-secundario);
-
-    margin: 0 auto 22px;
-
-    max-width: 550px;
-}
-
-
-/* RESPONSIVO */
-
-@media (max-width: 700px) {
-
-    .minhas-candidaturas-header {
-        padding: 24px;
-
-        flex-direction: column;
-        align-items: flex-start;
+    .minhas-candidaturas {
+        padding: 20px 15px;
     }
 
     .minhas-candidaturas-header h1 {
         font-size: 26px;
-    }
-
-    .minhas-candidaturas-icone {
-        display: none;
-    }
-
-    .minha-candidatura-card {
-        padding: 20px;
-    }
-
-    .minha-candidatura-header {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .minha-candidatura-dados {
-        grid-template-columns: 1fr;
     }
 }
