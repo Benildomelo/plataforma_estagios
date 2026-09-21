@@ -1,38 +1,59 @@
 {% extends 'vagas/base.html' %}
 
-{% block title %}Cadastrar Vaga - Plataforma de Estágios{% endblock %}
+{% block title %}
+    Cadastrar Vaga - Plataforma de Estágios
+{% endblock %}
 
 {% block content %}
 
 <div class="criar-vaga">
 
     <div class="criar-vaga-cabecalho">
-        <span class="criar-vaga-label">Área da empresa</span>
 
-        <h1>Cadastrar nova vaga</h1>
+        <span class="criar-vaga-label">
+            Área da empresa
+        </span>
+
+        <h1>
+            Cadastrar nova vaga
+        </h1>
 
         <p>
             Cadastre uma oportunidade de estágio para os alunos da plataforma.
         </p>
+
     </div>
 
 
     <div class="criar-vaga-card">
 
         <div class="criar-vaga-empresa">
-            <span>Empresa responsável</span>
-            <strong>{{ empresa.nome_fantasia }}</strong>
+
+            <span>
+                Empresa responsável
+            </span>
+
+            <strong>
+                {{ empresa.nome_fantasia }}
+            </strong>
+
         </div>
 
 
-        {% if mensagem %}
-            <div class="mensagem">
-                {{ mensagem }}
-            </div>
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="mensagem">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
         {% endif %}
 
 
-        <form method="post">
+        <form method="POST">
 
             {% csrf_token %}
 
@@ -47,6 +68,7 @@
                     type="text"
                     id="titulo"
                     name="titulo"
+                    value="{{ request.POST.titulo }}"
                     placeholder="Ex.: Estagiário de Desenvolvimento"
                     required
                 >
@@ -66,7 +88,7 @@
                     rows="7"
                     placeholder="Descreva as atividades que serão realizadas..."
                     required
-                ></textarea>
+                >{{ request.POST.descricao }}</textarea>
 
             </div>
 
@@ -82,7 +104,7 @@
                     name="requisitos"
                     rows="5"
                     placeholder="Informe os conhecimentos e requisitos necessários..."
-                ></textarea>
+                >{{ request.POST.requisitos }}</textarea>
 
             </div>
 
@@ -99,6 +121,7 @@
                         type="number"
                         id="bolsa"
                         name="bolsa"
+                        value="{{ request.POST.bolsa }}"
                         step="0.01"
                         min="0"
                         placeholder="Ex.: 1200.00"
@@ -117,6 +140,7 @@
                         type="text"
                         id="carga_horaria"
                         name="carga_horaria"
+                        value="{{ request.POST.carga_horaria }}"
                         placeholder="Ex.: 30 horas semanais"
                         required
                     >
@@ -138,7 +162,8 @@
                         type="text"
                         id="local"
                         name="local"
-                        placeholder="Ex.: Fortaleza - CE"
+                        value="{{ request.POST.local }}"
+                        placeholder="Ex.: Teresina - PI"
                         required
                     >
 
@@ -163,8 +188,19 @@
 
                         {% for curso in cursos %}
 
-                            <option value="{{ curso.id }}">
+                            <option
+                                value="{{ curso.id }}"
+                                {% if request.POST.curso == curso.id|stringformat:"s" %}
+                                    selected
+                                {% endif %}
+                            >
                                 {{ curso.nome }}
+                            </option>
+
+                        {% empty %}
+
+                            <option value="">
+                                Nenhum curso disponível
                             </option>
 
                         {% endfor %}

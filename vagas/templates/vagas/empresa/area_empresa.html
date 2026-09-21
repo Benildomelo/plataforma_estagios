@@ -164,19 +164,23 @@
                             <div class="vaga-empresa-info">
 
                                 <span>
+
                                     <strong>
                                         Curso:
                                     </strong>
 
                                     {{ vaga.curso.nome }}
+
                                 </span>
 
                                 <span>
+
                                     <strong>
                                         Local:
                                     </strong>
 
                                     {{ vaga.local }}
+
                                 </span>
 
                             </div>
@@ -365,9 +369,7 @@
                             <!-- STATUS ATUAL -->
 
                             <span class="status-candidatura">
-
                                 {{ candidatura.get_status_display }}
-
                             </span>
 
                         </div>
@@ -427,24 +429,36 @@
 
                             {% endif %}
 
+
+                            <!-- CURRÍCULO -->
+
                             {% if candidatura.aluno.curriculo %}
+
                                 <div>
+
                                     <span class="dado-label">
                                         Currículo
                                     </span>
 
                                     <strong>
+
                                         📄
+
                                         <a
                                             href="{{ candidatura.aluno.curriculo.url }}"
                                             target="_blank"
                                         >
                                             Visualizar currículo
                                         </a>
+
                                     </strong>
+
                                 </div>
+
                             {% else %}
+
                                 <div>
+
                                     <span class="dado-label">
                                         Currículo
                                     </span>
@@ -452,7 +466,9 @@
                                     <strong>
                                         Não enviado
                                     </strong>
+
                                 </div>
+
                             {% endif %}
 
 
@@ -465,7 +481,7 @@
                                 </span>
 
                                 <strong>
-                                    {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
+                                    {{ candidatura.data_candidatura|date:"d/m/Y H\:i" }}
                                 </strong>
 
                             </div>

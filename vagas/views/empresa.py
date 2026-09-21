@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from ..models import Vaga, Candidatura, Empresa
+from ..models import Candidatura
+from ..repositories.empresa_repository import EmpresaRepository
+from ..repositories.vaga_repository import VagaRepository
+from ..repositories.candidatura_repository import CandidaturaRepository
 
 
 def area_empresa(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = Empresa.objects.filter(
-        usuario=request.user
-    ).first()
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
+    )
 
     if not empresa:
         messages.error(
@@ -19,9 +22,13 @@ def area_empresa(request):
         )
         return redirect('entrar_empresa')
 
-    vagas = Vaga.objects.filter(
-        empresa=empresa
-    ).order_by('-id')
+    vagas = VagaRepository.buscar_por_empresa(
+        empresa
+    )
+
+    candidaturas = CandidaturaRepository.buscar_por_empresa(
+        empresa
+    )
 
     return render(
         request,
@@ -29,6 +36,7 @@ def area_empresa(request):
         {
             'empresa': empresa,
             'vagas': vagas,
+            'candidaturas': candidaturas,
         }
     )
 
@@ -37,23 +45,23 @@ def detalhe_vaga_empresa(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = get_object_or_404(
-        Empresa,
-        usuario=request.user
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
     )
 
-    vaga = get_object_or_404(
-        Vaga,
-        id=vaga_id,
-        empresa=empresa
+    if not empresa:
+        return redirect('entrar_empresa')
+
+    vaga = VagaRepository.buscar_por_id(
+        vaga_id
     )
 
-    candidaturas = Candidatura.objects.filter(
-        vaga=vaga
-    ).select_related(
-        'aluno',
-        'aluno__usuario'
-    ).order_by('-id')
+    if not vaga or vaga.empresa != empresa:
+        return redirect('area_empresa')
+
+    candidaturas = CandidaturaRepository.buscar_por_vaga(
+        vaga
+    )
 
     return render(
         request,
@@ -69,15 +77,19 @@ def atualizar_candidatura(request, candidatura_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    candidatura = get_object_or_404(
-        Candidatura,
-        id=candidatura_id
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
     )
 
-    empresa = get_object_or_404(
-        Empresa,
-        usuario=request.user
+    if not empresa:
+        return redirect('entrar_empresa')
+
+    candidatura = CandidaturaRepository.buscar_por_id(
+        candidatura_id
     )
+
+    if not candidatura:
+        return redirect('area_empresa')
 
     if candidatura.vaga.empresa != empresa:
         messages.error(
@@ -90,7 +102,10 @@ def atualizar_candidatura(request, candidatura_id):
         status = request.POST.get('status')
 
         candidatura.status = status
-        candidatura.save()
+
+        CandidaturaRepository.atualizar(
+            candidatura
+        )
 
         messages.success(
             request,
@@ -107,9 +122,9 @@ def perfil_empresa(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = Empresa.objects.filter(
-        usuario=request.user
-    ).first()
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
+    )
 
     if not empresa:
         return redirect('entrar_empresa')

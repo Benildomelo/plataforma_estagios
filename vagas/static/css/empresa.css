@@ -7,6 +7,11 @@
     margin: 0 auto;
 }
 
+
+/* ========================================
+   CABEÇALHO
+======================================== */
+
 .area-empresa-header {
     background: var(--cor-branco);
     padding: 30px;
@@ -54,6 +59,11 @@
     font-size: 30px;
 }
 
+
+/* ========================================
+   BOTÕES PRINCIPAIS
+======================================== */
+
 .area-empresa-acoes {
     margin-bottom: 25px;
 }
@@ -63,7 +73,7 @@
     display: inline-block;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .botao-principal {
@@ -89,7 +99,9 @@
 }
 
 
-/* CARDS DE RESUMO */
+/* ========================================
+   CARDS DE RESUMO
+======================================== */
 
 .area-empresa-cards {
     display: grid;
@@ -138,7 +150,9 @@
 }
 
 
-/* SEÇÕES */
+/* ========================================
+   SEÇÕES
+======================================== */
 
 .area-empresa-secao {
     background: var(--cor-branco);
@@ -165,7 +179,9 @@
 }
 
 
-/* VAGAS */
+/* ========================================
+   VAGAS
+======================================== */
 
 .lista-vagas-empresa {
     display: flex;
@@ -173,41 +189,33 @@
     gap: 14px;
 }
 
-
-/* CARD DA VAGA */
-
 .vaga-empresa-card {
     border: 1px solid var(--cor-borda);
+    border-left: 4px solid var(--cor-primaria);
     border-radius: 10px;
+
     padding: 20px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 20px;
-}
 
-/* EFEITO AO PASSAR O MOUSE NO CARD */
-
-.vaga-empresa-card {
     transition: 0.2s ease;
 }
 
 .vaga-empresa-card:hover {
     transform: translateY(-3px);
-
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-
     border-color: #cbd9e6;
+    border-left-color: var(--cor-primaria);
 }
 
-/* DESTAQUE LATERAL DO CARD */
 
-.vaga-empresa-card {
-    border-left: 4px solid var(--cor-primaria);
-}
-
-/* CONTEÚDO DA VAGA */
+/* ========================================
+   CONTEÚDO DA VAGA
+======================================== */
 
 .vaga-empresa-conteudo {
     flex: 1;
@@ -216,8 +224,8 @@
 
 .vaga-empresa-conteudo h3 {
     margin: 0 0 12px;
-    color: var(--cor-primaria);
 
+    color: var(--cor-primaria);
     font-size: 19px;
     font-weight: 700;
 }
@@ -233,59 +241,78 @@
 }
 
 
-/* AÇÕES DA VAGA */
+/* ========================================
+   AÇÕES DA VAGA
+======================================== */
 
 .vaga-empresa-acoes-card {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 8px;
 
+    gap: 10px;
     flex-shrink: 0;
 }
 
-
-/* REMOVE ESPAÇO PADRÃO DO FORMULÁRIO */
-
 .vaga-empresa-acoes-card form {
     margin: 0;
 }
 
-
-/* STATUS */
-
-.status-vaga,
-.status-candidatura {
-    display: inline-block;
-
-    background: #eef5fb;
-    color: var(--cor-primaria);
-
-    padding: 6px 12px;
-    border-radius: 20px;
-
-    font-size: 13px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-
-
-/* ÁREA DOS BOTÕES DA VAGA */
-
-.vaga-empresa-acoes-card {
-    display: flex;
+.vaga-empresa-acoes-card a {
+    display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: center;
+
+    padding: 9px 12px;
+
+    border-radius: 7px;
+
+    color: var(--cor-primaria);
+    background: #eef5fb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.2s ease;
 }
 
-.vaga-empresa-acoes-card form {
-    margin: 0;
+.vaga-empresa-acoes-card a:hover {
+    background: #dbeaf6;
+    transform: translateY(-1px);
+}
+
+.vaga-empresa-acoes-card button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #dc3545;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.vaga-empresa-acoes-card button:hover {
+    background: #b02a37;
+    transform: translateY(-1px);
 }
 
 
-/* STATUS */
+/* ========================================
+   STATUS
+======================================== */
 
 .status-vaga,
 .status-candidatura {
@@ -299,8 +326,12 @@
 
     font-size: 13px;
     font-weight: bold;
+
     white-space: nowrap;
 }
+
+
+/* STATUS DAS VAGAS */
 
 .status-vaga.aprovada {
     background: #e8f7ee;
@@ -322,76 +353,10 @@
     color: #b02a37;
 }
 
+
 /* ========================================
-   AÇÕES DAS VAGAS DA EMPRESA
+   CANDIDATURAS
 ======================================== */
-
-/* LINKS VER E EDITAR */
-
-.vaga-empresa-acoes-card a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 9px 12px;
-
-    border-radius: 7px;
-
-    color: var(--cor-primaria);
-    background: #eef5fb;
-
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: bold;
-
-    transition: 0.2s;
-}
-
-
-/* EFEITO AO PASSAR O MOUSE */
-
-.vaga-empresa-acoes-card a:hover {
-    background: #dbeaf6;
-
-    transform: translateY(-1px);
-}
-
-
-/* BOTÃO ENCERRAR */
-
-.vaga-empresa-acoes-card button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 9px 12px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: #dc3545;
-    color: #ffffff;
-
-    font-size: 14px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-/* EFEITO DO BOTÃO ENCERRAR */
-
-.vaga-empresa-acoes-card button:hover {
-    background: #b02a37;
-
-    transform: translateY(-1px);
-}
-
-
-/* CANDIDATURAS */
 
 .lista-candidaturas-empresa {
     display: flex;
@@ -405,13 +370,20 @@
     padding: 22px;
 }
 
+
+/* ========================================
+   CABEÇALHO DA CANDIDATURA
+======================================== */
+
 .candidatura-empresa-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     gap: 15px;
 
     padding-bottom: 16px;
+
     border-bottom: 1px solid var(--cor-borda);
 }
 
@@ -425,9 +397,15 @@
     font-size: 14px;
 }
 
+
+/* ========================================
+   DADOS DO CANDIDATO
+======================================== */
+
 .candidatura-empresa-dados {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
     gap: 18px;
 
     padding: 18px 0;
@@ -450,28 +428,34 @@
     word-break: break-word;
 }
 
+.candidatura-empresa-dados a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
 
-/* FORMULÁRIO DE STATUS */
+.candidatura-empresa-dados a:hover {
+    text-decoration: underline;
+}
 
-.form-status-empresa {
+
+/* ========================================
+   FORMULÁRIO DE STATUS DA CANDIDATURA
+======================================== */
+
+.candidatura-empresa-status {
     padding-top: 16px;
     border-top: 1px solid var(--cor-borda);
 }
 
-.form-status-empresa form {
+.candidatura-empresa-status form {
     display: flex;
     align-items: center;
+
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.form-status-empresa label {
-    color: var(--cor-texto);
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.form-status-empresa select {
+.candidatura-empresa-status select {
     padding: 10px 12px;
 
     border: 1px solid var(--cor-borda);
@@ -483,7 +467,16 @@
     font-size: 14px;
 }
 
-.form-status-empresa button {
+.candidatura-empresa-status select:focus {
+    outline: none;
+
+    border-color: var(--cor-primaria);
+
+    box-shadow:
+        0 0 0 3px rgba(31, 78, 121, 0.10);
+}
+
+.candidatura-empresa-status button {
     background: var(--cor-primaria);
     color: var(--cor-branco);
 
@@ -493,15 +486,50 @@
     padding: 10px 16px;
 
     font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
-.form-status-empresa button:hover {
+.candidatura-empresa-status button:hover {
     background: var(--cor-primaria-hover);
 }
 
 
-/* ESTADO VAZIO */
+/* ========================================
+   STATUS DAS CANDIDATURAS
+======================================== */
+
+.status-candidatura.pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-candidatura.em-analise {
+    background: #e7f1ff;
+    color: #1f4e79;
+}
+
+.status-candidatura.aprovada {
+    background: #e8f7ee;
+    color: #198754;
+}
+
+.status-candidatura.rejeitada {
+    background: #f8d7da;
+    color: #b02a37;
+}
+
+.status-candidatura.cancelada {
+    background: #eeeeee;
+    color: #666666;
+}
+
+
+/* ========================================
+   ESTADO VAZIO
+======================================== */
 
 .empresa-vazio {
     text-align: center;
@@ -520,19 +548,25 @@
 
 .empresa-vazio p {
     color: var(--cor-texto-secundario);
+
     margin: 0 auto 20px;
+
     max-width: 550px;
 }
 
 
-/* RESPONSIVO */
+/* ========================================
+   RESPONSIVO - ÁREA DA EMPRESA
+======================================== */
 
 @media (max-width: 700px) {
 
     .area-empresa-header {
         padding: 24px;
+
         flex-direction: column;
         align-items: flex-start;
+
         gap: 20px;
     }
 
@@ -554,13 +588,23 @@
 
     .area-empresa-secao-header {
         align-items: flex-start;
+
         gap: 15px;
+
         flex-direction: column;
     }
 
     .vaga-empresa-card {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .vaga-empresa-acoes-card {
+        width: 100%;
+
+        justify-content: flex-start;
+
+        flex-wrap: wrap;
     }
 
     .candidatura-empresa-header {
@@ -572,17 +616,17 @@
         gap: 14px;
     }
 
-    .form-status-empresa form {
+    .candidatura-empresa-status form {
         align-items: stretch;
         flex-direction: column;
     }
 
-    .form-status-empresa select,
-    .form-status-empresa button {
+    .candidatura-empresa-status select,
+    .candidatura-empresa-status button {
         width: 100%;
     }
-
 }
+
 
 /* ========================================
    CRIAR VAGA
@@ -599,27 +643,36 @@
 
 .criar-vaga-label {
     display: block;
+
     color: var(--cor-texto-secundario);
+
     font-size: 14px;
     font-weight: bold;
+
     margin-bottom: 6px;
 }
 
 .criar-vaga-cabecalho h1 {
     margin: 0;
+
     color: var(--cor-primaria);
+
     font-size: 30px;
 }
 
 .criar-vaga-cabecalho p {
     margin: 8px 0 0;
+
     color: var(--cor-texto-secundario);
 }
 
 .criar-vaga-card {
     background: var(--cor-branco);
+
     padding: 32px;
+
     border-radius: var(--raio-padrao);
+
     box-shadow: var(--sombra-padrao);
 }
 
@@ -632,6 +685,7 @@
     margin-bottom: 25px;
 
     background: #eef5fb;
+
     border-radius: 8px;
 }
 
@@ -646,7 +700,9 @@
 }
 
 
-/* CAMPOS */
+/* ========================================
+   CAMPOS DA VAGA
+======================================== */
 
 .campo-vaga {
     margin-bottom: 20px;
@@ -654,9 +710,11 @@
 
 .campo-vaga label {
     display: block;
+
     margin-bottom: 7px;
 
     color: var(--cor-texto);
+
     font-weight: bold;
     font-size: 14px;
 }
@@ -677,7 +735,7 @@
     font-family: Arial, sans-serif;
     font-size: 15px;
 
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .campo-vaga input:focus,
@@ -697,16 +755,22 @@
 }
 
 
-/* GRID */
+/* ========================================
+   GRID DO FORMULÁRIO
+======================================== */
 
 .criar-vaga-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
 }
 
 
-/* AÇÕES */
+/* ========================================
+   AÇÕES DO FORMULÁRIO
+======================================== */
 
 .criar-vaga-acoes {
     display: flex;
@@ -723,7 +787,9 @@
 
 .botao-voltar {
     color: var(--cor-primaria);
+
     text-decoration: none;
+
     font-weight: bold;
 }
 
@@ -745,7 +811,7 @@
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .botao-cadastrar-vaga:hover {
@@ -753,7 +819,9 @@
 }
 
 
-/* MENSAGEM */
+/* ========================================
+   MENSAGEM DO FORMULÁRIO
+======================================== */
 
 .criar-vaga .mensagem {
     background: #fef2f2;
@@ -763,13 +831,16 @@
     border-radius: 8px;
 
     padding: 12px 15px;
+
     margin-bottom: 20px;
 
     font-weight: bold;
 }
 
 
-/* RESPONSIVO */
+/* ========================================
+   RESPONSIVO - CRIAR VAGA
+======================================== */
 
 @media (max-width: 700px) {
 
@@ -799,12 +870,12 @@
     .botao-cadastrar-vaga {
         width: 100%;
     }
-
 }
 
-/* =========================================================
+
+/* ========================================
    BOTÃO DE PERIGO - ENCERRAR VAGA
-   ========================================================= */
+======================================== */
 
 .botao-perigo {
     display: inline-flex;
@@ -833,29 +904,3 @@
     background: #b02a37;
     transform: translateY(-1px);
 }
-
-.status-candidatura.pendente {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.status-candidatura.em-analise {
-    background: #e7f1ff;
-    color: #1f4e79;
-}
-
-.status-candidatura.aprovada {
-    background: #e8f7ee;
-    color: #198754;
-}
-
-.status-candidatura.rejeitada {
-    background: #f8d7da;
-    color: #b02a37;
-}
-
-.status-candidatura.cancelada {
-    background: #eeeeee;
-    color: #666666;
-}
-

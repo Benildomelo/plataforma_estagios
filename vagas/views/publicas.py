@@ -1,14 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
+from django.shortcuts import render, redirect
 
-from ..models import Vaga, Candidatura, Aluno, Curso
+from ..repositories.vaga_repository import VagaRepository
+from ..repositories.curso_repository import CursoRepository
+from ..repositories.aluno_repository import AlunoRepository
+from ..repositories.candidatura_repository import CandidaturaRepository
 
 
 def inicio(request):
-    vagas = Vaga.objects.filter(
-        status='APROVADA',
-        ativo=True
-    ).select_related(
+    vagas = VagaRepository.buscar_aprovadas().select_related(
         'empresa',
         'curso'
     )[:6]
@@ -23,34 +22,28 @@ def inicio(request):
 
 
 def lista_vagas(request):
-    vagas = Vaga.objects.filter(
-        status='APROVADA',
-        ativo=True
-    ).select_related(
-        'empresa',
-        'curso'
+    busca = request.GET.get(
+        'busca',
+        ''
+    ).strip()
+
+    curso_id = request.GET.get(
+        'curso',
+        ''
+    ).strip()
+
+    local = request.GET.get(
+        'local',
+        ''
+    ).strip()
+
+    vagas = VagaRepository.buscar_aprovadas_com_filtros(
+        busca=busca,
+        curso_id=curso_id or None,
+        local=local
     )
 
-    cursos = Curso.objects.filter(
-        ativo=True
-    ).order_by('nome')
-
-    busca = request.GET.get('busca', '').strip()
-    curso_id = request.GET.get('curso', '').strip()
-    local = request.GET.get('local', '').strip()
-
-    if busca:
-        vagas = vagas.filter(
-            Q(titulo__icontains=busca) |
-            Q(descricao__icontains=busca) |
-            Q(empresa__nome_fantasia__icontains=busca)
-        )
-
-    if curso_id:
-        vagas = vagas.filter(curso_id=curso_id)
-
-    if local:
-        vagas = vagas.filter(local__icontains=local)
+    cursos = CursoRepository.buscar_ativos()
 
     return render(
         request,
@@ -66,27 +59,28 @@ def lista_vagas(request):
 
 
 def detalhe_vaga(request, vaga_id):
-    vaga = get_object_or_404(
-        Vaga.objects.select_related(
-            'empresa',
-            'curso'
-        ),
-        id=vaga_id,
-        status='APROVADA',
-        ativo=True
+    vaga = VagaRepository.buscar_por_id(
+        vaga_id
     )
+
+    if not vaga or vaga.status != 'APROVADA' or not vaga.ativo:
+        return redirect('lista_vagas')
 
     ja_candidatou = False
 
     if request.user.is_authenticated:
-        try:
-            aluno = Aluno.objects.get(usuario=request.user)
-            ja_candidatou = Candidatura.objects.filter(
-                vaga=vaga,
-                aluno=aluno
-            ).exists()
-        except Aluno.DoesNotExist:
-            pass
+        aluno = AlunoRepository.buscar_por_usuario(
+            request.user
+        )
+
+        if aluno:
+            ja_candidatou = (
+                CandidaturaRepository.buscar_por_vaga(
+                    vaga
+                ).filter(
+                    aluno=aluno
+                ).exists()
+            )
 
     return render(
         request,
