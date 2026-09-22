@@ -53,11 +53,11 @@ def candidatar(request, vaga_id):
 
 
 def _obter_ou_criar_candidatura(aluno, vaga):
-    candidatura = CandidaturaRepository.buscar_por_vaga(
+
+    candidatura = CandidaturaRepository.buscar_por_aluno_e_vaga(
+        aluno,
         vaga
-    ).filter(
-        aluno=aluno
-    ).first()
+    )
 
     if candidatura:
         return candidatura, False
@@ -137,6 +137,7 @@ def criar_vaga(request):
                 request,
                 'vagas/empresa/criar_vaga.html',
                 {
+                    'empresa': empresa,
                     'cursos': cursos,
                 }
             )
@@ -148,7 +149,7 @@ def criar_vaga(request):
             requisitos=requisitos,
             local=local,
             carga_horaria=carga_horaria,
-            bolsa=bolsa,
+            bolsa=bolsa or None,
             curso=curso,
             status='PENDENTE',
             ativo=True
@@ -168,6 +169,7 @@ def criar_vaga(request):
         request,
         'vagas/empresa/criar_vaga.html',
         {
+            'empresa': empresa,
             'cursos': cursos,
         }
     )
@@ -219,10 +221,12 @@ def editar_vaga(request, vaga_id):
             vaga.carga_horaria
         ).strip()
 
-        vaga.bolsa = request.POST.get(
+        bolsa = request.POST.get(
             'bolsa',
-            vaga.bolsa
+            ''
         ).strip()
+
+        vaga.bolsa = bolsa or None
 
         curso_id = request.POST.get(
             'curso',
@@ -244,6 +248,7 @@ def editar_vaga(request, vaga_id):
                     request,
                     'vagas/empresa/editar_vaga.html',
                     {
+                        'empresa': empresa,
                         'vaga': vaga,
                         'cursos': cursos,
                     }
@@ -271,6 +276,7 @@ def editar_vaga(request, vaga_id):
         request,
         'vagas/empresa/editar_vaga.html',
         {
+            'empresa': empresa,
             'vaga': vaga,
             'cursos': cursos,
         }
@@ -305,4 +311,6 @@ def encerrar_vaga(request, vaga_id):
             'Vaga encerrada com sucesso.'
         )
 
-    return redirect('area_empresa')
+    return redirect(
+        'area_empresa'
+    )

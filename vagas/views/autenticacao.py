@@ -1,7 +1,29 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import redirect, render
+
+
+def _realizar_login(request, redirecionamento):
+    username = request.POST.get('username', '').strip()
+    password = request.POST.get('password', '')
+
+    usuario = authenticate(
+        request,
+        username=username,
+        password=password
+    )
+
+    if usuario is not None:
+        login(request, usuario)
+        return redirect(redirecionamento)
+
+    messages.error(
+        request,
+        'Usuário ou senha inválidos.'
+    )
+
+    return None
 
 
 def entrar(request):
@@ -9,23 +31,13 @@ def entrar(request):
         return redirect('area_aluno')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        usuario = authenticate(
+        resposta = _realizar_login(
             request,
-            username=username,
-            password=password
+            'area_aluno'
         )
 
-        if usuario is not None:
-            login(request, usuario)
-            return redirect('area_aluno')
-
-        messages.error(
-            request,
-            'Usuário ou senha inválidos.'
-        )
+        if resposta:
+            return resposta
 
     return render(
         request,
@@ -35,23 +47,13 @@ def entrar(request):
 
 def entrar_aluno(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        usuario = authenticate(
+        resposta = _realizar_login(
             request,
-            username=username,
-            password=password
+            'area_aluno'
         )
 
-        if usuario is not None:
-            login(request, usuario)
-            return redirect('area_aluno')
-
-        messages.error(
-            request,
-            'Usuário ou senha inválidos.'
-        )
+        if resposta:
+            return resposta
 
     return render(
         request,
@@ -61,23 +63,13 @@ def entrar_aluno(request):
 
 def entrar_empresa(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        usuario = authenticate(
+        resposta = _realizar_login(
             request,
-            username=username,
-            password=password
+            'area_empresa'
         )
 
-        if usuario is not None:
-            login(request, usuario)
-            return redirect('area_empresa')
-
-        messages.error(
-            request,
-            'Usuário ou senha inválidos.'
-        )
+        if resposta:
+            return resposta
 
     return render(
         request,
@@ -90,9 +82,20 @@ def trocar_senha_empresa(request):
         return redirect('entrar_empresa')
 
     if request.method == 'POST':
-        senha_atual = request.POST.get('senha_atual')
-        nova_senha = request.POST.get('nova_senha')
-        confirmar_senha = request.POST.get('confirmar_senha')
+        senha_atual = request.POST.get(
+            'senha_atual',
+            ''
+        )
+
+        nova_senha = request.POST.get(
+            'nova_senha',
+            ''
+        )
+
+        confirmar_senha = request.POST.get(
+            'confirmar_senha',
+            ''
+        )
 
         if not request.user.check_password(senha_atual):
             messages.error(
@@ -138,4 +141,5 @@ def trocar_senha_empresa(request):
 
 def sair(request):
     logout(request)
+
     return redirect('inicio')

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth.models import User
 
 from ..repositories.aluno_repository import AlunoRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.curso_repository import CursoRepository
+from ..repositories.usuario_repository import UsuarioRepository
 
 
 def minhas_candidaturas(request):
@@ -24,9 +24,6 @@ def minhas_candidaturas(request):
 
     candidaturas = CandidaturaRepository.buscar_por_aluno(
         aluno
-    ).select_related(
-        'vaga',
-        'vaga__empresa'
     )
 
     return render(
@@ -51,9 +48,6 @@ def area_aluno(request):
 
     candidaturas = CandidaturaRepository.buscar_por_aluno(
         aluno
-    ).select_related(
-        'vaga',
-        'vaga__empresa'
     )
 
     return render(
@@ -118,6 +112,7 @@ def cadastro_aluno(request):
                 request,
                 'As senhas não coincidem.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -131,6 +126,7 @@ def cadastro_aluno(request):
                 request,
                 'A senha deve ter pelo menos 6 caracteres.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -139,13 +135,14 @@ def cadastro_aluno(request):
                 }
             )
 
-        if User.objects.filter(
-            username=username
-        ).exists():
+        if UsuarioRepository.buscar_por_username(
+            username
+        ):
             messages.error(
                 request,
                 'Este usuário já existe.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -154,13 +151,14 @@ def cadastro_aluno(request):
                 }
             )
 
-        if User.objects.filter(
-            email=email
-        ).exists():
+        if UsuarioRepository.buscar_por_email(
+            email
+        ):
             messages.error(
                 request,
                 'Este e-mail já está cadastrado.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -176,6 +174,7 @@ def cadastro_aluno(request):
                 request,
                 'Esta matrícula já está cadastrada.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -188,11 +187,12 @@ def cadastro_aluno(request):
             curso_id
         )
 
-        if not curso:
+        if not curso or not curso.ativo:
             messages.error(
                 request,
-                'Curso selecionado inválido.'
+                'Selecione um curso válido.'
             )
+
             return render(
                 request,
                 'vagas/aluno/cadastro_aluno.html',
@@ -201,7 +201,7 @@ def cadastro_aluno(request):
                 }
             )
 
-        usuario = User.objects.create_user(
+        usuario = UsuarioRepository.criar(
             username=username,
             email=email,
             password=senha
@@ -213,7 +213,9 @@ def cadastro_aluno(request):
             matricula=matricula,
             email=email,
             telefone=telefone,
-            curso=curso
+            curso=curso,
+            ativo=True,
+            senha_provisoria=False
         )
 
         messages.success(
@@ -283,6 +285,8 @@ def editar_perfil_aluno(request):
     if not aluno:
         return redirect('cadastro_aluno')
 
+    cursos = CursoRepository.buscar_ativos()
+
     if request.method == 'POST':
         aluno.nome = request.POST.get(
             'nome',
@@ -300,16 +304,31 @@ def editar_perfil_aluno(request):
         ).strip()
 
         curso_id = request.POST.get(
-            'curso'
-        )
+            'curso',
+            ''
+        ).strip()
 
         if curso_id:
             curso = CursoRepository.buscar_por_id(
                 curso_id
             )
 
-            if curso:
-                aluno.curso = curso
+            if not curso or not curso.ativo:
+                messages.error(
+                    request,
+                    'Selecione um curso válido.'
+                )
+
+                return render(
+                    request,
+                    'vagas/aluno/editar_perfil_aluno.html',
+                    {
+                        'aluno': aluno,
+                        'cursos': cursos,
+                    }
+                )
+
+            aluno.curso = curso
 
         AlunoRepository.atualizar(
             aluno
@@ -321,8 +340,6 @@ def editar_perfil_aluno(request):
         )
 
         return redirect('perfil_aluno')
-
-    cursos = CursoRepository.buscar_ativos()
 
     return render(
         request,

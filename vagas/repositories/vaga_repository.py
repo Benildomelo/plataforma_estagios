@@ -1,3 +1,5 @@
+from django.db.models import Q
+
 from ..models import Vaga
 
 
@@ -28,8 +30,6 @@ class VagaRepository:
         curso_id=None,
         local=''
     ):
-        from django.db.models import Q
-
         vagas = Vaga.objects.filter(
             status='APROVADA',
             ativo=True
