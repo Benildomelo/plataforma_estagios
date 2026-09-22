@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.shortcuts import redirect, render
 
 from ..repositories.aluno_repository import AlunoRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
@@ -7,13 +7,27 @@ from ..repositories.curso_repository import CursoRepository
 from ..repositories.usuario_repository import UsuarioRepository
 
 
+def _buscar_aluno(request):
+    return AlunoRepository.buscar_por_usuario(
+        request.user
+    )
+
+
+def _render_cadastro(request, cursos):
+    return render(
+        request,
+        'vagas/aluno/cadastro_aluno.html',
+        {
+            'cursos': cursos,
+        }
+    )
+
+
 def minhas_candidaturas(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         messages.error(
@@ -39,9 +53,7 @@ def area_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         return redirect('cadastro_aluno')
@@ -112,13 +124,9 @@ def cadastro_aluno(request):
                 request,
                 'As senhas não coincidem.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         if len(senha) < 6:
@@ -126,13 +134,9 @@ def cadastro_aluno(request):
                 request,
                 'A senha deve ter pelo menos 6 caracteres.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         if UsuarioRepository.buscar_por_username(
@@ -142,13 +146,9 @@ def cadastro_aluno(request):
                 request,
                 'Este usuário já existe.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         if UsuarioRepository.buscar_por_email(
@@ -158,13 +158,9 @@ def cadastro_aluno(request):
                 request,
                 'Este e-mail já está cadastrado.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         if AlunoRepository.buscar_por_matricula(
@@ -174,13 +170,9 @@ def cadastro_aluno(request):
                 request,
                 'Esta matrícula já está cadastrada.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         curso = CursoRepository.buscar_por_id(
@@ -192,13 +184,9 @@ def cadastro_aluno(request):
                 request,
                 'Selecione um curso válido.'
             )
-
-            return render(
+            return _render_cadastro(
                 request,
-                'vagas/aluno/cadastro_aluno.html',
-                {
-                    'cursos': cursos,
-                }
+                cursos
             )
 
         usuario = UsuarioRepository.criar(
@@ -225,12 +213,9 @@ def cadastro_aluno(request):
 
         return redirect('entrar_aluno')
 
-    return render(
+    return _render_cadastro(
         request,
-        'vagas/aluno/cadastro_aluno.html',
-        {
-            'cursos': cursos,
-        }
+        cursos
     )
 
 
@@ -238,9 +223,7 @@ def perfil_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         return redirect('cadastro_aluno')
@@ -258,9 +241,7 @@ def curriculo_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         return redirect('cadastro_aluno')
@@ -278,9 +259,7 @@ def editar_perfil_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         return redirect('cadastro_aluno')
