@@ -1,25 +1,59 @@
 from django.contrib import admin
-from .models import Curso, Aluno, Empresa, Vaga, Candidatura
-from django.contrib.auth.models import User
 from django.utils import timezone
+
+from .models import (
+    Curso,
+    Aluno,
+    Empresa,
+    Vaga,
+    Candidatura,
+)
+
+from .repositories.usuario_repository import UsuarioRepository
+
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'ativo')
-    list_filter = ('ativo',)
-    search_fields = ('nome',)
+    list_display = (
+        'id',
+        'nome',
+        'ativo',
+    )
+
+    list_filter = (
+        'ativo',
+    )
+
+    search_fields = (
+        'nome',
+    )
 
 
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'matricula', 'email', 'curso', 'ativo')
-    list_filter = ('ativo', 'curso')
-    search_fields = ('nome', 'matricula', 'email')
+    list_display = (
+        'id',
+        'nome',
+        'matricula',
+        'email',
+        'curso',
+        'ativo',
+    )
+
+    list_filter = (
+        'ativo',
+        'curso',
+    )
+
+    search_fields = (
+        'nome',
+        'matricula',
+        'email',
+    )
 
 
 @admin.register(Empresa)
 class EmpresaAdmin(admin.ModelAdmin):
-
     list_display = (
         'id',
         'nome_fantasia',
@@ -27,29 +61,36 @@ class EmpresaAdmin(admin.ModelAdmin):
         'cnpj',
         'email',
         'ativo',
-        'usuario'
+        'usuario',
     )
 
-    list_filter = ('ativo',)
+    list_filter = (
+        'ativo',
+    )
 
     search_fields = (
         'nome_fantasia',
         'razao_social',
         'cnpj',
-        'email'
+        'email',
     )
 
     def save_model(self, request, obj, form, change):
         if not change:
-            usuario = User.objects.create_user(
+            usuario = UsuarioRepository.criar(
                 username=obj.email,
                 email=obj.email,
-                password='Empresa@123'
+                password='Empresa@123',
             )
 
             obj.usuario = usuario
 
-        super().save_model(request, obj, form, change)
+        super().save_model(
+            request,
+            obj,
+            form,
+            change,
+        )
 
 
 @admin.register(Vaga)
@@ -61,29 +102,43 @@ class VagaAdmin(admin.ModelAdmin):
         'curso',
         'status',
         'ativo',
-        'data_publicacao'
+        'data_publicacao',
     )
 
-    list_display_links = ('titulo', 'empresa', 'curso')
+    list_display_links = (
+        'titulo',
+        'empresa',
+        'curso',
+    )
 
-    list_filter = ('status', 'ativo', 'curso')
+    list_filter = (
+        'status',
+        'ativo',
+        'curso',
+    )
+
     search_fields = (
         'titulo',
         'descricao',
-        'empresa__nome_fantasia'
+        'empresa__nome_fantasia',
     )
 
     def save_model(self, request, obj, form, change):
-        if obj.status == 'APROVADA' and obj.data_publicacao is None:
+        if (
+            obj.status == 'APROVADA'
+            and obj.data_publicacao is None
+        ):
             obj.data_publicacao = timezone.now()
 
         if obj.status != 'APROVADA':
             obj.data_publicacao = None
 
-        super().save_model(request, obj, form, change)   
-    
-
-    
+        super().save_model(
+            request,
+            obj,
+            form,
+            change,
+        )
 
 
 @admin.register(Candidatura)
@@ -93,9 +148,13 @@ class CandidaturaAdmin(admin.ModelAdmin):
         'aluno',
         'vaga',
         'status',
-        'data_candidatura'
+        'data_candidatura',
     )
-    list_filter = ('status',)
+
+    list_filter = (
+        'status',
+    )
+
     search_fields = (
         'aluno__nome',
         'vaga__titulo',

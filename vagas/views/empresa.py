@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from ..models import Candidatura
 from ..repositories.empresa_repository import EmpresaRepository
 from ..repositories.vaga_repository import VagaRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
@@ -57,6 +56,10 @@ def detalhe_vaga_empresa(request, vaga_id):
     )
 
     if not vaga or vaga.empresa != empresa:
+        messages.error(
+            request,
+            'Vaga não encontrada ou não pertence à sua empresa.'
+        )
         return redirect('area_empresa')
 
     candidaturas = CandidaturaRepository.buscar_por_vaga(
@@ -77,6 +80,9 @@ def atualizar_candidatura(request, candidatura_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
+    if request.method != 'POST':
+        return redirect('area_empresa')
+
     empresa = EmpresaRepository.buscar_por_usuario(
         request.user
     )
@@ -89,6 +95,10 @@ def atualizar_candidatura(request, candidatura_id):
     )
 
     if not candidatura:
+        messages.error(
+            request,
+            'Candidatura não encontrada.'
+        )
         return redirect('area_empresa')
 
     if candidatura.vaga.empresa != empresa:
@@ -98,19 +108,36 @@ def atualizar_candidatura(request, candidatura_id):
         )
         return redirect('area_empresa')
 
-    if request.method == 'POST':
-        status = request.POST.get('status')
+    status = request.POST.get('status', '').strip()
 
-        candidatura.status = status
+    status_validos = {
+        'PENDENTE',
+        'EM_ANALISE',
+        'APROVADA',
+        'REJEITADA',
+        'CANCELADA',
+    }
 
-        CandidaturaRepository.atualizar(
-            candidatura
-        )
-
-        messages.success(
+    if status not in status_validos:
+        messages.error(
             request,
-            'Candidatura atualizada com sucesso.'
+            'Status de candidatura inválido.'
         )
+        return redirect(
+            'detalhe_vaga_empresa',
+            vaga_id=candidatura.vaga.id
+        )
+
+    candidatura.status = status
+
+    CandidaturaRepository.atualizar(
+        candidatura
+    )
+
+    messages.success(
+        request,
+        'Candidatura atualizada com sucesso.'
+    )
 
     return redirect(
         'detalhe_vaga_empresa',
@@ -127,6 +154,10 @@ def perfil_empresa(request):
     )
 
     if not empresa:
+        messages.error(
+            request,
+            'Perfil da empresa não encontrado.'
+        )
         return redirect('entrar_empresa')
 
     return render(
