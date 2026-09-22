@@ -6,13 +6,102 @@
 
 {% block content %}
 
-<h1>Meu Perfil</h1>
+<div class="perfil-empresa">
 
-<p>Razão social: {{ empresa.razao_social }}</p>
-<p>Nome fantasia: {{ empresa.nome_fantasia }}</p>
-<p>CNPJ: {{ empresa.cnpj }}</p>
-<p>E-mail: {{ empresa.email }}</p>
-<p>Telefone: {{ empresa.telefone }}</p>
-<p>Endereço: {{ empresa.endereco }}</p>
+    <div class="perfil-empresa-header">
+
+        <div>
+            <span class="perfil-empresa-label">
+                PERFIL DA EMPRESA
+            </span>
+
+            <h1>
+                {{ empresa.nome_fantasia }} 🏢
+            </h1>
+
+            <p>
+                Confira os dados cadastrados da sua empresa.
+            </p>
+        </div>
+
+        <div class="perfil-empresa-icone">
+            🏢
+        </div>
+
+    </div>
+
+
+    <section class="perfil-empresa-card">
+
+        <div class="perfil-empresa-card-header">
+
+            <div class="perfil-empresa-card-icone">
+                🏢
+            </div>
+
+            <div>
+                <h2>Dados da empresa</h2>
+                <p>Informações cadastradas na plataforma.</p>
+            </div>
+
+        </div>
+
+
+        <div class="perfil-empresa-dados">
+
+            <div class="perfil-empresa-dado">
+                <span>Razão social</span>
+                <strong>{{ empresa.razao_social }}</strong>
+            </div>
+
+            <div class="perfil-empresa-dado">
+                <span>Nome fantasia</span>
+                <strong>{{ empresa.nome_fantasia }}</strong>
+            </div>
+
+            <div class="perfil-empresa-dado">
+                <span>CNPJ</span>
+                <strong>{{ empresa.cnpj }}</strong>
+            </div>
+
+            <div class="perfil-empresa-dado">
+                <span>E-mail</span>
+                <strong>{{ empresa.email }}</strong>
+            </div>
+
+            <div class="perfil-empresa-dado">
+                <span>Telefone</span>
+
+                {% if empresa.telefone %}
+                    <strong>{{ empresa.telefone }}</strong>
+                {% else %}
+                    <strong>Não informado</strong>
+                {% endif %}
+            </div>
+
+            <div class="perfil-empresa-dado">
+                <span>Endereço</span>
+
+                {% if empresa.endereco %}
+                    <strong>{{ empresa.endereco }}</strong>
+                {% else %}
+                    <strong>Não informado</strong>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="perfil-empresa-voltar">
+
+        <a href="{% url 'area_empresa' %}" class="botao botao-secundario">
+            ← Voltar para minha área
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}
