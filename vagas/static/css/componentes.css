@@ -1,6 +1,6 @@
-/* ========================================
-   PÁGINA INICIAL
-======================================== */
+/* =========================================================
+   PÁGINA INICIAL - UNIPI CONECTA
+   ========================================================= */
 
 .inicio {
     max-width: 1100px;
@@ -9,7 +9,7 @@
 
 
 /* =========================================================
-   HERO
+   HERO PRINCIPAL
    ========================================================= */
 
 .inicio-hero {
@@ -26,11 +26,11 @@
 
     gap: 40px;
 
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .inicio-hero-conteudo {
-    max-width: 750px;
+    max-width: 760px;
 }
 
 .inicio-label {
@@ -40,6 +40,7 @@
 
     font-size: 14px;
     font-weight: bold;
+    letter-spacing: 0.5px;
 
     margin-bottom: 10px;
 }
@@ -49,7 +50,7 @@
 
     color: var(--cor-primaria);
 
-    font-size: 34px;
+    font-size: 36px;
     line-height: 1.2;
 }
 
@@ -77,8 +78,8 @@
 }
 
 .inicio-hero-icone {
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
 
     flex-shrink: 0;
 
@@ -90,18 +91,61 @@
 
     border-radius: 50%;
 
-    font-size: 58px;
+    font-size: 60px;
 }
 
 
 /* =========================================================
-   CARDS
+   TÍTULO DA SEÇÃO DE PERFIS
+   ========================================================= */
+
+.inicio-areas {
+    margin-top: 10px;
+}
+
+.inicio-secao-titulo {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.inicio-secao-titulo span {
+    display: inline-block;
+
+    color: var(--cor-primaria);
+
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+
+    margin-bottom: 8px;
+}
+
+.inicio-secao-titulo h2 {
+    margin: 0 0 8px;
+
+    color: var(--cor-texto);
+
+    font-size: 28px;
+}
+
+.inicio-secao-titulo p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   CARDS DOS PERFIS
    ========================================================= */
 
 .inicio-cards {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 
     gap: 20px;
 }
@@ -119,19 +163,28 @@
     display: flex;
     flex-direction: column;
 
-    transition: 0.25s ease;
+    min-height: 310px;
+
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
 }
 
 .inicio-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
-.inicio-card-icone {
-    width: 60px;
-    height: 60px;
 
-    margin: 0 auto 15px;
+/* =========================================================
+   ÍCONE DOS CARDS
+   ========================================================= */
+
+.inicio-card-icone {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
 
     display: flex;
     align-items: center;
@@ -141,16 +194,26 @@
 
     border-radius: 50%;
 
-    font-size: 28px;
+    font-size: 30px;
 }
 
+
+/* =========================================================
+   TÍTULO DOS CARDS
+   ========================================================= */
+
 .inicio-card h2 {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
 
     color: var(--cor-primaria);
 
     font-size: 21px;
 }
+
+
+/* =========================================================
+   TEXTO DOS CARDS
+   ========================================================= */
 
 .inicio-card p {
     margin: 0;
@@ -164,18 +227,21 @@
 
 
 /* =========================================================
-   BOTÕES DE LOGIN - PÁGINA INICIAL
+   BOTÕES DOS PERFIS
    ========================================================= */
 
 .botao-login {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
 
     width: 100%;
 
     margin-top: 22px;
+
     padding: 13px 20px;
 
     border-radius: 8px;
@@ -193,14 +259,15 @@
 }
 
 
-/* ---------------------------------------------------------
-   LOGIN DO ALUNO
-   --------------------------------------------------------- */
+/* =========================================================
+   BOTÃO ALUNO
+   ========================================================= */
 
 .botao-login-aluno {
     background: #1f4e79;
 
-    box-shadow: 0 4px 10px rgba(31, 78, 121, 0.20);
+    box-shadow:
+        0 4px 10px rgba(31, 78, 121, 0.20);
 }
 
 .botao-login-aluno:hover {
@@ -210,18 +277,20 @@
 
     transform: translateY(-2px);
 
-    box-shadow: 0 7px 16px rgba(31, 78, 121, 0.28);
+    box-shadow:
+        0 7px 16px rgba(31, 78, 121, 0.28);
 }
 
 
-/* ---------------------------------------------------------
-   LOGIN DA EMPRESA
-   --------------------------------------------------------- */
+/* =========================================================
+   BOTÃO EMPRESA
+   ========================================================= */
 
 .botao-login-empresa {
     background: #198754;
 
-    box-shadow: 0 4px 10px rgba(25, 135, 84, 0.20);
+    box-shadow:
+        0 4px 10px rgba(25, 135, 84, 0.20);
 }
 
 .botao-login-empresa:hover {
@@ -231,13 +300,37 @@
 
     transform: translateY(-2px);
 
-    box-shadow: 0 7px 16px rgba(25, 135, 84, 0.28);
+    box-shadow:
+        0 7px 16px rgba(25, 135, 84, 0.28);
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
+   BOTÃO INSTITUIÇÃO
+   ========================================================= */
+
+.botao-login-instituicao {
+    background: #6f42c1;
+
+    box-shadow:
+        0 4px 10px rgba(111, 66, 193, 0.20);
+}
+
+.botao-login-instituicao:hover {
+    background: #59339d;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 16px rgba(111, 66, 193, 0.28);
+}
+
+
+/* =========================================================
    SETA DOS BOTÕES
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .botao-login span {
     font-size: 19px;
@@ -253,6 +346,19 @@
 /* =========================================================
    RESPONSIVIDADE
    ========================================================= */
+
+@media (max-width: 850px) {
+
+    .inicio-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inicio-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+}
+
 
 @media (max-width: 700px) {
 
@@ -280,17 +386,25 @@
         grid-template-columns: 1fr;
     }
 
+    .inicio-card:last-child {
+        grid-column: auto;
+    }
+
     .inicio-card {
+        min-height: auto;
+
         padding: 25px 20px;
     }
 
     .inicio-acoes .botao-principal {
         width: 100%;
+
         text-align: center;
     }
 
     .botao-login {
         padding: 12px 16px;
+
         font-size: 15px;
     }
 
