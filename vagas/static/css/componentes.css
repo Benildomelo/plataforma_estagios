@@ -8,7 +8,9 @@
 }
 
 
-/* HERO */
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .inicio-hero {
     background: var(--cor-branco);
@@ -92,7 +94,9 @@
 }
 
 
-/* CARDS */
+/* =========================================================
+   CARDS
+   ========================================================= */
 
 .inicio-cards {
     display: grid;
@@ -111,6 +115,16 @@
     box-shadow: var(--sombra-padrao);
 
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.25s ease;
+}
+
+.inicio-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
 .inicio-card-icone {
@@ -144,78 +158,14 @@
     color: var(--cor-texto-secundario);
 
     line-height: 1.6;
-}
 
-
-/* RESPONSIVO */
-
-@media (max-width: 700px) {
-
-    .inicio-hero {
-        padding: 30px 24px;
-
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-    .inicio-hero h1 {
-        font-size: 28px;
-    }
-
-    .inicio-destaque {
-        font-size: 16px;
-    }
-
-    .inicio-hero-icone {
-        display: none;
-    }
-
-    .inicio-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .inicio-card {
-        padding: 25px 20px;
-    }
-
-    .inicio-acoes .botao-principal {
-        width: 100%;
-        text-align: center;
-    }
-
+    flex: 1;
 }
 
 
 /* =========================================================
    BOTÕES DE LOGIN - PÁGINA INICIAL
    ========================================================= */
-
-.inicio-card {
-    display: flex;
-    flex-direction: column;
-    transition: 0.25s ease;
-}
-
-
-/* Efeito ao passar o mouse no card */
-
-.inicio-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-}
-
-
-/* Mantém os textos dos dois cards alinhados */
-
-.inicio-card p {
-    flex: 1;
-}
-
-
-/* ---------------------------------------------------------
-   BOTÃO DE LOGIN
-   --------------------------------------------------------- */
 
 .botao-login {
     display: flex;
@@ -306,10 +256,42 @@
 
 @media (max-width: 700px) {
 
+    .inicio-hero {
+        padding: 30px 24px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .inicio-hero h1 {
+        font-size: 28px;
+    }
+
+    .inicio-destaque {
+        font-size: 16px;
+    }
+
+    .inicio-hero-icone {
+        display: none;
+    }
+
+    .inicio-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .inicio-card {
+        padding: 25px 20px;
+    }
+
+    .inicio-acoes .botao-principal {
+        width: 100%;
+        text-align: center;
+    }
+
     .botao-login {
         padding: 12px 16px;
         font-size: 15px;
     }
 
 }
-
