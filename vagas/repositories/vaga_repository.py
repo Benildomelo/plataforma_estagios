@@ -22,7 +22,12 @@ class VagaRepository:
         return Vaga.objects.filter(
             status='APROVADA',
             ativo=True
-        ).order_by('-data_publicacao')
+        ).select_related(
+            'empresa',
+            'curso'
+        ).order_by(
+            '-data_publicacao'
+        )
 
     @staticmethod
     def buscar_aprovadas_com_filtros(
@@ -63,14 +68,18 @@ class VagaRepository:
             curso=curso,
             status='APROVADA',
             ativo=True
-        ).order_by('-data_publicacao')
+        ).order_by(
+            '-data_publicacao'
+        )
 
     @staticmethod
     def buscar_pendentes():
         return Vaga.objects.filter(
             status='PENDENTE',
             ativo=True
-        ).order_by('-id')
+        ).order_by(
+            '-id'
+        )
 
     @staticmethod
     def criar(**dados):
@@ -87,5 +96,7 @@ class VagaRepository:
     def encerrar(vaga):
         vaga.ativo = False
         vaga.status = 'ENCERRADA'
+
         vaga.save()
+
         return vaga

@@ -1,16 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
-from ..repositories.vaga_repository import VagaRepository
-from ..repositories.curso_repository import CursoRepository
 from ..repositories.aluno_repository import AlunoRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
+from ..repositories.curso_repository import CursoRepository
+from ..repositories.vaga_repository import VagaRepository
 
 
 def inicio(request):
-    vagas = VagaRepository.buscar_aprovadas().select_related(
-        'empresa',
-        'curso'
-    )[:6]
+    vagas = VagaRepository.buscar_aprovadas()[:6]
 
     return render(
         request,
@@ -75,11 +72,10 @@ def detalhe_vaga(request, vaga_id):
 
         if aluno:
             ja_candidatou = (
-                CandidaturaRepository.buscar_por_vaga(
+                CandidaturaRepository.existe_por_aluno_e_vaga(
+                    aluno,
                     vaga
-                ).filter(
-                    aluno=aluno
-                ).exists()
+                )
             )
 
     return render(
