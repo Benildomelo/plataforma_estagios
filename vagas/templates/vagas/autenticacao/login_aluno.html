@@ -6,7 +6,104 @@
 
 {% block content %}
 
+<style>
+
+    /* =========================
+       LINK ESQUECI SENHA
+       ========================= */
+
+    .esqueci-senha {
+        display: flex;
+        justify-content: flex-end;
+
+        margin-top: -8px;
+        margin-bottom: 18px;
+    }
+
+    .esqueci-senha a {
+        color: #1f4e79;
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        transition: 0.2s ease;
+    }
+
+    .esqueci-senha a:hover {
+        color: #163a5c;
+        text-decoration: underline;
+    }
+
+
+    /* =========================
+       CADASTRO
+       ========================= */
+
+    .cadastro {
+        text-align: center;
+
+        margin-top: 20px;
+
+        font-size: 13px;
+
+        color: #6b7280;
+    }
+
+    .cadastro a {
+        color: #1f4e79;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        transition: 0.2s ease;
+    }
+
+    .cadastro a:hover {
+        color: #163a5c;
+
+        text-decoration: underline;
+    }
+
+
+    /* =========================
+       VOLTAR
+       ========================= */
+
+    .voltar {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 20px;
+
+        color: #1f4e79;
+
+        text-decoration: none;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        transition: 0.2s ease;
+    }
+
+    .voltar:hover {
+        color: #163a5c;
+
+        text-decoration: underline;
+    }
+
+</style>
+
+
 <div class="login-container">
+
+
+    <!-- =========================
+         CABEÇALHO
+         ========================= -->
 
     <div class="login-cabecalho">
 
@@ -24,6 +121,11 @@
 
     </div>
 
+
+    <!-- =========================
+         TÍTULO
+         ========================= -->
+
     <div class="login-titulo">
 
         <h2>
@@ -36,6 +138,11 @@
 
     </div>
 
+
+    <!-- =========================
+         MENSAGEM
+         ========================= -->
+
     {% if mensagem %}
 
         <div class="mensagem">
@@ -44,9 +151,17 @@
 
     {% endif %}
 
+
+    <!-- =========================
+         FORMULÁRIO
+         ========================= -->
+
     <form method="post">
 
         {% csrf_token %}
+
+
+        <!-- USUÁRIO -->
 
         <div class="campo">
 
@@ -65,6 +180,9 @@
 
         </div>
 
+
+        <!-- SENHA -->
+
         <div class="campo">
 
             <label for="password">
@@ -82,13 +200,23 @@
 
         </div>
 
-        <!-- Recuperação de senha será implementada na próxima etapa -->
 
-        <a 
-         href="{% url 'password_reset' %}" class="esqueci-senha">
-        
-            Esqueci minha senha
-        </a>
+        <!-- =========================
+             ESQUECI MINHA SENHA
+             ========================= -->
+
+        <div class="esqueci-senha">
+
+            <a href="{% url 'password_reset' %}">
+                Esqueci minha senha
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             BOTÃO ENTRAR
+             ========================= -->
 
         <button
             type="submit"
@@ -98,6 +226,11 @@
         </button>
 
     </form>
+
+
+    <!-- =========================
+         CADASTRO
+         ========================= -->
 
     <div class="cadastro">
 
@@ -109,12 +242,18 @@
 
     </div>
 
+
+    <!-- =========================
+         VOLTAR
+         ========================= -->
+
     <a
         href="/"
         class="voltar"
     >
         ← Voltar para o início
     </a>
+
 
 </div>
 

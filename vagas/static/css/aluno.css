@@ -1541,3 +1541,42 @@
     font-size: 14px;
     line-height: 1.5;
 }
+
+/* =========================================================
+   ESQUECI MINHA SENHA
+   ========================================================= */
+
+.esqueci-senha {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin: -2px 0 18px;
+
+    color: var(--cor-primaria);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    padding: 5px 8px;
+    border-radius: 6px;
+
+    transition: 
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.esqueci-senha::before {
+    content: "🔑";
+    font-size: 12px;
+}
+
+.esqueci-senha:hover {
+    color: var(--cor-primaria-hover);
+    background: #e8eef5;
+    text-decoration: none;
+    transform: translateX(2px);
+}
