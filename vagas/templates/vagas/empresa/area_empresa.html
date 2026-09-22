@@ -113,8 +113,6 @@
 
     <section class="area-empresa-secao">
 
-        <!-- CABEÇALHO DA SEÇÃO -->
-
         <div class="area-empresa-secao-header">
 
             <div>
@@ -151,9 +149,7 @@
 
                     <div class="vaga-empresa-card">
 
-                        <!-- =================================
-                             INFORMAÇÕES DA VAGA
-                             ================================= -->
+                        <!-- INFORMAÇÕES DA VAGA -->
 
                         <div class="vaga-empresa-conteudo">
 
@@ -188,13 +184,11 @@
                         </div>
 
 
-                        <!-- =================================
-                             AÇÕES DA VAGA
-                             ================================= -->
+                        <!-- AÇÕES DA VAGA -->
 
                         <div class="vaga-empresa-acoes-card">
 
-                            <!-- STATUS -->
+                            <!-- STATUS DA VAGA -->
 
                             {% if vaga.status == 'APROVADA' %}
 
@@ -276,9 +270,7 @@
 
         {% else %}
 
-            <!-- =============================================
-                 NENHUMA VAGA
-                 ============================================= -->
+            <!-- NENHUMA VAGA -->
 
             <div class="empresa-vazio">
 
@@ -346,9 +338,7 @@
 
                     <div class="candidatura-empresa-card">
 
-                        <!-- =================================
-                             CABEÇALHO DA CANDIDATURA
-                             ================================= -->
+                        <!-- CABEÇALHO DA CANDIDATURA -->
 
                         <div class="candidatura-empresa-header">
 
@@ -365,19 +355,10 @@
 
                             </div>
 
-
-                            <!-- STATUS ATUAL -->
-
-                            <span class="status-candidatura">
-                                {{ candidatura.get_status_display }}
-                            </span>
-
                         </div>
 
 
-                        <!-- =================================
-                             DADOS DO CANDIDATO
-                             ================================= -->
+                        <!-- DADOS DO CANDIDATO -->
 
                         <div class="candidatura-empresa-dados">
 
@@ -432,13 +413,13 @@
 
                             <!-- CURRÍCULO -->
 
-                            {% if candidatura.aluno.curriculo %}
+                            <div>
 
-                                <div>
+                                <span class="dado-label">
+                                    Currículo
+                                </span>
 
-                                    <span class="dado-label">
-                                        Currículo
-                                    </span>
+                                {% if candidatura.aluno.curriculo %}
 
                                     <strong>
 
@@ -453,23 +434,15 @@
 
                                     </strong>
 
-                                </div>
-
-                            {% else %}
-
-                                <div>
-
-                                    <span class="dado-label">
-                                        Currículo
-                                    </span>
+                                {% else %}
 
                                     <strong>
                                         Não enviado
                                     </strong>
 
-                                </div>
+                                {% endif %}
 
-                            {% endif %}
+                            </div>
 
 
                             <!-- DATA DA CANDIDATURA -->
@@ -481,7 +454,7 @@
                                 </span>
 
                                 <strong>
-                                    {{ candidatura.data_candidatura|date:"d/m/Y H\:i" }}
+                                    {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
                                 </strong>
 
                             </div>
@@ -489,57 +462,17 @@
                         </div>
 
 
-                        <!-- =================================
-                             ALTERAR STATUS
-                             ================================= -->
+                        <!-- CONTATO -->
 
-                        <div class="candidatura-empresa-status">
+                        <div class="candidatura-empresa-contato">
 
-                            <form
-                                method="POST"
-                                action="{% url 'atualizar_candidatura' candidatura.id %}"
-                            >
+                            <strong>
+                                📩 Candidatura recebida
+                            </strong>
 
-                                {% csrf_token %}
-
-                                <select name="status">
-
-                                    <option
-                                        value="EM_ANALISE"
-                                        {% if candidatura.status == 'EM_ANALISE' %}selected{% endif %}
-                                    >
-                                        Em análise
-                                    </option>
-
-                                    <option
-                                        value="APROVADA"
-                                        {% if candidatura.status == 'APROVADA' %}selected{% endif %}
-                                    >
-                                        Aprovada
-                                    </option>
-
-                                    <option
-                                        value="REJEITADA"
-                                        {% if candidatura.status == 'REJEITADA' %}selected{% endif %}
-                                    >
-                                        Rejeitada
-                                    </option>
-
-                                    <option
-                                        value="CANCELADA"
-                                        {% if candidatura.status == 'CANCELADA' %}selected{% endif %}
-                                    >
-                                        Cancelada
-                                    </option>
-
-                                </select>
-
-
-                                <button type="submit">
-                                    Atualizar status
-                                </button>
-
-                            </form>
+                            <p>
+                                Entre em contato com o candidato caso tenha interesse.
+                            </p>
 
                         </div>
 
@@ -551,9 +484,7 @@
 
         {% else %}
 
-            <!-- =============================================
-                 NENHUMA CANDIDATURA
-                 ============================================= -->
+            <!-- NENHUMA CANDIDATURA -->
 
             <div class="empresa-vazio">
 

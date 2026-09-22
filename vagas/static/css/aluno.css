@@ -1512,3 +1512,32 @@
     }
 
 }
+
+/* =========================================================
+   AVISO DE CANDIDATURA ENVIADA
+   ========================================================= */
+
+.minha-candidatura-contato {
+    margin-top: 20px;
+    padding: 15px 18px;
+
+    background: #f4f6f9;
+    border-left: 4px solid var(--cor-primaria);
+    border-radius: 7px;
+}
+
+.minha-candidatura-contato strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: var(--cor-primaria);
+    font-size: 14px;
+}
+
+.minha-candidatura-contato p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+    font-size: 14px;
+    line-height: 1.5;
+}

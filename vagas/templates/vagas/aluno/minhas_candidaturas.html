@@ -1,14 +1,21 @@
 {% extends 'vagas/base.html' %}
 
-{% block title %}Minhas Candidaturas - Plataforma de Estágios{% endblock %}
+{% block title %}
+    Minhas Candidaturas - Plataforma de Estágios
+{% endblock %}
 
 {% block content %}
 
 <div class="minhas-candidaturas">
 
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
     <div class="minhas-candidaturas-header">
 
         <div>
+
             <span class="minhas-candidaturas-label">
                 Área do aluno
             </span>
@@ -20,6 +27,7 @@
             <p>
                 Confira as oportunidades para as quais você enviou sua candidatura.
             </p>
+
         </div>
 
         <div class="minhas-candidaturas-icone">
@@ -29,6 +37,10 @@
     </div>
 
 
+    <!-- =====================================================
+         LISTA DE CANDIDATURAS
+         ===================================================== -->
+
     {% if candidaturas %}
 
         <div class="lista-minhas-candidaturas">
@@ -37,12 +49,14 @@
 
                 <article class="minha-candidatura-card">
 
+                    <!-- CABEÇALHO DA CANDIDATURA -->
+
                     <div class="minha-candidatura-header">
 
                         <div>
 
                             <span class="minha-candidatura-label">
-                                Oportunidade
+                                Candidatura enviada
                             </span>
 
                             <h2>
@@ -55,6 +69,8 @@
 
                     </div>
 
+
+                    <!-- DADOS DA VAGA -->
 
                     <div class="minha-candidatura-dados">
 
@@ -99,6 +115,24 @@
                     </div>
 
 
+                    <!-- INFORMAÇÃO SOBRE CONTATO -->
+
+                    <div class="minha-candidatura-contato">
+
+                        <strong>
+                            📩 Candidatura enviada com sucesso
+                        </strong>
+
+                        <p>
+                            A empresa recebeu sua candidatura.
+                            Caso tenha interesse, poderá entrar em contato com você.
+                        </p>
+
+                    </div>
+
+
+                    <!-- AÇÃO -->
+
                     <div class="minha-candidatura-acao">
 
                         <a
@@ -117,6 +151,10 @@
         </div>
 
     {% else %}
+
+        <!-- =================================================
+             NENHUMA CANDIDATURA
+             ================================================= -->
 
         <section class="minhas-candidaturas-vazio">
 

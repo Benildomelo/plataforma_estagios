@@ -24,7 +24,6 @@ from .aluno import (
 from .empresa import (
     area_empresa,
     detalhe_vaga_empresa,
-    atualizar_candidatura,
     perfil_empresa,
 )
 
@@ -34,3 +33,4 @@ from .vagas import (
     editar_vaga,
     encerrar_vaga,
 )
+

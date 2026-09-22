@@ -14,7 +14,6 @@ from vagas.views import (
     area_aluno,
     area_empresa,
     criar_vaga,
-    atualizar_candidatura,
     cadastro_aluno,
     entrar_aluno,
     entrar_empresa, 
@@ -76,12 +75,6 @@ urlpatterns = [
         'criar-vaga/',
         criar_vaga,
         name='criar_vaga'
-    ),
-
-    path(
-        'candidaturas/<int:candidatura_id>/atualizar/',
-        atualizar_candidatura,
-        name='atualizar_candidatura'
     ),
 
     path(
