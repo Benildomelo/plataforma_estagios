@@ -1,0 +1,211 @@
+[1mdiff --git a/vagas/templates/vagas/publicas/inicio.html b/vagas/templates/vagas/publicas/inicio.html[m
+[1mindex c0180e9..717558c 100644[m
+[1m--- a/vagas/templates/vagas/publicas/inicio.html[m
+[1m+++ b/vagas/templates/vagas/publicas/inicio.html[m
+[36m@@ -1,7 +1,7 @@[m
+ {% extends 'vagas/base.html' %}[m
+ [m
+ {% block title %}[m
+[31m-    Início - Plataforma de Estágios[m
+[32m+[m[32m    UNIPI Conecta - Oportunidades e Estágios[m
+ {% endblock %}[m
+ [m
+ {% block content %}[m
+[36m@@ -9,7 +9,7 @@[m
+ <div class="inicio">[m
+ [m
+     <!-- =========================================[m
+[31m-         SEÇÃO PRINCIPAL[m
+[32m+[m[32m         HERO[m
+     ========================================== -->[m
+ [m
+     <section class="inicio-hero">[m
+[36m@@ -17,22 +17,22 @@[m
+         <div class="inicio-hero-conteudo">[m
+ [m
+             <span class="inicio-label">[m
+[31m-                Plataforma de Estágios[m
+[32m+[m[32m                UNIPI CONECTA[m
+             </span>[m
+ [m
+             <h1>[m
+[31m-                Bem-vindo à Plataforma de Estágios[m
+[32m+[m[32m                Conectando alunos,<br>[m
+[32m+[m[32m                empresas e oportunidades.[m
+             </h1>[m
+ [m
+             <p class="inicio-destaque">[m
+[31m-                Conectamos alunos e empresas para facilitar a busca[m
+[31m-                por oportunidades de estágio.[m
+[32m+[m[32m                Uma plataforma criada para aproximar os estudantes da UNIPI[m
+[32m+[m[32m                das oportunidades de estágio e do mercado de trabalho.[m
+             </p>[m
+ [m
+             <p>[m
+[31m-                Se você é um aluno, pode se cadastrar, procurar vagas e se[m
+[31m-                candidatar às oportunidades disponíveis. Se você é uma empresa,[m
+[31m-                pode criar uma conta para divulgar suas vagas e encontrar talentos.[m
+[32m+[m[32m                Encontre oportunidades, divulgue vagas e acompanhe todo o[m
+[32m+[m[32m                processo de estágio em um único ambiente.[m
+             </p>[m
+ [m
+             <div class="inicio-acoes">[m
+[36m@@ -41,90 +41,306 @@[m
+                     class="botao-principal"[m
+                     href="/vagas/"[m
+                 >[m
+[31m-                    🔎 Ver vagas disponíveis[m
+[32m+[m[32m                    🔎 Ver oportunidades[m
+                 </a>[m
+ [m
+             </div>[m
+ [m
+         </div>[m
+ [m
+[31m-        <div class="inicio-hero-icone">[m
+[31m-            🎓[m
+[32m+[m[32m        <div class="inicio-hero-visual">[m
+[32m+[m
+[32m+[m[32m            <div class="inicio-hero-icone">[m
+[32m+[m[32m                🎓[m
+[32m+[m[32m            </div>[m
+[32m+[m
+[32m+[m[32m            <span class="inicio-hero-ponto inicio-hero-ponto-1">[m
+[32m+[m[32m                💼[m
+[32m+[m[32m            </span>[m
+[32m+[m
+[32m+[m[32m            <span class="inicio-hero-ponto inicio-hero-ponto-2">[m
+[32m+[m[32m                👨‍🎓[m
+[32m+[m[32m            </span>[m
+[32m+[m
+[32m+[m[32m            <span class="inicio-hero-ponto inicio-hero-ponto-3">[m
+[32m+[m[32m                🏢[m
+[32m+[m[32m            </span>[m
+[32m+[m
+         </div>[m
+ [m
+     </section>[m
+ [m
+ [m
+     <!-- =========================================[m
+[31m-         CARDS DE ACESSO[m
+[32m+[m[32m         ACESSOS[m
+     ========================================== -->[m
+ [m
+[31m-    <section class="inicio-cards">[m
+[32m+[m[32m    <section class="inicio-acessos">[m
+ [m
+[32m+[m[32m        <div class="inicio-secao-cabecalho">[m
+ [m
+[31m-        <!-- =====================================[m
+[31m-             CARD DO ALUNO[m
+[31m-        ====================================== -->[m
+[31m-[m
+[31m-        <div class="inicio-card inicio-card-aluno">[m
+[31m-[m
+[31m-            <div class="inicio-card-icone">[m
+[31m-                🎓[m
+[31m-            </div>[m
+[32m+[m[32m            <span>[m
+[32m+[m[32m                ACESSE A PLATAFORMA[m
+[32m+[m[32m            </span>[m
+ [m
+             <h2>[m
+[31m-                Para alunos[m
+[32m+[m[32m                O que você está procurando?[m
+             </h2>[m
+ [m
+             <p>[m
+[31m-                Encontre oportunidades de estágio, acompanhe suas candidaturas[m
+[31m-                e dê o próximo passo na sua carreira.[m
+[32m+[m[32m                Escolha o seu perfil para acessar as funcionalidades[m
+[32m+[m[32m                do UNIPI Conecta.[m
+             </p>[m
+ [m
+[31m-            <!-- BOTÃO DE LOGIN DO ALUNO -->[m
+[32m+[m[32m        </div>[m
+ [m
+[31m-            <a[m
+[31m-                class="botao-login botao-login-aluno"[m
+[31m-                href="/entrar-aluno/"[m
+[31m-            >[m
+[31m-                🔐 Login Aluno[m
+[31m-                <span>→</span>[m
+[31m-            </a>[m
+ [m
+[31m-        </div>[m
+[32m+[m[32m        <div class="inicio-cards">[m
+ [m
+ [m
+[31m-        <!-- =====================================[m
+[31m-             CARD DA EMPRESA[m
+[31m-        ====================================== -->[m
+[32m+[m[32m            <!-- =====================================[m
+[32m+[m[32m                 ALUNO[m
+[32m+[m[32m            ====================================== -->[m
+ [m
+[31m-        <div class="inicio-card inicio-card-empresa">[m
+[32m+[m[32m            <div class="inicio-card inicio-card-aluno">[m
+[32m+[m
+[32m+[m[32m                <div class="inicio-card-topo">[m
+[32m+[m
+[32m+[m[32m                    <div class="inicio-card-icone">[m
+[32m+[m[32m                        👨‍🎓[m
+[32m+[m[32m                    </div>[m
+[32m+[m
+[32m+[m[32m                    <span class="inicio-card-tipo">[m
+[32m+[m[32m                        ÁREA DO ALUNO[m
+[32m+[m[32m                    </span>[m
+[32m+[m
+[32m+[m[32m                </div>[m
+[32m+[m
+[32m+[m[32m                <h2>[m
+[32m+[m[32m                    Sou aluno[m
+[32m+[m[32m                </h2>[m
+[32m+[m
+[32m+[m[32m                <p>[m
+[32m+[m[32m                    Encontre oportunidades de estágio, cadastre seu currículo,[m
+[32m+[m[32m                    acompanhe suas candidaturas e fique mais perto do mercado[m
+[32m+[m[32m                    de trabalho.[m
+[32m+[m[32m                </p>[m
+[32m+[m
+[32m+[m[32m                <a[m
+[32m+[m[32m                    class="botao-login botao-login-aluno"[m
+[32m+[m[32m                    href="/entrar-aluno/"[m
+[32m+[m[32m                >[m
+[32m+[m[32m                    Entrar como aluno[m
+[32m+[m[32m                    <span>→</span>[m
+[32m+[m[32m                </a>[m
+[32m+[m
+[32m+[m[32m            </div>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            <!-- =====================================[m
+[32m+[m[32m                 EMPRESA[m
+[32m+[m[32m            ====================================== -->[m
+[32m+[m
+[32m+[m[32m            <div class="inicio-card inicio-card-empresa">[m
+[32m+[m
+[32m+[m[32m                <div class="inicio-card-topo">[m
+[32m+[m
+[32m+[m[32m                    <div class="inicio-card-icone">[m
+[32m+[m[32m                        🏢[m
+[32m+[m[32m                    </div>[m
+[32m+[m
+[32m+[m[32m                    <span class="inicio-card-tipo">[m
+[32m+[m[32m                        ÁREA DA EMPRESA[m
+[32m+[m[32m                    </span>[m
+[32m+[m
+[32m+[m[32m                </div>[m
+[32m+[m
+[32m+[m[32m                <h2>[m
+[32m+[m[32m                    Sou empresa[m
+[32m+[m[32m                </h2>[m
+[32m+[m
+[32m+[m[32m                <p>[m
+[32m+[m[32m                    Divulgue oportunidades de estágio, encontre estudantes[m
+[32m+[m[32m                    e acompanhe as candidaturas recebidas pela sua empresa.[m
+[32m+[m[32m                </p>[m
+[32m+[m
+[32m+[m[32m                <a[m
+[32m+[m[32m         
