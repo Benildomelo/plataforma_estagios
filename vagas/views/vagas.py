@@ -1,11 +1,62 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.shortcuts import redirect, render
 
-from ..repositories.vaga_repository import VagaRepository
-from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.aluno_repository import AlunoRepository
-from ..repositories.empresa_repository import EmpresaRepository
+from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.curso_repository import CursoRepository
+from ..repositories.empresa_repository import EmpresaRepository
+from ..repositories.vaga_repository import VagaRepository
+
+
+def _buscar_aluno(request):
+    return AlunoRepository.buscar_por_usuario(
+        request.user
+    )
+
+
+def _buscar_empresa(request):
+    return EmpresaRepository.buscar_por_usuario(
+        request.user
+    )
+
+
+def _buscar_curso(curso_id):
+    curso = CursoRepository.buscar_por_id(
+        curso_id
+    )
+
+    if not curso or not curso.ativo:
+        return None
+
+    return curso
+
+
+def _render_criar_vaga(request, empresa, cursos):
+    return render(
+        request,
+        'vagas/empresa/criar_vaga.html',
+        {
+            'empresa': empresa,
+            'cursos': cursos,
+        }
+    )
+
+
+def _obter_ou_criar_candidatura(aluno, vaga):
+    candidatura = CandidaturaRepository.buscar_por_aluno_e_vaga(
+        aluno,
+        vaga
+    )
+
+    if candidatura:
+        return candidatura, False
+
+    candidatura = CandidaturaRepository.criar(
+        aluno=aluno,
+        vaga=vaga
+    )
+
+    return candidatura, True
 
 
 def candidatar(request, vaga_id):
@@ -19,9 +70,7 @@ def candidatar(request, vaga_id):
     if not vaga or vaga.status != 'APROVADA' or not vaga.ativo:
         return redirect('vagas_publicas')
 
-    aluno = AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    aluno = _buscar_aluno(request)
 
     if not aluno:
         messages.error(
@@ -30,7 +79,7 @@ def candidatar(request, vaga_id):
         )
         return redirect('entrar_aluno')
 
-    candidatura, criada = _obter_ou_criar_candidatura(
+    _, criada = _obter_ou_criar_candidatura(
         aluno,
         vaga
     )
@@ -52,31 +101,11 @@ def candidatar(request, vaga_id):
     )
 
 
-def _obter_ou_criar_candidatura(aluno, vaga):
-
-    candidatura = CandidaturaRepository.buscar_por_aluno_e_vaga(
-        aluno,
-        vaga
-    )
-
-    if candidatura:
-        return candidatura, False
-
-    candidatura = CandidaturaRepository.criar(
-        aluno=aluno,
-        vaga=vaga
-    )
-
-    return candidatura, True
-
-
 def criar_vaga(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         messages.error(
@@ -123,23 +152,20 @@ def criar_vaga(request):
             ''
         ).strip()
 
-        curso = CursoRepository.buscar_por_id(
+        curso = _buscar_curso(
             curso_id
         )
 
-        if not curso or not curso.ativo:
+        if not curso:
             messages.error(
                 request,
                 'Selecione um curso válido.'
             )
 
-            return render(
+            return _render_criar_vaga(
                 request,
-                'vagas/empresa/criar_vaga.html',
-                {
-                    'empresa': empresa,
-                    'cursos': cursos,
-                }
+                empresa,
+                cursos
             )
 
         vaga = VagaRepository.criar(
@@ -165,13 +191,10 @@ def criar_vaga(request):
             vaga_id=vaga.id
         )
 
-    return render(
+    return _render_criar_vaga(
         request,
-        'vagas/empresa/criar_vaga.html',
-        {
-            'empresa': empresa,
-            'cursos': cursos,
-        }
+        empresa,
+        cursos
     )
 
 
@@ -179,9 +202,7 @@ def editar_vaga(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         return redirect('entrar_empresa')
@@ -234,11 +255,11 @@ def editar_vaga(request, vaga_id):
         ).strip()
 
         if curso_id:
-            curso = CursoRepository.buscar_por_id(
+            curso = _buscar_curso(
                 curso_id
             )
 
-            if not curso or not curso.ativo:
+            if not curso:
                 messages.error(
                     request,
                     'Selecione um curso válido.'
@@ -287,9 +308,7 @@ def encerrar_vaga(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         return redirect('entrar_empresa')
