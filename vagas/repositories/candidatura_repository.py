@@ -42,6 +42,13 @@ class CandidaturaRepository:
         ).first()
 
     @staticmethod
+    def existe_por_aluno_e_vaga(aluno, vaga):
+        return Candidatura.objects.filter(
+            aluno=aluno,
+            vaga=vaga
+        ).exists()
+
+    @staticmethod
     def buscar_por_empresa(empresa):
         return Candidatura.objects.filter(
             vaga__empresa=empresa
@@ -61,4 +68,5 @@ class CandidaturaRepository:
     @staticmethod
     def atualizar(candidatura):
         candidatura.save()
+
         return candidatura
