@@ -1655,3 +1655,235 @@
         text-align: center;
     }
 }
+
+/* =========================================================
+   CRIAR VAGA
+   ========================================================= */
+
+.criar-vaga {
+    width: 100%;
+}
+
+/* CABEÇALHO */
+.criar-vaga-cabecalho {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+
+    padding: 35px;
+    margin-bottom: 25px;
+
+    box-shadow: var(--sombra-padrao);
+}
+
+.criar-vaga-label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    color: var(--cor-primaria);
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.criar-vaga-cabecalho h1 {
+    margin: 0 0 10px;
+
+    color: var(--cor-texto);
+    font-size: 30px;
+}
+
+.criar-vaga-cabecalho p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+}
+
+/* CARD DO FORMULÁRIO */
+.criar-vaga-card {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+
+    padding: 30px;
+
+    box-shadow: var(--sombra-padrao);
+}
+
+/* EMPRESA RESPONSÁVEL */
+.criar-vaga-empresa {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 15px 18px;
+    margin-bottom: 25px;
+
+    background: #f4f6f9;
+    border-left: 4px solid var(--cor-primaria);
+    border-radius: 7px;
+}
+
+.criar-vaga-empresa span {
+    color: var(--cor-texto-secundario);
+    font-size: 12px;
+}
+
+.criar-vaga-empresa strong {
+    color: var(--cor-texto);
+    font-size: 15px;
+}
+
+/* MENSAGENS */
+.criar-vaga-card .mensagem {
+    margin-bottom: 20px;
+}
+
+/* CAMPOS */
+.campo-vaga {
+    margin-bottom: 22px;
+}
+
+.campo-vaga label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--cor-texto);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo-vaga input,
+.campo-vaga textarea,
+.campo-vaga select {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.campo-vaga input:focus,
+.campo-vaga textarea:focus,
+.campo-vaga select:focus {
+    border-color: var(--cor-primaria);
+
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.08);
+}
+
+.campo-vaga textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.campo-vaga input::placeholder,
+.campo-vaga textarea::placeholder {
+    color: #999999;
+}
+
+/* CAMPOS EM DUAS COLUNAS */
+.criar-vaga-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* AÇÕES */
+.criar-vaga-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding-top: 10px;
+    margin-top: 5px;
+
+    border-top: 1px solid var(--cor-borda);
+}
+
+.botao-voltar {
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    background: #e8eef5;
+    color: var(--cor-primaria);
+
+    border-radius: 7px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.botao-voltar:hover {
+    background: #d8e3ee;
+}
+
+.botao-cadastrar-vaga {
+    padding: 12px 24px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.botao-cadastrar-vaga:hover {
+    background: var(--cor-primaria-hover);
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 700px) {
+
+    .criar-vaga-cabecalho {
+        padding: 25px;
+    }
+
+    .criar-vaga-cabecalho h1 {
+        font-size: 25px;
+    }
+
+    .criar-vaga-card {
+        padding: 20px;
+    }
+
+    .criar-vaga-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .criar-vaga-acoes {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .botao-voltar,
+    .botao-cadastrar-vaga {
+        width: 100%;
+        text-align: center;
+    }
+}
