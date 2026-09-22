@@ -1887,3 +1887,129 @@
         text-align: center;
     }
 }
+
+/* =========================================================
+   DETALHES DA VAGA - EMPRESA
+   ========================================================= */
+
+.vaga-detalhes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 25px;
+}
+
+.vaga-detalhes-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.vaga-detalhes-grid .dado-label {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+.vaga-detalhes-grid strong {
+    color: var(--cor-texto);
+    font-size: 15px;
+    word-break: break-word;
+}
+
+/* TEXTO DA VAGA */
+.vaga-detalhes-texto {
+    color: var(--cor-texto);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.vaga-detalhes-texto p {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.vaga-detalhes-texto p:last-child {
+    margin-bottom: 0;
+}
+
+/* STATUS NO CABEÇALHO DA SEÇÃO */
+.area-empresa-secao-header .status-vaga {
+    flex-shrink: 0;
+}
+
+/* BOTÃO DE PERIGO */
+.botao-perigo {
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #fde8e8;
+    color: #b42318;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.botao-perigo:hover {
+    background: #f9d3d3;
+    transform: translateY(-1px);
+}
+
+/* ÁREA DOS BOTÕES */
+.area-empresa-acoes form {
+    margin: 0;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
+
+    .vaga-detalhes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .vaga-detalhes-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .area-empresa-secao-header {
+        align-items: flex-start;
+    }
+
+    .area-empresa-secao-header .status-vaga {
+        align-self: flex-start;
+    }
+
+    .area-empresa-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .area-empresa-acoes .botao-secundario,
+    .area-empresa-acoes .botao-principal,
+    .area-empresa-acoes .botao-perigo,
+    .area-empresa-acoes form {
+        width: 100%;
+    }
+
+    .area-empresa-acoes .botao-secundario,
+    .area-empresa-acoes .botao-principal,
+    .area-empresa-acoes .botao-perigo {
+        text-align: center;
+    }
+}
