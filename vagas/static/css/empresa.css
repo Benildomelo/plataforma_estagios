@@ -2013,3 +2013,135 @@
         text-align: center;
     }
 }
+
+/* =========================================================
+   EDITAR VAGA
+   ========================================================= */
+
+.formulario-vaga {
+    width: 100%;
+}
+
+.campo-formulario {
+    margin-bottom: 22px;
+}
+
+.campo-formulario label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--cor-texto);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo-formulario input,
+.campo-formulario textarea,
+.campo-formulario select {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.campo-formulario input:focus,
+.campo-formulario textarea:focus,
+.campo-formulario select:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.08);
+}
+
+.campo-formulario textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.campo-formulario input::placeholder,
+.campo-formulario textarea::placeholder {
+    color: #999;
+}
+
+.formulario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.mensagem-erro {
+    margin-bottom: 20px;
+    padding: 12px 15px;
+
+    border-radius: 7px;
+
+    background: #fde8e8;
+    color: #b42318;
+
+    font-size: 14px;
+}
+
+.formulario-vaga .area-empresa-acoes {
+    padding-top: 20px;
+    margin-top: 5px;
+
+    border-top: 1px solid var(--cor-borda);
+
+    justify-content: space-between;
+}
+
+.formulario-vaga .botao-principal {
+    display: inline-block;
+
+    padding: 11px 20px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.formulario-vaga .botao-principal:hover {
+    background: var(--cor-primaria-hover);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+
+    .formulario-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .formulario-vaga .area-empresa-acoes {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .formulario-vaga .botao-secundario,
+    .formulario-vaga .botao-principal {
+        width: 100%;
+        text-align: center;
+    }
+}
