@@ -145,31 +145,6 @@ footer {
     gap: 30px;
 }
 
-.cabecalho nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    flex-wrap: wrap;
-}
-
-.cabecalho nav a {
-    color: var(--cor-branco);
-
-    text-decoration: none;
-
-    padding: 8px 12px;
-
-    border-radius: 6px;
-
-    font-size: 14px;
-
-    transition: 0.2s;
-}
-
-.cabecalho nav a:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
 
 /* =========================================================
    LINKS DO MENU

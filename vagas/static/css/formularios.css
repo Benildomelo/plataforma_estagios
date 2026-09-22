@@ -4,131 +4,6 @@
 
 .login-container {
     width: 100%;
-    max-width: 420px;
-    background: var(--cor-branco);
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: var(--sombra-padrao);
-    margin: 0 auto;
-}
-
-.login-cabecalho {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-cabecalho h1 {
-    margin: 0;
-    color: var(--cor-primaria);
-    font-size: 27px;
-}
-
-.login-cabecalho p {
-    margin-top: 8px;
-    color: var(--cor-texto-secundario);
-    font-size: 15px;
-}
-
-.login-container h2 {
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 22px;
-    color: var(--cor-texto);
-}
-
-.mensagem {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.login-container .campo {
-    margin-bottom: 20px;
-}
-
-.login-container .campo label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: bold;
-    color: var(--cor-texto);
-    font-size: 14px;
-}
-
-.login-container .campo input {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid var(--cor-borda);
-    border-radius: 8px;
-    font-size: 15px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.login-container .campo input:focus {
-    border-color: var(--cor-primaria);
-    box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.10);
-}
-
-.login-container .botao {
-    width: 100%;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    background: var(--cor-primaria);
-    color: var(--cor-branco);
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 5px;
-    transition: 0.2s;
-}
-
-.login-container .botao:hover {
-    background: var(--cor-primaria-hover);
-}
-
-.login-container .voltar {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    color: var(--cor-primaria);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.login-container .voltar:hover {
-    text-decoration: underline;
-}
-
-
-/* =========================================
-   RESPONSIVIDADE - LOGIN
-   ========================================= */
-
-@media (max-width: 500px) {
-
-    .login-container {
-        padding: 30px 22px;
-    }
-
-    .login-cabecalho h1 {
-        font-size: 24px;
-    }
-}
-
-/* =========================================
-   LOGIN DO ALUNO
-   ========================================= */
-
-.login-container {
-    width: 100%;
     max-width: 430px;
     background: var(--cor-branco);
     padding: 40px;
@@ -157,6 +32,13 @@
     margin-top: 8px;
     color: var(--cor-texto-secundario);
     font-size: 15px;
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 22px;
+    color: var(--cor-texto);
 }
 
 .login-titulo {
@@ -280,7 +162,7 @@
 
 
 /* =========================================
-   RESPONSIVIDADE - LOGIN DO ALUNO
+   RESPONSIVIDADE - LOGIN
    ========================================= */
 
 @media (max-width: 500px) {
@@ -292,7 +174,9 @@
     .login-cabecalho h1 {
         font-size: 24px;
     }
+
 }
+
 
 /* =========================================
    CADASTRO DO ALUNO
@@ -421,7 +305,9 @@
     .cadastro-cabecalho h1 {
         font-size: 26px;
     }
+
 }
+
 
 /* =========================================
    RECUPERAÇÃO DE SENHA
@@ -521,6 +407,11 @@
     background: #f8f8f8;
 }
 
+
+/* =========================================
+   RESPONSIVIDADE - RECUPERAÇÃO DE SENHA
+   ========================================= */
+
 @media (max-width: 600px) {
 
     .recuperar-senha {
@@ -535,5 +426,5 @@
     .recuperar-senha-card h1 {
         font-size: 24px;
     }
-}
 
+}
