@@ -101,7 +101,7 @@
 
 
         /* =========================
-           MENSAGEM DE ERRO
+           MENSAGEM
            ========================= */
 
         .mensagem {
@@ -177,7 +177,7 @@
 
 
         /* =========================
-           BOTÃO
+           BOTÃO ENTRAR
            ========================= */
 
         .botao {
@@ -209,6 +209,50 @@
         .botao:hover {
 
             background: #163a5c;
+        }
+
+
+        /* =========================
+           CADASTRO
+           ========================= */
+
+        .cadastro {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #e5e7eb;
+        }
+
+
+        .cadastro p {
+
+            margin: 0 0 7px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        .cadastro a {
+
+            color: #1f4e79;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .cadastro a:hover {
+
+            text-decoration: underline;
         }
 
 
@@ -356,6 +400,27 @@
 
         </form>
 
+
+        <!-- =========================
+             CADASTRO
+             ========================= -->
+
+        <div class="cadastro">
+
+            <p>
+                Ainda não possui uma conta?
+            </p>
+
+            <a href="{% url 'cadastro_aluno' %}">
+                Cadastre-se
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             VOLTAR
+             ========================= -->
 
         <a
             href="/"
