@@ -1,18 +1,22 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.shortcuts import redirect, render
 
+from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.empresa_repository import EmpresaRepository
 from ..repositories.vaga_repository import VagaRepository
-from ..repositories.candidatura_repository import CandidaturaRepository
+
+
+def _buscar_empresa(request):
+    return EmpresaRepository.buscar_por_usuario(
+        request.user
+    )
 
 
 def area_empresa(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         messages.error(
@@ -44,9 +48,7 @@ def detalhe_vaga_empresa(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         return redirect('entrar_empresa')
@@ -83,9 +85,7 @@ def atualizar_candidatura(request, candidatura_id):
     if request.method != 'POST':
         return redirect('area_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         return redirect('entrar_empresa')
@@ -108,7 +108,10 @@ def atualizar_candidatura(request, candidatura_id):
         )
         return redirect('area_empresa')
 
-    status = request.POST.get('status', '').strip()
+    status = request.POST.get(
+        'status',
+        ''
+    ).strip()
 
     status_validos = {
         'PENDENTE',
@@ -123,6 +126,7 @@ def atualizar_candidatura(request, candidatura_id):
             request,
             'Status de candidatura inválido.'
         )
+
         return redirect(
             'detalhe_vaga_empresa',
             vaga_id=candidatura.vaga.id
@@ -149,9 +153,7 @@ def perfil_empresa(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
-    empresa = EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    empresa = _buscar_empresa(request)
 
     if not empresa:
         messages.error(
