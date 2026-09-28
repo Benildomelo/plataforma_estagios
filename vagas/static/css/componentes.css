@@ -1,107 +1,378 @@
 /* =========================================================
-   PÁGINA INICIAL - UNIPI CONECTA
+   COMPONENTES.CSS
+   PLATAFORMA DE ESTÁGIOS — UNIPI CONECTA
+   ========================================================= */
+
+
+/* =========================================================
+   PÁGINA INICIAL
    ========================================================= */
 
 .inicio {
+    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
 }
 
 
 /* =========================================================
-   HERO PRINCIPAL
+   CARROSSEL PRINCIPAL
    ========================================================= */
 
-.inicio-hero {
-    background: var(--cor-branco);
+.inicio-carrossel {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    aspect-ratio: 2048 / 684;
+    height: auto;
+    margin: 0 auto 35px;
 
-    padding: 45px;
+    overflow: hidden;
 
     border-radius: var(--raio-padrao);
     box-shadow: var(--sombra-padrao);
 
+    background: #063b63;
+}
+
+
+/* =========================================================
+   ÁREA DOS SLIDES
+   ========================================================= */
+
+.carrossel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   SLIDE
+   ========================================================= */
+
+.carrossel-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
-    gap: 40px;
+    box-sizing: border-box;
 
-    margin-bottom: 35px;
+    padding: 45px 70px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+
+    overflow: hidden;
 }
 
-.inicio-hero-conteudo {
-    max-width: 760px;
+
+/* =========================================================
+   SLIDE ATIVO
+   ========================================================= */
+
+.carrossel-slide.ativo {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
 }
 
-.inicio-label {
-    display: inline-block;
 
-    color: var(--cor-primaria);
+/* =========================================================
+   IMAGEM DO CARROSSEL
+   ========================================================= */
 
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
+.carrossel-slide img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CONTEÚDO DO CARROSSEL
+   ========================================================= */
+
+.carrossel-conteudo {
+    position: relative;
+
+    z-index: 4;
+
+    max-width: 650px;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.carrossel-label {
+    display: block;
 
     margin-bottom: 10px;
+
+    color: #dbeeff;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
 }
 
-.inicio-hero h1 {
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.carrossel-conteudo h1 {
     margin: 0 0 15px;
 
-    color: var(--cor-primaria);
+    color: #ffffff;
 
     font-size: 36px;
     line-height: 1.2;
 }
 
-.inicio-destaque {
-    color: var(--cor-texto);
 
-    font-size: 18px;
-    font-weight: 500;
+/* =========================================================
+   DESTAQUE DO TÍTULO
+   ========================================================= */
 
-    line-height: 1.6;
+.carrossel-conteudo h1 strong {
+    display: block;
 
-    margin-bottom: 12px;
-}
-
-.inicio-hero p {
-    color: var(--cor-texto-secundario);
-
-    line-height: 1.7;
-
-    margin-top: 0;
-}
-
-.inicio-acoes {
-    margin-top: 25px;
-}
-
-.inicio-hero-icone {
-    width: 130px;
-    height: 130px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #eef5fb;
-
-    border-radius: 50%;
-
-    font-size: 60px;
+    color: #ffd900;
 }
 
 
 /* =========================================================
-   TÍTULO DA SEÇÃO DE PERFIS
+   TEXTO DO CARROSSEL
+   ========================================================= */
+
+.carrossel-conteudo p {
+    max-width: 580px;
+
+    margin: 0 0 25px;
+
+    padding: 0;
+
+    color: #ffffff;
+
+    background: transparent;
+
+    border-radius: 0;
+
+    font-size: 16px;
+    line-height: 1.6;
+
+    box-sizing: border-box;
+
+    text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================================
+   BOTÃO DO CARROSSEL
+   ========================================================= */
+
+.botao-carrossel {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 13px 22px;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: var(--cor-primaria);
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+.botao-carrossel:hover {
+    transform: translateY(-2px);
+
+    background: #f2f6fa;
+
+    color: var(--cor-primaria-hover);
+}
+
+
+.botao-carrossel span {
+    font-size: 20px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.botao-carrossel:hover span {
+    transform: translateX(4px);
+}
+
+
+
+/* =========================================================
+   SETAS
+   ========================================================= */
+
+.carrossel-seta {
+    position: absolute;
+
+    top: 50%;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10;
+
+    transform: translateY(-50%);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    color: #ffffff;
+
+    font-size: 30px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.carrossel-seta:hover {
+    background: rgba(0, 0, 0, 0.50);
+
+    transform:
+        translateY(-50%)
+        scale(1.05);
+}
+
+
+.carrossel-anterior {
+    left: 18px;
+}
+
+
+.carrossel-proximo {
+    right: 18px;
+}
+
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.carrossel-indicadores {
+    position: absolute;
+
+    bottom: 18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    z-index: 10;
+}
+
+
+.indicador {
+    width: 10px;
+    height: 10px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.45);
+
+    cursor: pointer;
+
+    transition:
+        width 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.indicador.ativo {
+    width: 26px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   SEÇÃO DE PERFIS
    ========================================================= */
 
 .inicio-areas {
     margin-top: 10px;
 }
+
+
+/* =========================================================
+   TÍTULO DA SEÇÃO
+   ========================================================= */
 
 .inicio-secao-titulo {
     text-align: center;
@@ -109,17 +380,20 @@
     margin-bottom: 25px;
 }
 
+
 .inicio-secao-titulo span {
     display: inline-block;
+
+    margin-bottom: 8px;
 
     color: var(--cor-primaria);
 
     font-size: 13px;
     font-weight: bold;
-    letter-spacing: 0.8px;
 
-    margin-bottom: 8px;
+    letter-spacing: 0.8px;
 }
+
 
 .inicio-secao-titulo h2 {
     margin: 0 0 8px;
@@ -128,6 +402,7 @@
 
     font-size: 28px;
 }
+
 
 .inicio-secao-titulo p {
     margin: 0;
@@ -139,40 +414,51 @@
 
 
 /* =========================================================
-   CARDS DOS PERFIS
+   CARDS
    ========================================================= */
 
 .inicio-cards {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-    gap: 20px;
+    gap: 22px;
+
+    align-items: stretch;
 }
+
 
 .inicio-card {
     background: var(--cor-branco);
 
-    padding: 30px;
+    padding: 30px 26px;
 
     border-radius: var(--raio-padrao);
+
     box-shadow: var(--sombra-padrao);
 
     text-align: center;
 
     display: flex;
+
     flex-direction: column;
 
     min-height: 310px;
 
-    transition: transform 0.25s ease,
-                box-shadow 0.25s ease;
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
+
 
 .inicio-card:hover {
     transform: translateY(-4px);
 
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -187,6 +473,7 @@
     margin: 0 auto 18px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -253,9 +540,12 @@
 
     color: #ffffff;
 
-    transition: all 0.25s ease;
-
     box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
@@ -269,6 +559,7 @@
     box-shadow:
         0 4px 10px rgba(31, 78, 121, 0.20);
 }
+
 
 .botao-login-aluno:hover {
     background: #163a5c;
@@ -293,6 +584,7 @@
         0 4px 10px rgba(25, 135, 84, 0.20);
 }
 
+
 .botao-login-empresa:hover {
     background: #146c43;
 
@@ -316,6 +608,7 @@
         0 4px 10px rgba(111, 66, 193, 0.20);
 }
 
+
 .botao-login-instituicao:hover {
     background: #59339d;
 
@@ -335,8 +628,10 @@
 .botao-login span {
     font-size: 19px;
 
-    transition: transform 0.2s ease;
+    transition:
+        transform 0.2s ease;
 }
+
 
 .botao-login:hover span {
     transform: translateX(4px);
@@ -344,51 +639,206 @@
 
 
 /* =========================================================
-   RESPONSIVIDADE
+   BANNER ANTIGO
+   =========================================================
+
+   Mantido apenas para evitar problemas caso ainda exista
+   a classe banner-inicio em algum template.
+
    ========================================================= */
 
-@media (max-width: 850px) {
+.banner-inicio {
+    width: 100%;
+
+    margin-bottom: 30px;
+
+    border-radius: var(--raio-padrao);
+
+    overflow: hidden;
+
+    box-shadow: var(--sombra-padrao);
+
+    background: var(--cor-branco);
+}
+
+
+.banner-inicio img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
 
     .inicio-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
+
 
     .inicio-card:last-child {
         grid-column: 1 / -1;
     }
 
+
+    .carrossel-slide {
+        padding: 35px 45px;
+    }
+
+
+    .carrossel-conteudo {
+        max-width: 60%;
+    }
+
+
+    .carrossel-conteudo h1 {
+        font-size: 30px;
+    }
+
+
+    .carrossel-conteudo p {
+        font-size: 15px;
+    }
+
+
+    .carrossel-visual {
+        width: 140px;
+        height: 140px;
+
+        font-size: 70px;
+
+        margin-right: 15px;
+    }
+
 }
 
 
+/* =========================================================
+   RESPONSIVIDADE — CELULAR
+   ========================================================= */
+
 @media (max-width: 700px) {
 
-    .inicio-hero {
-        padding: 30px 24px;
-
-        flex-direction: column;
-
-        align-items: flex-start;
+    .inicio {
+        width: 100%;
     }
 
-    .inicio-hero h1 {
-        font-size: 28px;
+
+    /* -----------------------------------------
+       CARROSSEL
+       ----------------------------------------- */
+
+    .inicio-carrossel {
+        width: 100%;
+
+        aspect-ratio: 2048 / 684;
+
+        height: auto;
+
+        border-radius: 10px;
     }
 
-    .inicio-destaque {
-        font-size: 16px;
+
+    .carrossel-slide {
+        padding: 25px 30px 45px;
+
+        align-items: center;
     }
 
-    .inicio-hero-icone {
+
+    .carrossel-conteudo {
+        max-width: 75%;
+    }
+
+
+    .carrossel-conteudo h1 {
+        font-size: 25px;
+    }
+
+
+    .carrossel-conteudo p {
+        max-width: 100%;
+
+        padding: 0;
+
+        font-size: 14px;
+
+        line-height: 1.5;
+    }
+
+
+    .carrossel-label {
+        font-size: 11px;
+    }
+
+
+    .botao-carrossel {
+        padding: 10px 16px;
+
+        font-size: 13px;
+    }
+
+
+    .carrossel-visual {
         display: none;
     }
+
+
+    .carrossel-seta {
+        width: 34px;
+        height: 34px;
+
+        font-size: 24px;
+    }
+
+
+    .carrossel-anterior {
+        left: 8px;
+    }
+
+
+    .carrossel-proximo {
+        right: 8px;
+    }
+
+
+    .carrossel-indicadores {
+        bottom: 10px;
+    }
+
+
+    .indicador {
+        width: 8px;
+        height: 8px;
+    }
+
+
+    .indicador.ativo {
+        width: 20px;
+    }
+
+
+    /* -----------------------------------------
+       PERFIS
+       ----------------------------------------- */
 
     .inicio-cards {
         grid-template-columns: 1fr;
     }
 
+
     .inicio-card:last-child {
         grid-column: auto;
     }
+
 
     .inicio-card {
         min-height: auto;
@@ -396,16 +846,67 @@
         padding: 25px 20px;
     }
 
-    .inicio-acoes .botao-principal {
-        width: 100%;
 
-        text-align: center;
+    .inicio-secao-titulo h2 {
+        font-size: 24px;
     }
+
+
+    .inicio-secao-titulo p {
+        font-size: 14px;
+    }
+
 
     .botao-login {
         padding: 12px 16px;
 
-        font-size: 15px;
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .carrossel-slide {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+
+    .carrossel-conteudo {
+        max-width: 80%;
+    }
+
+
+    .carrossel-conteudo h1 {
+        font-size: 21px;
+    }
+
+
+    .carrossel-conteudo p {
+        font-size: 13px;
+
+        padding: 0;
+    }
+
+
+    .botao-carrossel {
+        padding: 9px 13px;
+
+        font-size: 12px;
+    }
+
+
+    .carrossel-seta {
+        width: 30px;
+        height: 30px;
+
+        font-size: 21px;
     }
 
 }
