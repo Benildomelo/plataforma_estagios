@@ -1,4 +1,5 @@
 {% extends 'vagas/base.html' %}
+{% load static %}
 
 {% block title %}
     UNIPI Conecta - Oportunidades e Estágios
@@ -9,46 +10,210 @@
 <div class="inicio">
 
     <!-- =====================================================
-         HERO PRINCIPAL
+         BANNER / CARROSSEL PRINCIPAL
          ===================================================== -->
 
-    <section class="inicio-hero">
+    <section class="inicio-carrossel">
 
-        <div class="inicio-hero-conteudo">
+        <div class="carrossel-slides">
 
-            <span class="inicio-label">
-                UNIPI CONECTA
-            </span>
 
-            <h1>
-                Conectando estudantes, empresas e oportunidades.
-            </h1>
+            <!-- =================================================
+                 SLIDE 1
+                 ================================================= -->
 
-            <p class="inicio-destaque">
-                Uma plataforma desenvolvida para aproximar os estudantes
-                da UNIPI das oportunidades de estágio.
-            </p>
+            <div class="carrossel-slide ativo">
 
-            <p>
-                Encontre vagas, candidate-se às oportunidades disponíveis
-                e acompanhe sua trajetória de estágio em um único lugar.
-            </p>
+                <div class="carrossel-conteudo">
 
-            <div class="inicio-acoes">
+                    <span class="carrossel-label">
+                        UNIPI CONECTA
+                    </span>
 
-                <a
-                    class="botao-principal"
-                    href="/vagas/"
-                >
-                    🔎 Ver vagas disponíveis
-                </a>
+                    <h1>
+                        Conectando estudantes a
+                        <strong>oportunidades reais.</strong>
+                    </h1>
+
+                    <p>
+                        Encontre oportunidades de estágio e dê
+                        o próximo
+                        <br>
+                        passo na sua trajetória profissional.
+                    </p>
+
+                    <a
+                        href="/vagas/"
+                        class="botao-carrossel"
+                    >
+                        🔎 Ver vagas disponíveis
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="carrossel-visual carrossel-visual-1">
+
+                    <img
+                        src="{% static 'img/banner-estagio-01.png' %}"
+                        alt="Oportunidades de estágio"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SLIDE 2
+                 ================================================= -->
+
+            <div class="carrossel-slide">
+
+                <div class="carrossel-conteudo">
+
+                    <span class="carrossel-label">
+                        PARA ESTUDANTES
+                    </span>
+
+                    <h1>
+                        Seu futuro profissional
+                        <strong>começa aqui.</strong>
+                    </h1>
+
+                    <p>
+                        Encontre vagas, cadastre seu currículo
+                        <br>
+                        e acompanhe suas candidaturas.
+                    </p>
+
+                    <a
+                        href="/entrar-aluno/"
+                        class="botao-carrossel"
+                    >
+                        Entrar como aluno
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="carrossel-visual carrossel-visual-2">
+
+                    <img
+                        src="{% static 'img/banner-estagio-02.png' %}"
+                        alt="Estudantes e oportunidades"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SLIDE 3
+                 ================================================= -->
+
+            <div class="carrossel-slide">
+
+                <div class="carrossel-conteudo">
+
+                    <span class="carrossel-label">
+                        PARA EMPRESAS
+                    </span>
+
+                    <h1>
+                        Encontre novos talentos
+                        <strong>para sua empresa.</strong>
+                    </h1>
+
+                    <p>
+                        Divulgue vagas de estágio e encontre
+                        <br>
+                        estudantes preparados para novas oportunidades.
+                    </p>
+
+                    <a
+                        href="/entrar-empresa/"
+                        class="botao-carrossel"
+                    >
+                        Entrar como empresa
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="carrossel-visual carrossel-visual-3">
+
+                    <img
+                        src="{% static 'img/banner-estagio-03.png' %}"
+                        alt="Empresas e oportunidades de estágio"
+                    >
+
+                </div>
 
             </div>
 
         </div>
 
-        <div class="inicio-hero-icone">
-            🎓
+
+        <!-- =====================================================
+             SETA ANTERIOR
+             ===================================================== -->
+
+        <button
+            type="button"
+            class="carrossel-seta carrossel-anterior"
+            onclick="mudarSlide(-1)"
+            aria-label="Slide anterior"
+        >
+            ‹
+        </button>
+
+
+        <!-- =====================================================
+             SETA PRÓXIMO
+             ===================================================== -->
+
+        <button
+            type="button"
+            class="carrossel-seta carrossel-proximo"
+            onclick="mudarSlide(1)"
+            aria-label="Próximo slide"
+        >
+            ›
+        </button>
+
+
+        <!-- =====================================================
+             INDICADORES
+             ===================================================== -->
+
+        <div class="carrossel-indicadores">
+
+            <button
+                type="button"
+                class="indicador ativo"
+                onclick="irParaSlide(0)"
+                aria-label="Ir para slide 1"
+            ></button>
+
+            <button
+                type="button"
+                class="indicador"
+                onclick="irParaSlide(1)"
+                aria-label="Ir para slide 2"
+            ></button>
+
+            <button
+                type="button"
+                class="indicador"
+                onclick="irParaSlide(2)"
+                aria-label="Ir para slide 3"
+            ></button>
+
         </div>
 
     </section>
@@ -59,6 +224,11 @@
          ===================================================== -->
 
     <section class="inicio-areas">
+
+
+        <!-- =================================================
+             TÍTULO DA SEÇÃO
+             ================================================= -->
 
         <div class="inicio-secao-titulo">
 
@@ -76,6 +246,10 @@
 
         </div>
 
+
+        <!-- =================================================
+             CARDS
+             ================================================= -->
 
         <div class="inicio-cards">
 
@@ -95,8 +269,9 @@
                 </h2>
 
                 <p>
-                    Encontre oportunidades de estágio, candidate-se às vagas
-                    e acompanhe suas candidaturas.
+                    Encontre oportunidades de estágio,
+                    candidate-se às vagas e acompanhe
+                    suas candidaturas.
                 </p>
 
                 <a
@@ -125,8 +300,9 @@
                 </h2>
 
                 <p>
-                    Divulgue oportunidades de estágio e encontre estudantes
-                    interessados em fazer parte da sua equipe.
+                    Divulgue oportunidades de estágio e
+                    encontre estudantes interessados em
+                    fazer parte da sua equipe.
                 </p>
 
                 <a
@@ -155,8 +331,9 @@
                 </h2>
 
                 <p>
-                    Acompanhe oportunidades, estágios e a integração entre
-                    estudantes e empresas vinculadas à instituição.
+                    Acompanhe oportunidades, estágios e a
+                    integração entre estudantes e empresas
+                    vinculadas à instituição.
                 </p>
 
                 <a
@@ -174,5 +351,86 @@
     </section>
 
 </div>
+
+
+<!-- =====================================================
+     JAVASCRIPT DO CARROSSEL
+     ===================================================== -->
+
+<script>
+
+let slideAtual = 0;
+
+const slides = document.querySelectorAll('.carrossel-slide');
+const indicadores = document.querySelectorAll('.indicador');
+
+
+function mostrarSlide(numero) {
+
+    slides.forEach(function(slide) {
+
+        slide.classList.remove('ativo');
+
+    });
+
+
+    indicadores.forEach(function(indicador) {
+
+        indicador.classList.remove('ativo');
+
+    });
+
+
+    slides[numero].classList.add('ativo');
+
+    indicadores[numero].classList.add('ativo');
+
+    slideAtual = numero;
+
+}
+
+
+function mudarSlide(direcao) {
+
+    let novoSlide = slideAtual + direcao;
+
+
+    if (novoSlide >= slides.length) {
+
+        novoSlide = 0;
+
+    }
+
+
+    if (novoSlide < 0) {
+
+        novoSlide = slides.length - 1;
+
+    }
+
+
+    mostrarSlide(novoSlide);
+
+}
+
+
+function irParaSlide(numero) {
+
+    mostrarSlide(numero);
+
+}
+
+
+/* =====================================================
+   TROCA AUTOMÁTICA DOS SLIDES
+   ===================================================== */
+
+setInterval(function() {
+
+    mudarSlide(1);
+
+}, 6000);
+
+</script>
 
 {% endblock %}
