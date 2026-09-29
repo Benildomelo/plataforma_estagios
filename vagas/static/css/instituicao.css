@@ -1,0 +1,404 @@
+/* =========================================================
+   INSTITUIÇÃO
+   UNIPI CONECTA
+   ========================================================= */
+
+
+/* =========================================================
+   ÁREA DA INSTITUIÇÃO
+   ========================================================= */
+
+.area-instituicao {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.instituicao-cabecalho {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+
+    padding: 35px 40px;
+
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    box-shadow: var(--sombra-padrao);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.instituicao-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #6f42c1;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.instituicao-cabecalho h1 {
+    margin: 0 0 10px;
+
+    color: var(--cor-texto);
+
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
+.instituicao-cabecalho p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BOTÃO SAIR
+   ========================================================= */
+
+.instituicao-botao-sair {
+    flex-shrink: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 22px;
+
+    border-radius: 8px;
+
+    background: #6f42c1;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.instituicao-botao-sair:hover {
+    transform: translateY(-2px);
+
+    background: #59339d;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 6px 14px rgba(111, 66, 193, 0.25);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.instituicao-conteudo {
+    width: 100%;
+}
+
+
+/* =========================================================
+   TÍTULO DA SEÇÃO
+   ========================================================= */
+
+.instituicao-secao-titulo {
+    margin-bottom: 25px;
+}
+
+
+.instituicao-secao-titulo span {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    color: #6f42c1;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 0.8px;
+}
+
+
+.instituicao-secao-titulo h2 {
+    margin: 0 0 8px;
+
+    color: var(--cor-texto);
+
+    font-size: 27px;
+}
+
+
+.instituicao-secao-titulo p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.instituicao-indicadores {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 20px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.instituicao-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    min-height: 130px;
+
+    padding: 24px;
+
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    box-shadow: var(--sombra-padrao);
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.instituicao-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   ÍCONE
+   ========================================================= */
+
+.instituicao-card-icone {
+    width: 55px;
+    height: 55px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f0eafa;
+
+    border-radius: 50%;
+
+    font-size: 26px;
+}
+
+
+/* =========================================================
+   LABEL DO CARD
+   ========================================================= */
+
+.instituicao-card-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   NÚMERO
+   ========================================================= */
+
+.instituicao-card strong {
+    display: block;
+
+    color: #6f42c1;
+
+    font-size: 28px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .instituicao-indicadores {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .instituicao-cabecalho {
+        padding: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .instituicao-cabecalho {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 25px 20px;
+
+        gap: 20px;
+    }
+
+
+    .instituicao-cabecalho h1 {
+        font-size: 26px;
+    }
+
+
+    .instituicao-cabecalho p {
+        font-size: 14px;
+    }
+
+
+    .instituicao-botao-sair {
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    .instituicao-secao-titulo h2 {
+        font-size: 24px;
+    }
+
+
+    .instituicao-secao-titulo p {
+        font-size: 14px;
+    }
+
+
+    .instituicao-indicadores {
+        grid-template-columns: 1fr;
+    }
+
+
+    .instituicao-card {
+        min-height: 110px;
+
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .instituicao-cabecalho {
+        padding: 22px 18px;
+    }
+
+
+    .instituicao-cabecalho h1 {
+        font-size: 23px;
+    }
+
+
+    .instituicao-card {
+        gap: 13px;
+
+        padding: 18px;
+    }
+
+
+    .instituicao-card-icone {
+        width: 48px;
+        height: 48px;
+
+        font-size: 22px;
+    }
+
+
+    .instituicao-card strong {
+        font-size: 25px;
+    }
+
+}
