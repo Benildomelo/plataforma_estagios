@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from vagas.models import Aluno
+from vagas.models import Aluno, Empresa
 
 
 @login_required(login_url='/entrar/')
@@ -32,5 +32,21 @@ def gerenciar_alunos(request):
         'vagas/instituicao/gerenciar_alunos.html',
         {
             'alunos': alunos,
+        }
+    )
+
+
+@login_required(login_url='/entrar/')
+def gerenciar_empresas(request):
+
+    empresas = Empresa.objects.all().order_by(
+        'nome_fantasia'
+    )
+
+    return render(
+        request,
+        'vagas/instituicao/gerenciar_empresas.html',
+        {
+            'empresas': empresas,
         }
     )

@@ -1,0 +1,357 @@
+/* =========================================================
+   GERENCIAMENTO DE EMPRESAS
+   UNIPI CONECTA
+   ========================================================= */
+
+.area-instituicao {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.instituicao-cabecalho {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 45px 30px 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.instituicao-cabecalho > div {
+    flex: 1;
+}
+
+.instituicao-label {
+    display: inline-block;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.instituicao-cabecalho h1 {
+    margin: 0 0 10px;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #172033;
+}
+
+.instituicao-cabecalho p {
+    margin: 0;
+
+    max-width: 650px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+   ========================================================= */
+
+.instituicao-botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #334155;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.instituicao-botao-voltar:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateX(-2px);
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+.instituicao-conteudo {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 10px 30px 50px;
+}
+
+
+/* =========================================================
+   TÍTULO DA SEÇÃO
+   ========================================================= */
+
+.instituicao-secao-titulo {
+    margin-bottom: 25px;
+}
+
+.instituicao-secao-titulo > span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+
+    color: #2563eb;
+}
+
+.instituicao-secao-titulo h2 {
+    margin: 0 0 6px;
+
+    font-size: 23px;
+    font-weight: 700;
+
+    color: #172033;
+}
+
+.instituicao-secao-titulo p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   CONTAINER DA TABELA
+   ========================================================= */
+
+.instituicao-tabela-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================================================
+   TABELA
+   ========================================================= */
+
+.instituicao-tabela {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 850px;
+}
+
+
+/* =========================================================
+   CABEÇALHO DA TABELA
+   ========================================================= */
+
+.instituicao-tabela thead {
+    background: #f8fafc;
+}
+
+.instituicao-tabela th {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LINHAS
+   ========================================================= */
+
+.instituicao-tabela tbody tr {
+    transition: background 0.2s ease;
+}
+
+.instituicao-tabela tbody tr:hover {
+    background: #f8fafc;
+}
+
+.instituicao-tabela td {
+    padding: 17px 18px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+}
+
+.instituicao-tabela tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   EMPRESA
+   ========================================================= */
+
+.empresa-tabela {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 220px;
+}
+
+.empresa-avatar {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+
+    font-size: 19px;
+}
+
+.empresa-tabela strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #1e293b;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.empresa-tabela small {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-ativo,
+.status-inativo {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-ativo {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.status-inativo {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+
+/* =========================================================
+   TABELA VAZIA
+   ========================================================= */
+
+.tabela-vazia {
+    padding: 45px 20px !important;
+
+    text-align: center !important;
+
+    color: #94a3b8 !important;
+
+    font-size: 14px !important;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .instituicao-cabecalho {
+        padding: 30px 20px 25px;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .instituicao-cabecalho h1 {
+        font-size: 27px;
+    }
+
+    .instituicao-botao-voltar {
+        align-self: flex-start;
+    }
+
+    .instituicao-conteudo {
+        padding: 10px 20px 40px;
+    }
+
+    .instituicao-tabela-container {
+        border-radius: 10px;
+    }
+}

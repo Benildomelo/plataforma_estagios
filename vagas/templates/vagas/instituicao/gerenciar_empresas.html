@@ -1,0 +1,189 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Gerenciar Empresas - UNIPI Conecta
+{% endblock %}
+
+{% block content %}
+
+<div class="area-instituicao">
+
+    <!-- CABEÇALHO -->
+
+    <section class="instituicao-cabecalho">
+
+        <div>
+
+            <span class="instituicao-label">
+                ADMINISTRAÇÃO
+            </span>
+
+            <h1>
+                Gerenciar empresas
+            </h1>
+
+            <p>
+                Consulte as empresas cadastradas na plataforma
+                e acompanhe suas informações.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'area_instituicao' %}"
+            class="instituicao-botao-voltar"
+        >
+            ← Voltar
+        </a>
+
+    </section>
+
+
+    <!-- CONTEÚDO -->
+
+    <section class="instituicao-conteudo">
+
+        <div class="instituicao-secao-titulo">
+
+            <span>
+                EMPRESAS CADASTRADAS
+            </span>
+
+            <h2>
+                Lista de empresas
+            </h2>
+
+            <p>
+                {{ empresas|length }} empresa(s) encontrada(s).
+            </p>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="instituicao-tabela-container">
+
+            <table class="instituicao-tabela">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Empresa
+                        </th>
+
+                        <th>
+                            CNPJ
+                        </th>
+
+                        <th>
+                            E-mail
+                        </th>
+
+                        <th>
+                            Telefone
+                        </th>
+
+                        <th>
+                            Situação
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for empresa in empresas %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="empresa-tabela">
+
+                                <div class="empresa-avatar">
+                                    🏢
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ empresa.nome_fantasia }}
+                                    </strong>
+
+                                    <small>
+                                        {{ empresa.razao_social }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ empresa.cnpj }}
+                        </td>
+
+
+                        <td>
+                            {{ empresa.email }}
+                        </td>
+
+
+                        <td>
+                            {{ empresa.telefone|default:"Não informado" }}
+                        </td>
+
+
+                        <td>
+
+                            {% if empresa.ativo %}
+
+                                <span class="status-ativo">
+                                    Ativa
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-inativo">
+                                    Inativa
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="tabela-vazia"
+                        >
+                            Nenhuma empresa cadastrada.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
