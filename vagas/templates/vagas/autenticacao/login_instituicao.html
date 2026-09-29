@@ -1,0 +1,99 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Entrar como Instituição - UNIPI Conecta
+{% endblock %}
+
+{% block content %}
+
+<div class="login-pagina">
+
+    <div class="login-caixa">
+
+        <div class="login-cabecalho">
+            <span class="login-label">
+                UNIPI CONECTA
+            </span>
+
+            <h1>
+                Entrar como Instituição
+            </h1>
+
+            <p>
+                Acesse a área administrativa da instituição.
+            </p>
+        </div>
+
+
+        {% if messages %}
+            <div class="login-mensagens">
+                {% for message in messages %}
+                    <div class="login-mensagem">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="login-campo">
+
+                <label for="username">
+                    Usuário
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Digite seu usuário"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-campo">
+
+                <label for="password">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Digite sua senha"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-botao"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+
+        <div class="login-voltar">
+
+            <a href="{% url 'inicio' %}">
+                Voltar para o início
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
