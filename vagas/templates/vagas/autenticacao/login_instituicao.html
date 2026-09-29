@@ -6,93 +6,98 @@
 
 {% block content %}
 
-<div class="login-pagina">
+<div class="login-container">
 
-    <div class="login-caixa">
+    <div class="login-cabecalho">
 
-        <div class="login-cabecalho">
-            <span class="login-label">
-                UNIPI CONECTA
-            </span>
+        <h1>
+            Plataforma de Estágios
+        </h1>
 
-            <h1>
-                Entrar como Instituição
-            </h1>
-
-            <p>
-                Acesse a área administrativa da instituição.
-            </p>
-        </div>
-
-
-        {% if messages %}
-            <div class="login-mensagens">
-                {% for message in messages %}
-                    <div class="login-mensagem">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-
-        <form method="post">
-
-            {% csrf_token %}
-
-            <div class="login-campo">
-
-                <label for="username">
-                    Usuário
-                </label>
-
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Digite seu usuário"
-                    required
-                >
-
-            </div>
-
-
-            <div class="login-campo">
-
-                <label for="password">
-                    Senha
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Digite sua senha"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="login-botao"
-            >
-                Entrar
-            </button>
-
-        </form>
-
-
-        <div class="login-voltar">
-
-            <a href="{% url 'inicio' %}">
-                Voltar para o início
-            </a>
-
-        </div>
+        <p>
+            Acesse sua conta para continuar
+        </p>
 
     </div>
+
+
+    <div class="login-titulo">
+
+        <h2>
+            Entrar
+        </h2>
+
+    </div>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="mensagem">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        <div class="campo">
+
+            <label for="username">
+                Usuário
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Digite seu usuário"
+                required
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label for="password">
+                Senha
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Entrar
+        </button>
+
+    </form>
+
+
+    <a
+        href="{% url 'inicio' %}"
+        class="voltar"
+    >
+        ← Voltar para o início
+    </a>
 
 </div>
 
