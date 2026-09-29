@@ -138,8 +138,24 @@ def trocar_senha_empresa(request):
         'vagas/autenticacao/trocar_senha_empresa.html'
     )
 
+def entrar_instituicao(request):
+    if request.method == 'POST':
+        resposta = _realizar_login(
+            request,
+            'area_instituicao'
+        )
+
+        if resposta:
+            return resposta
+
+    return render(
+        request,
+        'vagas/autenticacao/login_instituicao.html'
+    )
+
 
 def sair(request):
     logout(request)
 
     return redirect('inicio')
+

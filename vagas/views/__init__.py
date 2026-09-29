@@ -8,6 +8,7 @@ from .autenticacao import (
     entrar,
     entrar_aluno,
     entrar_empresa,
+    entrar_instituicao,
     trocar_senha_empresa,
     sair,
 )
