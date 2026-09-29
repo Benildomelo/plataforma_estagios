@@ -8,9 +8,14 @@
 
 <div class="area-instituicao">
 
+    <!-- =====================================================
+         CABEÇALHO
+         ===================================================== -->
+
     <section class="instituicao-cabecalho">
 
-        <div>
+        <div class="instituicao-cabecalho-conteudo">
+
             <span class="instituicao-label">
                 UNIPI CONECTA
             </span>
@@ -20,9 +25,10 @@
             </h1>
 
             <p>
-                Acompanhe e gerencie as atividades relacionadas
-                aos estágios e às oportunidades da instituição.
+                Acompanhe os principais dados da plataforma
+                e gerencie alunos, empresas, vagas e candidaturas.
             </p>
+
         </div>
 
         <a href="{% url 'sair' %}" class="instituicao-botao-sair">
@@ -32,28 +38,46 @@
     </section>
 
 
+    <!-- =====================================================
+         VISÃO GERAL
+         ===================================================== -->
+
     <section class="instituicao-conteudo">
 
         <div class="instituicao-secao-titulo">
-            <span>VISÃO GERAL</span>
+
+            <span>
+                VISÃO GERAL
+            </span>
 
             <h2>
                 Painel da instituição
             </h2>
 
             <p>
-                Em breve você poderá acompanhar aqui os principais
-                dados da plataforma.
+                Resumo das principais informações da plataforma.
             </p>
+
         </div>
 
 
+        <!-- =================================================
+             INDICADORES
+             ================================================= -->
+
         <div class="instituicao-indicadores">
-            
+
+
+            <!-- ALUNOS -->
+
             <div class="instituicao-card">
-                <span class="instituicao-card-icone">🎓</span>
+
+                <span class="instituicao-card-icone">
+                    🎓
+                </span>
 
                 <div>
+
                     <span class="instituicao-card-label">
                         Alunos
                     </span>
@@ -61,52 +85,236 @@
                     <strong>
                         {{ total_alunos }}
                     </strong>
+
+                    <small>
+                        cadastrados
+                    </small>
+
                 </div>
+
             </div>
 
 
+            <!-- EMPRESAS -->
+
             <div class="instituicao-card">
-                <span class="instituicao-card-icone">🏢</span>
+
+                <span class="instituicao-card-icone">
+                    🏢
+                </span>
 
                 <div>
+
                     <span class="instituicao-card-label">
                         Empresas
                     </span>
 
                     <strong>
-                        0
+                        {{ total_empresas }}
                     </strong>
+
+                    <small>
+                        cadastradas
+                    </small>
+
                 </div>
+
             </div>
 
 
+            <!-- VAGAS -->
+
             <div class="instituicao-card">
-                <span class="instituicao-card-icone">📄</span>
+
+                <span class="instituicao-card-icone">
+                    📄
+                </span>
 
                 <div>
+
                     <span class="instituicao-card-label">
                         Vagas
                     </span>
 
                     <strong>
-                        0
+                        {{ total_vagas }}
                     </strong>
+
+                    <small>
+                        oportunidades
+                    </small>
+
                 </div>
+
             </div>
 
 
+            <!-- CANDIDATURAS -->
+
             <div class="instituicao-card">
-                <span class="instituicao-card-icone">📋</span>
+
+                <span class="instituicao-card-icone">
+                    📋
+                </span>
 
                 <div>
+
                     <span class="instituicao-card-label">
                         Candidaturas
                     </span>
 
                     <strong>
-                        0
+                        {{ total_candidaturas }}
                     </strong>
+
+                    <small>
+                        realizadas
+                    </small>
+
                 </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GESTÃO DA PLATAFORMA
+             ================================================= -->
+
+        <div class="instituicao-gestao">
+
+            <div class="instituicao-secao-titulo">
+
+                <span>
+                    ADMINISTRAÇÃO
+                </span>
+
+                <h2>
+                    Gestão da plataforma
+                </h2>
+
+                <p>
+                    Acesse rapidamente as áreas administrativas.
+                </p>
+
+            </div>
+
+
+            <div class="instituicao-acoes">
+
+
+                <!-- ALUNOS -->
+
+                <a href="{% url 'gerenciar_alunos' %}" class="instituicao-acao">
+
+                    <div class="instituicao-acao-icone">
+                        🎓
+                    </div>
+
+                    <div class="instituicao-acao-conteudo">
+
+                        <h3>
+                            Gerenciar alunos
+                        </h3>
+
+                        <p>
+                            Consulte os alunos cadastrados,
+                            cursos e situação acadêmica.
+                        </p>
+
+                    </div>
+
+                    <span class="instituicao-acao-seta">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- EMPRESAS -->
+
+                <a href="#" class="instituicao-acao">
+
+                    <div class="instituicao-acao-icone">
+                        🏢
+                    </div>
+
+                    <div class="instituicao-acao-conteudo">
+
+                        <h3>
+                            Gerenciar empresas
+                        </h3>
+
+                        <p>
+                            Consulte e acompanhe as empresas
+                            cadastradas na plataforma.
+                        </p>
+
+                    </div>
+
+                    <span class="instituicao-acao-seta">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- VAGAS -->
+
+                <a href="#" class="instituicao-acao">
+
+                    <div class="instituicao-acao-icone">
+                        📄
+                    </div>
+
+                    <div class="instituicao-acao-conteudo">
+
+                        <h3>
+                            Gerenciar vagas
+                        </h3>
+
+                        <p>
+                            Acompanhe as oportunidades e
+                            analise as vagas cadastradas.
+                        </p>
+
+                    </div>
+
+                    <span class="instituicao-acao-seta">
+                        →
+                    </span>
+
+                </a>
+
+
+                <!-- CANDIDATURAS -->
+
+                <a href="#" class="instituicao-acao">
+
+                    <div class="instituicao-acao-icone">
+                        📋
+                    </div>
+
+                    <div class="instituicao-acao-conteudo">
+
+                        <h3>
+                            Candidaturas
+                        </h3>
+
+                        <p>
+                            Acompanhe o andamento das candidaturas
+                            realizadas pelos alunos.
+                        </p>
+
+                    </div>
+
+                    <span class="instituicao-acao-seta">
+                        →
+                    </span>
+
+                </a>
+
             </div>
 
         </div>

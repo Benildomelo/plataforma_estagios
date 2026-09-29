@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+
 from vagas.views import (
     inicio,
     lista_vagas,
@@ -13,11 +14,10 @@ from vagas.views import (
     sair,
     area_aluno,
     area_empresa,
-    area_instituicao,
     criar_vaga,
     cadastro_aluno,
     entrar_aluno,
-    entrar_empresa, 
+    entrar_empresa,
     entrar_instituicao,
     detalhe_vaga_empresa,
     editar_vaga,
@@ -29,17 +29,42 @@ from vagas.views import (
     trocar_senha_empresa,
 )
 
+from vagas.views.instituicao import (
+    area_instituicao,
+    gerenciar_alunos,
+)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
 
-    path('', inicio, name='inicio'),
+    path(
+        'admin/',
+        admin.site.urls
+    ),
 
-    path('entrar/', entrar, name='entrar'),
+    path(
+        '',
+        inicio,
+        name='inicio'
+    ),
 
-    path('cadastro-aluno/', cadastro_aluno, name='cadastro_aluno'),
+    path(
+        'entrar/',
+        entrar,
+        name='entrar'
+    ),
 
-    path('vagas/', lista_vagas, name='lista_vagas'),
+    path(
+        'cadastro-aluno/',
+        cadastro_aluno,
+        name='cadastro_aluno'
+    ),
+
+    path(
+        'vagas/',
+        lista_vagas,
+        name='lista_vagas'
+    ),
 
     path(
         'vagas/<int:vaga_id>/',
@@ -59,7 +84,11 @@ urlpatterns = [
         name='minhas_candidaturas'
     ),
 
-    path('sair/', sair, name='sair'),
+    path(
+        'sair/',
+        sair,
+        name='sair'
+    ),
 
     path(
         'area-aluno/',
@@ -77,7 +106,13 @@ urlpatterns = [
         'area-instituicao/',
         area_instituicao,
         name='area_instituicao'
-),
+    ),
+
+    path(
+        'area-instituicao/alunos/',
+        gerenciar_alunos,
+        name='gerenciar_alunos'
+    ),
 
     path(
         'criar-vaga/',
@@ -86,13 +121,15 @@ urlpatterns = [
     ),
 
     path(
-        'entrar-aluno/', 
-        entrar_aluno, name='entrar_aluno'
+        'entrar-aluno/',
+        entrar_aluno,
+        name='entrar_aluno'
     ),
 
     path(
-        'entrar-empresa/', 
-        entrar_empresa, name='entrar_empresa'
+        'entrar-empresa/',
+        entrar_empresa,
+        name='entrar_empresa'
     ),
 
     path(
@@ -118,30 +155,35 @@ urlpatterns = [
         encerrar_vaga,
         name='encerrar_vaga'
     ),
+
     path(
         'perfil-aluno/',
         perfil_aluno,
         name='perfil_aluno'
     ),
+
     path(
         'perfil-aluno/editar/',
         editar_perfil_aluno,
         name='editar_perfil_aluno'
     ),
+
     path(
         'perfil-empresa/',
         perfil_empresa,
         name='perfil_empresa'
     ),
+
     path(
         'curriculo-aluno/',
         curriculo_aluno,
         name='curriculo_aluno'
     ),
+
     path(
-    'empresa/trocar-senha/',
-    trocar_senha_empresa,
-    name='trocar_senha_empresa'
+        'empresa/trocar-senha/',
+        trocar_senha_empresa,
+        name='trocar_senha_empresa'
     ),
 
     path(
@@ -151,6 +193,7 @@ urlpatterns = [
         ),
         name='password_reset'
     ),
+
     path(
         'esqueci-senha/enviado/',
         auth_views.PasswordResetDoneView.as_view(
@@ -158,6 +201,7 @@ urlpatterns = [
         ),
         name='password_reset_done'
     ),
+
     path(
         'redefinir-senha/<uidb64>/<token>/',
         auth_views.PasswordResetConfirmView.as_view(
@@ -165,6 +209,7 @@ urlpatterns = [
         ),
         name='password_reset_confirm'
     ),
+
     path(
         'redefinir-senha/concluido/',
         auth_views.PasswordResetCompleteView.as_view(
@@ -173,6 +218,7 @@ urlpatterns = [
         name='password_reset_complete'
     ),
 ]
+
 
 urlpatterns += static(
     settings.MEDIA_URL,
