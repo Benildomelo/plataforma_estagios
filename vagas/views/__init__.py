@@ -34,3 +34,6 @@ from .vagas import (
     encerrar_vaga,
 )
 
+from .instituicao import (
+    area_instituicao,
+)

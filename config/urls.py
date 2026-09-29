@@ -13,6 +13,7 @@ from vagas.views import (
     sair,
     area_aluno,
     area_empresa,
+    area_instituicao,
     criar_vaga,
     cadastro_aluno,
     entrar_aluno,
@@ -70,6 +71,12 @@ urlpatterns = [
         area_empresa,
         name='area_empresa'
     ),
+
+    path(
+        'area-instituicao/',
+        area_instituicao,
+        name='area_instituicao'
+),
 
     path(
         'criar-vaga/',
