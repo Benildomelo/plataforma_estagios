@@ -1,0 +1,224 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Gerenciar Vagas - UNIPI Conecta
+{% endblock %}
+
+{% block content %}
+
+<div class="area-instituicao">
+
+    <!-- CABEÇALHO -->
+
+    <section class="instituicao-cabecalho">
+
+        <div>
+
+            <span class="instituicao-label">
+                ADMINISTRAÇÃO
+            </span>
+
+            <h1>
+                Gerenciar vagas
+            </h1>
+
+            <p>
+                Consulte as vagas cadastradas pelas empresas
+                e acompanhe a situação de cada oportunidade.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'area_instituicao' %}"
+            class="instituicao-botao-voltar"
+        >
+            ← Voltar
+        </a>
+
+    </section>
+
+
+    <!-- CONTEÚDO -->
+
+    <section class="instituicao-conteudo">
+
+        <div class="instituicao-secao-titulo">
+
+            <span>
+                VAGAS CADASTRADAS
+            </span>
+
+            <h2>
+                Lista de vagas
+            </h2>
+
+            <p>
+                {{ vagas|length }} vaga(s) encontrada(s).
+            </p>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="instituicao-tabela-container">
+
+            <table class="instituicao-tabela">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Vaga
+                        </th>
+
+                        <th>
+                            Empresa
+                        </th>
+
+                        <th>
+                            Curso
+                        </th>
+
+                        <th>
+                            Bolsa
+                        </th>
+
+                        <th>
+                            Local
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for vaga in vagas %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="aluno-tabela">
+
+                                <div class="aluno-avatar">
+                                    💼
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ vaga.titulo }}
+                                    </strong>
+
+                                    <small>
+                                        Carga horária:
+                                        {{ vaga.carga_horaria }}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ vaga.empresa.nome_fantasia }}
+                        </td>
+
+
+                        <td>
+                            {{ vaga.curso.nome }}
+                        </td>
+
+
+                        <td>
+
+                            {% if vaga.bolsa %}
+
+                                R$ {{ vaga.bolsa|floatformat:2 }}
+
+                            {% else %}
+
+                                Não informada
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ vaga.local }}
+                        </td>
+
+
+                        <td>
+
+                            {% if vaga.status == 'PENDENTE' %}
+
+                                <span class="status-pendente">
+                                    Pendente
+                                </span>
+
+                            {% elif vaga.status == 'APROVADA' %}
+
+                                <span class="status-ativo">
+                                    Aprovada
+                                </span>
+
+                            {% elif vaga.status == 'REJEITADA' %}
+
+                                <span class="status-inativo">
+                                    Rejeitada
+                                </span>
+
+                            {% elif vaga.status == 'ENCERRADA' %}
+
+                                <span class="status-inativo">
+                                    Encerrada
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="tabela-vazia"
+                        >
+
+                            Nenhuma vaga cadastrada.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
