@@ -1,0 +1,118 @@
+{% extends 'vagas/base.html' %}
+
+{% block title %}
+    Administração da Instituição - UNIPI Conecta
+{% endblock %}
+
+{% block content %}
+
+<div class="area-instituicao">
+
+    <section class="instituicao-cabecalho">
+
+        <div>
+            <span class="instituicao-label">
+                UNIPI CONECTA
+            </span>
+
+            <h1>
+                Administração da Instituição
+            </h1>
+
+            <p>
+                Acompanhe e gerencie as atividades relacionadas
+                aos estágios e às oportunidades da instituição.
+            </p>
+        </div>
+
+        <a href="{% url 'sair' %}" class="instituicao-botao-sair">
+            Sair
+        </a>
+
+    </section>
+
+
+    <section class="instituicao-conteudo">
+
+        <div class="instituicao-secao-titulo">
+            <span>VISÃO GERAL</span>
+
+            <h2>
+                Painel da instituição
+            </h2>
+
+            <p>
+                Em breve você poderá acompanhar aqui os principais
+                dados da plataforma.
+            </p>
+        </div>
+
+
+        <div class="instituicao-indicadores">
+
+            <div class="instituicao-card">
+                <span class="instituicao-card-icone">🎓</span>
+
+                <div>
+                    <span class="instituicao-card-label">
+                        Alunos
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+                </div>
+            </div>
+
+
+            <div class="instituicao-card">
+                <span class="instituicao-card-icone">🏢</span>
+
+                <div>
+                    <span class="instituicao-card-label">
+                        Empresas
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+                </div>
+            </div>
+
+
+            <div class="instituicao-card">
+                <span class="instituicao-card-icone">📄</span>
+
+                <div>
+                    <span class="instituicao-card-label">
+                        Vagas
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+                </div>
+            </div>
+
+
+            <div class="instituicao-card">
+                <span class="instituicao-card-icone">📋</span>
+
+                <div>
+                    <span class="instituicao-card-label">
+                        Candidaturas
+                    </span>
+
+                    <strong>
+                        0
+                    </strong>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
