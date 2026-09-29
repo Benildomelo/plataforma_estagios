@@ -11,7 +11,6 @@
 .area-instituicao {
     width: 100%;
     max-width: 1100px;
-
     margin: 0 auto;
 }
 
@@ -22,14 +21,12 @@
 
 .instituicao-cabecalho {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
 
     gap: 30px;
 
     margin-bottom: 35px;
-
     padding: 35px 40px;
 
     background: var(--cor-branco);
@@ -39,6 +36,11 @@
     box-shadow: var(--sombra-padrao);
 
     box-sizing: border-box;
+}
+
+
+.instituicao-cabecalho-conteudo {
+    min-width: 0;
 }
 
 
@@ -196,7 +198,7 @@
 
     gap: 20px;
 
-    align-items: stretch;
+    margin-bottom: 45px;
 }
 
 
@@ -211,7 +213,7 @@
 
     gap: 16px;
 
-    min-height: 130px;
+    min-height: 135px;
 
     padding: 24px;
 
@@ -285,7 +287,167 @@
     color: #6f42c1;
 
     font-size: 28px;
+
     line-height: 1;
+}
+
+
+/* =========================================================
+   TEXTO DO CARD
+   ========================================================= */
+
+.instituicao-card small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ÁREA DE GESTÃO
+   ========================================================= */
+
+.instituicao-gestao {
+    margin-bottom: 40px;
+}
+
+
+/* =========================================================
+   GRID DE AÇÕES
+   ========================================================= */
+
+.instituicao-acoes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   AÇÃO ADMINISTRATIVA
+   ========================================================= */
+
+.instituicao-acao {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    min-height: 145px;
+
+    padding: 25px;
+
+    background: var(--cor-branco);
+
+    border: 1px solid transparent;
+
+    border-radius: var(--raio-padrao);
+
+    box-shadow: var(--sombra-padrao);
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.instituicao-acao:hover {
+    transform: translateY(-4px);
+
+    border-color: #d9c9f3;
+
+    box-shadow:
+        0 9px 24px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   ÍCONE DA AÇÃO
+   ========================================================= */
+
+.instituicao-acao-icone {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f0eafa;
+
+    border-radius: 14px;
+
+    font-size: 27px;
+}
+
+
+/* =========================================================
+   CONTEÚDO DA AÇÃO
+   ========================================================= */
+
+.instituicao-acao-conteudo {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.instituicao-acao-conteudo h3 {
+    margin: 0 0 7px;
+
+    color: var(--cor-texto);
+
+    font-size: 18px;
+}
+
+
+.instituicao-acao-conteudo p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SETA
+   ========================================================= */
+
+.instituicao-acao-seta {
+    flex-shrink: 0;
+
+    color: #6f42c1;
+
+    font-size: 25px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.instituicao-acao:hover .instituicao-acao-seta {
+    transform: translateX(5px);
 }
 
 
@@ -354,6 +516,13 @@
 
     .instituicao-indicadores {
         grid-template-columns: 1fr;
+
+        margin-bottom: 35px;
+    }
+
+
+    .instituicao-acoes {
+        grid-template-columns: 1fr;
     }
 
 
@@ -399,6 +568,19 @@
 
     .instituicao-card strong {
         font-size: 25px;
+    }
+
+
+    .instituicao-acao {
+        padding: 20px;
+    }
+
+
+    .instituicao-acao-icone {
+        width: 50px;
+        height: 50px;
+
+        font-size: 23px;
     }
 
 }

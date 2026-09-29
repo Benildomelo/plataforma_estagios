@@ -18,3 +18,19 @@ def area_instituicao(request):
             'total_alunos': total_alunos,
         }
     )
+
+
+@login_required(login_url='/entrar/')
+def gerenciar_alunos(request):
+
+    alunos = Aluno.objects.select_related(
+        'curso'
+    ).order_by('nome')
+
+    return render(
+        request,
+        'vagas/instituicao/gerenciar_alunos.html',
+        {
+            'alunos': alunos,
+        }
+    )

@@ -1,0 +1,196 @@
+{% extends 'vagas/base.html' %}
+{% load static %}
+
+{% block title %}
+    Gerenciar Alunos - UNIPI Conecta
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gerenciar_alunos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="area-instituicao">
+
+    <!-- CABEÇALHO -->
+
+    <section class="instituicao-cabecalho">
+
+        <div>
+
+            <span class="instituicao-label">
+                ADMINISTRAÇÃO
+            </span>
+
+            <h1>
+                Gerenciar alunos
+            </h1>
+
+            <p>
+                Consulte os alunos cadastrados na plataforma
+                e acompanhe suas informações acadêmicas.
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'area_instituicao' %}"
+            class="instituicao-botao-voltar"
+        >
+            ← Voltar
+        </a>
+
+    </section>
+
+
+    <!-- CONTEÚDO -->
+
+    <section class="instituicao-conteudo">
+
+        <div class="instituicao-secao-titulo">
+
+            <span>
+                ALUNOS CADASTRADOS
+            </span>
+
+            <h2>
+                Lista de alunos
+            </h2>
+
+            <p>
+                {{ alunos|length }} aluno(s) encontrado(s).
+            </p>
+
+        </div>
+
+
+        <!-- TABELA -->
+
+        <div class="instituicao-tabela-container">
+
+            <table class="instituicao-tabela">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Aluno
+                        </th>
+
+                        <th>
+                            Matrícula
+                        </th>
+
+                        <th>
+                            Curso
+                        </th>
+
+                        <th>
+                            E-mail
+                        </th>
+
+                        <th>
+                            Situação
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for aluno in alunos %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="aluno-tabela">
+
+                                <div class="aluno-avatar">
+                                    🎓
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        {{ aluno.nome }}
+                                    </strong>
+
+                                    <small>
+                                        Cadastro acadêmico
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ aluno.matricula }}
+                        </td>
+
+
+                        <td>
+                            {{ aluno.curso.nome }}
+                        </td>
+
+
+                        <td>
+                            {{ aluno.email }}
+                        </td>
+
+
+                        <td>
+
+                            {% if aluno.ativo %}
+
+                                <span class="status-ativo">
+                                    Ativo
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-inativo">
+                                    Inativo
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="tabela-vazia"
+                        >
+
+                            Nenhum aluno cadastrado.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
