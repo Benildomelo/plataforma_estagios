@@ -85,4 +85,3 @@ def gerenciar_candidaturas(request):
         }
     )
 
-
