@@ -34,6 +34,7 @@ from vagas.views.instituicao import (
     gerenciar_alunos,
     gerenciar_empresas,
     gerenciar_vagas,
+    gerenciar_candidaturas,
 )
 
 
@@ -128,6 +129,11 @@ urlpatterns = [
         name='gerenciar_vagas'
     ),
 
+    path(
+        'area-instituicao/candidaturas/',
+        gerenciar_candidaturas,
+        name='gerenciar_candidaturas'
+    ),
 
     path(
         'criar-vaga/',
