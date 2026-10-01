@@ -26,61 +26,39 @@
     align-items: center;
     justify-content: space-between;
     gap: 30px;
-
     background: #ffffff;
-
     padding: 32px;
-
     border-radius: 14px;
-
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
-
     margin-bottom: 32px;
 }
-
 
 .instituicao-cabecalho > div {
     flex: 1;
 }
 
-
 .instituicao-label {
     display: block;
-
     margin-bottom: 7px;
-
     color: #5b2aa8;
-
     font-size: 12px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
-
     text-transform: uppercase;
 }
 
-
 .instituicao-cabecalho h1 {
     margin: 0 0 8px;
-
     color: #202020;
-
     font-size: 30px;
-
     line-height: 1.2;
-
     font-weight: 700;
 }
 
-
 .instituicao-cabecalho p {
     margin: 0;
-
     color: #666666;
-
     font-size: 14px;
-
     line-height: 1.6;
 }
 
@@ -91,34 +69,21 @@
 
 .instituicao-botao-voltar {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 10px 18px;
-
     color: #5b2aa8;
-
     font-size: 14px;
-
     font-weight: 600;
-
     text-decoration: none;
-
     border: 1px solid #5b2aa8;
-
     border-radius: 7px;
-
     transition: all 0.2s ease;
-
     white-space: nowrap;
 }
 
-
 .instituicao-botao-voltar:hover {
     background: #5b2aa8;
-
     color: #ffffff;
 }
 
@@ -140,41 +105,162 @@
     margin-bottom: 20px;
 }
 
-
 .instituicao-secao-titulo span {
     display: block;
-
     margin-bottom: 6px;
-
     color: #5b2aa8;
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1.5px;
-
     text-transform: uppercase;
 }
 
-
 .instituicao-secao-titulo h2 {
     margin: 0 0 5px;
-
     color: #222222;
-
     font-size: 24px;
-
     line-height: 1.3;
 }
 
-
 .instituicao-secao-titulo p {
     margin: 0;
-
     color: #777777;
-
     font-size: 14px;
+}
+
+
+/* =========================================================
+   RESUMO DOS ALUNOS
+   ========================================================= */
+
+.alunos-resumo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.aluno-resumo-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e9e5f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.aluno-resumo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.resumo-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: #f1ebfa;
+    border-radius: 12px;
+    font-size: 23px;
+}
+
+.aluno-resumo-card > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.aluno-resumo-card small {
+    color: #777777;
+    font-size: 13px;
+}
+
+.aluno-resumo-card strong {
+    color: #252525;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.alunos-filtros {
+    display: grid;
+    grid-template-columns: minmax(220px, 2fr) minmax(180px, 1fr) minmax(140px, 1fr) auto;
+    align-items: end;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #e9e5f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.alunos-filtros > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.alunos-filtros label {
+    color: #444444;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.alunos-filtros input,
+.alunos-filtros select {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #dcd8e4;
+    border-radius: 7px;
+    color: #333333;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.alunos-filtros input:focus,
+.alunos-filtros select:focus {
+    border-color: #5b2aa8;
+    box-shadow: 0 0 0 3px rgba(91, 42, 168, 0.10);
+}
+
+.alunos-filtros input::placeholder {
+    color: #999999;
+}
+
+.botao-limpar-filtros {
+    height: 42px;
+    padding: 0 16px;
+    background: #ffffff;
+    color: #5b2aa8;
+    border: 1px solid #5b2aa8;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.botao-limpar-filtros:hover {
+    background: #5b2aa8;
+    color: #ffffff;
 }
 
 
@@ -184,15 +270,10 @@
 
 .instituicao-tabela-container {
     width: 100%;
-
     overflow-x: auto;
-
     background: #ffffff;
-
     border: 1px solid #e7e7e7;
-
     border-radius: 12px;
-
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -203,11 +284,8 @@
 
 .instituicao-tabela {
     width: 100%;
-
     min-width: 760px;
-
     border-collapse: collapse;
-
     background: #ffffff;
 }
 
@@ -220,24 +298,15 @@
     background: #f7f5fb;
 }
 
-
 .instituicao-tabela th {
     padding: 15px 18px;
-
     color: #4b4b4b;
-
     font-size: 12px;
-
     font-weight: 700;
-
     text-align: left;
-
     text-transform: uppercase;
-
     letter-spacing: 0.4px;
-
     border-bottom: 1px solid #e3e0e8;
-
     white-space: nowrap;
 }
 
@@ -250,11 +319,9 @@
     transition: background 0.2s ease;
 }
 
-
 .instituicao-tabela tbody tr:hover {
     background: #faf9fc;
 }
-
 
 .instituicao-tabela tbody tr:not(:last-child) {
     border-bottom: 1px solid #eeeeee;
@@ -267,11 +334,8 @@
 
 .instituicao-tabela td {
     padding: 17px 18px;
-
     color: #444444;
-
     font-size: 14px;
-
     vertical-align: middle;
 }
 
@@ -282,57 +346,37 @@
 
 .aluno-tabela {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     min-width: 210px;
 }
 
-
 .aluno-avatar {
     width: 40px;
-
     height: 40px;
-
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background: #f1ebfa;
-
     border-radius: 50%;
-
     font-size: 19px;
 }
 
-
 .aluno-tabela > div:last-child {
     display: flex;
-
     flex-direction: column;
-
     gap: 3px;
 }
 
-
 .aluno-tabela strong {
     color: #222222;
-
     font-size: 14px;
-
     font-weight: 600;
 }
 
-
 .aluno-tabela small {
     color: #8a8a8a;
-
     font-size: 11px;
 }
 
@@ -343,9 +387,7 @@
 
 .instituicao-tabela td:nth-child(2) {
     color: #555555;
-
     font-weight: 500;
-
     white-space: nowrap;
 }
 
@@ -375,33 +417,22 @@
 .status-ativo,
 .status-inativo {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-width: 58px;
-
     padding: 5px 10px;
-
     border-radius: 20px;
-
     font-size: 12px;
-
     font-weight: 600;
 }
 
-
 .status-ativo {
     background: #e8f7ee;
-
     color: #21864b;
 }
 
-
 .status-inativo {
     background: #fbeaea;
-
     color: #b23a3a;
 }
 
@@ -412,11 +443,8 @@
 
 .tabela-vazia {
     padding: 45px 20px !important;
-
     color: #777777 !important;
-
     font-size: 14px !important;
-
     text-align: center !important;
 }
 
@@ -425,66 +453,85 @@
    RESPONSIVIDADE
    ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
+    .alunos-filtros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
+    .filtro-pesquisa {
+        grid-column: 1 / -1;
+    }
+
+    .botao-limpar-filtros {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
     .area-instituicao {
         padding: 20px 15px 40px;
     }
 
-
     .instituicao-cabecalho {
         flex-direction: column;
-
         align-items: flex-start;
-
         padding: 24px;
-
         gap: 20px;
     }
-
 
     .instituicao-cabecalho h1 {
         font-size: 25px;
     }
 
-
     .instituicao-botao-voltar {
         align-self: flex-start;
     }
-
 
     .instituicao-secao-titulo h2 {
         font-size: 21px;
     }
 
-
     .instituicao-tabela-container {
         border-radius: 10px;
     }
-
 }
 
+@media (max-width: 600px) {
+    .alunos-resumo {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .alunos-filtros {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .filtro-pesquisa {
+        grid-column: auto;
+    }
+}
 
 @media (max-width: 480px) {
-
     .instituicao-cabecalho {
         padding: 20px;
     }
-
 
     .instituicao-cabecalho h1 {
         font-size: 22px;
     }
 
-
     .instituicao-cabecalho p {
         font-size: 13px;
     }
-
 
     .instituicao-tabela th,
     .instituicao-tabela td {
         padding: 13px 14px;
     }
 
+    .aluno-resumo-card {
+        padding: 16px;
+    }
 }
+

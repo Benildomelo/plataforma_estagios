@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from vagas.models import (
     Aluno,
+    Curso,
     Empresa,
     Vaga,
     Candidatura,
@@ -67,11 +69,60 @@ def gerenciar_alunos(request):
         'curso'
     ).order_by('nome')
 
+    # PESQUISA
+    pesquisa = request.GET.get('q', '').strip()
+
+    if pesquisa:
+        alunos = alunos.filter(
+            Q(nome__icontains=pesquisa)
+            | Q(matricula__icontains=pesquisa)
+            | Q(email__icontains=pesquisa)
+        )
+
+    # FILTRO POR CURSO
+    curso_id = request.GET.get('curso', '').strip()
+
+    if curso_id:
+        if curso_id.isdigit():
+            alunos = alunos.filter(
+                curso_id=int(curso_id)
+            )
+
+    # FILTRO POR SITUAÇÃO
+    situacao = request.GET.get('situacao', '').strip()
+
+    if situacao == 'ativo':
+        alunos = alunos.filter(ativo=True)
+
+    elif situacao == 'inativo':
+        alunos = alunos.filter(ativo=False)
+
+    # CONTADORES GERAIS
+    total_alunos = Aluno.objects.count()
+
+    total_ativos = Aluno.objects.filter(
+        ativo=True
+    ).count()
+
+    total_inativos = Aluno.objects.filter(
+        ativo=False
+    ).count()
+
+    # CURSOS PARA O FILTRO
+    cursos = Curso.objects.all().order_by('nome')
+
     return render(
         request,
         'vagas/instituicao/gerenciar_alunos.html',
         {
             'alunos': alunos,
+            'cursos': cursos,
+            'pesquisa': pesquisa,
+            'curso_selecionado': curso_id,
+            'situacao_selecionada': situacao,
+            'total_alunos': total_alunos,
+            'total_ativos': total_ativos,
+            'total_inativos': total_inativos,
         }
     )
 
@@ -123,15 +174,21 @@ def gerenciar_vagas(request):
 
 @somente_instituicao
 def detalhes_vaga_instituicao(request, vaga_id):
+
     vaga = get_object_or_404(
-        Vaga.objects.select_related('empresa', 'curso'),
+        Vaga.objects.select_related(
+            'empresa',
+            'curso'
+        ),
         id=vaga_id
     )
 
     return render(
         request,
         'vagas/publicas/detalhe_vaga.html',
-        {'vaga': vaga}
+        {
+            'vaga': vaga,
+        }
     )
 
 
@@ -268,4 +325,3 @@ def gerenciar_candidaturas(request):
             'candidaturas': candidaturas,
         }
     )
-
