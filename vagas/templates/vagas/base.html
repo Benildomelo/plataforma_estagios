@@ -28,11 +28,10 @@
     <link rel="stylesheet" href="{% static 'css/empresa.css' %}">
     <link rel="stylesheet" href="{% static 'css/instituicao.css' %}">
     <link rel="stylesheet" href="{% static 'css/gerenciar_empresas.css' %}">
-    <link rel="stylesheet" href="{% static 'css/gerenciar_candidaturas.css' %}">\
+    <link rel="stylesheet" href="{% static 'css/gerenciar_candidaturas.css' %}">
     <link rel="stylesheet" href="{% static 'css/gerenciar_vagas.css' %}">
     <link rel="stylesheet" href="{% static 'css/area_instituicao.css' %}">
     <link rel="stylesheet" href="{% static 'css/login_instituicao.css' %}">
-
 
 
     {% block extra_css %}
@@ -73,20 +72,13 @@
                      USUÁRIO DA INSTITUIÇÃO
                      
                      A instituição utiliza o superusuário.
+                     O Django Admin NÃO aparece no menu.
                      ================================================= -->
 
                 {% if user.is_authenticated and user.is_superuser %}
 
                     <a href="{% url 'area_instituicao' %}">
                         Início
-                    </a>
-
-                    <a href="{% url 'area_instituicao' %}">
-                        Painel
-                    </a>
-
-                    <a href="/admin/">
-                        Administração
                     </a>
 
                     <a href="{% url 'sair' %}">

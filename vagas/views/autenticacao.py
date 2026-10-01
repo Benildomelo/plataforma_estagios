@@ -5,15 +5,8 @@ from django.shortcuts import redirect, render
 
 
 def _realizar_login(request, redirecionamento):
-    username = request.POST.get(
-        'username',
-        ''
-    ).strip()
-
-    password = request.POST.get(
-        'password',
-        ''
-    )
+    username = request.POST.get('username', '').strip()
+    password = request.POST.get('password', '')
 
     usuario = authenticate(
         request,
@@ -22,15 +15,8 @@ def _realizar_login(request, redirecionamento):
     )
 
     if usuario is not None:
-
-        login(
-            request,
-            usuario
-        )
-
-        return redirect(
-            redirecionamento
-        )
+        login(request, usuario)
+        return redirect(redirecionamento)
 
     messages.error(
         request,
@@ -41,12 +27,10 @@ def _realizar_login(request, redirecionamento):
 
 
 def entrar(request):
-
     if request.user.is_authenticated:
         return redirect('area_aluno')
 
     if request.method == 'POST':
-
         resposta = _realizar_login(
             request,
             'area_aluno'
@@ -62,9 +46,7 @@ def entrar(request):
 
 
 def entrar_aluno(request):
-
     if request.method == 'POST':
-
         resposta = _realizar_login(
             request,
             'area_aluno'
@@ -80,9 +62,7 @@ def entrar_aluno(request):
 
 
 def entrar_empresa(request):
-
     if request.method == 'POST':
-
         resposta = _realizar_login(
             request,
             'area_empresa'
@@ -99,18 +79,20 @@ def entrar_empresa(request):
 
 def entrar_instituicao(request):
 
-    # Se já estiver logado, somente o superusuário
-    # pode acessar a área da instituição.
-
+    # Se já estiver logado, verifica se é administrador
     if request.user.is_authenticated:
 
         if request.user.is_superuser:
+            return redirect('area_instituicao')
 
-            return redirect(
-                'area_instituicao'
-            )
+        messages.error(
+            request,
+            'Acesso permitido somente para administradores da instituição.'
+        )
 
         logout(request)
+
+        return redirect('entrar_instituicao')
 
     if request.method == 'POST':
 
@@ -130,32 +112,41 @@ def entrar_instituicao(request):
             password=password
         )
 
-        if usuario is not None:
-
-            # A instituição só aceita superusuário.
-
-            if usuario.is_superuser:
-
-                login(
-                    request,
-                    usuario
-                )
-
-                return redirect(
-                    'area_instituicao'
-                )
-
-            messages.error(
-                request,
-                'Acesso permitido somente para administradores.'
-            )
-
-        else:
+        # Usuário não existe ou senha incorreta
+        if usuario is None:
 
             messages.error(
                 request,
                 'Usuário ou senha inválidos.'
             )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_instituicao.html'
+            )
+
+        # Usuário existe, mas não é administrador
+        if not usuario.is_superuser:
+
+            messages.error(
+                request,
+                'Este usuário não possui permissão para acessar a área da instituição.'
+            )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_instituicao.html'
+            )
+
+        # Administrador autorizado
+        login(
+            request,
+            usuario
+        )
+
+        return redirect(
+            'area_instituicao'
+        )
 
     return render(
         request,
@@ -166,9 +157,7 @@ def entrar_instituicao(request):
 def trocar_senha_empresa(request):
 
     if not request.user.is_authenticated:
-        return redirect(
-            'entrar_empresa'
-        )
+        return redirect('entrar_empresa')
 
     if request.method == 'POST':
 
@@ -187,9 +176,7 @@ def trocar_senha_empresa(request):
             ''
         )
 
-        if not request.user.check_password(
-            senha_atual
-        ):
+        if not request.user.check_password(senha_atual):
 
             messages.error(
                 request,
@@ -252,6 +239,4 @@ def sair(request):
 
     logout(request)
 
-    return redirect(
-        'inicio'
-    )
+    return redirect('inicio')

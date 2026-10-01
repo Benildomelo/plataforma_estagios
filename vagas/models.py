@@ -55,33 +55,71 @@ class Empresa(models.Model):
         return self.nome_fantasia    
 
 class Vaga(models.Model):
+
     STATUS_CHOICES = [
-        ('PENDENTE', 'Pendente'),
-        ('APROVADA', 'Aprovada'),
+        ('PENDENTE', 'Aguardando análise'),
+        ('APROVADA', 'Em aberto'),
         ('REJEITADA', 'Rejeitada'),
         ('ENCERRADA', 'Encerrada'),
     ]
 
     id = models.BigAutoField(primary_key=True)
+
     titulo = models.CharField(max_length=200)
+
     descricao = models.TextField()
-    requisitos = models.TextField(blank=True)
-    bolsa = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    carga_horaria = models.CharField(max_length=50)
-    local = models.CharField(max_length=200)
-    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
-    curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
+
+    requisitos = models.TextField(
+        blank=True
+    )
+
+    bolsa = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    carga_horaria = models.CharField(
+        max_length=50
+    )
+
+    local = models.CharField(
+        max_length=200
+    )
+
+    empresa = models.ForeignKey(
+        Empresa,
+        on_delete=models.PROTECT
+    )
+
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.PROTECT
+    )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default='PENDENTE'
     )
-    data_publicacao = models.DateTimeField(null=True, blank=True)
-    data_encerramento = models.DateTimeField(null=True, blank=True)
-    ativo = models.BooleanField(default=True)
+
+    data_publicacao = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    data_encerramento = models.DateTimeField(
+        null=True,
+        blank=True
+    )
+
+    ativo = models.BooleanField(
+        default=True
+    )
 
     def __str__(self):
-        return self.titulo    
+        return self.titulo   
 
 class Candidatura(models.Model):
     STATUS_CHOICES = [
