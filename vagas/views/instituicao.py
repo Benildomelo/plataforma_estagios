@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from vagas.models import (
     Aluno,
@@ -10,25 +10,24 @@ from vagas.models import (
 
 
 # =========================================================
-# VERIFICAÇÃO DE ADMINISTRADOR
+# PROTEÇÃO DA ÁREA DA INSTITUIÇÃO
 # =========================================================
 
-def somente_administrador(user):
-
-    return (
-        user.is_authenticated
-        and user.is_superuser
-    )
+def somente_instituicao(view_func):
+    return user_passes_test(
+        lambda user: (
+            user.is_authenticated
+            and user.is_superuser
+        ),
+        login_url='/entrar-instituicao/'
+    )(view_func)
 
 
 # =========================================================
-# ÁREA PRINCIPAL DA INSTITUIÇÃO
+# ÁREA PRINCIPAL
 # =========================================================
 
-@user_passes_test(
-    somente_administrador,
-    login_url='/entrar-instituicao/'
-)
+@somente_instituicao
 def area_instituicao(request):
 
     total_alunos = Aluno.objects.filter(
@@ -61,17 +60,12 @@ def area_instituicao(request):
 # GERENCIAR ALUNOS
 # =========================================================
 
-@user_passes_test(
-    somente_administrador,
-    login_url='/entrar-instituicao/'
-)
+@somente_instituicao
 def gerenciar_alunos(request):
 
     alunos = Aluno.objects.select_related(
         'curso'
-    ).order_by(
-        'nome'
-    )
+    ).order_by('nome')
 
     return render(
         request,
@@ -86,10 +80,7 @@ def gerenciar_alunos(request):
 # GERENCIAR EMPRESAS
 # =========================================================
 
-@user_passes_test(
-    somente_administrador,
-    login_url='/entrar-instituicao/'
-)
+@somente_instituicao
 def gerenciar_empresas(request):
 
     empresas = Empresa.objects.all().order_by(
@@ -109,18 +100,13 @@ def gerenciar_empresas(request):
 # GERENCIAR VAGAS
 # =========================================================
 
-@user_passes_test(
-    somente_administrador,
-    login_url='/entrar-instituicao/'
-)
+@somente_instituicao
 def gerenciar_vagas(request):
 
     vagas = Vaga.objects.select_related(
         'empresa',
         'curso'
-    ).order_by(
-        '-id'
-    )
+    ).order_by('-id')
 
     return render(
         request,
@@ -132,13 +118,94 @@ def gerenciar_vagas(request):
 
 
 # =========================================================
+# APROVAR VAGA
+# =========================================================
+
+@somente_instituicao
+def aprovar_vaga(request, vaga_id):
+
+    if request.method != 'POST':
+        return redirect('gerenciar_vagas')
+
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id
+    )
+
+    vaga.status = 'APROVADA'
+    vaga.ativo = True
+
+    vaga.save(
+        update_fields=[
+            'status',
+            'ativo',
+        ]
+    )
+
+    return redirect('gerenciar_vagas')
+
+
+# =========================================================
+# REJEITAR VAGA
+# =========================================================
+
+@somente_instituicao
+def rejeitar_vaga(request, vaga_id):
+
+    if request.method != 'POST':
+        return redirect('gerenciar_vagas')
+
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id
+    )
+
+    vaga.status = 'REJEITADA'
+    vaga.ativo = False
+
+    vaga.save(
+        update_fields=[
+            'status',
+            'ativo',
+        ]
+    )
+
+    return redirect('gerenciar_vagas')
+
+
+# =========================================================
+# ENCERRAR VAGA
+# =========================================================
+
+@somente_instituicao
+def encerrar_vaga_instituicao(request, vaga_id):
+
+    if request.method != 'POST':
+        return redirect('gerenciar_vagas')
+
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id
+    )
+
+    vaga.status = 'ENCERRADA'
+    vaga.ativo = False
+
+    vaga.save(
+        update_fields=[
+            'status',
+            'ativo',
+        ]
+    )
+
+    return redirect('gerenciar_vagas')
+
+
+# =========================================================
 # GERENCIAR CANDIDATURAS
 # =========================================================
 
-@user_passes_test(
-    somente_administrador,
-    login_url='/entrar-instituicao/'
-)
+@somente_instituicao
 def gerenciar_candidaturas(request):
 
     candidaturas = Candidatura.objects.select_related(
@@ -146,9 +213,7 @@ def gerenciar_candidaturas(request):
         'vaga',
         'vaga__empresa',
         'vaga__curso'
-    ).order_by(
-        '-data_candidatura'
-    )
+    ).order_by('-data_candidatura')
 
     return render(
         request,
@@ -157,3 +222,30 @@ def gerenciar_candidaturas(request):
             'candidaturas': candidaturas,
         }
     )
+
+# =========================================================
+# REABRIR VAGA
+# =========================================================
+
+@somente_instituicao
+def reabrir_vaga(request, vaga_id):
+
+    if request.method != 'POST':
+        return redirect('gerenciar_vagas')
+
+    vaga = get_object_or_404(
+        Vaga,
+        id=vaga_id
+    )
+
+    vaga.status = 'APROVADA'
+    vaga.ativo = True
+
+    vaga.save(
+        update_fields=[
+            'status',
+            'ativo',
+        ]
+    )
+
+    return redirect('gerenciar_vagas')

@@ -35,15 +35,28 @@ from vagas.views.instituicao import (
     gerenciar_empresas,
     gerenciar_vagas,
     gerenciar_candidaturas,
+    aprovar_vaga,
+    rejeitar_vaga,
+    encerrar_vaga_instituicao,
+    reabrir_vaga,
 )
 
 
 urlpatterns = [
 
+    # =====================================================
+    # ADMIN DJANGO
+    # =====================================================
+
     path(
         'admin/',
         admin.site.urls
     ),
+
+
+    # =====================================================
+    # INÍCIO
+    # =====================================================
 
     path(
         '',
@@ -51,94 +64,15 @@ urlpatterns = [
         name='inicio'
     ),
 
+
+    # =====================================================
+    # AUTENTICAÇÃO
+    # =====================================================
+
     path(
         'entrar/',
         entrar,
         name='entrar'
-    ),
-
-    path(
-        'cadastro-aluno/',
-        cadastro_aluno,
-        name='cadastro_aluno'
-    ),
-
-    path(
-        'vagas/',
-        lista_vagas,
-        name='lista_vagas'
-    ),
-
-    path(
-        'vagas/<int:vaga_id>/',
-        detalhe_vaga,
-        name='detalhe_vaga'
-    ),
-
-    path(
-        'vagas/<int:vaga_id>/candidatar/',
-        candidatar,
-        name='candidatar'
-    ),
-
-    path(
-        'minhas-candidaturas/',
-        minhas_candidaturas,
-        name='minhas_candidaturas'
-    ),
-
-    path(
-        'sair/',
-        sair,
-        name='sair'
-    ),
-
-    path(
-        'area-aluno/',
-        area_aluno,
-        name='area_aluno'
-    ),
-
-    path(
-        'area-empresa/',
-        area_empresa,
-        name='area_empresa'
-    ),
-
-    path(
-        'area-instituicao/',
-        area_instituicao,
-        name='area_instituicao'
-    ),
-
-    path(
-        'area-instituicao/alunos/',
-        gerenciar_alunos,
-        name='gerenciar_alunos'
-    ),
-
-    path(
-        "area-instituicao/empresas/",
-        gerenciar_empresas,
-        name="gerenciar_empresas"
-    ),
-
-    path(
-        'area-instituicao/vagas/',
-        gerenciar_vagas,
-        name='gerenciar_vagas'
-    ),
-
-    path(
-        'area-instituicao/candidaturas/',
-        gerenciar_candidaturas,
-        name='gerenciar_candidaturas'
-    ),
-
-    path(
-        'criar-vaga/',
-        criar_vaga,
-        name='criar_vaga'
     ),
 
     path(
@@ -160,6 +94,109 @@ urlpatterns = [
     ),
 
     path(
+        'sair/',
+        sair,
+        name='sair'
+    ),
+
+
+    # =====================================================
+    # CADASTRO
+    # =====================================================
+
+    path(
+        'cadastro-aluno/',
+        cadastro_aluno,
+        name='cadastro_aluno'
+    ),
+
+
+    # =====================================================
+    # VAGAS PÚBLICAS
+    # =====================================================
+
+    path(
+        'vagas/',
+        lista_vagas,
+        name='lista_vagas'
+    ),
+
+    path(
+        'vagas/<int:vaga_id>/',
+        detalhe_vaga,
+        name='detalhe_vaga'
+    ),
+
+    path(
+        'vagas/<int:vaga_id>/candidatar/',
+        candidatar,
+        name='candidatar'
+    ),
+
+
+    # =====================================================
+    # CANDIDATURAS DO ALUNO
+    # =====================================================
+
+    path(
+        'minhas-candidaturas/',
+        minhas_candidaturas,
+        name='minhas_candidaturas'
+    ),
+
+
+    # =====================================================
+    # ÁREA DO ALUNO
+    # =====================================================
+
+    path(
+        'area-aluno/',
+        area_aluno,
+        name='area_aluno'
+    ),
+
+    path(
+        'perfil-aluno/',
+        perfil_aluno,
+        name='perfil_aluno'
+    ),
+
+    path(
+        'perfil-aluno/editar/',
+        editar_perfil_aluno,
+        name='editar_perfil_aluno'
+    ),
+
+    path(
+        'curriculo-aluno/',
+        curriculo_aluno,
+        name='curriculo_aluno'
+    ),
+
+
+    # =====================================================
+    # ÁREA DA EMPRESA
+    # =====================================================
+
+    path(
+        'area-empresa/',
+        area_empresa,
+        name='area_empresa'
+    ),
+
+    path(
+        'criar-vaga/',
+        criar_vaga,
+        name='criar_vaga'
+    ),
+
+    path(
+        'perfil-empresa/',
+        perfil_empresa,
+        name='perfil_empresa'
+    ),
+
+    path(
         'empresa/vagas/<int:vaga_id>/',
         detalhe_vaga_empresa,
         name='detalhe_vaga_empresa'
@@ -178,34 +215,114 @@ urlpatterns = [
     ),
 
     path(
-        'perfil-aluno/',
-        perfil_aluno,
-        name='perfil_aluno'
-    ),
-
-    path(
-        'perfil-aluno/editar/',
-        editar_perfil_aluno,
-        name='editar_perfil_aluno'
-    ),
-
-    path(
-        'perfil-empresa/',
-        perfil_empresa,
-        name='perfil_empresa'
-    ),
-
-    path(
-        'curriculo-aluno/',
-        curriculo_aluno,
-        name='curriculo_aluno'
-    ),
-
-    path(
         'empresa/trocar-senha/',
         trocar_senha_empresa,
         name='trocar_senha_empresa'
     ),
+
+
+    # =====================================================
+    # ÁREA DA INSTITUIÇÃO
+    # =====================================================
+
+    path(
+        'area-instituicao/',
+        area_instituicao,
+        name='area_instituicao'
+    ),
+
+
+    # =====================================================
+    # GERENCIAR ALUNOS
+    # =====================================================
+
+    path(
+        'area-instituicao/alunos/',
+        gerenciar_alunos,
+        name='gerenciar_alunos'
+    ),
+
+
+    # =====================================================
+    # GERENCIAR EMPRESAS
+    # =====================================================
+
+    path(
+        'area-instituicao/empresas/',
+        gerenciar_empresas,
+        name='gerenciar_empresas'
+    ),
+
+
+    # =====================================================
+    # GERENCIAR VAGAS
+    # =====================================================
+
+    path(
+        'area-instituicao/vagas/',
+        gerenciar_vagas,
+        name='gerenciar_vagas'
+    ),
+
+
+    # -----------------------------------------------------
+    # APROVAR VAGA
+    # -----------------------------------------------------
+
+    path(
+        'area-instituicao/vagas/<int:vaga_id>/aprovar/',
+        aprovar_vaga,
+        name='aprovar_vaga'
+    ),
+
+
+    # -----------------------------------------------------
+    # REJEITAR VAGA
+    # -----------------------------------------------------
+
+    path(
+        'area-instituicao/vagas/<int:vaga_id>/rejeitar/',
+        rejeitar_vaga,
+        name='rejeitar_vaga'
+    ),
+
+
+    # -----------------------------------------------------
+    # ENCERRAR VAGA
+    # -----------------------------------------------------
+
+    path(
+        'area-instituicao/vagas/<int:vaga_id>/encerrar/',
+        encerrar_vaga_instituicao,
+        name='encerrar_vaga_instituicao'
+    ),
+
+
+    # -----------------------------------------------------
+    # REABRIR VAGA
+    # -----------------------------------------------------
+
+    path(
+        'area-instituicao/vagas/<int:vaga_id>/reabrir/',
+        reabrir_vaga,
+        name='reabrir_vaga'
+    ),
+
+
+    # =====================================================
+    # GERENCIAR CANDIDATURAS
+    # =====================================================
+
+    path(
+        'area-instituicao/candidaturas/',
+        gerenciar_candidaturas,
+        name='gerenciar_candidaturas'
+    ),
+
+
+    # =====================================================
+    # RECUPERAÇÃO DE SENHA
+    # =====================================================
 
     path(
         'esqueci-senha/',
@@ -240,6 +357,10 @@ urlpatterns = [
     ),
 ]
 
+
+# =========================================================
+# ARQUIVOS DE MÍDIA
+# =========================================================
 
 urlpatterns += static(
     settings.MEDIA_URL,
