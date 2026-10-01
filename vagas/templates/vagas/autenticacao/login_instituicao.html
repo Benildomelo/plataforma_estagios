@@ -1,103 +1,109 @@
 {% extends 'vagas/base.html' %}
 
 {% block title %}
-    Entrar como Instituição - UNIPI Conecta
+    Login da Instituição - UNIPI Conecta
 {% endblock %}
 
 {% block content %}
 
-<div class="login-container">
+<div class="login-instituicao">
 
-    <div class="login-cabecalho">
+    <div class="login-instituicao-card">
 
-        <h1>
-            Plataforma de Estágios
-        </h1>
+        <div class="login-instituicao-cabecalho">
 
-        <p>
-            Acesse sua conta para continuar
-        </p>
+            <span class="login-instituicao-label">
+                UNIPI CONECTA
+            </span>
 
-    </div>
+            <h1>
+                Acesso institucional
+            </h1>
 
+            <p>
+                Entre com sua conta de administrador
+                para acessar a área da instituição.
+            </p>
 
-    <div class="login-titulo">
-
-        <h2>
-            Entrar
-        </h2>
-
-    </div>
+        </div>
 
 
-    {% if messages %}
+        {% if messages %}
 
-        {% for message in messages %}
+            <div class="login-instituicao-mensagens">
 
-            <div class="mensagem">
-                {{ message }}
+                {% for message in messages %}
+
+                    <div class="login-instituicao-erro">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
             </div>
 
-        {% endfor %}
-
-    {% endif %}
+        {% endif %}
 
 
-    <form method="post">
+        <form method="post">
 
-        {% csrf_token %}
+            {% csrf_token %}
 
 
-        <div class="campo">
+            <div class="login-instituicao-campo">
 
-            <label for="username">
-                Usuário
-            </label>
+                <label for="username">
+                    Usuário
+                </label>
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Digite seu usuário"
-                required
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Digite seu usuário"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-instituicao-campo">
+
+                <label for="password">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-instituicao-botao"
             >
+                Entrar
+            </button>
 
-        </div>
-
-
-        <div class="campo">
-
-            <label for="password">
-                Senha
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Digite sua senha"
-                required
-            >
-
-        </div>
+        </form>
 
 
-        <button
-            type="submit"
-            class="botao"
+        <a
+            href="{% url 'inicio' %}"
+            class="login-instituicao-voltar"
         >
-            Entrar
-        </button>
+            ← Voltar para o início
+        </a>
 
-    </form>
-
-
-    <a
-        href="{% url 'inicio' %}"
-        class="voltar"
-    >
-        ← Voltar para o início
-    </a>
+    </div>
 
 </div>
 

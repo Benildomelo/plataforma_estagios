@@ -1,31 +1,77 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 
-from vagas.models import Aluno, Empresa, Vaga, Candidatura
+from vagas.models import (
+    Aluno,
+    Empresa,
+    Vaga,
+    Candidatura,
+)
 
 
-@login_required(login_url='/entrar/')
+# =========================================================
+# VERIFICAÇÃO DE ADMINISTRADOR
+# =========================================================
+
+def somente_administrador(user):
+
+    return (
+        user.is_authenticated
+        and user.is_superuser
+    )
+
+
+# =========================================================
+# ÁREA PRINCIPAL DA INSTITUIÇÃO
+# =========================================================
+
+@user_passes_test(
+    somente_administrador,
+    login_url='/entrar-instituicao/'
+)
 def area_instituicao(request):
 
     total_alunos = Aluno.objects.filter(
         ativo=True
     ).count()
 
+    total_empresas = Empresa.objects.filter(
+        ativo=True
+    ).count()
+
+    total_vagas = Vaga.objects.filter(
+        ativo=True
+    ).count()
+
+    total_candidaturas = Candidatura.objects.count()
+
     return render(
         request,
         'vagas/instituicao/area_instituicao.html',
         {
             'total_alunos': total_alunos,
+            'total_empresas': total_empresas,
+            'total_vagas': total_vagas,
+            'total_candidaturas': total_candidaturas,
         }
     )
 
 
-@login_required(login_url='/entrar/')
+# =========================================================
+# GERENCIAR ALUNOS
+# =========================================================
+
+@user_passes_test(
+    somente_administrador,
+    login_url='/entrar-instituicao/'
+)
 def gerenciar_alunos(request):
 
     alunos = Aluno.objects.select_related(
         'curso'
-    ).order_by('nome')
+    ).order_by(
+        'nome'
+    )
 
     return render(
         request,
@@ -36,7 +82,14 @@ def gerenciar_alunos(request):
     )
 
 
-@login_required(login_url='/entrar/')
+# =========================================================
+# GERENCIAR EMPRESAS
+# =========================================================
+
+@user_passes_test(
+    somente_administrador,
+    login_url='/entrar-instituicao/'
+)
 def gerenciar_empresas(request):
 
     empresas = Empresa.objects.all().order_by(
@@ -51,13 +104,23 @@ def gerenciar_empresas(request):
         }
     )
 
-@login_required(login_url='/entrar/')
+
+# =========================================================
+# GERENCIAR VAGAS
+# =========================================================
+
+@user_passes_test(
+    somente_administrador,
+    login_url='/entrar-instituicao/'
+)
 def gerenciar_vagas(request):
 
     vagas = Vaga.objects.select_related(
         'empresa',
         'curso'
-    ).order_by('-id')
+    ).order_by(
+        '-id'
+    )
 
     return render(
         request,
@@ -67,7 +130,15 @@ def gerenciar_vagas(request):
         }
     )
 
-@login_required(login_url='/entrar/')
+
+# =========================================================
+# GERENCIAR CANDIDATURAS
+# =========================================================
+
+@user_passes_test(
+    somente_administrador,
+    login_url='/entrar-instituicao/'
+)
 def gerenciar_candidaturas(request):
 
     candidaturas = Candidatura.objects.select_related(
@@ -75,7 +146,9 @@ def gerenciar_candidaturas(request):
         'vaga',
         'vaga__empresa',
         'vaga__curso'
-    ).order_by('-data_candidatura')
+    ).order_by(
+        '-data_candidatura'
+    )
 
     return render(
         request,
@@ -84,4 +157,3 @@ def gerenciar_candidaturas(request):
             'candidaturas': candidaturas,
         }
     )
-

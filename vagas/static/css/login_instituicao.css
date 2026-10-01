@@ -1,0 +1,335 @@
+/* =========================================================
+   LOGIN DA INSTITUIÇÃO
+   UNIPI CONECTA
+   ========================================================= */
+
+
+/* =========================================================
+   ÁREA PRINCIPAL
+   ========================================================= */
+
+.login-instituicao {
+    width: 100%;
+    min-height: calc(100vh - 150px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.login-instituicao-card {
+    width: 100%;
+    max-width: 450px;
+
+    padding: 40px;
+
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    box-shadow: var(--sombra-padrao);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.login-instituicao-cabecalho {
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.login-instituicao-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #6f42c1;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 1.2px;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.login-instituicao-cabecalho h1 {
+    margin: 0 0 10px;
+
+    color: var(--cor-texto);
+
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
+.login-instituicao-cabecalho p {
+    max-width: 360px;
+
+    margin: 0 auto;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.login-instituicao-mensagens {
+    margin-bottom: 20px;
+}
+
+
+.login-instituicao-erro {
+    padding: 12px 15px;
+
+    background: #fdf0f0;
+
+    border: 1px solid #f0caca;
+
+    border-radius: 8px;
+
+    color: #a33a3a;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.login-instituicao-campo {
+    margin-bottom: 20px;
+}
+
+
+.login-instituicao-campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--cor-texto);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.login-instituicao-campo input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d8d8df;
+
+    border-radius: 8px;
+
+    color: var(--cor-texto);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.login-instituicao-campo input::placeholder {
+    color: #9a9aa3;
+}
+
+
+.login-instituicao-campo input:focus {
+    border-color: #6f42c1;
+
+    box-shadow:
+        0 0 0 3px rgba(111, 66, 193, 0.12);
+}
+
+
+/* =========================================================
+   BOTÃO
+   ========================================================= */
+
+.login-instituicao-botao {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    margin-top: 5px;
+
+    background: #6f42c1;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.login-instituicao-botao:hover {
+    background: #59339d;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(111, 66, 193, 0.22);
+}
+
+
+.login-instituicao-botao:active {
+    transform: translateY(0);
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   VOLTAR
+   ========================================================= */
+
+.login-instituicao-voltar {
+    display: block;
+
+    margin-top: 22px;
+
+    color: #6f42c1;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+
+.login-instituicao-voltar:hover {
+    color: #59339d;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .login-instituicao {
+        min-height: calc(100vh - 130px);
+
+        padding: 30px 15px;
+    }
+
+
+    .login-instituicao-card {
+        padding: 30px 25px;
+    }
+
+
+    .login-instituicao-cabecalho h1 {
+        font-size: 25px;
+    }
+
+
+    .login-instituicao-cabecalho p {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .login-instituicao {
+        padding: 25px 12px;
+    }
+
+
+    .login-instituicao-card {
+        padding: 25px 20px;
+    }
+
+
+    .login-instituicao-cabecalho h1 {
+        font-size: 23px;
+    }
+
+
+    .login-instituicao-campo input {
+        padding: 12px;
+    }
+
+
+    .login-instituicao-botao {
+        padding: 12px 18px;
+    }
+
+}

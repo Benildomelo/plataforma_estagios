@@ -5,8 +5,15 @@ from django.shortcuts import redirect, render
 
 
 def _realizar_login(request, redirecionamento):
-    username = request.POST.get('username', '').strip()
-    password = request.POST.get('password', '')
+    username = request.POST.get(
+        'username',
+        ''
+    ).strip()
+
+    password = request.POST.get(
+        'password',
+        ''
+    )
 
     usuario = authenticate(
         request,
@@ -15,8 +22,15 @@ def _realizar_login(request, redirecionamento):
     )
 
     if usuario is not None:
-        login(request, usuario)
-        return redirect(redirecionamento)
+
+        login(
+            request,
+            usuario
+        )
+
+        return redirect(
+            redirecionamento
+        )
 
     messages.error(
         request,
@@ -27,10 +41,12 @@ def _realizar_login(request, redirecionamento):
 
 
 def entrar(request):
+
     if request.user.is_authenticated:
         return redirect('area_aluno')
 
     if request.method == 'POST':
+
         resposta = _realizar_login(
             request,
             'area_aluno'
@@ -46,7 +62,9 @@ def entrar(request):
 
 
 def entrar_aluno(request):
+
     if request.method == 'POST':
+
         resposta = _realizar_login(
             request,
             'area_aluno'
@@ -62,7 +80,9 @@ def entrar_aluno(request):
 
 
 def entrar_empresa(request):
+
     if request.method == 'POST':
+
         resposta = _realizar_login(
             request,
             'area_empresa'
@@ -77,11 +97,81 @@ def entrar_empresa(request):
     )
 
 
-def trocar_senha_empresa(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_empresa')
+def entrar_instituicao(request):
+
+    # Se já estiver logado, somente o superusuário
+    # pode acessar a área da instituição.
+
+    if request.user.is_authenticated:
+
+        if request.user.is_superuser:
+
+            return redirect(
+                'area_instituicao'
+            )
+
+        logout(request)
 
     if request.method == 'POST':
+
+        username = request.POST.get(
+            'username',
+            ''
+        ).strip()
+
+        password = request.POST.get(
+            'password',
+            ''
+        )
+
+        usuario = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if usuario is not None:
+
+            # A instituição só aceita superusuário.
+
+            if usuario.is_superuser:
+
+                login(
+                    request,
+                    usuario
+                )
+
+                return redirect(
+                    'area_instituicao'
+                )
+
+            messages.error(
+                request,
+                'Acesso permitido somente para administradores.'
+            )
+
+        else:
+
+            messages.error(
+                request,
+                'Usuário ou senha inválidos.'
+            )
+
+    return render(
+        request,
+        'vagas/autenticacao/login_instituicao.html'
+    )
+
+
+def trocar_senha_empresa(request):
+
+    if not request.user.is_authenticated:
+        return redirect(
+            'entrar_empresa'
+        )
+
+    if request.method == 'POST':
+
         senha_atual = request.POST.get(
             'senha_atual',
             ''
@@ -97,28 +187,45 @@ def trocar_senha_empresa(request):
             ''
         )
 
-        if not request.user.check_password(senha_atual):
+        if not request.user.check_password(
+            senha_atual
+        ):
+
             messages.error(
                 request,
                 'A senha atual está incorreta.'
             )
-            return redirect('trocar_senha_empresa')
+
+            return redirect(
+                'trocar_senha_empresa'
+            )
 
         if nova_senha != confirmar_senha:
+
             messages.error(
                 request,
                 'As novas senhas não coincidem.'
             )
-            return redirect('trocar_senha_empresa')
+
+            return redirect(
+                'trocar_senha_empresa'
+            )
 
         if len(nova_senha) < 6:
+
             messages.error(
                 request,
                 'A nova senha deve ter pelo menos 6 caracteres.'
             )
-            return redirect('trocar_senha_empresa')
 
-        request.user.set_password(nova_senha)
+            return redirect(
+                'trocar_senha_empresa'
+            )
+
+        request.user.set_password(
+            nova_senha
+        )
+
         request.user.save()
 
         update_session_auth_hash(
@@ -131,31 +238,20 @@ def trocar_senha_empresa(request):
             'Senha alterada com sucesso.'
         )
 
-        return redirect('area_empresa')
+        return redirect(
+            'area_empresa'
+        )
 
     return render(
         request,
         'vagas/autenticacao/trocar_senha_empresa.html'
     )
 
-def entrar_instituicao(request):
-    if request.method == 'POST':
-        resposta = _realizar_login(
-            request,
-            'area_instituicao'
-        )
-
-        if resposta:
-            return resposta
-
-    return render(
-        request,
-        'vagas/autenticacao/login_instituicao.html'
-    )
-
 
 def sair(request):
+
     logout(request)
 
-    return redirect('inicio')
-
+    return redirect(
+        'inicio'
+    )
