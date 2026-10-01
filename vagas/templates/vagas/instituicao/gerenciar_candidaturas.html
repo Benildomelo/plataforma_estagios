@@ -1,179 +1,196 @@
-{% extends 'vagas/base.html' %}
 
-{% block title %}
-    Gerenciar Candidaturas - UNIPI Conecta
+{% extends 'vagas/base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Candidaturas - UNIPI Conecta{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gerenciar_candidaturas.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="area-instituicao">
+<div class="area-instituicao candidaturas-page">
 
     <!-- CABEÇALHO -->
-
-    <section class="instituicao-cabecalho">
-
+    <section class="instituicao-cabecalho candidaturas-cabecalho">
         <div>
+            <span class="instituicao-label">ADMINISTRAÇÃO</span>
 
-            <span class="instituicao-label">
-                ADMINISTRAÇÃO
-            </span>
-
-            <h1>
-                Gerenciar candidaturas
-            </h1>
+            <h1>Gerenciar candidaturas</h1>
 
             <p>
-                Consulte as candidaturas realizadas pelos alunos
+                Acompanhe as candidaturas realizadas pelos alunos
                 nas vagas disponíveis na plataforma.
             </p>
-
         </div>
 
-        <a
-            href="{% url 'area_instituicao' %}"
-            class="instituicao-botao-voltar"
-        >
+        <a href="{% url 'area_instituicao' %}"
+           class="instituicao-botao-voltar">
             ← Voltar
         </a>
+    </section>
+
+    <!-- INDICADORES -->
+    <section class="candidaturas-indicadores">
+
+        <article class="candidatura-indicador">
+            <div class="candidatura-icone total">📋</div>
+            <div>
+                <span>Total de candidaturas</span>
+                <strong id="totalCandidaturas">0</strong>
+                <small>Registros encontrados</small>
+            </div>
+        </article>
+
+        <article class="candidatura-indicador">
+            <div class="candidatura-icone analise">◷</div>
+            <div>
+                <span>Em análise</span>
+                <strong id="candidaturasAnalise">0</strong>
+                <small>Aguardando decisão</small>
+            </div>
+        </article>
+
+        <article class="candidatura-indicador">
+            <div class="candidatura-icone aprovada">✓</div>
+            <div>
+                <span>Aprovadas</span>
+                <strong id="candidaturasAprovadas">0</strong>
+                <small>Candidaturas aprovadas</small>
+            </div>
+        </article>
+
+        <article class="candidatura-indicador">
+            <div class="candidatura-icone rejeitada">✕</div>
+            <div>
+                <span>Rejeitadas</span>
+                <strong id="candidaturasRejeitadas">0</strong>
+                <small>Candidaturas rejeitadas</small>
+            </div>
+        </article>
 
     </section>
 
+    <!-- LISTAGEM -->
+    <section class="instituicao-conteudo candidaturas-conteudo">
 
-    <!-- CONTEÚDO -->
+        <div class="candidaturas-lista-topo">
+            <div class="instituicao-secao-titulo">
+                <span>CANDIDATURAS</span>
+                <h2>Lista de candidaturas</h2>
+                <p id="textoResultados">
+                    {{ candidaturas|length }} candidatura(s) encontrada(s).
+                </p>
+            </div>
+        </div>
 
-    <section class="instituicao-conteudo">
+        <!-- PESQUISA E FILTROS -->
+        <div class="candidaturas-filtros">
 
-        <div class="instituicao-secao-titulo">
+            <div class="candidatura-busca">
+                <span>⌕</span>
+                <input
+                    type="search"
+                    id="pesquisaCandidatura"
+                    placeholder="Pesquisar por aluno, vaga ou empresa..."
+                    aria-label="Pesquisar candidaturas"
+                >
+            </div>
 
-            <span>
-                CANDIDATURAS
-            </span>
+            <select id="filtroStatus" aria-label="Filtrar por situação">
+                <option value="todos">Todas as situações</option>
+                <option value="analise">Em análise</option>
+                <option value="aprovada">Aprovadas</option>
+                <option value="rejeitada">Rejeitadas</option>
+            </select>
 
-            <h2>
-                Lista de candidaturas
-            </h2>
-
-            <p>
-                {{ candidaturas|length }} candidatura(s)
-                encontrada(s).
-            </p>
+            <button type="button" id="limparFiltrosCandidaturas">
+                Limpar filtros
+            </button>
 
         </div>
 
-
         <!-- TABELA -->
+        <div class="instituicao-tabela-container candidaturas-tabela-container">
 
-        <div class="instituicao-tabela-container">
-
-            <table class="instituicao-tabela">
+            <table class="instituicao-tabela candidaturas-tabela">
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Aluno
-                        </th>
-
-                        <th>
-                            Vaga
-                        </th>
-
-                        <th>
-                            Empresa
-                        </th>
-
-                        <th>
-                            Curso
-                        </th>
-
-                        <th>
-                            Data
-                        </th>
-
-                        <th>
-                            Situação
-                        </th>
-
+                        <th>Aluno</th>
+                        <th>Vaga</th>
+                        <th>Empresa</th>
+                        <th>Curso</th>
+                        <th>Data</th>
+                        <th>Situação</th>
                     </tr>
-
                 </thead>
 
-
-                <tbody>
+                <tbody id="listaCandidaturas">
 
                     {% for candidatura in candidaturas %}
 
-                    <tr>
+                    <tr
+                        class="linha-candidatura"
+                        data-aluno="{{ candidatura.aluno.nome|default:''|lower }}"
+                        data-matricula="{{ candidatura.aluno.matricula|default:''|lower }}"
+                        data-vaga="{{ candidatura.vaga.titulo|default:''|lower }}"
+                        data-empresa="{{ candidatura.vaga.empresa.nome_fantasia|default:''|lower }}"
+                        data-curso="{{ candidatura.vaga.curso.nome|default:''|lower }}"
+                        data-status="{% if candidatura.status == 'APROVADA' %}aprovada{% elif candidatura.status == 'REJEITADA' %}rejeitada{% else %}analise{% endif %}"
+                    >
 
                         <td>
-
                             <div class="aluno-tabela">
+                                <div class="aluno-avatar">🎓</div>
 
-                                <div class="aluno-avatar">
-                                    🎓
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        {{ candidatura.aluno.nome }}
-                                    </strong>
-
+                                <div class="aluno-identificacao">
+                                    <strong>{{ candidatura.aluno.nome }}</strong>
                                     <small>
-                                        Matrícula:
-                                        {{ candidatura.aluno.matricula }}
+                                        Matrícula: {{ candidatura.aluno.matricula }}
                                     </small>
-
                                 </div>
-
                             </div>
-
                         </td>
-
 
                         <td>
-                            {{ candidatura.vaga.titulo }}
+                            <span class="vaga-nome">
+                                {{ candidatura.vaga.titulo }}
+                            </span>
                         </td>
-
 
                         <td>
                             {{ candidatura.vaga.empresa.nome_fantasia }}
                         </td>
 
-
                         <td>
                             {{ candidatura.vaga.curso.nome }}
                         </td>
 
-
-                        <td>
+                        <td class="data-candidatura">
                             {{ candidatura.data_candidatura|date:"d/m/Y H:i" }}
                         </td>
 
-
                         <td>
-
                             {% if candidatura.status == 'APROVADA' %}
-
-                                <span class="status-ativo">
+                                <span class="status-candidatura status-aprovada">
+                                    <span></span>
                                     {{ candidatura.get_status_display }}
                                 </span>
 
                             {% elif candidatura.status == 'REJEITADA' %}
-
-                                <span class="status-inativo">
+                                <span class="status-candidatura status-rejeitada">
+                                    <span></span>
                                     {{ candidatura.get_status_display }}
                                 </span>
 
                             {% else %}
-
-                                <span class="status-pendente">
+                                <span class="status-candidatura status-analise">
+                                    <span></span>
                                     {{ candidatura.get_status_display }}
                                 </span>
-
                             {% endif %}
-
                         </td>
 
                     </tr>
@@ -181,26 +198,113 @@
                     {% empty %}
 
                     <tr>
-
-                        <td
-                            colspan="6"
-                            class="tabela-vazia"
-                        >
+                        <td colspan="6" class="tabela-vazia">
                             Nenhuma candidatura cadastrada.
                         </td>
-
                     </tr>
 
                     {% endfor %}
 
+                    <tr id="nenhumaCandidatura" style="display: none;">
+                        <td colspan="6" class="tabela-vazia">
+                            Nenhuma candidatura corresponde aos filtros.
+                        </td>
+                    </tr>
+
                 </tbody>
-
             </table>
-
         </div>
 
     </section>
-
 </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const pesquisa = document.getElementById("pesquisaCandidatura");
+    const filtro = document.getElementById("filtroStatus");
+    const limpar = document.getElementById("limparFiltrosCandidaturas");
+
+    const linhas = Array.from(
+        document.querySelectorAll(".linha-candidatura")
+    );
+
+    const nenhuma = document.getElementById("nenhumaCandidatura");
+
+    const total = document.getElementById("totalCandidaturas");
+    const analise = document.getElementById("candidaturasAnalise");
+    const aprovadas = document.getElementById("candidaturasAprovadas");
+    const rejeitadas = document.getElementById("candidaturasRejeitadas");
+    const textoResultados = document.getElementById("textoResultados");
+
+    const quantidadeAnalise = linhas.filter(
+        linha => linha.dataset.status === "analise"
+    ).length;
+
+    const quantidadeAprovadas = linhas.filter(
+        linha => linha.dataset.status === "aprovada"
+    ).length;
+
+    const quantidadeRejeitadas = linhas.filter(
+        linha => linha.dataset.status === "rejeitada"
+    ).length;
+
+    total.textContent = linhas.length;
+    analise.textContent = quantidadeAnalise;
+    aprovadas.textContent = quantidadeAprovadas;
+    rejeitadas.textContent = quantidadeRejeitadas;
+
+    function atualizarLista() {
+        const termo = pesquisa.value.trim().toLowerCase();
+        const statusSelecionado = filtro.value;
+
+        let encontrados = 0;
+
+        linhas.forEach(function (linha) {
+            const dados = [
+                linha.dataset.aluno,
+                linha.dataset.matricula,
+                linha.dataset.vaga,
+                linha.dataset.empresa,
+                linha.dataset.curso
+            ].join(" ");
+
+            const correspondeTexto = dados.includes(termo);
+
+            const correspondeStatus =
+                statusSelecionado === "todos" ||
+                linha.dataset.status === statusSelecionado;
+
+            const mostrar = correspondeTexto && correspondeStatus;
+
+            linha.style.display = mostrar ? "" : "none";
+
+            if (mostrar) {
+                encontrados++;
+            }
+        });
+
+        nenhuma.style.display =
+            encontrados === 0 && linhas.length > 0 ? "" : "none";
+
+        textoResultados.textContent =
+            encontrados +
+            (encontrados === 1
+                ? " candidatura encontrada."
+                : " candidaturas encontradas.");
+    }
+
+    pesquisa.addEventListener("input", atualizarLista);
+    filtro.addEventListener("change", atualizarLista);
+
+    limpar.addEventListener("click", function () {
+        pesquisa.value = "";
+        filtro.value = "todos";
+        atualizarLista();
+    });
+
+    atualizarLista();
+});
+</script>
+
 {% endblock %}
+

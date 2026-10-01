@@ -1,228 +1,406 @@
-/* =========================================================
+/* ==========================================
    GERENCIAR CANDIDATURAS
    UNIPI CONECTA
-   ========================================================= */
+========================================== */
 
-
-/* =========================================================
-   TABELA
-   ========================================================= */
-
-.instituicao-tabela-container {
+.candidaturas-page {
     width: 100%;
-
-    overflow-x: auto;
-
-    background: var(--cor-branco);
-
-    border-radius: var(--raio-padrao);
-
-    box-shadow: var(--sombra-padrao);
+    max-width: 1100px;
+    margin: 28px auto 60px;
+    padding: 0 20px;
 }
 
+/* CABEÇALHO */
 
-.instituicao-tabela {
+.candidaturas-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 30px;
+    margin-bottom: 26px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 35, 55, 0.06);
+}
+
+.candidaturas-cabecalho h1 {
+    margin: 8px 0;
+    color: #142b40;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.candidaturas-cabecalho p {
+    margin: 0;
+    color: #687789;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* INDICADORES */
+
+.candidaturas-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.candidatura-indicador {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 20px 16px;
+    background: #fff;
+    border: 1px solid #e9eef3;
+    border-radius: 13px;
+    box-shadow: 0 3px 12px rgba(15, 35, 55, 0.04);
+}
+
+.candidatura-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.candidatura-icone.total {
+    color: #245b9b;
+    background: #eaf2fc;
+}
+
+.candidatura-icone.analise {
+    color: #a36b16;
+    background: #fff4dc;
+}
+
+.candidatura-icone.aprovada {
+    color: #23834f;
+    background: #e7f6ee;
+}
+
+.candidatura-icone.rejeitada {
+    color: #b54747;
+    background: #fceaea;
+}
+
+.candidatura-indicador div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.candidatura-indicador span {
+    color: #6c7b8b;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.candidatura-indicador strong {
+    color: #152d43;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.candidatura-indicador small {
+    color: #9aa5b1;
+    font-size: 10px;
+}
+
+/* CONTEÚDO */
+
+.candidaturas-conteudo {
+    padding: 28px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 35, 55, 0.05);
+}
+
+.candidaturas-lista-topo {
+    margin-bottom: 22px;
+}
+
+.candidaturas-lista-topo .instituicao-secao-titulo h2 {
+    margin: 7px 0;
+    color: #142b40;
+    font-size: 21px;
+}
+
+.candidaturas-lista-topo .instituicao-secao-titulo p {
+    margin: 0;
+    color: #7b8997;
+    font-size: 13px;
+}
+
+/* PESQUISA E FILTROS */
+
+.candidaturas-filtros {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.candidatura-busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 220px;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+    background: #fff;
+}
+
+.candidatura-busca span {
+    color: #718399;
+    font-size: 23px;
+}
+
+.candidatura-busca input {
     width: 100%;
+    border: none;
+    outline: none;
+    color: #24394c;
+    background: transparent;
+    font-size: 13px;
+}
 
-    min-width: 900px;
+.candidatura-busca:focus-within {
+    border-color: #3975b9;
+    box-shadow: 0 0 0 3px rgba(57, 117, 185, 0.10);
+}
 
+.candidaturas-filtros select {
+    height: 44px;
+    padding: 0 35px 0 13px;
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+    background: #fff;
+    color: #34495d;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.candidaturas-filtros button {
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+    background: #f7f9fb;
+    color: #4e6275;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.candidaturas-filtros button:hover {
+    background: #eaf0f6;
+    border-color: #c5d2df;
+}
+
+/* TABELA */
+
+.candidaturas-tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e7edf2;
+    border-radius: 11px;
+}
+
+.candidaturas-tabela {
+    width: 100%;
+    min-width: 850px;
     border-collapse: collapse;
 }
 
-
-/* =========================================================
-   CABEÇALHO DA TABELA
-   ========================================================= */
-
-.instituicao-tabela thead {
-    background: #f7f5fb;
+.candidaturas-tabela thead {
+    background: #f6f8fa;
 }
 
-
-.instituicao-tabela th {
-    padding: 16px 18px;
-
-    color: var(--cor-texto-secundario);
-
-    font-size: 12px;
+.candidaturas-tabela th {
+    padding: 15px 13px;
+    color: #647589;
+    font-size: 11px;
     font-weight: 700;
-
     text-align: left;
-
     text-transform: uppercase;
-
-    letter-spacing: 0.5px;
-
+    letter-spacing: 0.4px;
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   CÉLULAS
-   ========================================================= */
-
-.instituicao-tabela td {
-    padding: 17px 18px;
-
-    color: var(--cor-texto);
-
-    font-size: 14px;
-
-    border-top: 1px solid #eeeeee;
-
+.candidaturas-tabela td {
+    padding: 15px 13px;
+    border-top: 1px solid #edf1f4;
+    color: #34475a;
+    font-size: 12px;
     vertical-align: middle;
 }
 
-
-.instituicao-tabela tbody tr {
-    transition: background 0.2s ease;
+.candidaturas-tabela tbody tr {
+    transition: background 0.2s;
 }
 
-
-.instituicao-tabela tbody tr:hover {
-    background: #faf9fc;
+.candidaturas-tabela tbody tr:hover {
+    background: #f8fafc;
 }
 
-
-/* =========================================================
-   ALUNO
-   ========================================================= */
+/* ALUNO */
 
 .aluno-tabela {
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
-    min-width: 210px;
+    gap: 11px;
+    min-width: 150px;
 }
-
 
 .aluno-avatar {
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
-    background: #f0eafa;
-
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
     border-radius: 50%;
-
-    font-size: 19px;
+    background: #eef1f6;
+    font-size: 17px;
 }
 
-
-.aluno-tabela strong {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: var(--cor-texto);
-
-    font-size: 14px;
+.aluno-identificacao {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-
-.aluno-tabela small {
-    display: block;
-
-    color: var(--cor-texto-secundario);
-
+.aluno-identificacao strong {
+    color: #24394d;
     font-size: 12px;
+    font-weight: 700;
 }
 
+.aluno-identificacao small {
+    color: #8996a3;
+    font-size: 10px;
+}
 
-/* =========================================================
-   STATUS
-   ========================================================= */
+.vaga-nome {
+    display: block;
+    max-width: 190px;
+    color: #34475a;
+    line-height: 1.5;
+}
 
-.status-ativo,
-.status-pendente,
-.status-inativo {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 6px 12px;
-
-    border-radius: 999px;
-
-    font-size: 13px;
-    font-weight: 600;
-
+.data-candidatura {
+    min-width: 105px;
     white-space: nowrap;
 }
 
+/* STATUS */
 
-/* =========================================================
-   APROVADA
-   ========================================================= */
-
-.status-ativo {
-    background: #e8f7ee;
-
-    color: #198754;
+.status-candidatura {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
-
-/* =========================================================
-   PENDENTE / EM ANÁLISE
-   ========================================================= */
-
-.status-pendente {
-    background: #fff4d6;
-
-    color: #9a6700;
+.status-candidatura span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
 }
 
-
-/* =========================================================
-   REJEITADA
-   ========================================================= */
-
-.status-inativo {
-    background: #fdeaea;
-
-    color: #c0392b;
+.status-aprovada {
+    color: #237849;
+    background: #e7f6ed;
 }
 
+.status-rejeitada {
+    color: #b54747;
+    background: #fceaea;
+}
 
-/* =========================================================
-   TABELA VAZIA
-   ========================================================= */
+.status-analise {
+    color: #986816;
+    background: #fff2d8;
+}
+
+/* ESTADO VAZIO */
 
 .tabela-vazia {
-    padding: 45px 20px !important;
-
-    color: var(--cor-texto-secundario) !important;
-
+    padding: 35px 20px !important;
+    color: #8a98a7 !important;
     text-align: center;
-
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
+/* RESPONSIVIDADE */
 
-/* =========================================================
-   CELULAR
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    .instituicao-tabela-container {
-        border-radius: 10px;
+@media (max-width: 1000px) {
+    .candidaturas-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
-
-    .instituicao-tabela th,
-    .instituicao-tabela td {
-        padding: 14px;
-    }
-
 }
+
+@media (max-width: 600px) {
+    .candidaturas-page {
+        margin-top: 18px;
+        padding: 0 12px;
+    }
+
+    .candidaturas-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
+    }
+
+    .candidaturas-cabecalho h1 {
+        font-size: 23px;
+    }
+
+    .candidaturas-indicadores {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .candidatura-indicador {
+        padding: 17px;
+    }
+
+    .candidaturas-conteudo {
+        padding: 18px 14px;
+    }
+
+    .candidaturas-filtros {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .candidatura-busca {
+        min-width: 0;
+        flex: auto;
+    }
+
+    .candidaturas-filtros select,
+    .candidaturas-filtros button {
+        width: 100%;
+    }
+}
+
