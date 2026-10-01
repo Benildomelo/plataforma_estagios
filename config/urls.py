@@ -35,6 +35,7 @@ from vagas.views.instituicao import (
     gerenciar_empresas,
     gerenciar_vagas,
     gerenciar_candidaturas,
+    detalhes_vaga_instituicao,
     aprovar_vaga,
     rejeitar_vaga,
     encerrar_vaga_instituicao,
@@ -262,6 +263,14 @@ urlpatterns = [
         'area-instituicao/vagas/',
         gerenciar_vagas,
         name='gerenciar_vagas'
+    ),
+
+    # DETALHES DA VAGA
+
+    path(
+        'area-instituicao/vagas/<int:vaga_id>/detalhes/',
+        detalhes_vaga_instituicao,
+        name='detalhes_vaga_instituicao'
     ),
 
 

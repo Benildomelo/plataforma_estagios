@@ -911,3 +911,21 @@
 
 }
 
+.botao-detalhes {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 1px solid #174ea6;
+    border-radius: 5px;
+    color: #174ea6;
+    background: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.botao-detalhes:hover {
+    background: #174ea6;
+    color: #fff;
+}
