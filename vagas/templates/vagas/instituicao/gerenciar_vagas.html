@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -8,106 +9,48 @@
 
 <div class="area-instituicao">
 
-    <!-- =====================================================
-         CABEÇALHO
-         ===================================================== -->
-
+    <!-- CABEÇALHO -->
     <section class="instituicao-cabecalho">
-
         <div>
-
-            <span class="instituicao-label">
-                ADMINISTRAÇÃO
-            </span>
-
-            <h1>
-                Gerenciar vagas
-            </h1>
-
+            <span class="instituicao-label">ADMINISTRAÇÃO</span>
+            <h1>Gerenciar vagas</h1>
             <p>
                 Consulte as vagas cadastradas pelas empresas
                 e acompanhe a situação de cada oportunidade.
             </p>
-
         </div>
 
-        <a
-            href="{% url 'area_instituicao' %}"
-            class="instituicao-botao-voltar"
-        >
+        <a href="{% url 'area_instituicao' %}"
+           class="instituicao-botao-voltar">
             ← Voltar
         </a>
-
     </section>
 
-
-    <!-- =====================================================
-         CONTEÚDO
-         ===================================================== -->
-
+    <!-- CONTEÚDO -->
     <section class="instituicao-conteudo">
 
         <div class="instituicao-secao-titulo">
-
-            <span>
-                VAGAS CADASTRADAS
-            </span>
-
-            <h2>
-                Lista de vagas
-            </h2>
-
-            <p>
-                {{ vagas|length }} vaga(s) encontrada(s).
-            </p>
-
+            <span>VAGAS CADASTRADAS</span>
+            <h2>Lista de vagas</h2>
+            <p>{{ vagas|length }} vaga(s) encontrada(s).</p>
         </div>
 
-
-        <!-- =====================================================
-             TABELA
-             ===================================================== -->
-
+        <!-- TABELA -->
         <div class="instituicao-tabela-container">
 
             <table class="instituicao-tabela">
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Vaga
-                        </th>
-
-                        <th>
-                            Empresa
-                        </th>
-
-                        <th>
-                            Curso
-                        </th>
-
-                        <th>
-                            Bolsa
-                        </th>
-
-                        <th>
-                            Local
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                        <th>
-                            Ações
-                        </th>
-
+                        <th>Vaga</th>
+                        <th>Empresa</th>
+                        <th>Curso</th>
+                        <th>Bolsa</th>
+                        <th>Local</th>
+                        <th>Status</th>
+                        <th>Ações</th>
                     </tr>
-
                 </thead>
-
 
                 <tbody>
 
@@ -115,170 +58,108 @@
 
                     <tr>
 
-                        <!-- =================================================
-                             VAGA
-                             ================================================= -->
-
+                        <!-- VAGA -->
                         <td>
-
                             <div class="aluno-tabela">
-
-                                <div class="aluno-avatar">
-                                    💼
-                                </div>
-
+                                <div class="aluno-avatar">💼</div>
                                 <div>
-
-                                    <strong>
-                                        {{ vaga.titulo }}
-                                    </strong>
-
+                                    <strong>{{ vaga.titulo }}</strong>
                                     <small>
                                         Carga horária:
                                         {{ vaga.carga_horaria }}
                                     </small>
-
                                 </div>
-
                             </div>
-
                         </td>
 
-
-                        <!-- =================================================
-                             EMPRESA
-                             ================================================= -->
-
+                        <!-- EMPRESA -->
                         <td>
                             {{ vaga.empresa.nome_fantasia }}
                         </td>
 
-
-                        <!-- =================================================
-                             CURSO
-                             ================================================= -->
-
+                        <!-- CURSO -->
                         <td>
                             {{ vaga.curso.nome }}
                         </td>
 
-
-                        <!-- =================================================
-                             BOLSA
-                             ================================================= -->
-
+                        <!-- BOLSA -->
                         <td>
-
                             {% if vaga.bolsa %}
-
                                 R$ {{ vaga.bolsa|floatformat:2 }}
-
                             {% else %}
-
                                 Não informada
-
                             {% endif %}
-
                         </td>
 
+                        <!-- LOCAL -->
+                        <td>{{ vaga.local }}</td>
 
-                        <!-- =================================================
-                             LOCAL
-                             ================================================= -->
-
+                        <!-- STATUS -->
                         <td>
-                            {{ vaga.local }}
-                        </td>
-
-
-                        <!-- =================================================
-                             STATUS
-                             ================================================= -->
-
-                        <td>
-
                             {% if vaga.status == 'PENDENTE' %}
-
                                 <span class="status-pendente">
                                     Pendente
                                 </span>
 
                             {% elif vaga.status == 'APROVADA' %}
-
                                 <span class="status-ativo">
                                     Aberta
                                 </span>
 
                             {% elif vaga.status == 'REJEITADA' %}
-
                                 <span class="status-inativo">
                                     Rejeitada
                                 </span>
 
                             {% elif vaga.status == 'ENCERRADA' %}
-
                                 <span class="status-inativo">
                                     Encerrada
                                 </span>
-
                             {% endif %}
-
                         </td>
 
-
-                        <!-- =================================================
-                             AÇÕES
-                             ================================================= -->
-
+                        <!-- AÇÕES -->
                         <td>
-
                             <div class="instituicao-acoes-vaga">
 
+                                <!-- BOTÃO VER DETALHES -->
+                                <a
+                                    href="{% url 'detalhes_vaga_instituicao' vaga.id %}"
+                                    class="botao-detalhes"
+                                >
+                                    Ver detalhes
+                                </a>
 
-                                <!-- =================================================
-                                     VAGA PENDENTE
-                                     ================================================= -->
-
+                                <!-- VAGA PENDENTE -->
                                 {% if vaga.status == 'PENDENTE' %}
 
                                     <form
                                         method="post"
                                         action="{% url 'aprovar_vaga' vaga.id %}"
                                     >
-
                                         {% csrf_token %}
-
                                         <button
                                             type="submit"
                                             class="botao-aprovar"
                                         >
                                             ✓ Aprovar
                                         </button>
-
                                     </form>
-
 
                                     <form
                                         method="post"
                                         action="{% url 'rejeitar_vaga' vaga.id %}"
                                     >
-
                                         {% csrf_token %}
-
                                         <button
                                             type="submit"
                                             class="botao-rejeitar"
                                         >
                                             ✕ Rejeitar
                                         </button>
-
                                     </form>
 
-
-                                <!-- =================================================
-                                     VAGA ABERTA
-                                     ================================================= -->
-
+                                <!-- VAGA ABERTA -->
                                 {% elif vaga.status == 'APROVADA' %}
 
                                     <form
@@ -286,46 +167,32 @@
                                         action="{% url 'encerrar_vaga_instituicao' vaga.id %}"
                                         onsubmit="return confirm('Tem certeza que deseja encerrar esta vaga?');"
                                     >
-
                                         {% csrf_token %}
-
                                         <button
                                             type="submit"
                                             class="botao-encerrar"
                                         >
                                             ✓ Encerrar vaga
                                         </button>
-
                                     </form>
 
-
-                                <!-- =================================================
-                                     VAGA REJEITADA
-                                     ================================================= -->
-
+                                <!-- VAGA REJEITADA -->
                                 {% elif vaga.status == 'REJEITADA' %}
 
                                     <form
                                         method="post"
                                         action="{% url 'aprovar_vaga' vaga.id %}"
                                     >
-
                                         {% csrf_token %}
-
                                         <button
                                             type="submit"
                                             class="botao-aprovar"
                                         >
                                             ↻ Reabrir
                                         </button>
-
                                     </form>
 
-
-                                <!-- =================================================
-                                     VAGA ENCERRADA
-                                     ================================================= -->
-
+                                <!-- VAGA ENCERRADA -->
                                 {% elif vaga.status == 'ENCERRADA' %}
 
                                     <form
@@ -333,57 +200,36 @@
                                         action="{% url 'reabrir_vaga' vaga.id %}"
                                         onsubmit="return confirm('Deseja realmente reabrir esta vaga?');"
                                     >
-
                                         {% csrf_token %}
-
                                         <button
                                             type="submit"
                                             class="botao-aprovar"
                                         >
                                             ↻ Reabrir vaga
                                         </button>
-
                                     </form>
 
                                 {% endif %}
 
-
                             </div>
-
                         </td>
 
                     </tr>
 
-
-                    <!-- =================================================
-                         NENHUMA VAGA
-                         ================================================= -->
-
                     {% empty %}
 
                     <tr>
-
-                        <td
-                            colspan="7"
-                            class="tabela-vazia"
-                        >
-
+                        <td colspan="7" class="tabela-vazia">
                             Nenhuma vaga cadastrada.
-
                         </td>
-
                     </tr>
 
                     {% endfor %}
 
                 </tbody>
-
             </table>
-
         </div>
-
     </section>
-
 </div>
 
 {% endblock %}

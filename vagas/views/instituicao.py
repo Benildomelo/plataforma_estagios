@@ -118,6 +118,24 @@ def gerenciar_vagas(request):
 
 
 # =========================================================
+# DETALHES DA VAGA
+# =========================================================
+
+@somente_instituicao
+def detalhes_vaga_instituicao(request, vaga_id):
+    vaga = get_object_or_404(
+        Vaga.objects.select_related('empresa', 'curso'),
+        id=vaga_id
+    )
+
+    return render(
+        request,
+        'vagas/publicas/detalhe_vaga.html',
+        {'vaga': vaga}
+    )
+
+
+# =========================================================
 # APROVAR VAGA
 # =========================================================
 
@@ -202,28 +220,6 @@ def encerrar_vaga_instituicao(request, vaga_id):
 
 
 # =========================================================
-# GERENCIAR CANDIDATURAS
-# =========================================================
-
-@somente_instituicao
-def gerenciar_candidaturas(request):
-
-    candidaturas = Candidatura.objects.select_related(
-        'aluno',
-        'vaga',
-        'vaga__empresa',
-        'vaga__curso'
-    ).order_by('-data_candidatura')
-
-    return render(
-        request,
-        'vagas/instituicao/gerenciar_candidaturas.html',
-        {
-            'candidaturas': candidaturas,
-        }
-    )
-
-# =========================================================
 # REABRIR VAGA
 # =========================================================
 
@@ -249,3 +245,27 @@ def reabrir_vaga(request, vaga_id):
     )
 
     return redirect('gerenciar_vagas')
+
+
+# =========================================================
+# GERENCIAR CANDIDATURAS
+# =========================================================
+
+@somente_instituicao
+def gerenciar_candidaturas(request):
+
+    candidaturas = Candidatura.objects.select_related(
+        'aluno',
+        'vaga',
+        'vaga__empresa',
+        'vaga__curso'
+    ).order_by('-data_candidatura')
+
+    return render(
+        request,
+        'vagas/instituicao/gerenciar_candidaturas.html',
+        {
+            'candidaturas': candidaturas,
+        }
+    )
+
