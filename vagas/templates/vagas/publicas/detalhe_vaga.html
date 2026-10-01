@@ -9,7 +9,6 @@
 <div class="detalhe-vaga">
 
     <!-- CABEÇALHO DA VAGA -->
-
     <div class="detalhe-cabecalho">
 
         <p class="detalhe-tipo">
@@ -26,47 +25,37 @@
 
     </div>
 
-
     <!-- INFORMAÇÕES PRINCIPAIS -->
-
     <div class="informacoes">
 
         <div class="info">
             <span class="info-icone">🎓</span>
-
             <div>
                 <strong>Curso</strong>
                 <span>{{ vaga.curso.nome }}</span>
             </div>
         </div>
 
-
         <div class="info">
             <span class="info-icone">📍</span>
-
             <div>
                 <strong>Local</strong>
                 <span>{{ vaga.local }}</span>
             </div>
         </div>
 
-
         <div class="info">
             <span class="info-icone">⏰</span>
-
             <div>
                 <strong>Carga horária</strong>
                 <span>{{ vaga.carga_horaria }}</span>
             </div>
         </div>
 
-
         <div class="info">
             <span class="info-icone">💰</span>
-
             <div>
                 <strong>Bolsa</strong>
-
                 <span>
                     {% if vaga.bolsa %}
                         R$ {{ vaga.bolsa|floatformat:2 }}
@@ -79,142 +68,144 @@
 
     </div>
 
-
     <!-- DESCRIÇÃO -->
-
     <div class="secao">
 
-        <h3>
-            Sobre a vaga
-        </h3>
+        <h3>Sobre a vaga</h3>
 
         <p>
-            {{ vaga.descricao }}
+            {{ vaga.descricao|linebreaksbr }}
         </p>
 
     </div>
 
-
     <!-- REQUISITOS -->
-
     <div class="secao">
 
-        <h3>
-            Requisitos
-        </h3>
+        <h3>Requisitos</h3>
 
         {% if vaga.requisitos %}
-
             <p>
-                {{ vaga.requisitos }}
+                {{ vaga.requisitos|linebreaksbr }}
             </p>
-
         {% else %}
-
             <p class="texto-secundario">
                 Não informado.
             </p>
-
         {% endif %}
 
     </div>
 
+    <!-- CANDIDATURA: SOMENTE PARA ALUNOS -->
+    {% if not user.is_superuser %}
 
-    <!-- CANDIDATURA -->
+        <div class="candidatura">
 
-    <div class="candidatura">
+            {% if user.is_authenticated %}
 
-        {% if user.is_authenticated %}
+                {% if candidatura_existente %}
 
-            {% if candidatura_existente %}
+                    <div class="candidatura-sucesso">
 
-                <div class="candidatura-sucesso">
+                        <p class="sucesso">
+                            ✓ Você já se candidatou a esta vaga.
+                        </p>
 
-                    <p class="sucesso">
-                        ✓ Você já se candidatou a esta vaga.
-                    </p>
+                        <p>
+                            Sua candidatura foi registrada na plataforma.
+                        </p>
 
-                    <p>
-                        Sua candidatura foi registrada na plataforma.
-                    </p>
+                        <a
+                            href="/minhas-candidaturas/"
+                            class="botao"
+                        >
+                            Ver minhas candidaturas
+                        </a>
 
-                    <a
-                        href="/minhas-candidaturas/"
-                        class="botao"
-                    >
-                        Ver minhas candidaturas
-                    </a>
+                    </div>
 
-                </div>
+                {% else %}
+
+                    <div class="candidatura-convite">
+
+                        <h3>
+                            Interessado nesta oportunidade?
+                        </h3>
+
+                        <p>
+                            Envie sua candidatura para que a empresa possa
+                            analisar seu perfil.
+                        </p>
+
+                        <form
+                            method="POST"
+                            action="{% url 'candidatar' vaga.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="botao botao-candidatura"
+                            >
+                                Candidatar-se à vaga
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% endif %}
 
             {% else %}
 
-                <div class="candidatura-convite">
+                <div class="candidatura-login">
 
                     <h3>
-                        Interessado nesta oportunidade?
+                        Quer se candidatar?
                     </h3>
 
                     <p>
-                        Envie sua candidatura para que a empresa possa
-                        analisar seu perfil.
+                        Faça login para enviar sua candidatura.
                     </p>
 
-                    <form
-                        method="POST"
-                        action="{% url 'candidatar' vaga.id %}"
+                    <a
+                        href="/entrar/"
+                        class="botao"
                     >
-
-                        {% csrf_token %}
-
-                        <button
-                            type="submit"
-                            class="botao botao-candidatura"
-                        >
-                            Candidatar-se à vaga
-                        </button>
-
-                    </form>
+                        Entrar para se candidatar
+                    </a>
 
                 </div>
 
             {% endif %}
 
-        {% else %}
+        </div>
 
-            <div class="candidatura-login">
-
-                <h3>
-                    Quer se candidatar?
-                </h3>
-
-                <p>
-                    Faça login para enviar sua candidatura.
-                </p>
-
-                <a
-                    href="/entrar/"
-                    class="botao"
-                >
-                    Entrar para se candidatar
-                </a>
-
-            </div>
-
-        {% endif %}
-
-    </div>
-
+    {% endif %}
 
     <!-- VOLTAR -->
+    {% if user.is_superuser %}
 
-    <a
-        href="/vagas/"
-        class="voltar"
-    >
-        ← Voltar para as vagas
-    </a>
+        <a
+            href="{% url 'gerenciar_vagas' %}"
+            class="voltar"
+        >
+            ← Voltar para gerenciar vagas
+        </a>
+
+    {% else %}
+
+        <a
+            href="/vagas/"
+            class="voltar"
+        >
+            ← Voltar para as vagas
+        </a>
+
+    {% endif %}
 
 </div>
 
 {% endblock %}
+
