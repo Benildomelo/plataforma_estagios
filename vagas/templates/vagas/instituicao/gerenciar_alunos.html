@@ -1,3 +1,4 @@
+```html
 {% extends 'vagas/base.html' %}
 {% load static %}
 
@@ -14,183 +15,279 @@
 <div class="area-instituicao">
 
     <!-- CABEÇALHO -->
-
     <section class="instituicao-cabecalho">
-
         <div>
-
-            <span class="instituicao-label">
-                ADMINISTRAÇÃO
-            </span>
-
-            <h1>
-                Gerenciar alunos
-            </h1>
-
+            <span class="instituicao-label">ADMINISTRAÇÃO</span>
+            <h1>Gerenciar alunos</h1>
             <p>
                 Consulte os alunos cadastrados na plataforma
                 e acompanhe suas informações acadêmicas.
             </p>
-
         </div>
 
-        <a
-            href="{% url 'area_instituicao' %}"
-            class="instituicao-botao-voltar"
-        >
+        <a href="{% url 'area_instituicao' %}"
+           class="instituicao-botao-voltar">
             ← Voltar
         </a>
-
     </section>
 
-
     <!-- CONTEÚDO -->
-
     <section class="instituicao-conteudo">
 
+        <!-- TÍTULO -->
         <div class="instituicao-secao-titulo">
-
-            <span>
-                ALUNOS CADASTRADOS
-            </span>
-
-            <h2>
-                Lista de alunos
-            </h2>
-
-            <p>
+            <span>ALUNOS CADASTRADOS</span>
+            <h2>Lista de alunos</h2>
+            <p id="contador-alunos">
                 {{ alunos|length }} aluno(s) encontrado(s).
             </p>
+        </div>
+
+        <!-- RESUMO -->
+        <div class="alunos-resumo">
+            <div class="aluno-resumo-card">
+                <span class="resumo-icone">🎓</span>
+                <div>
+                    <small>Total de alunos</small>
+                    <strong>{{ alunos|length }}</strong>
+                </div>
+            </div>
+
+            <div class="aluno-resumo-card">
+                <span class="resumo-icone">🟢</span>
+                <div>
+                    <small>Alunos ativos</small>
+                    <strong>
+                        {% with ativos=0 %}
+                            {% for aluno in alunos %}
+                                {% if aluno.ativo %}
+                                    <span class="contador-ativo"></span>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                        <span id="total-ativos">0</span>
+                    </strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="alunos-filtros">
+
+            <div class="filtro-pesquisa">
+                <label for="pesquisa-aluno">Pesquisar aluno</label>
+                <input
+                    type="search"
+                    id="pesquisa-aluno"
+                    placeholder="Nome, matrícula ou e-mail..."
+                >
+            </div>
+
+            <div class="filtro-curso">
+                <label for="filtro-curso">Curso</label>
+                <select id="filtro-curso">
+                    <option value="">Todos os cursos</option>
+                    {% for aluno in alunos %}
+                        {% if aluno.curso %}
+                            <option value="{{ aluno.curso.nome }}">
+                                {{ aluno.curso.nome }}
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filtro-situacao">
+                <label for="filtro-situacao">Situação</label>
+                <select id="filtro-situacao">
+                    <option value="">Todas</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
+            </div>
+
+            <button
+                type="button"
+                id="limpar-filtros"
+                class="botao-limpar-filtros">
+                Limpar filtros
+            </button>
 
         </div>
 
-
         <!-- TABELA -->
-
         <div class="instituicao-tabela-container">
 
-            <table class="instituicao-tabela">
+            <table class="instituicao-tabela" id="tabela-alunos">
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Aluno
-                        </th>
-
-                        <th>
-                            Matrícula
-                        </th>
-
-                        <th>
-                            Curso
-                        </th>
-
-                        <th>
-                            E-mail
-                        </th>
-
-                        <th>
-                            Situação
-                        </th>
-
+                        <th>Aluno</th>
+                        <th>Matrícula</th>
+                        <th>Curso</th>
+                        <th>E-mail</th>
+                        <th>Situação</th>
                     </tr>
-
                 </thead>
-
 
                 <tbody>
 
                     {% for aluno in alunos %}
-
-                    <tr>
+                    <tr
+                        class="linha-aluno"
+                        data-nome="{{ aluno.nome|lower }}"
+                        data-matricula="{{ aluno.matricula|lower }}"
+                        data-email="{{ aluno.email|lower }}"
+                        data-curso="{% if aluno.curso %}{{ aluno.curso.nome|lower }}{% endif %}"
+                        data-situacao="{% if aluno.ativo %}ativo{% else %}inativo{% endif %}"
+                    >
 
                         <td>
-
                             <div class="aluno-tabela">
-
-                                <div class="aluno-avatar">
-                                    🎓
-                                </div>
-
+                                <div class="aluno-avatar">🎓</div>
                                 <div>
-
-                                    <strong>
-                                        {{ aluno.nome }}
-                                    </strong>
-
-                                    <small>
-                                        Cadastro acadêmico
-                                    </small>
-
+                                    <strong>{{ aluno.nome }}</strong>
+                                    <small>Cadastro acadêmico</small>
                                 </div>
-
                             </div>
-
                         </td>
 
+                        <td>{{ aluno.matricula }}</td>
 
                         <td>
-                            {{ aluno.matricula }}
-                        </td>
-
-
-                        <td>
-                            {{ aluno.curso.nome }}
-                        </td>
-
-
-                        <td>
-                            {{ aluno.email }}
-                        </td>
-
-
-                        <td>
-
-                            {% if aluno.ativo %}
-
-                                <span class="status-ativo">
-                                    Ativo
-                                </span>
-
+                            {% if aluno.curso %}
+                                {{ aluno.curso.nome }}
                             {% else %}
-
-                                <span class="status-inativo">
-                                    Inativo
-                                </span>
-
+                                Não informado
                             {% endif %}
+                        </td>
 
+                        <td>{{ aluno.email }}</td>
+
+                        <td>
+                            {% if aluno.ativo %}
+                                <span class="status-ativo">Ativo</span>
+                            {% else %}
+                                <span class="status-inativo">Inativo</span>
+                            {% endif %}
                         </td>
 
                     </tr>
 
                     {% empty %}
-
                     <tr>
-
-                        <td
-                            colspan="5"
-                            class="tabela-vazia"
-                        >
-
+                        <td colspan="5" class="tabela-vazia">
                             Nenhum aluno cadastrado.
-
                         </td>
-
                     </tr>
-
                     {% endfor %}
 
-                </tbody>
+                    <tr id="nenhum-resultado" style="display: none;">
+                        <td colspan="5" class="tabela-vazia">
+                            Nenhum aluno corresponde aos filtros.
+                        </td>
+                    </tr>
 
+                </tbody>
             </table>
 
         </div>
-
     </section>
-
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const pesquisa = document.getElementById('pesquisa-aluno');
+    const filtroCurso = document.getElementById('filtro-curso');
+    const filtroSituacao = document.getElementById('filtro-situacao');
+    const botaoLimpar = document.getElementById('limpar-filtros');
+    const linhas = document.querySelectorAll('.linha-aluno');
+    const contador = document.getElementById('contador-alunos');
+    const totalAtivos = document.getElementById('total-ativos');
+    const nenhumResultado = document.getElementById('nenhum-resultado');
+
+    // Remove opções de cursos duplicadas
+    const opcoes = Array.from(filtroCurso.options);
+    const cursosUnicos = new Set();
+
+    opcoes.forEach(function (opcao, indice) {
+        if (indice === 0) return;
+
+        const curso = opcao.value.toLowerCase();
+
+        if (cursosUnicos.has(curso)) {
+            opcao.remove();
+        } else {
+            cursosUnicos.add(curso);
+        }
+    });
+
+    function filtrarAlunos() {
+        const termo = pesquisa.value.toLowerCase().trim();
+        const cursoSelecionado = filtroCurso.value.toLowerCase();
+        const situacaoSelecionada = filtroSituacao.value;
+
+        let encontrados = 0;
+        let ativos = 0;
+
+        linhas.forEach(function (linha) {
+            const nome = linha.dataset.nome;
+            const matricula = linha.dataset.matricula;
+            const email = linha.dataset.email;
+            const curso = linha.dataset.curso;
+            const situacao = linha.dataset.situacao;
+
+            const correspondePesquisa =
+                nome.includes(termo) ||
+                matricula.includes(termo) ||
+                email.includes(termo);
+
+            const correspondeCurso =
+                !cursoSelecionado || curso === cursoSelecionado;
+
+            const correspondeSituacao =
+                !situacaoSelecionada ||
+                situacao === situacaoSelecionada;
+
+            const mostrar =
+                correspondePesquisa &&
+                correspondeCurso &&
+                correspondeSituacao;
+
+            linha.style.display = mostrar ? '' : 'none';
+
+            if (mostrar) {
+                encontrados++;
+
+                if (situacao === 'ativo') {
+                    ativos++;
+                }
+            }
+        });
+
+        contador.textContent =
+            encontrados + ' aluno(s) encontrado(s).';
+
+        totalAtivos.textContent = ativos;
+
+        nenhumResultado.style.display =
+            encontrados === 0 ? '' : 'none';
+    }
+
+    pesquisa.addEventListener('input', filtrarAlunos);
+    filtroCurso.addEventListener('change', filtrarAlunos);
+    filtroSituacao.addEventListener('change', filtrarAlunos);
+
+    botaoLimpar.addEventListener('click', function () {
+        pesquisa.value = '';
+        filtroCurso.value = '';
+        filtroSituacao.value = '';
+        filtrarAlunos();
+    });
+
+    filtrarAlunos();
+});
+</script>
+
 {% endblock %}
+```
