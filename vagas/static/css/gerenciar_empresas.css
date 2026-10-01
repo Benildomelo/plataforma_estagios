@@ -1,357 +1,390 @@
-/* =========================================================
-   GERENCIAMENTO DE EMPRESAS
+/* ==========================================
+   GERENCIAR EMPRESAS
    UNIPI CONECTA
-   ========================================================= */
+========================================== */
 
-.area-instituicao {
+.empresas-page {
     width: 100%;
+    max-width: 1100px;
+    margin: 28px auto 60px;
+    padding: 0 20px;
 }
 
+/* CABEÇALHO */
 
-/* =========================================================
-   CABEÇALHO
-   ========================================================= */
+.empresas-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 35, 55, 0.06);
+    margin-bottom: 26px;
+}
 
-.instituicao-cabecalho {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 45px 30px 35px;
+.empresas-cabecalho h1 {
+    margin: 8px 0;
+    color: #142b40;
+    font-size: 27px;
+    font-weight: 700;
+}
 
+.empresas-cabecalho p {
+    margin: 0;
+    color: #687789;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* INDICADORES */
+
+.empresas-indicadores {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.empresa-indicador {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 30px;
+    gap: 16px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #e9eef3;
+    border-radius: 13px;
+    box-shadow: 0 3px 12px rgba(15, 35, 55, 0.04);
 }
 
-.instituicao-cabecalho > div {
-    flex: 1;
-}
-
-.instituicao-label {
-    display: inline-block;
-
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-
-    color: #2563eb;
-    margin-bottom: 10px;
-}
-
-.instituicao-cabecalho h1 {
-    margin: 0 0 10px;
-
-    font-size: 32px;
-    font-weight: 700;
-
-    color: #172033;
-}
-
-.instituicao-cabecalho p {
-    margin: 0;
-
-    max-width: 650px;
-
-    font-size: 15px;
-    line-height: 1.6;
-
-    color: #64748b;
-}
-
-
-/* =========================================================
-   BOTÃO VOLTAR
-   ========================================================= */
-
-.instituicao-botao-voltar {
-    display: inline-flex;
+.indicador-icone {
+    display: flex;
     align-items: center;
     justify-content: center;
-
-    padding: 11px 18px;
-
-    border: 1px solid #dbe2ea;
-    border-radius: 8px;
-
-    background: #ffffff;
-
-    color: #334155;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.instituicao-botao-voltar:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-    transform: translateX(-2px);
-}
-
-
-/* =========================================================
-   CONTEÚDO
-   ========================================================= */
-
-.instituicao-conteudo {
-    width: 100%;
-    max-width: 1200px;
-
-    margin: 0 auto;
-    padding: 10px 30px 50px;
-}
-
-
-/* =========================================================
-   TÍTULO DA SEÇÃO
-   ========================================================= */
-
-.instituicao-secao-titulo {
-    margin-bottom: 25px;
-}
-
-.instituicao-secao-titulo > span {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-
-    color: #2563eb;
-}
-
-.instituicao-secao-titulo h2 {
-    margin: 0 0 6px;
-
-    font-size: 23px;
-    font-weight: 700;
-
-    color: #172033;
-}
-
-.instituicao-secao-titulo p {
-    margin: 0;
-
-    font-size: 14px;
-
-    color: #64748b;
-}
-
-
-/* =========================================================
-   CONTAINER DA TABELA
-   ========================================================= */
-
-.instituicao-tabela-container {
-    width: 100%;
-
-    overflow-x: auto;
-
-    background: #ffffff;
-
-    border: 1px solid #e2e8f0;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
     border-radius: 12px;
-
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    font-size: 21px;
+    font-weight: 700;
 }
 
+.indicador-icone.total {
+    background: #eaf2fc;
+    color: #245b9b;
+}
 
-/* =========================================================
-   TABELA
-   ========================================================= */
+.indicador-icone.ativa {
+    background: #e7f6ee;
+    color: #23834f;
+}
 
-.instituicao-tabela {
+.indicador-icone.inativa {
+    background: #fff1e7;
+    color: #bc6b26;
+}
+
+.empresa-indicador div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.empresa-indicador span {
+    color: #6c7b8b;
+    font-size: 12px;
+}
+
+.empresa-indicador strong {
+    color: #152d43;
+    font-size: 25px;
+    line-height: 1.2;
+}
+
+.empresa-indicador small {
+    color: #9aa5b1;
+    font-size: 11px;
+}
+
+/* CONTEÚDO */
+
+.empresas-conteudo {
+    background: #fff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(15, 35, 55, 0.05);
+}
+
+.empresas-lista-topo {
+    margin-bottom: 22px;
+}
+
+.empresas-lista-topo .instituicao-secao-titulo h2 {
+    color: #142b40;
+    font-size: 21px;
+    margin: 7px 0;
+}
+
+.empresas-lista-topo .instituicao-secao-titulo p {
+    color: #7b8997;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* FILTROS */
+
+.empresas-filtros {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.empresa-busca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 220px;
+    border: 1px solid #dce4ec;
+    background: #fff;
+    border-radius: 9px;
+    padding: 0 14px;
+    height: 44px;
+}
+
+.empresa-busca span {
+    color: #718399;
+    font-size: 23px;
+}
+
+.empresa-busca input {
     width: 100%;
+    border: none;
+    outline: none;
+    color: #24394c;
+    font-size: 13px;
+    background: transparent;
+}
 
+.empresa-busca:focus-within {
+    border-color: #3975b9;
+    box-shadow: 0 0 0 3px rgba(57, 117, 185, 0.10);
+}
+
+.empresas-filtros select {
+    height: 44px;
+    padding: 0 35px 0 13px;
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+    background: #fff;
+    color: #34495d;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.empresas-filtros button {
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #dce4ec;
+    border-radius: 9px;
+    background: #f7f9fb;
+    color: #4e6275;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.empresas-filtros button:hover {
+    background: #eaf0f6;
+    border-color: #c5d2df;
+}
+
+/* TABELA */
+
+.empresas-tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e7edf2;
+    border-radius: 11px;
+}
+
+.empresas-tabela {
+    width: 100%;
+    min-width: 700px;
     border-collapse: collapse;
-
-    min-width: 850px;
 }
 
-
-/* =========================================================
-   CABEÇALHO DA TABELA
-   ========================================================= */
-
-.instituicao-tabela thead {
-    background: #f8fafc;
+.empresas-tabela thead {
+    background: #f6f8fa;
 }
 
-.instituicao-tabela th {
-    padding: 15px 18px;
-
-    text-align: left;
-
-    border-bottom: 1px solid #e2e8f0;
-
-    color: #64748b;
-
+.empresas-tabela th {
+    padding: 15px 14px;
+    color: #647589;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.7px;
+    text-align: left;
     text-transform: uppercase;
-
+    letter-spacing: 0.4px;
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   LINHAS
-   ========================================================= */
-
-.instituicao-tabela tbody tr {
-    transition: background 0.2s ease;
-}
-
-.instituicao-tabela tbody tr:hover {
-    background: #f8fafc;
-}
-
-.instituicao-tabela td {
-    padding: 17px 18px;
-
-    border-bottom: 1px solid #edf1f5;
-
-    color: #334155;
-
-    font-size: 14px;
-
+.empresas-tabela td {
+    padding: 15px 14px;
+    border-top: 1px solid #edf1f4;
+    color: #34475a;
+    font-size: 12px;
     vertical-align: middle;
 }
 
-.instituicao-tabela tbody tr:last-child td {
-    border-bottom: none;
+.empresas-tabela tbody tr {
+    transition: background 0.2s;
 }
 
-
-/* =========================================================
-   EMPRESA
-   ========================================================= */
+.empresas-tabela tbody tr:hover {
+    background: #f8fafc;
+}
 
 .empresa-tabela {
     display: flex;
     align-items: center;
-
     gap: 12px;
-
-    min-width: 220px;
+    min-width: 180px;
 }
 
 .empresa-avatar {
-    width: 42px;
-    height: 42px;
-
-    flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 10px;
-
-    background: #eff6ff;
-
-    font-size: 19px;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    background: #edf3f8;
+    border-radius: 9px;
+    font-size: 18px;
 }
 
-.empresa-tabela strong {
-    display: block;
+.empresa-identificacao {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
-    margin-bottom: 4px;
-
-    color: #1e293b;
-
-    font-size: 14px;
+.empresa-identificacao strong {
+    color: #24394d;
+    font-size: 12px;
     font-weight: 700;
 }
 
-.empresa-tabela small {
-    display: block;
-
-    color: #94a3b8;
-
-    font-size: 12px;
+.empresa-identificacao small {
+    color: #8996a3;
+    font-size: 10px;
 }
 
-
-/* =========================================================
-   STATUS
-   ========================================================= */
+/* SITUAÇÃO */
 
 .status-ativo,
 .status-inativo {
     display: inline-flex;
     align-items: center;
-
-    padding: 5px 10px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
+    gap: 7px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .status-ativo {
-    background: #ecfdf5;
-    color: #047857;
+    color: #237849;
+    background: #e7f6ed;
 }
 
 .status-inativo {
-    background: #fef2f2;
-    color: #b91c1c;
+    color: #ad5d32;
+    background: #fff0e8;
 }
 
+.status-ativo span,
+.status-inativo span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
 
-/* =========================================================
-   TABELA VAZIA
-   ========================================================= */
+/* ESTADO VAZIO */
 
 .tabela-vazia {
-    padding: 45px 20px !important;
-
-    text-align: center !important;
-
-    color: #94a3b8 !important;
-
-    font-size: 14px !important;
+    padding: 35px 20px !important;
+    color: #8a98a7 !important;
+    text-align: center;
+    font-size: 13px !important;
 }
 
+/* RESPONSIVIDADE */
 
-/* =========================================================
-   RESPONSIVIDADE
-   ========================================================= */
+@media (max-width: 850px) {
+    .empresas-indicadores {
+        grid-template-columns: 1fr 1fr;
+    }
 
-@media (max-width: 768px) {
+    .empresa-indicador:last-child {
+        grid-column: 1 / -1;
+    }
+}
 
-    .instituicao-cabecalho {
-        padding: 30px 20px 25px;
+@media (max-width: 600px) {
+    .empresas-page {
+        margin-top: 18px;
+        padding: 0 12px;
+    }
 
+    .empresas-cabecalho {
         align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
+    }
 
+    .empresas-cabecalho h1 {
+        font-size: 23px;
+    }
+
+    .empresas-indicadores {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .empresa-indicador:last-child {
+        grid-column: auto;
+    }
+
+    .empresa-indicador {
+        padding: 17px;
+    }
+
+    .empresas-conteudo {
+        padding: 18px 14px;
+    }
+
+    .empresas-filtros {
+        align-items: stretch;
         flex-direction: column;
     }
 
-    .instituicao-cabecalho h1 {
-        font-size: 27px;
+    .empresa-busca {
+        min-width: 0;
+        flex: auto;
     }
 
-    .instituicao-botao-voltar {
-        align-self: flex-start;
-    }
-
-    .instituicao-conteudo {
-        padding: 10px 20px 40px;
-    }
-
-    .instituicao-tabela-container {
-        border-radius: 10px;
+    .empresas-filtros select,
+    .empresas-filtros button {
+        width: 100%;
     }
 }
+
