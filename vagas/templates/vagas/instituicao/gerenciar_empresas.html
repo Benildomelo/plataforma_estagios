@@ -1,162 +1,160 @@
 {% extends 'vagas/base.html' %}
+{% load static %}
 
-{% block title %}
-    Gerenciar Empresas - UNIPI Conecta
+{% block title %}Gerenciar Empresas - UNIPI Conecta{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/gerenciar_empresas.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<div class="area-instituicao">
+<div class="area-instituicao empresas-page">
 
     <!-- CABEÇALHO -->
-
-    <section class="instituicao-cabecalho">
-
+    <section class="instituicao-cabecalho empresas-cabecalho">
         <div>
-
-            <span class="instituicao-label">
-                ADMINISTRAÇÃO
-            </span>
-
-            <h1>
-                Gerenciar empresas
-            </h1>
-
+            <span class="instituicao-label">ADMINISTRAÇÃO</span>
+            <h1>Gerenciar empresas</h1>
             <p>
-                Consulte as empresas cadastradas na plataforma
-                e acompanhe suas informações.
+                Gerencie as empresas cadastradas, consulte informações
+                e acompanhe a situação de cada cadastro.
             </p>
-
         </div>
 
-        <a
-            href="{% url 'area_instituicao' %}"
-            class="instituicao-botao-voltar"
-        >
+        <a href="{% url 'area_instituicao' %}"
+           class="instituicao-botao-voltar">
             ← Voltar
         </a>
+    </section>
+
+    <!-- INDICADORES -->
+    <section class="empresas-indicadores">
+
+        <article class="empresa-indicador">
+            <div class="indicador-icone total">🏢</div>
+            <div>
+                <span>Total de empresas</span>
+                <strong id="totalEmpresas">0</strong>
+                <small>Cadastros encontrados</small>
+            </div>
+        </article>
+
+        <article class="empresa-indicador">
+            <div class="indicador-icone ativa">✓</div>
+            <div>
+                <span>Empresas ativas</span>
+                <strong id="empresasAtivas">0</strong>
+                <small>Com cadastro ativo</small>
+            </div>
+        </article>
+
+        <article class="empresa-indicador">
+            <div class="indicador-icone inativa">!</div>
+            <div>
+                <span>Empresas inativas</span>
+                <strong id="empresasInativas">0</strong>
+                <small>Com cadastro inativo</small>
+            </div>
+        </article>
 
     </section>
 
+    <!-- LISTAGEM -->
+    <section class="instituicao-conteudo empresas-conteudo">
 
-    <!-- CONTEÚDO -->
+        <div class="empresas-lista-topo">
+            <div class="instituicao-secao-titulo">
+                <span>EMPRESAS CADASTRADAS</span>
+                <h2>Lista de empresas</h2>
+                <p id="textoResultados">
+                    {{ empresas|length }} empresa(s) encontrada(s).
+                </p>
+            </div>
+        </div>
 
-    <section class="instituicao-conteudo">
+        <!-- PESQUISA E FILTROS -->
+        <div class="empresas-filtros">
 
-        <div class="instituicao-secao-titulo">
+            <div class="empresa-busca">
+                <span>⌕</span>
+                <input
+                    type="search"
+                    id="pesquisaEmpresa"
+                    placeholder="Pesquisar por nome, CNPJ ou e-mail..."
+                    aria-label="Pesquisar empresas"
+                >
+            </div>
 
-            <span>
-                EMPRESAS CADASTRADAS
-            </span>
+            <select id="filtroSituacao" aria-label="Filtrar por situação">
+                <option value="todos">Todas as situações</option>
+                <option value="ativa">Ativas</option>
+                <option value="inativa">Inativas</option>
+            </select>
 
-            <h2>
-                Lista de empresas
-            </h2>
-
-            <p>
-                {{ empresas|length }} empresa(s) encontrada(s).
-            </p>
+            <button type="button" id="limparFiltros">
+                Limpar filtros
+            </button>
 
         </div>
 
-
         <!-- TABELA -->
+        <div class="instituicao-tabela-container empresas-tabela-container">
 
-        <div class="instituicao-tabela-container">
-
-            <table class="instituicao-tabela">
+            <table class="instituicao-tabela empresas-tabela">
 
                 <thead>
-
                     <tr>
-
-                        <th>
-                            Empresa
-                        </th>
-
-                        <th>
-                            CNPJ
-                        </th>
-
-                        <th>
-                            E-mail
-                        </th>
-
-                        <th>
-                            Telefone
-                        </th>
-
-                        <th>
-                            Situação
-                        </th>
-
+                        <th>Empresa</th>
+                        <th>CNPJ</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Situação</th>
                     </tr>
-
                 </thead>
 
-
-                <tbody>
+                <tbody id="listaEmpresas">
 
                     {% for empresa in empresas %}
 
-                    <tr>
+                    <tr
+                        class="linha-empresa"
+                        data-nome="{{ empresa.nome_fantasia|default:''|lower }}"
+                        data-razao="{{ empresa.razao_social|default:''|lower }}"
+                        data-cnpj="{{ empresa.cnpj|default:''|lower }}"
+                        data-email="{{ empresa.email|default:''|lower }}"
+                        data-situacao="{% if empresa.ativo %}ativa{% else %}inativa{% endif %}"
+                    >
 
                         <td>
-
                             <div class="empresa-tabela">
+                                <div class="empresa-avatar">🏢</div>
 
-                                <div class="empresa-avatar">
-                                    🏢
+                                <div class="empresa-identificacao">
+                                    <strong>{{ empresa.nome_fantasia }}</strong>
+                                    <small>{{ empresa.razao_social }}</small>
                                 </div>
-
-                                <div>
-
-                                    <strong>
-                                        {{ empresa.nome_fantasia }}
-                                    </strong>
-
-                                    <small>
-                                        {{ empresa.razao_social }}
-                                    </small>
-
-                                </div>
-
                             </div>
-
                         </td>
 
+                        <td>{{ empresa.cnpj }}</td>
 
-                        <td>
-                            {{ empresa.cnpj }}
-                        </td>
-
-
-                        <td>
-                            {{ empresa.email }}
-                        </td>
-
+                        <td>{{ empresa.email }}</td>
 
                         <td>
                             {{ empresa.telefone|default:"Não informado" }}
                         </td>
 
-
                         <td>
-
                             {% if empresa.ativo %}
-
                                 <span class="status-ativo">
-                                    Ativa
+                                    <span></span> Ativa
                                 </span>
-
                             {% else %}
-
                                 <span class="status-inativo">
-                                    Inativa
+                                    <span></span> Inativa
                                 </span>
-
                             {% endif %}
-
                         </td>
 
                     </tr>
@@ -164,26 +162,93 @@
                     {% empty %}
 
                     <tr>
-
-                        <td
-                            colspan="5"
-                            class="tabela-vazia"
-                        >
+                        <td colspan="5" class="tabela-vazia">
                             Nenhuma empresa cadastrada.
                         </td>
-
                     </tr>
 
                     {% endfor %}
 
+                    <tr id="nenhumResultado" style="display: none;">
+                        <td colspan="5" class="tabela-vazia">
+                            Nenhuma empresa corresponde aos filtros.
+                        </td>
+                    </tr>
+
                 </tbody>
-
             </table>
-
         </div>
 
     </section>
-
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const pesquisa = document.getElementById("pesquisaEmpresa");
+    const filtro = document.getElementById("filtroSituacao");
+    const limpar = document.getElementById("limparFiltros");
+    const linhas = Array.from(document.querySelectorAll(".linha-empresa"));
+    const nenhumResultado = document.getElementById("nenhumResultado");
+
+    const total = document.getElementById("totalEmpresas");
+    const ativas = document.getElementById("empresasAtivas");
+    const inativas = document.getElementById("empresasInativas");
+    const textoResultados = document.getElementById("textoResultados");
+
+    function atualizarEmpresas() {
+        const termo = pesquisa.value.trim().toLowerCase();
+        const situacao = filtro.value;
+
+        let encontrados = 0;
+
+        linhas.forEach(function (linha) {
+            const dados = [
+                linha.dataset.nome,
+                linha.dataset.razao,
+                linha.dataset.cnpj,
+                linha.dataset.email
+            ].join(" ");
+
+            const correspondeTexto = dados.includes(termo);
+            const correspondeSituacao =
+                situacao === "todos" ||
+                linha.dataset.situacao === situacao;
+
+            const mostrar = correspondeTexto && correspondeSituacao;
+
+            linha.style.display = mostrar ? "" : "none";
+
+            if (mostrar) encontrados++;
+        });
+
+        nenhumResultado.style.display =
+            encontrados === 0 && linhas.length > 0 ? "" : "none";
+
+        textoResultados.textContent =
+            encontrados + (encontrados === 1
+                ? " empresa encontrada."
+                : " empresas encontradas.");
+    }
+
+    const quantidadeAtivas = linhas.filter(
+        linha => linha.dataset.situacao === "ativa"
+    ).length;
+
+    total.textContent = linhas.length;
+    ativas.textContent = quantidadeAtivas;
+    inativas.textContent = linhas.length - quantidadeAtivas;
+
+    pesquisa.addEventListener("input", atualizarEmpresas);
+    filtro.addEventListener("change", atualizarEmpresas);
+
+    limpar.addEventListener("click", function () {
+        pesquisa.value = "";
+        filtro.value = "todos";
+        atualizarEmpresas();
+    });
+
+    atualizarEmpresas();
+});
+</script>
 
 {% endblock %}
