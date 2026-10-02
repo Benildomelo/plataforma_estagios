@@ -1,322 +1,396 @@
 /* =========================================================
-PLATAFORMA DE ESTÁGIOS — UNIPI CONECTA
-CSS GLOBAL E RESPONSIVIDADE
-========================================================= */
+   PLATAFORMA DE ESTÁGIOS — UNIPI CONECTA
+   CSS GLOBAL E RESPONSIVIDADE
+   ========================================================= */
+
 
 /* =========================================================
-VARIÁVEIS DO SISTEMA
-========================================================= */
+   VARIÁVEIS DO SISTEMA
+   ========================================================= */
 
 :root {
---cor-primaria: #1f4e79;
---cor-primaria-hover: #163a5c;
+    --cor-primaria: #1f4e79;
+    --cor-primaria-hover: #163a5c;
 
+    --cor-fundo: #f4f6f9;
+    --cor-branco: #ffffff;
+    --cor-texto: #333333;
+    --cor-texto-secundario: #666666;
+    --cor-borda: #e1e5e9;
 
---cor-fundo: #f4f6f9;
---cor-branco: #ffffff;
-
---cor-texto: #333333;
---cor-texto-secundario: #666666;
-
---cor-borda: #e1e5e9;
-
---sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.08);
-
---raio-padrao: 12px;
-
-
+    --sombra-padrao: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --raio-padrao: 12px;
 }
 
+
 /* =========================================================
-RESET BÁSICO
-========================================================= */
+   RESET BÁSICO
+   ========================================================= */
 
 * {
-  box-sizing: border-box;
-  }
+    box-sizing: border-box;
+}
 
 html {
-width: 100%;
-min-height: 100%;
-scroll-behavior: smooth;
+    width: 100%;
+    min-height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
-margin: 0;
-width: 100%;
-min-height: 100vh;
-font-family: Arial, sans-serif;
-background: var(--cor-fundo);
-color: var(--cor-texto);
-overflow-x: hidden;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+
+    overflow-x: hidden;
 }
 
+
 /* =========================================================
-CABEÇALHO
-========================================================= */
+   CABEÇALHO
+   ========================================================= */
 
 header {
-width: 100%;
-background: var(--cor-primaria);
-color: var(--cor-branco);
-padding: 20px 40px;
+    width: 100%;
 
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
 
-display: flex;
-justify-content: space-between;
-align-items: center;
+    padding: 20px 40px;
 
-flex-wrap: wrap;
-gap: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 header h1 {
-font-size: 24px;
-margin: 0;
-line-height: 1.3;
+    margin: 0;
+
+    font-size: 24px;
+    line-height: 1.3;
 }
 
+
 /* =========================================================
-BARRA DE NAVEGAÇÃO
-========================================================= */
+   BARRA DE NAVEGAÇÃO
+   ========================================================= */
 
 .barra-navegacao {
-width: 100%;
-max-width: 1400px;
-margin: 0 auto;
+    width: 100%;
+    max-width: 1400px;
 
+    margin: 0 auto;
 
-display: flex;
-justify-content: space-between;
-align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-gap: 20px;
-
-
+    gap: 20px;
 }
 
 .barra-navegacao nav {
-display: flex;
-align-items: center;
-justify-content: flex-end;
-gap: 8px;
-flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
 }
 
 .barra-navegacao nav a {
-color: #ffffff;
-text-decoration: none;
+    color: #ffffff;
+    text-decoration: none;
 
+    padding: 8px 12px;
 
-padding: 8px 12px;
-border-radius: 6px;
+    border-radius: 6px;
 
-font-size: 14px;
-white-space: nowrap;
+    font-size: 14px;
+    white-space: nowrap;
 
-transition: background 0.2s;
-
-
+    transition: background 0.2s ease;
 }
 
 .barra-navegacao nav a:hover {
-background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
 }
 
+
 /* =========================================================
-CONTEÚDO PRINCIPAL
-========================================================= */
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
 
 main {
-width: 100%;
-max-width: 1100px;
-margin: 40px auto;
-padding: 0 20px;
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 40px auto;
+
+    padding: 0 20px;
 }
 
+
 /* =========================================================
-BOTÕES
-========================================================= */
+   BOTÕES
+   ========================================================= */
 
 .botoes {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 12px;
-flex-wrap: wrap;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
 }
 
 .botao {
-display: inline-block;
-max-width: 100%;
+    display: inline-block;
 
+    max-width: 100%;
 
-background: var(--cor-primaria);
-color: var(--cor-branco);
+    background: var(--cor-primaria);
+    color: var(--cor-branco);
 
-text-decoration: none;
-text-align: center;
+    text-decoration: none;
+    text-align: center;
 
-padding: 12px 24px;
-border-radius: 7px;
+    padding: 12px 24px;
 
-font-weight: bold;
+    border-radius: 7px;
 
-transition: 0.2s;
+    font-weight: bold;
 
-
+    transition: 0.2s ease;
 }
 
 .botao:hover {
-background: var(--cor-primaria-hover);
-transform: translateY(-1px);
+    background: var(--cor-primaria-hover);
+    transform: translateY(-1px);
 }
 
 .botao-secundario {
-background: #e8eef5;
-color: var(--cor-primaria);
+    background: #e8eef5;
+    color: var(--cor-primaria);
 }
 
 .botao-secundario:hover {
-background: #d8e3ee;
+    background: #d8e3ee;
 }
 
+
 /* =========================================================
-RODAPÉ
-========================================================= */
+   RODAPÉ
+   ========================================================= */
 
 footer {
-width: 100%;
-text-align: center;
-color: var(--cor-texto-secundario);
+    width: 100%;
 
+    text-align: center;
 
-padding: 30px 20px;
-font-size: 14px;
+    color: var(--cor-texto-secundario);
 
+    padding: 30px 20px;
 
+    font-size: 14px;
 }
 
+
 /* =========================================================
-RESPONSIVIDADE — TABLETS
-========================================================= */
+   RESPONSIVIDADE — TABLETS
+   ========================================================= */
 
 @media (max-width: 900px) {
 
+    header {
+        padding: 18px 24px;
+    }
 
-header {
-    padding: 18px 24px;
+    .barra-navegacao {
+        gap: 15px;
+    }
+
+    .barra-navegacao nav {
+        gap: 5px;
+    }
+
+    .barra-navegacao nav a {
+        padding: 8px 9px;
+        font-size: 13px;
+    }
+
+    main {
+        margin: 30px auto;
+        padding: 0 18px;
+    }
 }
 
-.barra-navegacao {
-    gap: 15px;
-}
-
-.barra-navegacao nav {
-    gap: 5px;
-}
-
-.barra-navegacao nav a {
-    padding: 8px 9px;
-    font-size: 13px;
-}
-
-main {
-    margin: 30px auto;
-    padding: 0 18px;
-}
-
-
-}
 
 /* =========================================================
-RESPONSIVIDADE — CELULARES
-========================================================= */
+   RESPONSIVIDADE — CELULARES
+   ========================================================= */
 
 @media (max-width: 600px) {
 
+    /* -----------------------------------------
+       CABEÇALHO
+       ----------------------------------------- */
 
-header {
-    padding: 18px 15px;
+    header {
+        width: 100%;
+
+        padding: 16px 12px;
+
+        display: block;
+    }
+
+    /* -----------------------------------------
+       BARRA PRINCIPAL
+       ----------------------------------------- */
+
+    .barra-navegacao {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 14px;
+    }
+
+    /* -----------------------------------------
+       TÍTULO
+       ----------------------------------------- */
+
+    .barra-navegacao h1 {
+        width: 100%;
+
+        margin: 0;
+
+        text-align: center;
+
+        font-size: 21px;
+        line-height: 1.3;
+    }
+
+    /* -----------------------------------------
+       MENU
+       ----------------------------------------- */
+
+    .barra-navegacao nav {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 6px;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .barra-navegacao nav a {
+        width: 100%;
+
+        padding: 9px 6px;
+
+        text-align: center;
+
+        font-size: 13px;
+
+        white-space: nowrap;
+    }
+
+    /* -----------------------------------------
+       CONTEÚDO
+       ----------------------------------------- */
+
+    main {
+        width: 100%;
+
+        margin: 22px auto;
+
+        padding: 0 12px;
+    }
+
+    /* -----------------------------------------
+       BOTÕES
+       ----------------------------------------- */
+
+    .botoes {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+    .botao {
+        width: 100%;
+
+        padding: 12px 16px;
+    }
+
+    /* -----------------------------------------
+       RODAPÉ
+       ----------------------------------------- */
+
+    footer {
+        padding: 22px 12px;
+
+        font-size: 13px;
+    }
 }
 
-.barra-navegacao {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.barra-navegacao h1 {
-    width: 100%;
-    text-align: center;
-    font-size: 21px;
-}
-
-.barra-navegacao nav {
-    width: 100%;
-    justify-content: center;
-    gap: 6px;
-}
-
-.barra-navegacao nav a {
-    padding: 9px 10px;
-    font-size: 13px;
-    text-align: center;
-}
-
-main {
-    margin: 22px auto;
-    padding: 0 12px;
-}
-
-.botoes {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-}
-
-.botao {
-    width: 100%;
-    padding: 12px 16px;
-}
-
-footer {
-    padding: 22px 12px;
-    font-size: 13px;
-}
-
-
-}
 
 /* =========================================================
-RESPONSIVIDADE — CELULARES PEQUENOS
-========================================================= */
+   RESPONSIVIDADE — CELULARES PEQUENOS
+   ========================================================= */
 
 @media (max-width: 380px) {
 
+    header {
+        padding: 14px 10px;
+    }
 
-header {
-    padding: 15px 10px;
-}
+    .barra-navegacao {
+        gap: 12px;
+    }
 
-.barra-navegacao h1 {
-    font-size: 19px;
-}
+    .barra-navegacao h1 {
+        font-size: 19px;
+    }
 
-.barra-navegacao nav {
-    gap: 4px;
-}
+    .barra-navegacao nav {
+        gap: 4px;
+    }
 
-.barra-navegacao nav a {
-    padding: 8px;
-    font-size: 12px;
-}
+    .barra-navegacao nav a {
+        padding: 8px 4px;
 
-main {
-    padding: 0 10px;
-}
+        font-size: 12px;
+    }
 
+    main {
+        padding: 0 10px;
+    }
 
+    footer {
+        padding: 20px 10px;
+
+        font-size: 12px;
+    }
 }

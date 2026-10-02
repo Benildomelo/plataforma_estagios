@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 {% load static %}
 
@@ -9,23 +10,13 @@
 
 <div class="inicio">
 
-    <!-- =====================================================
-         BANNER / CARROSSEL PRINCIPAL
-         ===================================================== -->
-
+    <!-- CARROSSEL PRINCIPAL -->
     <section class="inicio-carrossel">
-
         <div class="carrossel-slides">
 
-
-            <!-- =================================================
-                 SLIDE 1
-                 ================================================= -->
-
+            <!-- SLIDE 1 -->
             <div class="carrossel-slide ativo">
-
                 <div class="carrossel-conteudo">
-
                     <span class="carrossel-label">
                         UNIPI CONECTA
                     </span>
@@ -37,42 +28,28 @@
 
                     <p>
                         Encontre oportunidades de estágio e dê
-                        o próximo
+                        o 
                         <br>
-                        passo na sua trajetória profissional.
+                        próximo passo na sua trajetória profissional.
                     </p>
 
-                    <a
-                        href="/vagas/"
-                        class="botao-carrossel"
-                    >
+                    <a href="/vagas/" class="botao-carrossel">
                         🔎 Ver vagas disponíveis
                         <span>→</span>
                     </a>
-
                 </div>
 
-
                 <div class="carrossel-visual carrossel-visual-1">
-
                     <img
                         src="{% static 'img/banner-estagio-01.png' %}"
                         alt="Oportunidades de estágio"
                     >
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 SLIDE 2
-                 ================================================= -->
-
+            <!-- SLIDE 2 -->
             <div class="carrossel-slide">
-
                 <div class="carrossel-conteudo">
-
                     <span class="carrossel-label">
                         PARA ESTUDANTES
                     </span>
@@ -84,41 +61,28 @@
 
                     <p>
                         Encontre vagas, cadastre seu currículo
+                        e 
                         <br>
-                        e acompanhe suas candidaturas.
+                        acompanhe suas candidaturas.
                     </p>
 
-                    <a
-                        href="/entrar-aluno/"
-                        class="botao-carrossel"
-                    >
+                    <a href="/entrar-aluno/" class="botao-carrossel">
                         Entrar como aluno
                         <span>→</span>
                     </a>
-
                 </div>
 
-
                 <div class="carrossel-visual carrossel-visual-2">
-
                     <img
                         src="{% static 'img/banner-estagio-02.png' %}"
                         alt="Estudantes e oportunidades"
                     >
-
                 </div>
-
             </div>
 
-
-            <!-- =================================================
-                 SLIDE 3
-                 ================================================= -->
-
+            <!-- SLIDE 3 -->
             <div class="carrossel-slide">
-
                 <div class="carrossel-conteudo">
-
                     <span class="carrossel-label">
                         PARA EMPRESAS
                     </span>
@@ -130,39 +94,28 @@
 
                     <p>
                         Divulgue vagas de estágio e encontre
+                        estudantes 
                         <br>
-                        estudantes preparados para novas oportunidades.
+                        preparados para novas oportunidades.
                     </p>
 
-                    <a
-                        href="/entrar-empresa/"
-                        class="botao-carrossel"
-                    >
+                    <a href="/entrar-empresa/" class="botao-carrossel">
                         Entrar como empresa
                         <span>→</span>
                     </a>
-
                 </div>
 
-
                 <div class="carrossel-visual carrossel-visual-3">
-
                     <img
                         src="{% static 'img/banner-estagio-03.png' %}"
                         alt="Empresas e oportunidades de estágio"
                     >
-
                 </div>
-
             </div>
 
         </div>
 
-
-        <!-- =====================================================
-             SETA ANTERIOR
-             ===================================================== -->
-
+        <!-- SETA ANTERIOR -->
         <button
             type="button"
             class="carrossel-seta carrossel-anterior"
@@ -172,11 +125,7 @@
             ‹
         </button>
 
-
-        <!-- =====================================================
-             SETA PRÓXIMO
-             ===================================================== -->
-
+        <!-- PRÓXIMO SLIDE -->
         <button
             type="button"
             class="carrossel-seta carrossel-proximo"
@@ -186,13 +135,8 @@
             ›
         </button>
 
-
-        <!-- =====================================================
-             INDICADORES
-             ===================================================== -->
-
+        <!-- INDICADORES -->
         <div class="carrossel-indicadores">
-
             <button
                 type="button"
                 class="indicador ativo"
@@ -213,60 +157,33 @@
                 onclick="irParaSlide(2)"
                 aria-label="Ir para slide 3"
             ></button>
-
         </div>
-
     </section>
 
-
-    <!-- =====================================================
-         ÁREAS DA PLATAFORMA
-         ===================================================== -->
-
+    <!-- ÁREAS DA PLATAFORMA -->
     <section class="inicio-areas">
 
-
-        <!-- =================================================
-             TÍTULO DA SEÇÃO
-             ================================================= -->
-
+        <!-- TÍTULO -->
         <div class="inicio-secao-titulo">
+            <span>ACESSO À PLATAFORMA</span>
 
-            <span>
-                ACESSO À PLATAFORMA
-            </span>
-
-            <h2>
-                Escolha seu perfil
-            </h2>
+            <h2>Escolha seu perfil</h2>
 
             <p>
                 Acesse a área correspondente ao seu perfil na plataforma.
             </p>
-
         </div>
 
-
-        <!-- =================================================
-             CARDS
-             ================================================= -->
-
+        <!-- CARDS -->
         <div class="inicio-cards">
 
-
-            <!-- =================================================
-                 ALUNO
-                 ================================================= -->
-
+            <!-- ALUNO -->
             <div class="inicio-card inicio-card-aluno">
-
                 <div class="inicio-card-icone">
                     🎓
                 </div>
 
-                <h2>
-                    Aluno
-                </h2>
+                <h2>Aluno</h2>
 
                 <p>
                     Encontre oportunidades de estágio,
@@ -281,23 +198,15 @@
                     Entrar como aluno
                     <span>→</span>
                 </a>
-
             </div>
 
-
-            <!-- =================================================
-                 EMPRESA
-                 ================================================= -->
-
+            <!-- EMPRESA -->
             <div class="inicio-card inicio-card-empresa">
-
                 <div class="inicio-card-icone">
                     🏢
                 </div>
 
-                <h2>
-                    Empresa
-                </h2>
+                <h2>Empresa</h2>
 
                 <p>
                     Divulgue oportunidades de estágio e
@@ -312,23 +221,15 @@
                     Entrar como empresa
                     <span>→</span>
                 </a>
-
             </div>
 
-
-            <!-- =================================================
-                 INSTITUIÇÃO
-                 ================================================= -->
-
+            <!-- INSTITUIÇÃO -->
             <div class="inicio-card inicio-card-instituicao">
-
                 <div class="inicio-card-icone">
                     🏛️
                 </div>
 
-                <h2>
-                    Instituição
-                </h2>
+                <h2>Instituição</h2>
 
                 <p>
                     Acompanhe oportunidades, estágios e a
@@ -343,94 +244,67 @@
                     Acessar instituição
                     <span>→</span>
                 </a>
-
             </div>
 
         </div>
-
     </section>
-
 </div>
 
-
-<!-- =====================================================
-     JAVASCRIPT DO CARROSSEL
-     ===================================================== -->
-
+<!-- JAVASCRIPT DO CARROSSEL -->
 <script>
+(function () {
+    const container = document.querySelector('.inicio-carrossel');
 
-let slideAtual = 0;
+    if (!container) return;
 
-const slides = document.querySelectorAll('.carrossel-slide');
-const indicadores = document.querySelectorAll('.indicador');
+    const slides = container.querySelectorAll('.carrossel-slide');
+    const indicadores = container.querySelectorAll('.indicador');
 
+    let slideAtual = 0;
+    let intervalo = null;
 
-function mostrarSlide(numero) {
+    function mostrarSlide(numero) {
+        if (!slides.length) return;
 
-    slides.forEach(function(slide) {
+        slideAtual = (numero + slides.length) % slides.length;
 
-        slide.classList.remove('ativo');
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('ativo', index === slideAtual);
+        });
 
-    });
-
-
-    indicadores.forEach(function(indicador) {
-
-        indicador.classList.remove('ativo');
-
-    });
-
-
-    slides[numero].classList.add('ativo');
-
-    indicadores[numero].classList.add('ativo');
-
-    slideAtual = numero;
-
-}
-
-
-function mudarSlide(direcao) {
-
-    let novoSlide = slideAtual + direcao;
-
-
-    if (novoSlide >= slides.length) {
-
-        novoSlide = 0;
-
+        indicadores.forEach((indicador, index) => {
+            indicador.classList.toggle('ativo', index === slideAtual);
+        });
     }
 
-
-    if (novoSlide < 0) {
-
-        novoSlide = slides.length - 1;
-
+    function mudarSlide(direcao) {
+        mostrarSlide(slideAtual + direcao);
+        reiniciarIntervalo();
     }
 
+    function irParaSlide(numero) {
+        mostrarSlide(numero);
+        reiniciarIntervalo();
+    }
 
-    mostrarSlide(novoSlide);
+    function iniciarIntervalo() {
+        intervalo = setInterval(() => {
+            mostrarSlide(slideAtual + 1);
+        }, 6000);
+    }
 
-}
+    function reiniciarIntervalo() {
+        clearInterval(intervalo);
+        iniciarIntervalo();
+    }
 
+    // Disponibiliza as funções para os botões HTML.
+    window.mudarSlide = mudarSlide;
+    window.irParaSlide = irParaSlide;
 
-function irParaSlide(numero) {
-
-    mostrarSlide(numero);
-
-}
-
-
-/* =====================================================
-   TROCA AUTOMÁTICA DOS SLIDES
-   ===================================================== */
-
-setInterval(function() {
-
-    mudarSlide(1);
-
-}, 6000);
-
+    mostrarSlide(0);
+    iniciarIntervalo();
+})();
 </script>
 
 {% endblock %}
