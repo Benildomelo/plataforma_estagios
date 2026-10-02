@@ -634,29 +634,33 @@
     .carrossel-conteudo {
         position: relative;
         z-index: 4;
-        width: 68%;
-        max-width: 68%;
+        width: 72%;
+        max-width: 72%;
         margin: 0;
     }
 
     .carrossel-label {
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         font-size: 10px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
 
     .carrossel-conteudo h1 {
-        margin-bottom: 12px;
+        margin: 0 0 8px;
         font-size: 21px;
-        line-height: 1.2;
+        line-height: 1.15;
+        letter-spacing: normal;
+        word-spacing: normal;
     }
 
     .carrossel-conteudo p {
         max-width: 100%;
-        margin-bottom: 14px;
+        margin: 0 0 12px;
         padding: 0;
         font-size: 12px;
-        line-height: 1.45;
+        line-height: 1.4;
+        letter-spacing: normal;
+        word-spacing: normal;
     }
 
 
