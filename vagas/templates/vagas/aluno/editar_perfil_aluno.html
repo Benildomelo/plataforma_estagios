@@ -124,17 +124,13 @@
                             Selecione seu curso
                         </option>
 
-                        {% for curso in cursos %}
-                            <option
-                                value="{{ curso.id }}"
-                                {% if aluno.curso.id == curso.id %}
-                                    selected
-                                {% endif %}
-                            >
+                         {% for curso in cursos %}
+                            <option value="{{ curso.id }}">
                                 {{ curso.nome }}
                             </option>
                         {% endfor %}
                     </select>
+                    
                 </div>
 
             </div>
