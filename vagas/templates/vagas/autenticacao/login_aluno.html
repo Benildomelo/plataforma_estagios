@@ -143,13 +143,14 @@
          MENSAGEM
          ========================= -->
 
-    {% if mensagem %}
-
-        <div class="mensagem">
-            {{ mensagem }}
-        </div>
-
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem">
+                {{ message }}
+            </div>   
+        {% endfor %}
     {% endif %}
+
 
 
     <!-- =========================

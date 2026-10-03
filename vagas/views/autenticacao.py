@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect, render
 
+from vagas.models import Aluno
+
+
 
 def _realizar_login(request, redirecionamento):
     username = request.POST.get('username', '').strip()
@@ -47,19 +50,49 @@ def entrar(request):
 
 def entrar_aluno(request):
     if request.method == 'POST':
-        resposta = _realizar_login(
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '')
+
+        usuario = authenticate(
             request,
-            'area_aluno'
+            username=username,
+            password=password
         )
 
-        if resposta:
-            return resposta
+        if usuario is None:
+            messages.error(
+                request,
+                'Usuário ou senha inválidos.'
+            )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_aluno.html'
+            )
+
+        if not Aluno.objects.filter(
+            usuario=usuario,
+            ativo=True
+        ).exists():
+
+            messages.error(
+                request,
+                'Este usuário não possui um perfil de aluno ativo.'
+            )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_aluno.html'
+            )
+
+        login(request, usuario)
+
+        return redirect('area_aluno')
 
     return render(
         request,
         'vagas/autenticacao/login_aluno.html'
     )
-
 
 def entrar_empresa(request):
     if request.method == 'POST':
