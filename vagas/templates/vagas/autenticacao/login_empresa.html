@@ -38,12 +38,14 @@
 
     </div>
 
-    {% if mensagem %}
+    <!-- MENSAGEM -->
 
-        <div class="mensagem">
-            {{ mensagem }}
-        </div>
-
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endif %}
 
     <form method="post">
