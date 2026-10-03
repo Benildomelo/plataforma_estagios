@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect, render
 
-from vagas.models import Aluno
+from vagas.models import Aluno, Empresa
 
 
 
@@ -96,13 +96,44 @@ def entrar_aluno(request):
 
 def entrar_empresa(request):
     if request.method == 'POST':
-        resposta = _realizar_login(
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '')
+
+        usuario = authenticate(
             request,
-            'area_empresa'
+            username=username,
+            password=password
         )
 
-        if resposta:
-            return resposta
+        if usuario is None:
+            messages.error(
+                request,
+                'Usuário ou senha inválidos.'
+            )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_empresa.html'
+            )
+
+        if not Empresa.objects.filter(
+            usuario=usuario,
+            ativo=True
+        ).exists():
+
+            messages.error(
+                request,
+                'Este usuário não possui um perfil de empresa ativo.'
+            )
+
+            return render(
+                request,
+                'vagas/autenticacao/login_empresa.html'
+            )
+
+        login(request, usuario)
+
+        return redirect('area_empresa')
 
     return render(
         request,
