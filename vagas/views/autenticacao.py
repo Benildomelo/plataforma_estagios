@@ -6,7 +6,6 @@ from django.shortcuts import redirect, render
 from vagas.models import Aluno, Empresa
 
 
-
 def _realizar_login(request, redirecionamento):
     username = request.POST.get('username', '').strip()
     password = request.POST.get('password', '')
@@ -94,6 +93,7 @@ def entrar_aluno(request):
         'vagas/autenticacao/login_aluno.html'
     )
 
+
 def entrar_empresa(request):
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
@@ -142,8 +142,6 @@ def entrar_empresa(request):
 
 
 def entrar_instituicao(request):
-
-    # Se já estiver logado, verifica se é administrador
     if request.user.is_authenticated:
 
         if request.user.is_superuser:
@@ -159,7 +157,6 @@ def entrar_instituicao(request):
         return redirect('entrar_instituicao')
 
     if request.method == 'POST':
-
         username = request.POST.get(
             'username',
             ''
@@ -176,9 +173,7 @@ def entrar_instituicao(request):
             password=password
         )
 
-        # Usuário não existe ou senha incorreta
         if usuario is None:
-
             messages.error(
                 request,
                 'Usuário ou senha inválidos.'
@@ -189,9 +184,7 @@ def entrar_instituicao(request):
                 'vagas/autenticacao/login_instituicao.html'
             )
 
-        # Usuário existe, mas não é administrador
         if not usuario.is_superuser:
-
             messages.error(
                 request,
                 'Este usuário não possui permissão para acessar a área da instituição.'
@@ -202,7 +195,6 @@ def entrar_instituicao(request):
                 'vagas/autenticacao/login_instituicao.html'
             )
 
-        # Administrador autorizado
         login(
             request,
             usuario
@@ -219,12 +211,10 @@ def entrar_instituicao(request):
 
 
 def trocar_senha_empresa(request):
-
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
 
     if request.method == 'POST':
-
         senha_atual = request.POST.get(
             'senha_atual',
             ''
@@ -241,7 +231,6 @@ def trocar_senha_empresa(request):
         )
 
         if not request.user.check_password(senha_atual):
-
             messages.error(
                 request,
                 'A senha atual está incorreta.'
@@ -252,7 +241,6 @@ def trocar_senha_empresa(request):
             )
 
         if nova_senha != confirmar_senha:
-
             messages.error(
                 request,
                 'As novas senhas não coincidem.'
@@ -263,7 +251,6 @@ def trocar_senha_empresa(request):
             )
 
         if len(nova_senha) < 6:
-
             messages.error(
                 request,
                 'A nova senha deve ter pelo menos 6 caracteres.'
@@ -299,8 +286,74 @@ def trocar_senha_empresa(request):
     )
 
 
-def sair(request):
+def trocar_senha_aluno(request):
+    if not request.user.is_authenticated:
+        return redirect('entrar_aluno')
 
+    if not Aluno.objects.filter(
+        usuario=request.user,
+        ativo=True
+    ).exists():
+        messages.error(
+            request,
+            'Perfil de aluno não encontrado ou inativo.'
+        )
+
+        logout(request)
+
+        return redirect('entrar_aluno')
+
+    if request.method == 'POST':
+        senha_atual = request.POST.get('senha_atual', '')
+        nova_senha = request.POST.get('nova_senha', '')
+        confirmar_senha = request.POST.get('confirmar_senha', '')
+
+        if not request.user.check_password(senha_atual):
+            messages.error(
+                request,
+                'A senha atual está incorreta.'
+            )
+
+            return redirect('trocar_senha_aluno')
+
+        if nova_senha != confirmar_senha:
+            messages.error(
+                request,
+                'As novas senhas não coincidem.'
+            )
+
+            return redirect('trocar_senha_aluno')
+
+        if len(nova_senha) < 6:
+            messages.error(
+                request,
+                'A nova senha deve ter pelo menos 6 caracteres.'
+            )
+
+            return redirect('trocar_senha_aluno')
+
+        request.user.set_password(nova_senha)
+        request.user.save()
+
+        update_session_auth_hash(
+            request,
+            request.user
+        )
+
+        messages.success(
+            request,
+            'Senha alterada com sucesso.'
+        )
+
+        return redirect('perfil_aluno')
+
+    return render(
+        request,
+        'vagas/autenticacao/trocar_senha_aluno.html'
+    )
+
+
+def sair(request):
     logout(request)
 
     return redirect('inicio')

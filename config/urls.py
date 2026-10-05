@@ -27,7 +27,10 @@ from vagas.views import (
     editar_perfil_aluno,
     curriculo_aluno,
     trocar_senha_empresa,
+
 )
+
+from vagas.views.autenticacao import trocar_senha_aluno
 
 from vagas.views.instituicao import (
     area_instituicao,
@@ -174,6 +177,12 @@ urlpatterns = [
         name='curriculo_aluno'
     ),
 
+    path(
+        'aluno/trocar-senha/',
+        trocar_senha_aluno,
+        name='trocar_senha_aluno'
+    ),
+    
 
     # =====================================================
     # ÁREA DA EMPRESA
