@@ -1580,3 +1580,615 @@
     text-decoration: none;
     transform: translateX(2px);
 }
+
+/* =========================================================
+   EDITAR PERFIL DO ALUNO
+   ========================================================= */
+
+.editar-perfil-aluno {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.editar-perfil-cabecalho {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+    padding: 35px;
+    margin-bottom: 25px;
+
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.editar-perfil-label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    color: var(--cor-primaria);
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.editar-perfil-cabecalho h1 {
+    margin: 0 0 10px;
+
+    color: var(--cor-texto);
+    font-size: 30px;
+}
+
+.editar-perfil-cabecalho p {
+    margin: 0;
+
+    max-width: 650px;
+
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+}
+
+.editar-perfil-icone {
+    width: 85px;
+    height: 85px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+    border-radius: 50%;
+
+    font-size: 38px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.editar-perfil-card {
+    background: var(--cor-branco);
+    border-radius: var(--raio-padrao);
+
+    padding: 30px;
+
+    box-shadow: var(--sombra-padrao);
+}
+
+
+/* =========================================================
+   TÍTULO DO CARD
+   ========================================================= */
+
+.editar-perfil-card-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.editar-perfil-card-icone {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+    border-radius: 10px;
+
+    font-size: 23px;
+}
+
+.editar-perfil-card-cabecalho h2 {
+    margin: 0 0 4px;
+
+    color: var(--cor-texto);
+    font-size: 21px;
+}
+
+.editar-perfil-card-cabecalho p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+.editar-perfil-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.editar-perfil-form .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.editar-perfil-form label {
+    color: var(--cor-texto);
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.editar-perfil-form input,
+.editar-perfil-form select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--cor-borda);
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+    color: var(--cor-texto);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.editar-perfil-form input:focus,
+.editar-perfil-form select:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 2px rgba(39, 82, 123, 0.10);
+}
+
+
+/* =========================================================
+   DICA
+   ========================================================= */
+
+.editar-perfil-dica {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-top: 5px;
+    padding: 18px;
+
+    background: #f7f3e8;
+    border: 1px solid #eee1bd;
+
+    border-radius: 10px;
+}
+
+.editar-perfil-dica > span {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.editar-perfil-dica strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: var(--cor-texto);
+}
+
+.editar-perfil-dica p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.editar-perfil-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .editar-perfil-cabecalho {
+        padding: 25px;
+
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .editar-perfil-cabecalho h1 {
+        font-size: 25px;
+    }
+
+    .editar-perfil-icone {
+        width: 65px;
+        height: 65px;
+
+        font-size: 30px;
+    }
+
+    .editar-perfil-card {
+        padding: 22px;
+    }
+
+    .editar-perfil-acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .editar-perfil-acoes .botao {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* =========================================================
+   TROCAR SENHA DO ALUNO
+   ========================================================= */
+
+.trocar-senha-aluno {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.trocar-senha-cabecalho {
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    padding: 35px;
+    margin-bottom: 25px;
+
+    box-shadow: var(--sombra-padrao);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.trocar-senha-label {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: var(--cor-primaria);
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.trocar-senha-cabecalho h1 {
+    margin: 0 0 10px;
+
+    color: var(--cor-texto);
+
+    font-size: 30px;
+}
+
+.trocar-senha-cabecalho p {
+    margin: 0;
+
+    max-width: 650px;
+
+    color: var(--cor-texto-secundario);
+
+    line-height: 1.6;
+}
+
+.trocar-senha-icone {
+    width: 85px;
+    height: 85px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+
+    border-radius: 50%;
+
+    font-size: 38px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.trocar-senha-card {
+    background: var(--cor-branco);
+
+    border-radius: var(--raio-padrao);
+
+    padding: 30px;
+
+    box-shadow: var(--sombra-padrao);
+}
+
+
+/* =========================================================
+   CABEÇALHO DO CARD
+   ========================================================= */
+
+.trocar-senha-card-cabecalho {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.trocar-senha-card-icone {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8eef5;
+
+    border-radius: 10px;
+
+    font-size: 23px;
+}
+
+.trocar-senha-card-cabecalho h2 {
+    margin: 0 0 4px;
+
+    color: var(--cor-texto);
+
+    font-size: 21px;
+}
+
+.trocar-senha-card-cabecalho p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.trocar-senha-mensagem {
+    padding: 13px 16px;
+
+    margin-bottom: 18px;
+
+    border-radius: 8px;
+
+    background: #eef7f0;
+
+    border: 1px solid #d7eedc;
+
+    color: #28743b;
+
+    font-size: 14px;
+}
+
+.trocar-senha-mensagem-erro {
+    background: #f9eeee;
+
+    border-color: #efd1d1;
+
+    color: #9b3333;
+}
+
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
+.trocar-senha-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.trocar-senha-form .campo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.trocar-senha-form label {
+    color: var(--cor-texto);
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.trocar-senha-form input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--cor-borda);
+
+    border-radius: 7px;
+
+    background: var(--cor-branco);
+
+    color: var(--cor-texto);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.trocar-senha-form input:focus {
+    border-color: var(--cor-primaria);
+
+    box-shadow:
+        0 0 0 2px rgba(39, 82, 123, 0.10);
+}
+
+.trocar-senha-form small {
+    color: var(--cor-texto-secundario);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DICA
+   ========================================================= */
+
+.trocar-senha-dica {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    margin-top: 5px;
+
+    padding: 18px;
+
+    background: #f7f3e8;
+
+    border: 1px solid #eee1bd;
+
+    border-radius: 10px;
+}
+
+.trocar-senha-dica > span {
+    font-size: 22px;
+
+    flex-shrink: 0;
+}
+
+.trocar-senha-dica strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--cor-texto);
+}
+
+.trocar-senha-dica p {
+    margin: 0;
+
+    color: var(--cor-texto-secundario);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AÇÕES
+   ========================================================= */
+
+.trocar-senha-acoes {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .trocar-senha-cabecalho {
+        padding: 25px;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .trocar-senha-cabecalho h1 {
+        font-size: 25px;
+    }
+
+    .trocar-senha-icone {
+        width: 65px;
+        height: 65px;
+
+        font-size: 30px;
+    }
+
+    .trocar-senha-card {
+        padding: 22px;
+    }
+
+    .trocar-senha-acoes {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .trocar-senha-acoes .botao {
+        width: 100%;
+
+        text-align: center;
+    }
+
+}
