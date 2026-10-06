@@ -11,7 +11,7 @@
 
     <title>
         {% block title %}
-            Plataforma de Estágios
+            UNIPI Conecta
         {% endblock %}
     </title>
 
@@ -57,9 +57,18 @@
                  LOGO / NOME DA PLATAFORMA
                  ================================================= -->
 
-            <h1>
-                Plataforma de Estágios
-            </h1>
+            <div class="logo-site">
+
+                <a href="{% url 'inicio' %}">
+
+                    <img
+                        src="{% static 'img/logo-unipi-conecta.png' %}"
+                        alt="UNIPI Conecta"
+                    >
+
+                </a>
+
+            </div>
 
 
             <!-- =================================================
@@ -188,7 +197,7 @@
     <footer>
 
         <p>
-            Plataforma de Estágios
+            UNIPI Conecta
         </p>
 
     </footer>

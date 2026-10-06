@@ -394,3 +394,24 @@ footer {
         font-size: 12px;
     }
 }
+
+/* =====================================================
+   LOGO UNIPI CONECTA
+   ===================================================== */
+
+.logo-site {
+    display: flex;
+    align-items: center;
+}
+
+.logo-site a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-site img {
+    height: 90px;
+    width: auto;
+    display: block;
+}
