@@ -634,8 +634,8 @@
     .carrossel-conteudo {
         position: relative;
         z-index: 4;
-        width: 72%;
-        max-width: 72%;
+        width: 78%;
+        max-width: 78%;
         margin: 0;
     }
 
@@ -813,8 +813,8 @@
     }
 
     .carrossel-conteudo {
-        width: 72%;
-        max-width: 72%;
+        width: 80%;
+        max-width: 80%;
     }
 
     .carrossel-label {
@@ -883,4 +883,131 @@
         font-size: 13px;
     }
 
+}
+
+
+/* =========================================================
+   AJUSTE PROFISSIONAL DO CARROSSEL — CELULAR
+   UNIPI CONECTA
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .inicio-carrossel {
+        height: 270px;
+        border-radius: 10px;
+    }
+
+    .carrossel-slide {
+        padding: 20px 42px 40px;
+        align-items: center;
+    }
+
+    /* Mantém a imagem, mas desloca o foco para a direita */
+    .carrossel-slide img,
+    .carrossel-visual img {
+        object-fit: cover;
+        object-position: 68% center;
+    }
+
+    /*
+       Degradê escuro no lado esquerdo.
+       Ajuda a separar o texto da fotografia.
+    */
+    .carrossel-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(3, 30, 50, 0.96) 0%,
+                rgba(3, 30, 50, 0.82) 32%,
+                rgba(3, 30, 50, 0.38) 58%,
+                rgba(3, 30, 50, 0.05) 100%
+            );
+    }
+
+    .carrossel-conteudo {
+        width: 67%;
+        max-width: 67%;
+        z-index: 5;
+    }
+
+    .carrossel-label {
+        font-size: 10px;
+        margin-bottom: 7px;
+        letter-spacing: 0.8px;
+    }
+
+    .carrossel-conteudo h1 {
+        font-size: 21px;
+        line-height: 1.15;
+        margin-bottom: 10px;
+    }
+
+    .carrossel-conteudo p {
+        font-size: 12px;
+        line-height: 1.35;
+        margin-bottom: 12px;
+    }
+
+    .botao-carrossel {
+        padding: 9px 12px;
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   AJUSTE ESPECÍFICO — CELULARES PEQUENOS
+   375px E ABAIXO
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .inicio-carrossel {
+        height: 255px;
+    }
+
+    .carrossel-slide {
+        padding: 18px 38px 36px;
+    }
+
+    .carrossel-slide img,
+    .carrossel-visual img {
+        object-position: 70% center;
+    }
+
+    /* MAIS ESPAÇO PARA O TEXTO */
+    .carrossel-conteudo {
+        width: 68%;
+        max-width: 68%;
+    }
+
+    .carrossel-label {
+        font-size: 9px;
+        margin-bottom: 5px;
+    }
+
+    .carrossel-conteudo h1 {
+        font-size: 19px;
+        line-height: 1.15;
+        margin: 0 0 8px;
+        letter-spacing: -0.2px;
+    }
+
+    .carrossel-conteudo p {
+        font-size: 10px;
+        line-height: 1.3;
+        margin: 0 0 9px;
+    }
+
+    .botao-carrossel {
+        padding: 8px 10px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
 }
