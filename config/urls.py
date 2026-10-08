@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from vagas.views.api_candidatura import api_candidatar
 
 from vagas.views import (
     inicio,
@@ -136,6 +137,13 @@ urlpatterns = [
         candidatar,
         name='candidatar'
     ),
+
+    path(
+        'api/candidaturas/',
+        api_candidatar,
+        name='api_candidatar'
+    ),
+
 
 
     # =====================================================
