@@ -26,17 +26,22 @@
 
 
     {% if messages %}
-
         {% for message in messages %}
-
-            <div class="mensagem">
+            <div style="
+                background: #d1e7dd !important;
+                color: #0f5132 !important;
+                border: 1px solid #badbcc !important;
+                padding: 12px 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                font-size: 14px;
+                text-align: center;
+                font-weight: bold;
+            ">
                 {{ message }}
             </div>
-
         {% endfor %}
-
     {% endif %}
-
 
     <form method="POST">
 
