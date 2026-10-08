@@ -7,6 +7,10 @@ from ..repositories.curso_repository import CursoRepository
 from ..repositories.empresa_repository import EmpresaRepository
 from ..repositories.vaga_repository import VagaRepository
 
+from ..services.candidatura_service import CandidaturaService
+from ..services.vaga_service import VagaService
+
+
 
 def _buscar_aluno(request):
     return AlunoRepository.buscar_por_usuario(
@@ -63,13 +67,6 @@ def candidatar(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
 
-    vaga = VagaRepository.buscar_por_id(
-        vaga_id
-    )
-
-    if not vaga or vaga.status != 'APROVADA' or not vaga.ativo:
-        return redirect('vagas_publicas')
-
     aluno = _buscar_aluno(request)
 
     if not aluno:
@@ -79,27 +76,33 @@ def candidatar(request, vaga_id):
         )
         return redirect('entrar_aluno')
 
-    _, criada = _obter_ou_criar_candidatura(
-        aluno,
-        vaga
-    )
-
-    if criada:
-        messages.success(
-            request,
-            'Candidatura realizada com sucesso.'
+    try:
+        _, criada = CandidaturaService.candidatar(
+            aluno,
+            vaga_id
         )
-    else:
-        messages.info(
+
+        if criada:
+            messages.success(
+                request,
+                'Candidatura realizada com sucesso.'
+            )
+        else:
+            messages.info(
+                request,
+                'Você já se candidatou a esta vaga.'
+            )
+
+    except ValueError as erro:
+        messages.error(
             request,
-            'Você já se candidatou a esta vaga.'
+            str(erro)
         )
 
     return redirect(
         'detalhe_vaga',
-        vaga_id=vaga.id
+        vaga_id=vaga_id
     )
-
 
 def criar_vaga(request):
     if not request.user.is_authenticated:
@@ -117,79 +120,41 @@ def criar_vaga(request):
     cursos = CursoRepository.buscar_ativos()
 
     if request.method == 'POST':
-        titulo = request.POST.get(
-            'titulo',
-            ''
-        ).strip()
+        titulo = request.POST.get('titulo', '').strip()
+        descricao = request.POST.get('descricao', '').strip()
+        requisitos = request.POST.get('requisitos', '').strip()
+        local = request.POST.get('local', '').strip()
+        carga_horaria = request.POST.get('carga_horaria', '').strip()
+        bolsa = request.POST.get('bolsa', '').strip()
+        curso_id = request.POST.get('curso', '').strip()
 
-        descricao = request.POST.get(
-            'descricao',
-            ''
-        ).strip()
+        try:
+            vaga = VagaService.criar_vaga(
+                empresa=empresa,
+                titulo=titulo,
+                descricao=descricao,
+                requisitos=requisitos,
+                local=local,
+                carga_horaria=carga_horaria,
+                bolsa=bolsa,
+                curso_id=curso_id
+            )
 
-        requisitos = request.POST.get(
-            'requisitos',
-            ''
-        ).strip()
+            messages.success(
+                request,
+                'Vaga criada e enviada para análise.'
+            )
 
-        local = request.POST.get(
-            'local',
-            ''
-        ).strip()
+            return redirect(
+                'detalhe_vaga_empresa',
+                vaga_id=vaga.id
+            )
 
-        carga_horaria = request.POST.get(
-            'carga_horaria',
-            ''
-        ).strip()
-
-        bolsa = request.POST.get(
-            'bolsa',
-            ''
-        ).strip()
-
-        curso_id = request.POST.get(
-            'curso',
-            ''
-        ).strip()
-
-        curso = _buscar_curso(
-            curso_id
-        )
-
-        if not curso:
+        except ValueError as erro:
             messages.error(
                 request,
-                'Selecione um curso válido.'
+                str(erro)
             )
-
-            return _render_criar_vaga(
-                request,
-                empresa,
-                cursos
-            )
-
-        vaga = VagaRepository.criar(
-            empresa=empresa,
-            titulo=titulo,
-            descricao=descricao,
-            requisitos=requisitos,
-            local=local,
-            carga_horaria=carga_horaria,
-            bolsa=bolsa or None,
-            curso=curso,
-            status='PENDENTE',
-            ativo=True
-        )
-
-        messages.success(
-            request,
-            'Vaga criada e enviada para análise.'
-        )
-
-        return redirect(
-            'detalhe_vaga_empresa',
-            vaga_id=vaga.id
-        )
 
     return _render_criar_vaga(
         request,
@@ -313,23 +278,27 @@ def encerrar_vaga(request, vaga_id):
     if not empresa:
         return redirect('entrar_empresa')
 
-    vaga = VagaRepository.buscar_por_id(
-        vaga_id
-    )
+    vaga = VagaRepository.buscar_por_id(vaga_id)
 
-    if not vaga or vaga.empresa != empresa:
+    if not vaga:
         return redirect('area_empresa')
 
     if request.method == 'POST':
-        VagaRepository.encerrar(
-            vaga
-        )
+        try:
+            VagaService.encerrar_vaga(
+                vaga,
+                empresa
+            )
 
-        messages.success(
-            request,
-            'Vaga encerrada com sucesso.'
-        )
+            messages.success(
+                request,
+                'Vaga encerrada com sucesso.'
+            )
 
-    return redirect(
-        'area_empresa'
-    )
+        except ValueError as erro:
+            messages.error(
+                request,
+                str(erro)
+            )
+
+    return redirect('area_empresa')
