@@ -245,15 +245,21 @@
 }
 
 .cadastro-container .mensagem {
-    background: #fee2e2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
     padding: 12px 15px;
     border-radius: 8px;
     margin-bottom: 20px;
     font-size: 14px;
     text-align: center;
     font-weight: bold;
+}
+
+.cadastro-container .mensagem-sucesso {
+    background: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
 }
 
 .cadastro-container .botao {
@@ -427,4 +433,17 @@
         font-size: 24px;
     }
 
+}
+
+/* MENSAGEM DE SUCESSO NO CADASTRO */
+.cadastro-container .mensagem.mensagem-sucesso {
+    background: #d1e7dd !important;
+    color: #0f5132 !important;
+    border: 1px solid #badbcc !important;
+}
+
+.login-container .mensagem.mensagem-sucesso {
+    background: #d1e7dd !important;
+    color: #0f5132 !important;
+    border: 1px solid #badbcc !important;
 }

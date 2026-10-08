@@ -145,7 +145,7 @@
 
     {% if messages %}
         {% for message in messages %}
-            <div class="mensagem">
+            <div class="mensagem {% if message.tags == 'success' %}mensagem-sucesso{% endif %}">    
                 {{ message }}
             </div>   
         {% endfor %}
