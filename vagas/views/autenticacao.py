@@ -49,19 +49,42 @@ def entrar(request):
 
 def entrar_aluno(request):
     if request.method == 'POST':
-        username = request.POST.get('username', '').strip()
-        password = request.POST.get('password', '')
+        identificador = request.POST.get(
+            'username',
+            ''
+        ).strip()
+
+        password = request.POST.get(
+            'password',
+            ''
+        )
+
+        # Primeiro, verifica se o identificador é uma matrícula.
+        aluno = Aluno.objects.select_related(
+            'usuario'
+        ).filter(
+            matricula=identificador,
+            ativo=True
+        ).first()
+
+        # Se for matrícula, usa o username vinculado ao aluno.
+        # Caso contrário, tenta autenticar pelo username informado.
+        username_login = (
+            aluno.usuario.username
+            if aluno
+            else identificador
+        )
 
         usuario = authenticate(
             request,
-            username=username,
+            username=username_login,
             password=password
         )
 
         if usuario is None:
             messages.error(
                 request,
-                'Usuário ou senha inválidos.'
+                'Matrícula/usuário ou senha inválidos.'
             )
 
             return render(
@@ -69,11 +92,13 @@ def entrar_aluno(request):
                 'vagas/autenticacao/login_aluno.html'
             )
 
-        if not Aluno.objects.filter(
+        # Confirma que a conta possui um perfil de aluno ativo.
+        aluno_ativo = Aluno.objects.filter(
             usuario=usuario,
             ativo=True
-        ).exists():
+        ).exists()
 
+        if not aluno_ativo:
             messages.error(
                 request,
                 'Este usuário não possui um perfil de aluno ativo.'
@@ -92,7 +117,6 @@ def entrar_aluno(request):
         request,
         'vagas/autenticacao/login_aluno.html'
     )
-
 
 def entrar_empresa(request):
     if request.method == 'POST':
