@@ -6,74 +6,53 @@
 
 {% block content %}
 
-<div class="login-container">
+<div class="login-container login-empresa">
 
     <div class="login-cabecalho">
+        <div class="icone">🏢</div>
 
-        <div class="icone">
-            🏢
-        </div>
+        <h1>Plataforma de Estágios</h1>
 
-        <h1>
-            Plataforma de Estágios
-        </h1>
-
-        <p>
-            Portal exclusivo para empresas
-        </p>
-
+        <p>Portal exclusivo para empresas</p>
     </div>
 
     <div class="login-titulo">
-
-        <h2>
-            Entrar como Empresa
-        </h2>
+        <h2>Entrar como Empresa</h2>
 
         <p>
             Acesse sua conta para cadastrar vagas,
             acompanhar candidaturas e encontrar
             novos talentos.
         </p>
-
     </div>
-
-    <!-- MENSAGEM -->
 
     {% if messages %}
         {% for message in messages %}
-            <div class="mensagem">
+            <div class="mensagem {% if message.tags == 'success' %}mensagem-sucesso{% endif %}">
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
 
     <form method="post">
-
         {% csrf_token %}
 
         <div class="campo">
-
-            <label for="username">
-                Usuário
-            </label>
+            <label for="username">Usuário ou e-mail</label>
 
             <input
                 type="text"
                 id="username"
                 name="username"
-                placeholder="Digite seu usuário"
+                placeholder="Digite seu usuário ou e-mail"
+                value="{{ request.POST.username|default:'' }}"
                 autocomplete="username"
                 required
             >
-
         </div>
 
         <div class="campo">
-
-            <label for="password">
-                Senha
-            </label>
+            <label for="password">Senha</label>
 
             <input
                 type="password"
@@ -83,31 +62,29 @@
                 autocomplete="current-password"
                 required
             >
-
         </div>
 
-        <!-- Recuperação de senha será implementada em uma etapa futura -->
+        <div class="esqueci-senha">
+            <a href="{% url 'password_reset' %}?perfil=empresa">
+                <span class="icone-chave" aria-hidden="true">🔑</span>
+                Esqueci minha senha
+            </a>
+        </div>
 
-        <a
-            href="{% url 'password_reset' %}"
-            class="esqueci-senha"
-        >
-            Esqueci minha senha
-        </a>
-
-        <button
-            type="submit"
-            class="botao"
-        >
+        <button type="submit" class="botao">
             Entrar
         </button>
-
     </form>
 
-    <a
-        href="/"
-        class="voltar"
-    >
+    <div class="cadastro">
+        Ainda não possui uma conta?
+
+        <a href="{% url 'cadastro_empresa' %}">
+            Cadastrar empresa
+        </a>
+    </div>
+
+    <a href="{% url 'inicio' %}" class="voltar">
         ← Voltar para o início
     </a>
 

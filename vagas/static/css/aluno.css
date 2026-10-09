@@ -1569,11 +1569,6 @@
         transform 0.2s ease;
 }
 
-.esqueci-senha::before {
-    content: "🔑";
-    font-size: 12px;
-}
-
 .esqueci-senha:hover {
     color: var(--cor-primaria-hover);
     background: #e8eef5;

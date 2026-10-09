@@ -1,0 +1,228 @@
+```html
+{% extends 'vagas/base.html' %}
+
+{% block title %}Cadastro de Empresa{% endblock %}
+
+{% block content %}
+
+<style>
+    .cadastro-empresa-container {
+        width: 100%;
+        max-width: 520px;
+        margin: 40px auto;
+        padding: 35px 40px;
+        box-sizing: border-box;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+    }
+
+    .cadastro-empresa-cabecalho {
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .cadastro-empresa-icone {
+        font-size: 42px;
+        margin-bottom: 5px;
+    }
+
+    .cadastro-empresa-cabecalho h1 {
+        color: #15344f;
+        font-size: 28px;
+        margin: 0 0 8px;
+    }
+
+    .cadastro-empresa-cabecalho p {
+        color: #666;
+        margin: 0;
+    }
+
+    .cadastro-empresa-container h2 {
+        text-align: center;
+        color: #222;
+        font-size: 23px;
+        margin-bottom: 12px;
+    }
+
+    .cadastro-empresa-descricao {
+        color: #555;
+        text-align: center;
+        line-height: 1.5;
+        margin-bottom: 25px;
+    }
+
+    .cadastro-empresa-form .campo {
+        margin-bottom: 17px;
+    }
+
+    .cadastro-empresa-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 7px;
+        color: #333;
+    }
+
+    .cadastro-empresa-form input {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #fff;
+        color: #222;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .cadastro-empresa-form input:focus {
+        border-color: #15344f;
+        box-shadow: 0 0 0 3px rgba(21, 52, 79, 0.12);
+    }
+
+    .cadastro-empresa-form button {
+        display: block;
+        width: 100%;
+        margin-top: 24px;
+        padding: 14px;
+        border: none;
+        border-radius: 9px;
+        background: #15344f;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .cadastro-empresa-form button:hover {
+        background: #205274;
+    }
+
+    .cadastro-empresa-mensagem {
+        padding: 11px;
+        margin-bottom: 15px;
+        border-radius: 7px;
+        background: #f8e8e8;
+        color: #8b2222;
+    }
+
+    .cadastro-empresa-links {
+        text-align: center;
+        margin-top: 22px;
+        line-height: 1.8;
+    }
+
+    .cadastro-empresa-links a {
+        color: #15344f;
+        font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+        .cadastro-empresa-container {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 28px 22px;
+        }
+    }
+</style>
+
+<div class="cadastro-empresa-container">
+
+    <div class="cadastro-empresa-cabecalho">
+        <div class="cadastro-empresa-icone">🏢</div>
+        <h1>UNIPI Conecta</h1>
+        <p>Cadastro de empresa</p>
+    </div>
+
+    <h2>Crie sua conta empresarial</h2>
+
+    <p class="cadastro-empresa-descricao">
+        Preencha os dados para acessar a plataforma de estágios.
+    </p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="cadastro-empresa-mensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="cadastro-empresa-form">
+        {% csrf_token %}
+
+        <div class="campo">
+            <label for="razao_social">Razão social *</label>
+            <input id="razao_social" type="text" name="razao_social"
+                   value="{{ request.POST.razao_social }}" required>
+        </div>
+
+        <div class="campo">
+            <label for="nome_fantasia">Nome fantasia *</label>
+            <input id="nome_fantasia" type="text" name="nome_fantasia"
+                   value="{{ request.POST.nome_fantasia }}" required>
+        </div>
+
+        <div class="campo">
+            <label for="cnpj">CNPJ *</label>
+            <input id="cnpj" type="text" name="cnpj"
+                   placeholder="00.000.000/0000-00"
+                   value="{{ request.POST.cnpj }}" maxlength="18" required>
+        </div>
+
+        <div class="campo">
+            <label for="email">E-mail corporativo *</label>
+            <input id="email" type="email" name="email"
+                   value="{{ request.POST.email }}" required>
+        </div>
+
+        <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" type="tel" name="telefone"
+                   placeholder="(00) 00000-0000"
+                   value="{{ request.POST.telefone }}">
+        </div>
+
+        <div class="campo">
+            <label for="endereco">Endereço</label>
+            <input id="endereco" type="text" name="endereco"
+                   value="{{ request.POST.endereco }}">
+        </div>
+
+        <div class="campo">
+            <label for="username">Nome de usuário *</label>
+            <input id="username" type="text" name="username"
+                   value="{{ request.POST.username }}" autocomplete="username" required>
+        </div>
+
+        <div class="campo">
+            <label for="password">Senha *</label>
+            <input id="password" type="password" name="password"
+                   minlength="6" autocomplete="new-password" required>
+        </div>
+
+        <div class="campo">
+            <label for="password_confirmacao">Confirmar senha *</label>
+            <input id="password_confirmacao" type="password"
+                   name="password_confirmacao"
+                   minlength="6" autocomplete="new-password" required>
+        </div>
+
+        <button type="submit">Cadastrar empresa</button>
+    </form>
+
+    <div class="cadastro-empresa-links">
+        Já possui uma conta?
+        <a href="{% url 'entrar_empresa' %}">Entrar como empresa</a>
+
+        <br>
+
+        <a href="{% url 'inicio' %}">Voltar à página inicial</a>
+    </div>
+
+</div>
+
+{% endblock %}
+```
