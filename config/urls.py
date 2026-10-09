@@ -350,10 +350,12 @@ urlpatterns = [
     # RECUPERAÇÃO DE SENHA
     # =====================================================
 
-    path(
+   path(
         'esqueci-senha/',
         auth_views.PasswordResetView.as_view(
-            template_name='vagas/autenticacao/password_reset.html'
+            template_name='vagas/autenticacao/password_reset.html',
+            email_template_name='vagas/autenticacao/password_reset_email.html',
+            subject_template_name='vagas/autenticacao/password_reset_subject.txt',
         ),
         name='password_reset'
     ),
