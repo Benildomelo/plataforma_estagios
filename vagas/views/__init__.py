@@ -38,3 +38,10 @@ from .vagas import (
 from .instituicao import (
     area_instituicao,
 )
+
+from .empresa import (
+    area_empresa,
+    detalhe_vaga_empresa,
+    perfil_empresa,
+    cadastro_empresa,
+)

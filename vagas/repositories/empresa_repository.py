@@ -37,3 +37,7 @@ class EmpresaRepository:
     def atualizar(empresa):
         empresa.save()
         return empresa
+
+    @staticmethod
+    def buscar_por_email(email):
+        return Empresa.objects.filter(email=email).first()

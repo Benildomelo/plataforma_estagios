@@ -119,22 +119,46 @@ def entrar_aluno(request):
     )
 
 def entrar_empresa(request):
+    if request.user.is_authenticated:
+        if Empresa.objects.filter(
+            usuario=request.user,
+            ativo=True
+        ).exists():
+            return redirect('area_empresa')
+
+        logout(request)
+
     if request.method == 'POST':
-        username = request.POST.get('username', '').strip()
+        identificador = request.POST.get(
+            'username', ''
+        ).strip()
+
         password = request.POST.get('password', '')
+
+        # Se o identificador for um e-mail, busca o usuário correspondente.
+        from django.contrib.auth.models import User
+
+        usuario_por_email = User.objects.filter(
+            email__iexact=identificador
+        ).first()
+
+        username_login = (
+            usuario_por_email.username
+            if usuario_por_email
+            else identificador
+        )
 
         usuario = authenticate(
             request,
-            username=username,
+            username=username_login,
             password=password
         )
 
         if usuario is None:
             messages.error(
                 request,
-                'Usuário ou senha inválidos.'
+                'Usuário/e-mail ou senha inválidos.'
             )
-
             return render(
                 request,
                 'vagas/autenticacao/login_empresa.html'
@@ -144,19 +168,16 @@ def entrar_empresa(request):
             usuario=usuario,
             ativo=True
         ).exists():
-
             messages.error(
                 request,
                 'Este usuário não possui um perfil de empresa ativo.'
             )
-
             return render(
                 request,
                 'vagas/autenticacao/login_empresa.html'
             )
 
         login(request, usuario)
-
         return redirect('area_empresa')
 
     return render(
@@ -322,9 +343,7 @@ def trocar_senha_aluno(request):
             request,
             'Perfil de aluno não encontrado ou inativo.'
         )
-
         logout(request)
-
         return redirect('entrar_aluno')
 
     if request.method == 'POST':
@@ -333,19 +352,11 @@ def trocar_senha_aluno(request):
         confirmar_senha = request.POST.get('confirmar_senha', '')
 
         if not request.user.check_password(senha_atual):
-            messages.error(
-                request,
-                'A senha atual está incorreta.'
-            )
-
+            messages.error(request, 'A senha atual está incorreta.')
             return redirect('trocar_senha_aluno')
 
         if nova_senha != confirmar_senha:
-            messages.error(
-                request,
-                'As novas senhas não coincidem.'
-            )
-
+            messages.error(request, 'As novas senhas não coincidem.')
             return redirect('trocar_senha_aluno')
 
         if len(nova_senha) < 6:
@@ -353,22 +364,14 @@ def trocar_senha_aluno(request):
                 request,
                 'A nova senha deve ter pelo menos 6 caracteres.'
             )
-
             return redirect('trocar_senha_aluno')
 
         request.user.set_password(nova_senha)
         request.user.save()
 
-        update_session_auth_hash(
-            request,
-            request.user
-        )
+        update_session_auth_hash(request, request.user)
 
-        messages.success(
-            request,
-            'Senha alterada com sucesso.'
-        )
-
+        messages.success(request, 'Senha alterada com sucesso.')
         return redirect('perfil_aluno')
 
     return render(
@@ -379,5 +382,6 @@ def trocar_senha_aluno(request):
 
 def sair(request):
     logout(request)
-
     return redirect('inicio')
+
+

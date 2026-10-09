@@ -28,6 +28,7 @@ from vagas.views import (
     editar_perfil_aluno,
     curriculo_aluno,
     trocar_senha_empresa,
+    cadastro_empresa,
 
 )
 
@@ -271,6 +272,11 @@ urlpatterns = [
         name='gerenciar_empresas'
     ),
 
+    path(
+        'cadastro-empresa/',
+        cadastro_empresa,
+        name='cadastro_empresa'
+    ),
 
     # =====================================================
     # GERENCIAR VAGAS
@@ -394,3 +400,4 @@ urlpatterns += static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
 )
+
