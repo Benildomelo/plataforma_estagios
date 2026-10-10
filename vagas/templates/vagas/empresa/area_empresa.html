@@ -162,10 +162,18 @@
                                 <span>
 
                                     <strong>
-                                        Curso:
+                                        Curso(s):
                                     </strong>
 
-                                    {{ vaga.curso.nome }}
+                                        {% if vaga.cursos.exists %}
+                                            {% for curso in vaga.cursos.all %}
+                                                {{ curso.nome }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        {% elif vaga.curso %}
+                                            {{ vaga.curso.nome }}
+                                        {% else %}
+                                            Não informado
+                                        {% endif %}
 
                                 </span>
 

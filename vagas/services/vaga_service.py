@@ -1,5 +1,7 @@
 from decimal import Decimal, InvalidOperation
 
+from django.utils import timezone
+
 from ..models import Curso
 from ..repositories.vaga_repository import VagaRepository
 
@@ -49,9 +51,12 @@ class VagaService:
                 "Selecione pelo menos um curso."
             )
 
-        # Verifica se todos os IDs são números válidos.
+        # Valida os IDs dos cursos.
         try:
-            cursos_ids = [int(curso_id) for curso_id in cursos_ids]
+            cursos_ids = [
+                int(curso_id)
+                for curso_id in cursos_ids
+            ]
         except (TypeError, ValueError):
             raise ValueError(
                 "Um ou mais cursos selecionados são inválidos."
@@ -72,7 +77,9 @@ class VagaService:
         # Valida o valor da bolsa.
         if bolsa:
             try:
-                bolsa = Decimal(bolsa.replace(',', '.'))
+                bolsa = Decimal(
+                    str(bolsa).replace(',', '.')
+                )
             except (InvalidOperation, ValueError):
                 raise ValueError(
                     "Informe um valor válido para a bolsa."
@@ -85,6 +92,7 @@ class VagaService:
         else:
             bolsa = None
 
+        # Cria a vaga já publicada para os alunos.
         return VagaRepository.criar_com_cursos(
             empresa=empresa,
             titulo=titulo,
@@ -94,7 +102,8 @@ class VagaService:
             carga_horaria=carga_horaria,
             bolsa=bolsa,
             cursos=cursos,
-            status="PENDENTE",
+            status="APROVADA",
+            data_publicacao=timezone.now(),
             ativo=True,
         )
 
