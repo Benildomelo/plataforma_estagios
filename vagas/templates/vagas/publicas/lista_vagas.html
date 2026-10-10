@@ -131,8 +131,13 @@
 
                     <p class="informacao">
                         🎓
-                        <strong>Curso:</strong>
-                        {{ vaga.curso.nome }}
+                        <strong>Curso(s):</strong>
+
+                        {% for curso in vaga.cursos.all %}
+                            {{ curso.nome }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            Não informado
+                        {% endfor %}
                     </p>
 
                     <p class="informacao">

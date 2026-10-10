@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -28,36 +29,52 @@
     <!-- INFORMAÇÕES PRINCIPAIS -->
     <div class="informacoes">
 
+        <!-- CURSOS -->
         <div class="info">
             <span class="info-icone">🎓</span>
+
             <div>
-                <strong>Curso</strong>
-                <span>{{ vaga.curso.nome }}</span>
+                <strong>Curso(s)</strong>
+
+                <span>
+                    {% for curso in vaga.cursos.all %}
+                        {{ curso.nome }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Não informado
+                    {% endfor %}
+                </span>
             </div>
         </div>
 
+        <!-- LOCAL -->
         <div class="info">
             <span class="info-icone">📍</span>
+
             <div>
                 <strong>Local</strong>
                 <span>{{ vaga.local }}</span>
             </div>
         </div>
 
+        <!-- CARGA HORÁRIA -->
         <div class="info">
             <span class="info-icone">⏰</span>
+
             <div>
                 <strong>Carga horária</strong>
                 <span>{{ vaga.carga_horaria }}</span>
             </div>
         </div>
 
+        <!-- BOLSA -->
         <div class="info">
             <span class="info-icone">💰</span>
+
             <div>
                 <strong>Bolsa</strong>
+
                 <span>
-                    {% if vaga.bolsa %}
+                    {% if vaga.bolsa != None %}
                         R$ {{ vaga.bolsa|floatformat:2 }}
                     {% else %}
                         Não informada
@@ -96,7 +113,7 @@
 
     </div>
 
-    <!-- CANDIDATURA: SOMENTE PARA ALUNOS -->
+    <!-- CANDIDATURA -->
     {% if not user.is_superuser %}
 
         <div class="candidatura">
@@ -208,5 +225,4 @@
 </div>
 
 {% endblock %}
-
 
