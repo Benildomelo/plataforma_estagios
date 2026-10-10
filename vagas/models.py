@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -13,25 +14,37 @@ class Curso(models.Model):
 
 class Aluno(models.Model):
     id = models.BigAutoField(primary_key=True)
+
     usuario = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
         null=True,
         blank=True
     )
+
     nome = models.CharField(max_length=150)
     matricula = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     telefone = models.CharField(max_length=20, blank=True)
-    curriculo = models.FileField(upload_to='curriculos/', blank=True, null=True)
-    curso = models.ForeignKey(Curso, on_delete=models.PROTECT)
+
+    curriculo = models.FileField(
+        upload_to='curriculos/',
+        blank=True,
+        null=True
+    )
+
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.PROTECT
+    )
+
     ativo = models.BooleanField(default=True)
     senha_provisoria = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome
 
-    
+
 class Empresa(models.Model):
     id = models.BigAutoField(primary_key=True)
 
@@ -52,7 +65,8 @@ class Empresa(models.Model):
     senha_provisoria = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nome_fantasia    
+        return self.nome_fantasia
+
 
 class Vaga(models.Model):
 
@@ -66,12 +80,8 @@ class Vaga(models.Model):
     id = models.BigAutoField(primary_key=True)
 
     titulo = models.CharField(max_length=200)
-
     descricao = models.TextField()
-
-    requisitos = models.TextField(
-        blank=True
-    )
+    requisitos = models.TextField(blank=True)
 
     bolsa = models.DecimalField(
         max_digits=10,
@@ -80,22 +90,27 @@ class Vaga(models.Model):
         blank=True
     )
 
-    carga_horaria = models.CharField(
-        max_length=50
-    )
-
-    local = models.CharField(
-        max_length=200
-    )
+    carga_horaria = models.CharField(max_length=50)
+    local = models.CharField(max_length=200)
 
     empresa = models.ForeignKey(
         Empresa,
         on_delete=models.PROTECT
     )
 
+    # Campo antigo: mantido temporariamente para preservar dados.
     curso = models.ForeignKey(
         Curso,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
+
+    # Novo campo: permite associar vários cursos à mesma vaga.
+    cursos = models.ManyToManyField(
+        Curso,
+        related_name='vagas',
+        blank=True
     )
 
     status = models.CharField(
@@ -114,14 +129,14 @@ class Vaga(models.Model):
         blank=True
     )
 
-    ativo = models.BooleanField(
-        default=True
-    )
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.titulo   
+        return self.titulo
+
 
 class Candidatura(models.Model):
+
     STATUS_CHOICES = [
         ('PENDENTE', 'Pendente'),
         ('EM_ANALISE', 'Em análise'),
@@ -131,13 +146,23 @@ class Candidatura(models.Model):
     ]
 
     id = models.BigAutoField(primary_key=True)
-    aluno = models.ForeignKey(Aluno, on_delete=models.PROTECT)
-    vaga = models.ForeignKey(Vaga, on_delete=models.PROTECT)
+
+    aluno = models.ForeignKey(
+        Aluno,
+        on_delete=models.PROTECT
+    )
+
+    vaga = models.ForeignKey(
+        Vaga,
+        on_delete=models.PROTECT
+    )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default='PENDENTE'
     )
+
     data_candidatura = models.DateTimeField(auto_now_add=True)
     observacao = models.TextField(blank=True)
 
