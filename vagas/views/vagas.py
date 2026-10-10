@@ -104,6 +104,7 @@ def candidatar(request, vaga_id):
         vaga_id=vaga_id
     )
 
+
 def criar_vaga(request):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
@@ -165,7 +166,6 @@ def criar_vaga(request):
     )
 
 
-
 def editar_vaga(request, vaga_id):
     if not request.user.is_authenticated:
         return redirect('entrar_empresa')
@@ -175,9 +175,7 @@ def editar_vaga(request, vaga_id):
     if not empresa:
         return redirect('entrar_empresa')
 
-    vaga = VagaRepository.buscar_por_id(
-        vaga_id
-    )
+    vaga = VagaRepository.buscar_por_id(vaga_id)
 
     if not vaga or vaga.empresa != empresa:
         return redirect('area_empresa')
@@ -185,80 +183,85 @@ def editar_vaga(request, vaga_id):
     cursos = CursoRepository.buscar_ativos()
 
     if request.method == 'POST':
-        vaga.titulo = request.POST.get(
-            'titulo',
-            vaga.titulo
-        ).strip()
+        titulo = request.POST.get('titulo', '').strip()
+        descricao = request.POST.get('descricao', '').strip()
+        requisitos = request.POST.get('requisitos', '').strip()
+        local = request.POST.get('local', '').strip()
+        carga_horaria = request.POST.get('carga_horaria', '').strip()
+        bolsa = request.POST.get('bolsa', '').strip()
 
-        vaga.descricao = request.POST.get(
-            'descricao',
-            vaga.descricao
-        ).strip()
+        # Recebe todos os cursos selecionados.
+        cursos_ids = request.POST.getlist('cursos')
 
-        vaga.requisitos = request.POST.get(
-            'requisitos',
-            vaga.requisitos
-        ).strip()
+        # Valida os campos obrigatórios.
+        if not titulo:
+            messages.error(request, 'O título da vaga é obrigatório.')
 
-        vaga.local = request.POST.get(
-            'local',
-            vaga.local
-        ).strip()
+        elif not descricao:
+            messages.error(request, 'A descrição da vaga é obrigatória.')
 
-        vaga.carga_horaria = request.POST.get(
-            'carga_horaria',
-            vaga.carga_horaria
-        ).strip()
+        elif not local:
+            messages.error(request, 'O local da vaga é obrigatório.')
 
-        bolsa = request.POST.get(
-            'bolsa',
-            ''
-        ).strip()
+        elif not carga_horaria:
+            messages.error(request, 'A carga horária é obrigatória.')
 
-        vaga.bolsa = bolsa or None
-
-        curso_id = request.POST.get(
-            'curso',
-            ''
-        ).strip()
-
-        if curso_id:
-            curso = _buscar_curso(
-                curso_id
+        elif not cursos_ids:
+            messages.error(
+                request,
+                'Selecione pelo menos um curso para a vaga.'
             )
 
-            if not curso:
+        else:
+            # Busca somente cursos ativos.
+            cursos_selecionados = CursoRepository.buscar_ativos().filter(
+                id__in=cursos_ids
+            )
+
+            # Confere se todos os IDs enviados são válidos.
+            if cursos_selecionados.count() != len(set(cursos_ids)):
                 messages.error(
                     request,
-                    'Selecione um curso válido.'
+                    'Um ou mais cursos selecionados são inválidos.'
                 )
 
-                return render(
+            else:
+                vaga.titulo = titulo
+                vaga.descricao = descricao
+                vaga.requisitos = requisitos
+                vaga.local = local
+                vaga.carga_horaria = carga_horaria
+                vaga.bolsa = bolsa or None
+
+                # Atualiza os cursos relacionados à vaga.
+                vaga.cursos.set(cursos_selecionados)
+
+                # A alteração precisa passar novamente pela análise.
+                vaga.status = 'PENDENTE'
+                vaga.data_publicacao = None
+
+                VagaRepository.atualizar(vaga)
+
+                messages.success(
                     request,
-                    'vagas/empresa/editar_vaga.html',
-                    {
-                        'empresa': empresa,
-                        'vaga': vaga,
-                        'cursos': cursos,
-                    }
+                    'Vaga atualizada e enviada novamente para análise.'
                 )
 
-            vaga.curso = curso
+                return redirect(
+                    'detalhe_vaga_empresa',
+                    vaga_id=vaga.id
+                )
 
-        vaga.status = 'PENDENTE'
-
-        VagaRepository.atualizar(
-            vaga
-        )
-
-        messages.success(
+        # Mantém os dados preenchidos se houver erro.
+        return render(
             request,
-            'Vaga atualizada e enviada novamente para análise.'
-        )
-
-        return redirect(
-            'detalhe_vaga_empresa',
-            vaga_id=vaga.id
+            'vagas/empresa/editar_vaga.html',
+            {
+                'empresa': empresa,
+                'vaga': vaga,
+                'cursos': cursos,
+                'cursos_selecionados_ids': cursos_ids,
+            }
         )
 
     return render(
@@ -268,6 +271,9 @@ def editar_vaga(request, vaga_id):
             'empresa': empresa,
             'vaga': vaga,
             'cursos': cursos,
+            'cursos_selecionados_ids': list(
+                vaga.cursos.values_list('id', flat=True)
+            ),
         }
     )
 
