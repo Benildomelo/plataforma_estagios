@@ -85,28 +85,24 @@
             <div class="campo-formulario">
 
                 <label for="curso">
-                    Curso *
+                    Cursos elegíveis *
                 </label>
 
                 <select
-                    id="curso"
-                    name="curso"
+                    id="cursos"
+                    name="cursos"
+                    multiple
                     required
+                    size="5"
                 >
-
-                    <option value="">
-                        Selecione o curso
-                    </option>
-
                     {% for curso in cursos %}
-
+                        
                         <option
                             value="{{ curso.id }}"
-                            {% if vaga.curso.id == curso.id %}selected{% endif %}
+                            {% if curso.id in cursos_selecionados_ids %}selected{% endif %}
                         >
                             {{ curso.nome }}
                         </option>
-
                     {% endfor %}
 
                 </select>
