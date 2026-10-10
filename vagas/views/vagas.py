@@ -126,7 +126,9 @@ def criar_vaga(request):
         local = request.POST.get('local', '').strip()
         carga_horaria = request.POST.get('carga_horaria', '').strip()
         bolsa = request.POST.get('bolsa', '').strip()
-        curso_id = request.POST.get('curso', '').strip()
+
+        # Recebe vários cursos selecionados no formulário.
+        cursos_ids = request.POST.getlist('cursos')
 
         try:
             vaga = VagaService.criar_vaga(
@@ -137,7 +139,7 @@ def criar_vaga(request):
                 local=local,
                 carga_horaria=carga_horaria,
                 bolsa=bolsa,
-                curso_id=curso_id
+                cursos_ids=cursos_ids,
             )
 
             messages.success(
@@ -161,6 +163,7 @@ def criar_vaga(request):
         empresa,
         cursos
     )
+
 
 
 def editar_vaga(request, vaga_id):

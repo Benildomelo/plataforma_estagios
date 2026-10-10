@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from django.utils import timezone
 
@@ -99,7 +100,7 @@ class VagaAdmin(admin.ModelAdmin):
         'id',
         'titulo',
         'empresa',
-        'curso',
+        'listar_cursos',
         'status',
         'ativo',
         'data_publicacao',
@@ -108,20 +109,26 @@ class VagaAdmin(admin.ModelAdmin):
     list_display_links = (
         'titulo',
         'empresa',
-        'curso',
     )
 
     list_filter = (
         'status',
         'ativo',
-        'curso',
+        'cursos',
     )
 
     search_fields = (
         'titulo',
         'descricao',
         'empresa__nome_fantasia',
+        'cursos__nome',
     )
+
+    @admin.display(description='Cursos')
+    def listar_cursos(self, obj):
+        return ', '.join(
+            curso.nome for curso in obj.cursos.all()
+        )
 
     def save_model(self, request, obj, form, change):
         if (

@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -9,61 +10,37 @@
 <div class="criar-vaga">
 
     <div class="criar-vaga-cabecalho">
-
         <span class="criar-vaga-label">
             Área da empresa
         </span>
 
-        <h1>
-            Cadastrar nova vaga
-        </h1>
+        <h1>Cadastrar nova vaga</h1>
 
         <p>
             Cadastre uma oportunidade de estágio para os alunos da plataforma.
         </p>
-
     </div>
-
 
     <div class="criar-vaga-card">
 
         <div class="criar-vaga-empresa">
-
-            <span>
-                Empresa responsável
-            </span>
-
-            <strong>
-                {{ empresa.nome_fantasia }}
-            </strong>
-
+            <span>Empresa responsável</span>
+            <strong>{{ empresa.nome_fantasia }}</strong>
         </div>
 
-
         {% if messages %}
-
             {% for message in messages %}
-
                 <div class="mensagem">
                     {{ message }}
                 </div>
-
             {% endfor %}
-
         {% endif %}
 
-
         <form method="POST">
-
             {% csrf_token %}
 
-
             <div class="campo-vaga">
-
-                <label for="titulo">
-                    Título da vaga
-                </label>
-
+                <label for="titulo">Título da vaga</label>
                 <input
                     type="text"
                     id="titulo"
@@ -72,16 +49,10 @@
                     placeholder="Ex.: Estagiário de Desenvolvimento"
                     required
                 >
-
             </div>
 
-
             <div class="campo-vaga">
-
-                <label for="descricao">
-                    Descrição da vaga
-                </label>
-
+                <label for="descricao">Descrição da vaga</label>
                 <textarea
                     id="descricao"
                     name="descricao"
@@ -89,34 +60,22 @@
                     placeholder="Descreva as atividades que serão realizadas..."
                     required
                 >{{ request.POST.descricao }}</textarea>
-
             </div>
 
-
             <div class="campo-vaga">
-
-                <label for="requisitos">
-                    Requisitos
-                </label>
-
+                <label for="requisitos">Requisitos</label>
                 <textarea
                     id="requisitos"
                     name="requisitos"
                     rows="5"
                     placeholder="Informe os conhecimentos e requisitos necessários..."
                 >{{ request.POST.requisitos }}</textarea>
-
             </div>
-
 
             <div class="criar-vaga-grid">
 
                 <div class="campo-vaga">
-
-                    <label for="bolsa">
-                        Bolsa (R$)
-                    </label>
-
+                    <label for="bolsa">Bolsa (R$)</label>
                     <input
                         type="number"
                         id="bolsa"
@@ -126,16 +85,10 @@
                         min="0"
                         placeholder="Ex.: 1200.00"
                     >
-
                 </div>
 
-
                 <div class="campo-vaga">
-
-                    <label for="carga_horaria">
-                        Carga horária
-                    </label>
-
+                    <label for="carga_horaria">Carga horária</label>
                     <input
                         type="text"
                         id="carga_horaria"
@@ -144,20 +97,14 @@
                         placeholder="Ex.: 30 horas semanais"
                         required
                     >
-
                 </div>
 
             </div>
 
-
             <div class="criar-vaga-grid">
 
                 <div class="campo-vaga">
-
-                    <label for="local">
-                        Local
-                    </label>
-
+                    <label for="local">Local</label>
                     <input
                         type="text"
                         id="local"
@@ -166,51 +113,42 @@
                         placeholder="Ex.: Teresina - PI"
                         required
                     >
-
                 </div>
 
-
                 <div class="campo-vaga">
+                    <label for="cursos">Cursos aceitos</label>
 
-                    <label for="curso">
-                        Curso
-                    </label>
+                    <p class="ajuda-cursos">
+                        Selecione todos os cursos compatíveis com esta vaga.
+                        No computador, mantenha Ctrl pressionado para escolher
+                        mais de um curso.
+                    </p>
 
                     <select
-                        id="curso"
-                        name="curso"
+                        id="cursos"
+                        name="cursos"
+                        multiple
                         required
+                        size="5"
                     >
-
-                        <option value="">
-                            Selecione o curso
-                        </option>
-
                         {% for curso in cursos %}
-
                             <option
                                 value="{{ curso.id }}"
-                                {% if request.POST.curso == curso.id|stringformat:"s" %}
+                                {% if curso.id|stringformat:"s" in request.POST.cursos %}
                                     selected
                                 {% endif %}
                             >
                                 {{ curso.nome }}
                             </option>
-
                         {% empty %}
-
-                            <option value="">
+                            <option disabled>
                                 Nenhum curso disponível
                             </option>
-
                         {% endfor %}
-
                     </select>
-
                 </div>
 
             </div>
-
 
             <div class="criar-vaga-acoes">
 

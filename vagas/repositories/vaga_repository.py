@@ -1,3 +1,5 @@
+
+from django.db import transaction
 from django.db.models import Q
 
 from ..models import Vaga
@@ -22,9 +24,9 @@ class VagaRepository:
         return Vaga.objects.filter(
             status='APROVADA',
             ativo=True
-        ).select_related(
+        ).prefetch_related(
             'empresa',
-            'curso'
+            'cursos'
         ).order_by(
             '-data_publicacao'
         )
@@ -38,9 +40,9 @@ class VagaRepository:
         vagas = Vaga.objects.filter(
             status='APROVADA',
             ativo=True
-        ).select_related(
+        ).prefetch_related(
             'empresa',
-            'curso'
+            'cursos'
         )
 
         if busca:
@@ -52,7 +54,7 @@ class VagaRepository:
 
         if curso_id:
             vagas = vagas.filter(
-                curso_id=curso_id
+                cursos__id=curso_id
             )
 
         if local:
@@ -60,12 +62,12 @@ class VagaRepository:
                 local__icontains=local
             )
 
-        return vagas
+        return vagas.distinct()
 
     @staticmethod
     def buscar_por_curso(curso):
         return Vaga.objects.filter(
-            curso=curso,
+            cursos=curso,
             status='APROVADA',
             ativo=True
         ).order_by(
@@ -77,15 +79,18 @@ class VagaRepository:
         return Vaga.objects.filter(
             status='PENDENTE',
             ativo=True
-        ).order_by(
-            '-id'
-        )
+        ).order_by('-id')
 
     @staticmethod
     def criar(**dados):
-        return Vaga.objects.create(
-            **dados
-        )
+        return Vaga.objects.create(**dados)
+
+    @staticmethod
+    @transaction.atomic
+    def criar_com_cursos(cursos, **dados):
+        vaga = Vaga.objects.create(**dados)
+        vaga.cursos.set(cursos)
+        return vaga
 
     @staticmethod
     def atualizar(vaga):
@@ -96,7 +101,5 @@ class VagaRepository:
     def encerrar(vaga):
         vaga.ativo = False
         vaga.status = 'ENCERRADA'
-
         vaga.save()
-
         return vaga
