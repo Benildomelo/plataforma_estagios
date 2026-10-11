@@ -32,6 +32,18 @@ class Aluno(models.Model):
         blank=True,
         null=True
     )
+    # Informações complementares do currículo
+    objetivo_profissional = models.TextField(blank=True)
+    resumo_profissional = models.TextField(blank=True)
+    habilidades = models.TextField(blank=True)
+    experiencias = models.TextField(blank=True)
+    cursos_complementares = models.TextField(blank=True)
+
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.PROTECT
+    )
+
 
     curso = models.ForeignKey(
         Curso,

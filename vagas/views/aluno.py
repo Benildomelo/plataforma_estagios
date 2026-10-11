@@ -1,3 +1,9 @@
+from pathlib import Path
+
+from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.exceptions import ValidationError
+
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
@@ -237,6 +243,7 @@ def perfil_aluno(request):
     )
 
 
+
 def curriculo_aluno(request):
     if not request.user.is_authenticated:
         return redirect('entrar_aluno')
@@ -246,13 +253,93 @@ def curriculo_aluno(request):
     if not aluno:
         return redirect('cadastro_aluno')
 
+    if request.method == 'POST':
+        campos = [
+            'objetivo_profissional',
+            'resumo_profissional',
+            'habilidades',
+            'experiencias',
+            'cursos_complementares',
+        ]
+
+        # Salva as informações digitadas.
+        for campo in campos:
+            setattr(
+                aluno,
+                campo,
+                request.POST.get(campo, '').strip()
+            )
+
+        arquivo = request.FILES.get('curriculo')
+
+        if arquivo:
+            nome = Path(arquivo.name).name
+
+            if not nome.lower().endswith('.pdf'):
+                messages.error(
+                    request,
+                    'Envie o currículo em formato PDF.'
+                )
+                return render(
+                    request,
+                    'vagas/aluno/curriculo_aluno.html',
+                    {'aluno': aluno}
+                )
+
+            if arquivo.size > 5 * 1024 * 1024:
+                messages.error(
+                    request,
+                    'O arquivo deve ter no máximo 5 MB.'
+                )
+                return render(
+                    request,
+                    'vagas/aluno/curriculo_aluno.html',
+                    {'aluno': aluno}
+                )
+
+            if arquivo.size == 0:
+                messages.error(
+                    request,
+                    'O arquivo enviado está vazio.'
+                )
+                return render(
+                    request,
+                    'vagas/aluno/curriculo_aluno.html',
+                    {'aluno': aluno}
+                )
+
+            # Confere se o arquivo realmente começa como um PDF.
+            inicio = arquivo.read(5)
+            arquivo.seek(0)
+
+            if inicio != b'%PDF-':
+                messages.error(
+                    request,
+                    'O arquivo selecionado não parece ser um PDF válido.'
+                )
+                return render(
+                    request,
+                    'vagas/aluno/curriculo_aluno.html',
+                    {'aluno': aluno}
+                )
+
+            aluno.curriculo = arquivo
+
+        aluno.save()
+
+        messages.success(
+            request,
+            'Currículo atualizado com sucesso!'
+        )
+
+        return redirect('curriculo_aluno')
+
     return render(
         request,
         'vagas/aluno/curriculo_aluno.html',
-        {
-            'aluno': aluno,
-        }
+        {'aluno': aluno}
     )
+
 
 
 def editar_perfil_aluno(request):
