@@ -1,4 +1,4 @@
-
+```django
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -120,7 +120,7 @@
 
             {% if user.is_authenticated %}
 
-                {% if candidatura_existente %}
+                {% if ja_candidatou %}
 
                     <div class="candidatura-sucesso">
 
@@ -225,4 +225,3 @@
 </div>
 
 {% endblock %}
-
