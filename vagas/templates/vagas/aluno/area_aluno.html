@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -259,11 +260,21 @@
 
                         <div class="dashboard-candidatura-lado">
 
-                            <span
-                                class="dashboard-status status-{{ candidatura.status|lower }}"
-                            >
-                                {{ candidatura.get_status_display }}
-                            </span>
+                            {% if candidatura.vaga.status == 'ENCERRADA' or not candidatura.vaga.ativo %}
+
+                                <span class="dashboard-status status-encerrada">
+                                    Vaga encerrada
+                                </span>
+
+                            {% else %}
+
+                                <span
+                                    class="dashboard-status status-{{ candidatura.status|lower }}"
+                                >
+                                    {{ candidatura.get_status_display }}
+                                </span>
+
+                            {% endif %}
 
                             <a
                                 href="{% url 'detalhe_vaga' candidatura.vaga.id %}"

@@ -56,20 +56,18 @@ def lista_vagas(request):
 
 
 
-def detalhe_vaga(request, vaga_id):
-    vaga = VagaRepository.buscar_por_id(
-        vaga_id
-    )
 
-    if not vaga or vaga.status != 'APROVADA' or not vaga.ativo:
+
+def detalhe_vaga(request, vaga_id):
+    vaga = VagaRepository.buscar_por_id(vaga_id)
+
+    if not vaga:
         return redirect('lista_vagas')
 
     ja_candidatou = False
 
     if request.user.is_authenticated:
-        aluno = AlunoRepository.buscar_por_usuario(
-            request.user
-        )
+        aluno = AlunoRepository.buscar_por_usuario(request.user)
 
         if aluno:
             ja_candidatou = (
@@ -78,6 +76,11 @@ def detalhe_vaga(request, vaga_id):
                     vaga
                 )
             )
+
+    # Vagas indisponíveis só podem ser vistas por quem já se candidatou.
+    if vaga.status != 'APROVADA' or not vaga.ativo:
+        if not ja_candidatou:
+            return redirect('lista_vagas')
 
     return render(
         request,

@@ -1,3 +1,4 @@
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -55,12 +56,22 @@
 
                         <div>
 
-                            <span class="minha-candidatura-label">
-                                Candidatura enviada
-                            </span>
+                            {% if candidatura.vaga.status == 'ENCERRADA' or not candidatura.vaga.ativo %}
+
+                                <span class="minha-candidatura-label">
+                                    Vaga encerrada
+                                </span>
+
+                            {% else %}
+
+                                <span class="minha-candidatura-label">
+                                    Candidatura enviada
+                                </span>
+
+                            {% endif %}
 
                             <h2>
-                                <a href="/vagas/{{ candidatura.vaga.id }}/">
+                                <a href="{% url 'detalhe_vaga' candidatura.vaga.id %}">
                                     {{ candidatura.vaga.titulo }}
                                 </a>
                             </h2>
@@ -115,18 +126,33 @@
                     </div>
 
 
-                    <!-- INFORMAÇÃO SOBRE CONTATO -->
+                    <!-- INFORMAÇÃO SOBRE A SITUAÇÃO DA VAGA -->
 
                     <div class="minha-candidatura-contato">
 
-                        <strong>
-                            📩 Candidatura enviada com sucesso
-                        </strong>
+                        {% if candidatura.vaga.status == 'ENCERRADA' or not candidatura.vaga.ativo %}
 
-                        <p>
-                            A empresa recebeu sua candidatura.
-                            Caso tenha interesse, poderá entrar em contato com você.
-                        </p>
+                            <strong>
+                                🔒 Vaga encerrada
+                            </strong>
+
+                            <p>
+                                Esta oportunidade foi encerrada pela empresa.
+                                Sua candidatura continua registrada no sistema.
+                            </p>
+
+                        {% else %}
+
+                            <strong>
+                                📩 Candidatura enviada com sucesso
+                            </strong>
+
+                            <p>
+                                A empresa recebeu sua candidatura.
+                                Caso tenha interesse, poderá entrar em contato com você.
+                            </p>
+
+                        {% endif %}
 
                     </div>
 
@@ -136,7 +162,7 @@
                     <div class="minha-candidatura-acao">
 
                         <a
-                            href="/vagas/{{ candidatura.vaga.id }}/"
+                            href="{% url 'detalhe_vaga' candidatura.vaga.id %}"
                             class="botao-principal"
                         >
                             Ver detalhes da vaga

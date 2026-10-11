@@ -1,4 +1,4 @@
-```django
+
 {% extends 'vagas/base.html' %}
 
 {% block title %}
@@ -24,7 +24,14 @@
             🏢 {{ vaga.empresa.nome_fantasia }}
         </p>
 
+        {% if vaga.status == 'ENCERRADA' or not vaga.ativo %}
+            <p class="status-vaga-encerrada">
+                🔒 Vaga encerrada
+            </p>
+        {% endif %}
+
     </div>
+
 
     <!-- INFORMAÇÕES PRINCIPAIS -->
     <div class="informacoes">
@@ -85,6 +92,7 @@
 
     </div>
 
+
     <!-- DESCRIÇÃO -->
     <div class="secao">
 
@@ -95,6 +103,7 @@
         </p>
 
     </div>
+
 
     <!-- REQUISITOS -->
     <div class="secao">
@@ -113,12 +122,53 @@
 
     </div>
 
+
     <!-- CANDIDATURA -->
     {% if not user.is_superuser %}
 
         <div class="candidatura">
 
-            {% if user.is_authenticated %}
+            {% if vaga.status == 'ENCERRADA' or not vaga.ativo %}
+
+                {% if ja_candidatou %}
+
+                    <div class="candidatura-sucesso">
+
+                        <p class="status-vaga-encerrada">
+                            🔒 Esta vaga foi encerrada pela empresa.
+                        </p>
+
+                        <p>
+                            Sua candidatura continua registrada na plataforma.
+                            Não é possível enviar novas candidaturas para esta vaga.
+                        </p>
+
+                        <a
+                            href="/minhas-candidaturas/"
+                            class="botao"
+                        >
+                            Ver minhas candidaturas
+                        </a>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="candidatura-login">
+
+                        <h3>
+                            Vaga encerrada
+                        </h3>
+
+                        <p>
+                            Esta oportunidade não está mais recebendo candidaturas.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            {% elif user.is_authenticated %}
 
                 {% if ja_candidatou %}
 
@@ -200,6 +250,7 @@
         </div>
 
     {% endif %}
+
 
     <!-- VOLTAR -->
     {% if user.is_superuser %}
