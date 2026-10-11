@@ -55,6 +55,7 @@ def lista_vagas(request):
     )
 
 
+
 def detalhe_vaga(request, vaga_id):
     vaga = VagaRepository.buscar_por_id(
         vaga_id

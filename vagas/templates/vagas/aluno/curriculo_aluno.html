@@ -8,185 +8,174 @@
 
 <div class="curriculo-aluno">
 
-    <!-- Cabeçalho -->
-
     <div class="curriculo-cabecalho">
-
         <div>
-
-            <span class="curriculo-label">
-                PERFIL DO ALUNO
-            </span>
-
-            <h1>
-                Meu currículo 📄
-            </h1>
-
+            <span class="curriculo-label">PERFIL DO ALUNO</span>
+            <h1>Meu currículo 📄</h1>
             <p>
                 Mantenha seu currículo atualizado para aumentar suas
                 oportunidades de estágio.
             </p>
-
         </div>
 
-        <div class="curriculo-icone">
-            📄
-        </div>
-
+        <div class="curriculo-icone">📄</div>
     </div>
 
-
-    <!-- Mensagens -->
-
     {% if messages %}
-
         {% for message in messages %}
-
             <div class="curriculo-mensagem">
                 {{ message }}
             </div>
-
         {% endfor %}
-
     {% endif %}
 
-
     {% if mensagem %}
-
         <div class="curriculo-mensagem curriculo-mensagem-erro">
             {{ mensagem }}
         </div>
-
     {% endif %}
-
-
-    <!-- Cartão principal -->
 
     <section class="curriculo-card">
 
         <div class="curriculo-card-titulo">
-
-            <div class="curriculo-card-icone">
-                📑
-            </div>
-
+            <div class="curriculo-card-icone">📑</div>
             <div>
-                <h2>Seu currículo</h2>
-
-                <p>
-                    Arquivo utilizado nas suas candidaturas.
-                </p>
+                <h2>Seu currículo em PDF</h2>
+                <p>Arquivo utilizado nas suas candidaturas.</p>
             </div>
-
         </div>
 
-
         {% if aluno.curriculo %}
-
-            <!-- Currículo cadastrado -->
-
             <div class="curriculo-atual">
-
-                <div class="curriculo-arquivo-icone">
-                    PDF
-                </div>
+                <div class="curriculo-arquivo-icone">PDF</div>
 
                 <div class="curriculo-arquivo-info">
-
-                    <span>
-                        Currículo cadastrado
-                    </span>
-
-                    <strong>
-                        {{ aluno.curriculo.name }}
-                    </strong>
-
+                    <span>Currículo cadastrado</span>
+                    <strong>{{ aluno.curriculo.name }}</strong>
                     <small>
                         Seu currículo está pronto para ser utilizado
                         nas candidaturas.
                     </small>
-
                 </div>
-
             </div>
 
-
             <div class="curriculo-acoes">
-
-                <a
-                    href="{{ aluno.curriculo.url }}"
-                    target="_blank"
-                    class="botao"
-                >
+                <a href="{{ aluno.curriculo.url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="botao">
                     👁️ Visualizar currículo
                 </a>
 
-                <a
-                    href="{{ aluno.curriculo.url }}"
-                    download
-                    class="botao botao-secundario"
-                >
+                <a href="{{ aluno.curriculo.url }}"
+                   download
+                   class="botao botao-secundario">
                     ⬇️ Baixar currículo
                 </a>
-
             </div>
-
-
         {% else %}
-
-            <!-- Sem currículo -->
-
             <div class="curriculo-sem-arquivo">
-
-                <div class="curriculo-sem-arquivo-icone">
-                    📄
-                </div>
-
-                <h3>
-                    Você ainda não possui um currículo
-                </h3>
-
+                <div class="curriculo-sem-arquivo-icone">📄</div>
+                <h3>Você ainda não possui um currículo em PDF</h3>
                 <p>
-                    Envie seu currículo em PDF para poder utilizá-lo
-                    nas suas candidaturas.
+                    Se desejar, envie seu arquivo PDF no campo ao final
+                    deste formulário.
                 </p>
-
             </div>
-
         {% endif %}
-
 
         <hr>
 
-
-        <!-- Envio -->
-
         <div class="curriculo-envio">
-
-            <h2>
-                {% if aluno.curriculo %}
-                    Atualizar currículo
-                {% else %}
-                    Enviar currículo
-                {% endif %}
-            </h2>
-
+            <h2>Informações profissionais</h2>
             <p>
-                Formato aceito: <strong>PDF</strong>.
-                Tamanho máximo: <strong>5 MB</strong>.
+                Preencha seus dados para que as empresas possam conhecer
+                melhor seu perfil ao receberem suas candidaturas.
             </p>
 
-
-            <form
-                method="POST"
-                enctype="multipart/form-data"
-                class="curriculo-form"
-            >
+            <form method="POST"
+                  enctype="multipart/form-data"
+                  class="curriculo-form">
 
                 {% csrf_token %}
 
-                <div class="curriculo-upload">
+                <div class="campo-formulario">
+                    <label for="objetivo_profissional">
+                        Objetivo profissional
+                    </label>
+                    <textarea
+                        id="objetivo_profissional"
+                        name="objetivo_profissional"
+                        rows="3"
+                        placeholder="Ex.: Busco uma oportunidade de estágio para desenvolver minhas habilidades..."
+                    >{{ aluno.objetivo_profissional }}</textarea>
+                </div>
 
+                <div class="campo-formulario">
+                    <label for="resumo_profissional">
+                        Resumo profissional
+                    </label>
+                    <textarea
+                        id="resumo_profissional"
+                        name="resumo_profissional"
+                        rows="4"
+                        placeholder="Conte um pouco sobre você, sua formação e seus interesses profissionais..."
+                    >{{ aluno.resumo_profissional }}</textarea>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="habilidades">
+                        Habilidades e competências
+                    </label>
+                    <textarea
+                        id="habilidades"
+                        name="habilidades"
+                        rows="4"
+                        placeholder="Ex.: comunicação, trabalho em equipe, Excel, programação..."
+                    >{{ aluno.habilidades }}</textarea>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="experiencias">
+                        Experiências profissionais
+                    </label>
+                    <textarea
+                        id="experiencias"
+                        name="experiencias"
+                        rows="5"
+                        placeholder="Descreva experiências profissionais, projetos acadêmicos, trabalhos voluntários ou atividades relevantes..."
+                    >{{ aluno.experiencias }}</textarea>
+                </div>
+
+                <div class="campo-formulario">
+                    <label for="cursos_complementares">
+                        Cursos complementares e certificações
+                    </label>
+                    <textarea
+                        id="cursos_complementares"
+                        name="cursos_complementares"
+                        rows="4"
+                        placeholder="Informe cursos, instituições e certificações que você concluiu..."
+                    >{{ aluno.cursos_complementares }}</textarea>
+                </div>
+
+                <hr>
+
+                <h2>
+                    {% if aluno.curriculo %}
+                        Atualizar arquivo PDF (opcional)
+                    {% else %}
+                        Enviar arquivo PDF (opcional)
+                    {% endif %}
+                </h2>
+
+                <p>
+                    Formato aceito: <strong>PDF</strong>.
+                    Tamanho máximo: <strong>5 MB</strong>.
+                    Se não selecionar um arquivo novo, o PDF atual será mantido.
+                </p>
+
+                <div class="curriculo-upload">
                     <label for="curriculo">
                         📁 Selecionar arquivo PDF
                     </label>
@@ -196,59 +185,33 @@
                         id="curriculo"
                         name="curriculo"
                         accept=".pdf,application/pdf"
-                        required
                     >
-
                 </div>
 
-
-                <button
-                    type="submit"
-                    class="botao"
-                >
-                    {% if aluno.curriculo %}
-                        🔄 Atualizar currículo
-                    {% else %}
-                        📤 Enviar currículo
-                    {% endif %}
+                <button type="submit" class="botao">
+                    💾 Salvar currículo
                 </button>
 
             </form>
-
         </div>
-
     </section>
 
-
-    <!-- Informação -->
-
     <div class="curriculo-dica">
-
         <span>💡</span>
-
         <div>
             <strong>Dica</strong>
-
             <p>
-                Mantenha seu currículo atualizado com suas experiências,
-                cursos e habilidades mais recentes.
+                Mantenha suas informações atualizadas. Seja claro e objetivo
+                ao descrever suas habilidades, experiências e cursos.
             </p>
         </div>
-
     </div>
 
-
-    <!-- Voltar -->
-
     <div class="curriculo-voltar">
-
-        <a
-            href="{% url 'perfil_aluno' %}"
-            class="botao botao-secundario"
-        >
+        <a href="{% url 'perfil_aluno' %}"
+           class="botao botao-secundario">
             ← Voltar para o perfil
         </a>
-
     </div>
 
 </div>

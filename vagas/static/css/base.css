@@ -530,3 +530,44 @@ footer {
         font-size: 11px;
     }
 }
+
+
+/* MENSAGENS DO SISTEMA */
+
+.mensagens-sistema {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.mensagem {
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.mensagem-success {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.mensagem-info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.mensagem-error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.mensagem-warning {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}

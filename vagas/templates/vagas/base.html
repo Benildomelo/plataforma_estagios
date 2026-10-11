@@ -184,14 +184,23 @@
 
     <main>
 
+        {% if messages %}
+            <div class="mensagens-sistema">
+                {% for message in messages %}
+                    <div class="mensagem mensagem-{{ message.tags }}">
+                    {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
 
     </main>
 
-
-    <!-- =====================================================
-         RODAPÉ
+<!-- =====================================================
+        RODAPÉ
          ===================================================== -->
 
     <footer>
