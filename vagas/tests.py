@@ -487,3 +487,121 @@ class TestesAcoesInstituicao(TestCase):
 
         self.assertEqual(resposta.status_code, 404)
 
+class TestesSegurancaEmpresa(TestCase):
+    def setUp(self):
+        self.curso = Curso.objects.create(
+            nome="Curso Teste Segurança",
+            ativo=True,
+        )
+
+        self.senha = "SenhaTeste123!"
+
+        self.usuario_empresa1 = User.objects.create_user(
+            username="empresa_seguranca1",
+            email="seguranca1@example.com",
+            password=self.senha,
+        )
+
+        self.empresa1 = Empresa.objects.create(
+            usuario=self.usuario_empresa1,
+            razao_social="Empresa Um LTDA",
+            nome_fantasia="Empresa Um",
+            cnpj="11111111000111",
+            email="seguranca1@example.com",
+            ativo=True,
+        )
+
+        self.usuario_empresa2 = User.objects.create_user(
+            username="empresa_seguranca2",
+            email="seguranca2@example.com",
+            password=self.senha,
+        )
+
+        self.empresa2 = Empresa.objects.create(
+            usuario=self.usuario_empresa2,
+            razao_social="Empresa Dois LTDA",
+            nome_fantasia="Empresa Dois",
+            cnpj="22222222000122",
+            email="seguranca2@example.com",
+            ativo=True,
+        )
+
+        self.vaga_empresa1 = Vaga.objects.create(
+            titulo="Vaga Privada da Empresa Um",
+            descricao="Descrição privada da primeira empresa.",
+            requisitos="Conhecimentos básicos",
+            carga_horaria="20 horas semanais",
+            local="Teresina - PI",
+            empresa=self.empresa1,
+            curso=self.curso,
+            status="APROVADA",
+            ativo=True,
+        )
+
+    def test_empresa_acessa_propria_area(self):
+        self.client.force_login(self.usuario_empresa1)
+
+        resposta = self.client.get(
+            reverse("area_empresa")
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+
+    def test_empresa_acessa_detalhes_da_propria_vaga(self):
+        self.client.force_login(self.usuario_empresa1)
+
+        resposta = self.client.get(
+            reverse(
+                "detalhe_vaga_empresa",
+                args=[self.vaga_empresa1.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+
+    def test_empresa_nao_acessa_vaga_de_outra_empresa(self):
+        self.client.force_login(self.usuario_empresa2)
+
+        resposta = self.client.get(
+            reverse(
+                "detalhe_vaga_empresa",
+                args=[self.vaga_empresa1.id],
+            )
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("area_empresa"),
+            fetch_redirect_response=False,
+        )
+
+    def test_usuario_deslogado_nao_acessa_area_empresa(self):
+        resposta = self.client.get(
+            reverse("area_empresa")
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("entrar_empresa"),
+            fetch_redirect_response=False,
+        )
+
+    def test_usuario_sem_perfil_empresa_nao_acessa_area(self):
+        usuario = User.objects.create_user(
+            username="usuario_sem_empresa",
+            email="semempresa@example.com",
+            password=self.senha,
+        )
+
+        self.client.force_login(usuario)
+
+        resposta = self.client.get(
+            reverse("area_empresa")
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("entrar_empresa"),
+            fetch_redirect_response=False,
+        )
+
