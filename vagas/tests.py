@@ -605,3 +605,109 @@ class TestesSegurancaEmpresa(TestCase):
             fetch_redirect_response=False,
         )
 
+    def test_empresa_edita_propria_vaga(self):
+        self.client.force_login(self.usuario_empresa1)
+
+        resposta = self.client.get(
+            reverse(
+                "editar_vaga",
+                args=[self.vaga_empresa1.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+
+    def test_empresa_nao_edita_vaga_de_outra_empresa(self):
+        self.client.force_login(self.usuario_empresa2)
+
+        titulo_original = self.vaga_empresa1.titulo
+
+        resposta = self.client.post(
+            reverse(
+                "editar_vaga",
+                args=[self.vaga_empresa1.id],
+            ),
+            {
+                "titulo": "Título alterado indevidamente",
+                "descricao": "Tentativa de alteração.",
+                "requisitos": "Teste",
+                "local": "Teresina - PI",
+                "carga_horaria": "20 horas semanais",
+                "bolsa": "",
+                "cursos": [str(self.curso.id)],
+            },
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("area_empresa"),
+            fetch_redirect_response=False,
+        )
+
+        self.vaga_empresa1.refresh_from_db()
+        self.assertEqual(
+            self.vaga_empresa1.titulo,
+            titulo_original,
+        )
+
+    def test_empresa_nao_acessa_edicao_de_vaga_inexistente(self):
+        self.client.force_login(self.usuario_empresa1)
+
+        resposta = self.client.get(
+            reverse("editar_vaga", args=[999999])
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("area_empresa"),
+            fetch_redirect_response=False,
+        )
+
+    def test_empresa_encerrar_propria_vaga(self):
+        self.client.force_login(self.usuario_empresa1)
+
+        resposta = self.client.post(
+            reverse(
+                "encerrar_vaga",
+                args=[self.vaga_empresa1.id],
+            )
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("area_empresa"),
+            fetch_redirect_response=False,
+        )
+
+        self.vaga_empresa1.refresh_from_db()
+        self.assertEqual(self.vaga_empresa1.status, "ENCERRADA")
+        self.assertFalse(self.vaga_empresa1.ativo)
+
+    def test_empresa_nao_encerra_vaga_de_outra_empresa(self):
+        self.client.force_login(self.usuario_empresa2)
+
+        status_original = self.vaga_empresa1.status
+        ativo_original = self.vaga_empresa1.ativo
+
+        resposta = self.client.post(
+            reverse(
+                "encerrar_vaga",
+                args=[self.vaga_empresa1.id],
+            )
+        )
+
+        self.assertRedirects(
+            resposta,
+            reverse("area_empresa"),
+            fetch_redirect_response=False,
+        )
+
+        self.vaga_empresa1.refresh_from_db()
+        self.assertEqual(
+            self.vaga_empresa1.status,
+            status_original,
+        )
+        self.assertEqual(
+            self.vaga_empresa1.ativo,
+            ativo_original,
+        )
