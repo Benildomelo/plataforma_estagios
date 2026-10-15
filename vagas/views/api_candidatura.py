@@ -60,7 +60,7 @@ def api_candidatar(request):
                     "observacao": resposta.observacao,
                 }
             },
-            status=201 if criada else 200
+            status=202 if criada else 200
         )
 
     except ValueError as erro:
