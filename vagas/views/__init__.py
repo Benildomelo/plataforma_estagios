@@ -5,7 +5,6 @@ from .publicas import (
 )
 
 from .autenticacao import (
-    entrar,
     entrar_aluno,
     entrar_empresa,
     entrar_instituicao,

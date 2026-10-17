@@ -6,47 +6,6 @@ from django.shortcuts import redirect, render
 from vagas.models import Aluno, Empresa
 
 
-def _realizar_login(request, redirecionamento):
-    username = request.POST.get('username', '').strip()
-    password = request.POST.get('password', '')
-
-    usuario = authenticate(
-        request,
-        username=username,
-        password=password
-    )
-
-    if usuario is not None:
-        login(request, usuario)
-        return redirect(redirecionamento)
-
-    messages.error(
-        request,
-        'Usuário ou senha inválidos.'
-    )
-
-    return None
-
-
-def entrar(request):
-    if request.user.is_authenticated:
-        return redirect('area_aluno')
-
-    if request.method == 'POST':
-        resposta = _realizar_login(
-            request,
-            'area_aluno'
-        )
-
-        if resposta:
-            return resposta
-
-    return render(
-        request,
-        'vagas/autenticacao/login.html'
-    )
-
-
 def entrar_aluno(request):
     if request.method == 'POST':
         identificador = request.POST.get(

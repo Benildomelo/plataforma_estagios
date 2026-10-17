@@ -9,7 +9,6 @@ from vagas.views import (
     inicio,
     lista_vagas,
     detalhe_vaga,
-    entrar,
     candidatar,
     minhas_candidaturas,
     sair,
@@ -75,11 +74,6 @@ urlpatterns = [
     # AUTENTICAÇÃO
     # =====================================================
 
-    path(
-        'entrar/',
-        entrar,
-        name='entrar'
-    ),
 
     path(
         'entrar-aluno/',
