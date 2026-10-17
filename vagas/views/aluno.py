@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 from django.core.exceptions import ValidationError
 
 from django.contrib import messages
+from django.contrib.auth import logout 
 from django.shortcuts import redirect, render
 
 from ..repositories.aluno_repository import AlunoRepository
@@ -19,6 +20,25 @@ def _buscar_aluno(request):
     )
 
 
+def _verificar_acesso_aluno(request):
+    """
+    Garante que o usuário autenticado possui um perfil de aluno ativo.
+
+    Retorna o aluno quando o acesso é permitido.
+    Caso contrário, encerra a sessão e direciona para o login de aluno.
+    """
+    if not request.user.is_authenticated:
+        return None
+
+    aluno = _buscar_aluno(request)
+
+    if not aluno or not aluno.ativo:
+        logout(request)
+        return None
+
+    return aluno
+
+
 def _render_cadastro(request, cursos):
     return render(
         request,
@@ -30,17 +50,10 @@ def _render_cadastro(request, cursos):
 
 
 def minhas_candidaturas(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_aluno')
-
-    aluno = _buscar_aluno(request)
+    aluno = _verificar_acesso_aluno(request)
 
     if not aluno:
-        messages.error(
-            request,
-            'Perfil de aluno não encontrado.'
-        )
-        return redirect('area_aluno')
+        return redirect('entrar_aluno')
 
     candidaturas = CandidaturaRepository.buscar_por_aluno(
         aluno
@@ -56,13 +69,10 @@ def minhas_candidaturas(request):
 
 
 def area_aluno(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_aluno')
-
-    aluno = _buscar_aluno(request)
+    aluno = _verificar_acesso_aluno(request)
 
     if not aluno:
-        return redirect('cadastro_aluno')
+        return redirect('entrar_aluno')
 
     candidaturas = CandidaturaRepository.buscar_por_aluno(
         aluno
@@ -80,7 +90,12 @@ def area_aluno(request):
 
 def cadastro_aluno(request):
     if request.user.is_authenticated:
-        return redirect('area_aluno')
+        aluno = _buscar_aluno(request)
+
+        if aluno and aluno.ativo:
+            return redirect('area_aluno')
+
+        logout(request)
 
     cursos = CursoRepository.buscar_ativos()
 
@@ -226,13 +241,10 @@ def cadastro_aluno(request):
 
 
 def perfil_aluno(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_aluno')
-
-    aluno = _buscar_aluno(request)
+    aluno = _verificar_acesso_aluno(request)
 
     if not aluno:
-        return redirect('cadastro_aluno')
+        return redirect('entrar_aluno')
 
     return render(
         request,
@@ -245,13 +257,10 @@ def perfil_aluno(request):
 
 
 def curriculo_aluno(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_aluno')
-
-    aluno = _buscar_aluno(request)
-
+    aluno = _verificar_acesso_aluno(request)
+    
     if not aluno:
-        return redirect('cadastro_aluno')
+        return redirect('entrar_aluno')
 
     if request.method == 'POST':
         campos = [
@@ -343,13 +352,10 @@ def curriculo_aluno(request):
 
 
 def editar_perfil_aluno(request):
-    if not request.user.is_authenticated:
-        return redirect('entrar_aluno')
-
-    aluno = _buscar_aluno(request)
+    aluno = _verificar_acesso_aluno(request)
 
     if not aluno:
-        return redirect('cadastro_aluno')
+        return redirect('entrar_aluno')
 
     cursos = CursoRepository.buscar_ativos()
 
