@@ -77,21 +77,110 @@ class EmpresaAdmin(admin.ModelAdmin):
     )
 
     def save_model(self, request, obj, form, change):
-        if not change:
-            usuario = UsuarioRepository.criar(
-                username=obj.email,
+        if not change and not obj.usuario_id:
+            from django.contrib.auth.models import User
+            from django.contrib import messages
+            from django.contrib.auth.tokens import default_token_generator
+            from django.core.mail import send_mail
+            from django.urls import reverse
+            from django.utils.encoding import force_bytes
+            from django.utils.http import urlsafe_base64_encode
+            from django.conf import settings
+            import secrets
+            import string
+
+            # Verifica se já existe um usuário com este e-mail.
+            usuario_existente = User.objects.filter(
+                email__iexact=obj.email
+            ).first()
+
+            if usuario_existente:
+                raise ValueError(
+                    'Já existe um usuário com este e-mail. '
+                    'Utilize outro e-mail ou verifique o cadastro existente.'
+                )
+
+            # O nome de usuário será o e-mail da empresa.
+            username = obj.email.strip().lower()
+
+            if User.objects.filter(username__iexact=username).exists():
+                raise ValueError(
+                    'Já existe um usuário com este nome de usuário.'
+                )
+
+            # Gera uma senha aleatória que não será enviada por e-mail.
+            caracteres = string.ascii_letters + string.digits + '!@#$%&*'
+            senha_aleatoria = ''.join(
+                secrets.choice(caracteres) for _ in range(32)
+            )
+
+            usuario = User.objects.create_user(
+                username=username,
                 email=obj.email,
-                password='Empresa@123',
+                password=senha_aleatoria,
             )
 
             obj.usuario = usuario
+            obj.senha_provisoria = True
 
-        super().save_model(
-            request,
-            obj,
-            form,
-            change,
-        )
+            # Salva a empresa antes de enviar o link.
+            super().save_model(request, obj, form, change)
+
+            # Gera um link temporário para definir uma senha.
+            uid = urlsafe_base64_encode(force_bytes(usuario.pk))
+            token = default_token_generator.make_token(usuario)
+
+            caminho = reverse(
+                'password_reset_confirm',
+                kwargs={
+                    'uidb64': uid,
+                    'token': token,
+                },
+            )
+
+            link = request.build_absolute_uri(caminho)
+
+            try:
+                enviados = send_mail(
+                    subject='Defina sua senha - UNIPI Conecta',
+                    message=(
+                        f'Olá, {obj.nome_fantasia}!\n\n'
+                        'Seu acesso à plataforma UNIPI Conecta foi criado '
+                        'pelo administrador.\n\n'
+                        'Para definir sua senha, acesse o link abaixo:\n'
+                        f'{link}\n\n'
+                        'Se você não solicitou este acesso, entre em '
+                        'contato com a instituição.'
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[obj.email],
+                    fail_silently=False,
+                )
+
+                if enviados:
+                    messages.success(
+                        request,
+                        'Empresa cadastrada. Enviamos um link para '
+                        'definição de senha ao e-mail informado.'
+                    )
+                else:
+                    messages.warning(
+                        request,
+                        'Empresa cadastrada, mas o e-mail não foi enviado. '
+                        'Verifique a configuração do Brevo.'
+                    )
+
+            except Exception:
+                messages.warning(
+                    request,
+                    'Empresa cadastrada, mas não foi possível enviar o '
+                    'e-mail. Verifique a configuração do Brevo e tente '
+                    'novamente.'
+                )
+
+            return
+
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Vaga)
