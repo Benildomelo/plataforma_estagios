@@ -24,6 +24,11 @@ class VagaService:
                 "O título da vaga é obrigatório."
             )
 
+        if len(titulo) > 200:
+            raise ValueError(
+                "O título da vaga não pode ter mais de 200 caracteres."
+            )
+
         if not descricao:
             raise ValueError(
                 "A descrição da vaga é obrigatória."

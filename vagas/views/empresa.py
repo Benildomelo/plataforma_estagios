@@ -19,10 +19,10 @@ def area_empresa(request):
 
     empresa = _buscar_empresa(request)
 
-    if not empresa:
+    if not empresa or not empresa.ativo:
         messages.error(
             request,
-            'Perfil da empresa não encontrado.'
+            'Esta conta empresarial está inativa.'
         )
         return redirect('entrar_empresa')
 
@@ -51,7 +51,11 @@ def detalhe_vaga_empresa(request, vaga_id):
 
     empresa = _buscar_empresa(request)
 
-    if not empresa:
+    if not empresa or not empresa.ativo:
+        messages.error(
+            request,
+            'Esta conta empresarial está inativa.'
+        )
         return redirect('entrar_empresa')
 
     vaga = VagaRepository.buscar_por_id(
