@@ -1,8 +1,13 @@
 
+import os
+
 import httpx
 
 
-MICROSERVICO_URL = "http://127.0.0.1:8004"
+MICROSERVICO_URL = os.getenv(
+    "MICROSERVICO_URL",
+    "http://127.0.0.1:8004",
+).rstrip("/")
 
 
 def validar_vaga(vaga_id):

@@ -1,6 +1,6 @@
 
 from django.db import transaction
-
+from django.conf import settings
 from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.vaga_repository import VagaRepository
 from ..clients.microservico_client import validar_vaga
@@ -25,8 +25,10 @@ class CandidaturaService:
         if not vaga.ativo:
             raise ValueError("Esta vaga está inativa.")
 
-        # Validação síncrona com o microserviço
-        validacao = validar_vaga(vaga.id)
+        # Validação opcional com o microserviço.
+        # A vaga já foi verificada no banco quanto ao status e à atividade.
+        if getattr(settings, "VALIDAR_VAGA_MICROSERVICO", True):
+            validacao = validar_vaga(vaga_id)
 
         if not validacao.get("valida"):
             raise ValueError(

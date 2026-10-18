@@ -26,3 +26,5 @@ PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 MEDIA_ROOT = tempfile.mkdtemp(prefix="unipi_testes_media_")
+
+VALIDAR_VAGA_MICROSERVICO = True
