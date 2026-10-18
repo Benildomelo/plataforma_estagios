@@ -146,3 +146,10 @@ DEFAULT_FROM_EMAIL = os.getenv(
     'DEFAULT_FROM_EMAIL',
     'joterpibenildo@gmail.com'
 )
+
+# Integração com o microserviço de validação.
+# Em produção, fica desativada por padrão se não houver configuração.
+VALIDAR_VAGA_MICROSERVICO = (
+    os.getenv("VALIDAR_VAGA_MICROSERVICO", "False").lower()
+    in ("1", "true", "yes", "sim")
+)
