@@ -29,7 +29,10 @@ class BrevoEmailBackend(BaseEmailBackend):
         enviados = 0
 
         for message in email_messages:
-            remetente = message.from_email or settings.DEFAULT_FROM_EMAIL
+            remetente = (
+                message.from_email
+                or settings.DEFAULT_FROM_EMAIL
+            )
 
             payload = {
                 "sender": {
@@ -45,15 +48,18 @@ class BrevoEmailBackend(BaseEmailBackend):
                 "textContent": message.body,
             }
 
-            # Preserva o conteúdo HTML quando o e-mail possui alternativa HTML.
-            alternativas_html = [
-                conteudo
-                for conteudo, tipo in message.alternatives
-                if tipo == "text/html"
-            ]
+            # EmailMessage não possui "alternatives".
+            # O atributo existe em EmailMultiAlternatives.
+            alternativas_html = getattr(
+                message,
+                "alternatives",
+                [],
+            )
 
-            if alternativas_html:
-                payload["htmlContent"] = alternativas_html[0]
+            for conteudo, tipo in alternativas_html:
+                if tipo == "text/html":
+                    payload["htmlContent"] = conteudo
+                    break
 
             try:
                 resposta = requests.post(
