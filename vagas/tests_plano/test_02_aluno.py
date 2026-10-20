@@ -736,16 +736,10 @@ class TestAluno(BaseTestePlano):
             bool(self.aluno.curriculo)
         )
 
-    # ==============================================================
-    # ALU-13 - Privacidade do currículo
-    # ==============================================================
-
     def test_ALU_13_curriculo_nao_fica_exposto_para_usuario_nao_autorizado(
         self
     ):
-        self.client.force_login(
-            self.usuario_aluno
-        )
+        self.client.force_login(self.usuario_aluno)
 
         arquivo = SimpleUploadedFile(
             "curriculo.pdf",
@@ -755,9 +749,7 @@ class TestAluno(BaseTestePlano):
 
         resposta = self.client.post(
             reverse("curriculo_aluno"),
-            {
-                "curriculo": arquivo,
-            },
+            {"curriculo": arquivo},
         )
 
         self.assertRedirects(
@@ -766,25 +758,156 @@ class TestAluno(BaseTestePlano):
         )
 
         self.aluno.refresh_from_db()
+        self.assertTrue(bool(self.aluno.curriculo))
 
-        self.assertTrue(
-            bool(self.aluno.curriculo)
+        # O aluno pode visualizar o próprio currículo.
+        resposta = self.client.get(
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
         )
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(
+            resposta["Content-Type"],
+            "application/pdf",
+        )
+        resposta.close()
 
-        url_curriculo = self.aluno.curriculo.url
-
-        # Encerra a sessão do aluno.
+        # Usuário não autenticado não pode visualizar o currículo.
         self.client.logout()
 
         resposta = self.client.get(
-            url_curriculo
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
+        )
+        self.assertEqual(resposta.status_code, 403)
+
+        # A URL pública antiga do arquivo deve estar bloqueada.
+        resposta = self.client.get(self.aluno.curriculo.url)
+        self.assertEqual(resposta.status_code, 404)
+
+    def test_empresa_pode_visualizar_curriculo_de_candidato_a_sua_vaga(self):
+        self.client.force_login(self.usuario_aluno)
+
+        arquivo = SimpleUploadedFile(
+            "curriculo.pdf",
+            b"%PDF-1.4\ncurriculo privado",
+            content_type="application/pdf",
+        )
+        self.client.post(
+            reverse("curriculo_aluno"),
+            {"curriculo": arquivo},
         )
 
-        # A aplicação não possui uma view protegida
-        # específica para servir o currículo.
-        # Este teste verifica o comportamento efetivo
-        # do projeto com a configuração atual de mídia.
-        self.assertNotEqual(
-            resposta.status_code,
-            500,
+        vaga = self.criar_vaga(empresa=self.empresa)
+        Candidatura.objects.create(
+            aluno=self.aluno,
+            vaga=vaga,
         )
+
+        self.client.force_login(self.usuario_empresa)
+        resposta = self.client.get(
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(
+            resposta["Content-Type"],
+            "application/pdf",
+        )
+        resposta.close()
+
+    def test_empresa_nao_pode_visualizar_curriculo_de_candidato_a_vaga_de_outra_empresa(self):
+        self.client.force_login(self.usuario_aluno)
+
+        arquivo = SimpleUploadedFile(
+            "curriculo.pdf",
+            b"%PDF-1.4\ncurriculo privado",
+            content_type="application/pdf",
+        )
+        self.client.post(
+            reverse("curriculo_aluno"),
+            {"curriculo": arquivo},
+        )
+
+        vaga = self.criar_vaga(empresa=self.empresa)
+        Candidatura.objects.create(
+            aluno=self.aluno,
+            vaga=vaga,
+        )
+
+        self.client.force_login(self.usuario_empresa_b)
+        resposta = self.client.get(
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 403)
+
+    def test_empresa_pode_visualizar_curriculo_de_candidato_a_sua_vaga(self):
+        self.client.force_login(self.usuario_aluno)
+
+        arquivo = SimpleUploadedFile(
+            "curriculo.pdf",
+            b"%PDF-1.4\ncurriculo privado",
+            content_type="application/pdf",
+        )
+        self.client.post(
+            reverse("curriculo_aluno"),
+            {"curriculo": arquivo},
+        )
+
+        vaga = self.criar_vaga(empresa=self.empresa)
+        Candidatura.objects.create(
+            aluno=self.aluno,
+            vaga=vaga,
+        )
+
+        self.client.force_login(self.usuario_empresa)
+        resposta = self.client.get(
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta["Content-Type"], "application/pdf")
+        resposta.close()
+
+    def test_empresa_nao_pode_visualizar_curriculo_de_candidato_a_vaga_de_outra_empresa(self):
+        self.client.force_login(self.usuario_aluno)
+
+        arquivo = SimpleUploadedFile(
+            "curriculo.pdf",
+            b"%PDF-1.4\ncurriculo privado",
+            content_type="application/pdf",
+        )
+        self.client.post(
+            reverse("curriculo_aluno"),
+            {"curriculo": arquivo},
+        )
+
+        vaga = self.criar_vaga(empresa=self.empresa)
+        Candidatura.objects.create(
+            aluno=self.aluno,
+            vaga=vaga,
+        )
+
+        self.client.force_login(self.usuario_empresa_b)
+        resposta = self.client.get(
+            reverse(
+                "visualizar_curriculo",
+                args=[self.aluno.id],
+            )
+        )
+
+        self.assertEqual(resposta.status_code, 403)

@@ -3,6 +3,8 @@ from pathlib import Path
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.exceptions import ValidationError
+from django.http import FileResponse, Http404
+from django.core.exceptions import PermissionDenied
 
 from django.contrib import messages
 from django.contrib.auth import logout 
@@ -12,6 +14,7 @@ from ..repositories.aluno_repository import AlunoRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
 from ..repositories.curso_repository import CursoRepository
 from ..repositories.usuario_repository import UsuarioRepository
+from ..repositories.empresa_repository import EmpresaRepository
 
 
 def _buscar_aluno(request):
@@ -421,3 +424,48 @@ def editar_perfil_aluno(request):
             'cursos': cursos,
         }
     )
+
+def visualizar_curriculo(request, aluno_id):
+    if not request.user.is_authenticated:
+        raise PermissionDenied
+
+    aluno = AlunoRepository.buscar_por_id(aluno_id)
+
+    if not aluno or not aluno.curriculo:
+        raise Http404("Currículo não encontrado.")
+
+    # O aluno pode acessar somente o próprio currículo.
+    aluno_autenticado = AlunoRepository.buscar_por_usuario(
+        request.user
+    )
+
+    if aluno_autenticado and aluno_autenticado.ativo:
+        if aluno_autenticado.id == aluno.id:
+            arquivo = aluno.curriculo.open("rb")
+            return FileResponse(               arquivo,
+                content_type="application/pdf",
+                as_attachment=False,
+                filename="curriculo.pdf",
+            )
+
+    # A empresa só pode acessar currículos de candidatos
+    # a vagas pertencentes a ela.
+    empresa = EmpresaRepository.buscar_por_usuario(
+        request.user
+    )
+
+    if empresa and empresa.ativo:
+        tem_candidatura = CandidaturaRepository.buscar_por_empresa(
+            empresa
+        ).filter(aluno_id=aluno.id).exists()
+
+        if tem_candidatura:
+            arquivo = aluno.curriculo.open("rb")
+            return FileResponse(
+                arquivo,
+                content_type="application/pdf",
+                as_attachment=False,
+                filename="curriculo.pdf",
+            )
+
+    raise PermissionDenied

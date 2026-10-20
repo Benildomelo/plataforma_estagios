@@ -4,6 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from vagas.views.api_candidatura import api_candidatar
+from django.http import HttpResponseNotFound
+from django.urls import re_path
 
 from vagas.views import (
     inicio,
@@ -28,6 +30,7 @@ from vagas.views import (
     curriculo_aluno,
     trocar_senha_empresa,
     cadastro_empresa,
+    visualizar_curriculo,
 
 )
 
@@ -179,6 +182,10 @@ urlpatterns = [
         curriculo_aluno,
         name='curriculo_aluno'
     ),
+
+
+    path(
+        'curriculos/<int:aluno_id>/', visualizar_curriculo, name='visualizar_curriculo'),
 
     path(
         'aluno/trocar-senha/',
@@ -382,6 +389,20 @@ urlpatterns = [
             template_name='vagas/autenticacao/password_reset_complete.html'
         ),
         name='password_reset_complete'
+    ),
+]
+
+def bloquear_curriculos_publicos(request, caminho=''):
+    return HttpResponseNotFound()
+
+# =========================================================
+# BLOQUEIO DE CURRÍCULOS NA MÍDIA PÚBLICA
+# =========================================================
+
+urlpatterns += [
+    re_path(
+        r'^media/curriculos/(?P<caminho>.*)$',
+        bloquear_curriculos_publicos,
     ),
 ]
 
