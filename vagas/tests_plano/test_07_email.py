@@ -14,6 +14,7 @@ from vagas.email_brevo import BrevoEmailBackend
 )
 class TestEmailBrevo(TestCase):
 
+    @patch.dict("os.environ", {"BREVO_API_KEY": "chave-teste"})
     @patch("vagas.email_brevo.requests.post")
     def test_MAIL_01_envio_de_email_de_fluxo_previsto(
         self,
@@ -62,6 +63,7 @@ class TestEmailBrevo(TestCase):
             "Mensagem de teste do sistema.",
         )
 
+    @patch.dict("os.environ", {"BREVO_API_KEY": "chave-teste"})
     @patch("vagas.email_brevo.requests.post")
     def test_MAIL_02_destinatario_invalido_trata_falha(
         self,
@@ -85,7 +87,7 @@ class TestEmailBrevo(TestCase):
 
         mock_post.assert_called_once()
 
-
+    @patch.dict("os.environ", {"BREVO_API_KEY": "chave-teste"})
     @patch("vagas.email_brevo.requests.post")
     def test_MAIL_03_provedor_indisponivel_trata_falha(
         self,
@@ -109,7 +111,7 @@ class TestEmailBrevo(TestCase):
 
         mock_post.assert_called_once()
 
-
+    @patch.dict("os.environ", {"BREVO_API_KEY": "chave-teste"})
     @patch("vagas.email_brevo.requests.post")
     def test_MAIL_04_conteudo_e_links(
         self,
@@ -182,7 +184,7 @@ class TestEmailBrevo(TestCase):
             payload["textContent"].lower(),
         )
 
-
+    @patch.dict("os.environ", {"BREVO_API_KEY": "chave-teste"})
     @patch("vagas.email_brevo.requests.post")
     def test_MAIL_05_segredos_nao_aparecem_em_mensagens(
         self,
