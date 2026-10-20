@@ -1,5 +1,11 @@
+
+from decimal import Decimal, InvalidOperation
+
 from django.contrib import messages
+from django.db import transaction
 from django.shortcuts import redirect, render
+
+from ..models import Vaga
 
 from ..repositories.aluno_repository import AlunoRepository
 from ..repositories.candidatura_repository import CandidaturaRepository
@@ -11,23 +17,16 @@ from ..services.candidatura_service import CandidaturaService
 from ..services.vaga_service import VagaService
 
 
-
 def _buscar_aluno(request):
-    return AlunoRepository.buscar_por_usuario(
-        request.user
-    )
+    return AlunoRepository.buscar_por_usuario(request.user)
 
 
 def _buscar_empresa(request):
-    return EmpresaRepository.buscar_por_usuario(
-        request.user
-    )
+    return EmpresaRepository.buscar_por_usuario(request.user)
 
 
 def _buscar_curso(curso_id):
-    curso = CursoRepository.buscar_por_id(
-        curso_id
-    )
+    curso = CursoRepository.buscar_por_id(curso_id)
 
     if not curso or not curso.ativo:
         return None
@@ -94,15 +93,9 @@ def candidatar(request, vaga_id):
             )
 
     except ValueError as erro:
-        messages.error(
-            request,
-            str(erro)
-        )
+        messages.error(request, str(erro))
 
-    return redirect(
-        'detalhe_vaga',
-        vaga_id=vaga_id
-    )
+    return redirect('detalhe_vaga', vaga_id=vaga_id)
 
 
 def criar_vaga(request):
@@ -127,8 +120,6 @@ def criar_vaga(request):
         local = request.POST.get('local', '').strip()
         carga_horaria = request.POST.get('carga_horaria', '').strip()
         bolsa = request.POST.get('bolsa', '').strip()
-
-        # Recebe vários cursos selecionados no formulário.
         cursos_ids = request.POST.getlist('cursos')
 
         try:
@@ -154,16 +145,9 @@ def criar_vaga(request):
             )
 
         except ValueError as erro:
-            messages.error(
-                request,
-                str(erro)
-            )
+            messages.error(request, str(erro))
 
-    return _render_criar_vaga(
-        request,
-        empresa,
-        cursos
-    )
+    return _render_criar_vaga(request, empresa, cursos)
 
 
 def editar_vaga(request, vaga_id):
@@ -189,79 +173,147 @@ def editar_vaga(request, vaga_id):
         local = request.POST.get('local', '').strip()
         carga_horaria = request.POST.get('carga_horaria', '').strip()
         bolsa = request.POST.get('bolsa', '').strip()
-
-        # Recebe todos os cursos selecionados.
         cursos_ids = request.POST.getlist('cursos')
 
-        # Valida os campos obrigatórios.
+        erro_validacao = None
+        bolsa_validada = None
+        cursos_selecionados = None
+
+        # Valida os campos obrigatórios e os limites do modelo.
         if not titulo:
-            messages.error(request, 'O título da vaga é obrigatório.')
-
+            erro_validacao = 'O título da vaga é obrigatório.'
+        elif len(titulo) > 200:
+            erro_validacao = (
+                'O título da vaga não pode ter mais de 200 caracteres.'
+            )
         elif not descricao:
-            messages.error(request, 'A descrição da vaga é obrigatória.')
-
+            erro_validacao = 'A descrição da vaga é obrigatória.'
         elif not local:
-            messages.error(request, 'O local da vaga é obrigatório.')
-
+            erro_validacao = 'O local da vaga é obrigatório.'
+        elif len(local) > 200:
+            erro_validacao = (
+                'O local não pode ter mais de 200 caracteres.'
+            )
         elif not carga_horaria:
-            messages.error(request, 'A carga horária é obrigatória.')
-
+            erro_validacao = 'A carga horária é obrigatória.'
+        elif len(carga_horaria) > 50:
+            erro_validacao = (
+                'A carga horária não pode ter mais de 50 caracteres.'
+            )
         elif not cursos_ids:
-            messages.error(
-                request,
+            erro_validacao = (
                 'Selecione pelo menos um curso para a vaga.'
             )
 
-        else:
-            # Busca somente cursos ativos.
-            cursos_selecionados = CursoRepository.buscar_ativos().filter(
-                id__in=cursos_ids
+        # Valida a bolsa antes de modificar qualquer dado da vaga.
+        if erro_validacao is None and bolsa:
+            try:
+                bolsa_validada = Decimal(
+                    str(bolsa).replace(',', '.')
+                )
+            except (InvalidOperation, ValueError):
+                erro_validacao = (
+                    'Informe um valor válido para a bolsa.'
+                )
+            else:
+                if not bolsa_validada.is_finite() or bolsa_validada < 0:
+                    erro_validacao = (
+                        'A bolsa deve ser um valor igual ou superior a zero.'
+                    )
+                elif bolsa_validada != bolsa_validada.quantize(Decimal('0.01')):
+                    erro_validacao = (
+                        'A bolsa pode ter no máximo duas casas decimais.'
+                    )
+                elif bolsa_validada >= Decimal('100000000'):
+                    erro_validacao = (
+                        'O valor da bolsa ultrapassa o limite permitido.'
+                    )
+
+        # Normaliza e valida os IDs dos cursos.
+        if erro_validacao is None:
+            cursos_ids_normalizados = list(
+                dict.fromkeys(
+                    str(curso_id).strip()
+                    for curso_id in cursos_ids
+                    if str(curso_id).strip()
+                )
             )
 
-            # Confere se todos os IDs enviados são válidos.
-            if cursos_selecionados.count() != len(set(cursos_ids)):
-                messages.error(
-                    request,
+            if not cursos_ids_normalizados or any(
+                not curso_id.isdigit()
+                for curso_id in cursos_ids_normalizados
+            ):
+                erro_validacao = (
                     'Um ou mais cursos selecionados são inválidos.'
                 )
-
             else:
-                vaga.titulo = titulo
-                vaga.descricao = descricao
-                vaga.requisitos = requisitos
-                vaga.local = local
-                vaga.carga_horaria = carga_horaria
-                vaga.bolsa = bolsa or None
-
-                # Atualiza os cursos relacionados à vaga.
-                vaga.cursos.set(cursos_selecionados)
-
-                # A alteração precisa passar novamente pela análise.
-                vaga.status = 'PENDENTE'
-                vaga.data_publicacao = None
-
-                VagaRepository.atualizar(vaga)
-
-                messages.success(
-                    request,
-                    'Vaga atualizada e enviada novamente para análise.'
+                cursos_selecionados = CursoRepository.buscar_ativos().filter(
+                    id__in=cursos_ids_normalizados
                 )
 
-                return redirect(
-                    'detalhe_vaga_empresa',
-                    vaga_id=vaga.id
-                )
+                if cursos_selecionados.count() != len(
+                    cursos_ids_normalizados
+                ):
+                    erro_validacao = (
+                        'Um ou mais cursos selecionados são inválidos.'
+                    )
 
-        # Mantém os dados preenchidos se houver erro.
-        return render(
+        if erro_validacao:
+            messages.error(request, erro_validacao)
+
+            # Mantém os dados submetidos no formulário sem salvar a vaga.
+            vaga_formulario = Vaga(
+                id=vaga.id,
+                empresa=empresa,
+                titulo=titulo,
+                descricao=descricao,
+                requisitos=requisitos,
+                local=local,
+                carga_horaria=carga_horaria,
+                bolsa=
+                    bolsa_validada
+                    if bolsa_validada is not None
+                    else vaga.bolsa,
+                status=vaga.status,
+                ativo=vaga.ativo,
+                data_publicacao=vaga.data_publicacao,
+            )
+
+            return render(
+                request,
+                'vagas/empresa/editar_vaga.html',
+                {
+                    'empresa': empresa,
+                    'vaga': vaga_formulario,
+                    'cursos': cursos,
+                    'cursos_selecionados_ids': cursos_ids,
+                }
+            )
+
+        # Atualiza somente depois de validar todos os campos.
+        with transaction.atomic():
+            vaga.titulo = titulo
+            vaga.descricao = descricao
+            vaga.requisitos = requisitos
+            vaga.local = local
+            vaga.carga_horaria = carga_horaria
+            vaga.bolsa = bolsa_validada
+
+            # Uma vaga editada precisa passar novamente pela análise.
+            vaga.status = 'PENDENTE'
+            vaga.data_publicacao = None
+
+            VagaRepository.atualizar(vaga)
+            vaga.cursos.set(cursos_selecionados)
+
+        messages.success(
             request,
-            'vagas/empresa/editar_vaga.html',
-            {
-                'empresa': empresa,
-                'vaga': vaga,
-                'cursos': cursos,
-                'cursos_selecionados_ids': cursos_ids,
-            }
+            'Vaga atualizada e enviada novamente para análise.'
+        )
+
+        return redirect(
+            'detalhe_vaga_empresa',
+            vaga_id=vaga.id
         )
 
     return render(
@@ -294,10 +346,7 @@ def encerrar_vaga(request, vaga_id):
 
     if request.method == 'POST':
         try:
-            VagaService.encerrar_vaga(
-                vaga,
-                empresa
-            )
+            VagaService.encerrar_vaga(vaga, empresa)
 
             messages.success(
                 request,
@@ -305,9 +354,6 @@ def encerrar_vaga(request, vaga_id):
             )
 
         except ValueError as erro:
-            messages.error(
-                request,
-                str(erro)
-            )
+            messages.error(request, str(erro))
 
     return redirect('area_empresa')

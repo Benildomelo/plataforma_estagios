@@ -19,6 +19,7 @@ from .aluno import (
     perfil_aluno,
     curriculo_aluno,
     editar_perfil_aluno,
+    visualizar_curriculo,
 )
 
 from .empresa import (

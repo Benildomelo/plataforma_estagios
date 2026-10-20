@@ -126,7 +126,7 @@
                 </div>
 
                 <a
-                    href="{{ aluno.curriculo.url }}"
+                    href="{% url 'visualizar_curriculo' aluno.id %}"
                     target="_blank"
                     class="botao"
                 >

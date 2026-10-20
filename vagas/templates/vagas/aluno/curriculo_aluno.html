@@ -60,14 +60,14 @@
             </div>
 
             <div class="curriculo-acoes">
-                <a href="{{ aluno.curriculo.url }}"
+                <a href="{% url 'visualizar_curriculo' aluno.id %}"
                    target="_blank"
                    rel="noopener noreferrer"
                    class="botao">
                     👁️ Visualizar currículo
                 </a>
 
-                <a href="{{ aluno.curriculo.url }}"
+                <a href="{% url 'visualizar_curriculo' aluno.id%}"
                    download
                    class="botao botao-secundario">
                     ⬇️ Baixar currículo
